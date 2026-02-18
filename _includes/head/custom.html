@@ -25,20 +25,22 @@
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 15px 0; position: sticky; top: 0; z-index: 1000;
   }
-  /* Chữ "An Nguyen's Little World" - XANH ĐẬM KHÔNG VIỀN */
+  
+  /* MỚI: Chữ "An Nguyen's Little World" - MÀU XANH DƯƠNG ĐẬM */
   .site-title {
-    color: #2196f3 !important;
+    color: #1565c0 !important; /* Dark Blue Color */
     font-family: 'Playfair Display', serif !important;
     font-size: 1.6rem !important; font-weight: 800 !important;
     background: none !important; padding: 0 !important; text-shadow: none !important;
   }
+  
   /* Nút Menu - XANH NAVY */
   .masthead__menu-item a {
     background-color: #0a192f !important; color: #ffffff !important;
     padding: 8px 18px !important; border-radius: 20px; font-weight: 500;
     margin-left: 5px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
   }
-  .masthead__menu-item a:hover { background-color: #2196f3 !important; transform: translateY(-2px); }
+  .masthead__menu-item a:hover { background-color: #1565c0 !important; transform: translateY(-2px); }
 
   /* --- 3. SIDEBAR (PROFILE) --- */
   .sidebar {
@@ -47,15 +49,12 @@
     border: 1px solid rgba(255,255,255,0.1); text-align: center;
   }
 
-  /* SỬA LỖI AVATAR: BẮT BUỘC HÌNH TRÒN */
+  /* AVATAR TRÒN */
   .author__avatar img {
-    border-radius: 50% !important; /* Ép buộc tròn */
-    aspect-ratio: 1 / 1; /* Đảm bảo tỉ lệ vuông 1:1 để không bị méo */
-    object-fit: cover !important; /* Cắt ảnh vừa khung tròn */
-    border: 3px solid #ffd700; /* Viền Vàng Kim */
+    border-radius: 50% !important; aspect-ratio: 1 / 1; object-fit: cover !important;
+    border: 3px solid #00e5ff; /* Viền Cyan theo tông mới */
     width: 140px !important; height: 140px !important;
-    margin-bottom: 15px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    margin-bottom: 15px; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
   }
 
   /* Tên */
@@ -63,25 +62,25 @@
     font-family: 'Playfair Display', serif !important; color: #ffffff !important;
     font-size: 1.8rem !important; margin-bottom: 10px;
   }
-  /* Dòng Bio - MÀU VÀNG KIM */
+  
+  /* MỚI: Dòng Bio - MÀU XANH CYAN, BỎ HYPERLINK */
   .author__bio {
     font-family: 'Cormorant Garamond', serif !important; font-size: 1.6rem !important;
-    color: #ffd700 !important; /* Vàng kim */
+    color: #00e5ff !important; /* Cyan sáng */
     font-style: italic; font-weight: 700; margin-bottom: 20px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    pointer-events: none; /* Đảm bảo không thể bấm vào */
+    text-decoration: none !important;
   }
   .author__urls { color: rgba(255,255,255,0.9) !important; }
 
-  /* --- 4. STYLE CHO CẤU TRÚC NÚT MỚI (TRIỆT ĐỂ) --- */
-  /* Ẩn các nút mặc định của theme */
+  /* --- 4. STYLE CHO NÚT MẠNG XÃ HỘI NGANG (Giữ nguyên từ bước trước) --- */
   .author__urls-wrapper button { display: none !important; }
-  /* Style cho hàng nút mới nằm ngang */
   .social-icons-horizontal {
     display: flex; justify-content: center; gap: 15px;
     margin-top: 20px; padding-top: 15px;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
-  /* Style từng nút tròn */
   .social-btn {
     display: flex !important; justify-content: center; align-items: center;
     width: 45px; height: 45px;
@@ -90,7 +89,7 @@
     border: 1px solid rgba(255,255,255,0.2); font-size: 1.2rem; text-decoration: none; transition: 0.3s;
   }
   .social-btn:hover {
-    background-color: #ffd700; /* Hover Vàng kim */
+    background-color: #00e5ff; /* Hover Cyan */
     color: #0a192f !important; transform: translateY(-3px);
   }
   .social-icons li a i { margin-right: 5px; }
@@ -103,21 +102,36 @@
   }
   .initial-content, .page__content, #main, .wrapper { background: transparent !important; }
 
-  /* Tiêu đề Fairy Tale - MÀU VÀNG KIM */
+  /* MỚI: Tiêu đề Fairy Tale - MÀU XANH CYAN, BỎ HYPERLINK */
   .page__title, h2, h3 {
-    color: #ffd700 !important; /* Vàng kim */
+    color: #00e5ff !important; /* Cyan sáng */
     font-family: 'Playfair Display', serif !important;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    pointer-events: none; /* Đảm bảo không thể bấm vào */
   }
   p, li, span { color: #ffffff !important; }
 
-  /* Kệ sách */
+  /* MỚI: KỆ SÁCH GỖ VẼ BẰNG CSS (KHÔNG DÙNG ẢNH NỀN) */
   .bookshelf {
-    /* CHỖ NÀY ĐỂ LINK ẢNH CỦA BẠN 👇 */
-    background-image: url('/assets/images/ke-sach-cua-toi.jpg') !important;
-    background-size: cover; background-position: bottom;
-    padding: 60px 20px !important; border-radius: 15px; border: 4px solid #3e2723;
+    background-image: none !important; /* Bỏ ảnh cũ */
+    /* Tạo màu gỗ nâu dạng gradient */
+    background: linear-gradient(to bottom, #6d4c41, #5d4037) !important; 
+    
+    /* Vẽ viền dày làm khung kệ */
+    border-top: 15px solid #3e2723 !important; /* Viền trên tối màu */
+    border-bottom: 25px solid #3e2723 !important; /* Viền dưới đáy dày hơn */
+    border-left: 12px solid #4e342e !important; /* Viền cạnh bên */
+    border-right: 12px solid #4e342e !important; /* Viền cạnh bên */
+    
+    border-radius: 8px; /* Bo góc nhẹ cho kệ */
+    /* Tạo bóng đổ vào trong để tạo chiều sâu hộc tủ */
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.8) !important;
+    
+    padding: 60px 30px !important;
+    margin-top: 30px;
   }
+
+  /* Sách bên trong kệ */
   .book-container .inside-pages { background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important; }
   .book-container .inside-pages * { color: #222 !important; text-shadow: none !important; }
   .book-container .inside-pages .btn-link { background-color: #0a192f !important; color: #fff !important; }
