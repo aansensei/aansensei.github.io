@@ -5,48 +5,41 @@ permalink: /projects/
 author_profile: true
 ---
 
+{% raw %}
 <style>
-  /* 1. Cấu trúc Tủ sách */
   .bookshelf {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     padding: 40px 20px;
-    background-color: #f4f4f4; /* Màu nền tường */
+    background-color: #f4f4f4;
     border-radius: 10px;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
   }
-
-  /* 2. Cái sách 3D */
   .book-container {
-    perspective: 1000px; /* Tạo chiều sâu 3D */
+    perspective: 1000px;
     width: 200px;
     height: 300px;
     cursor: pointer;
   }
-
   .book {
     width: 100%;
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Hiệu ứng mượt */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
   }
-
-  /* Hiệu ứng khi Hover (Sách mở/xoay ra) */
   .book-container:hover .book {
     transform: rotateY(-30deg) translateZ(20px) scale(1.05);
     box-shadow: 15px 15px 30px rgba(0,0,0,0.4);
   }
-
-  /* Các mặt của cuốn sách */
   .cover {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #2c3e50; /* Màu bìa mặc định */
+    background-color: #2c3e50;
     border-radius: 5px 15px 15px 5px;
     display: flex;
     flex-direction: column;
@@ -55,11 +48,9 @@ author_profile: true
     text-align: center;
     color: white;
     padding: 20px;
-    backface-visibility: hidden; /* Ẩn mặt sau */
+    backface-visibility: hidden;
     z-index: 2;
   }
-
-  /* Gáy sách (tạo độ dày) */
   .book::before {
     content: '';
     position: absolute;
@@ -71,8 +62,6 @@ author_profile: true
     transform: rotateY(90deg) translateZ(-20px);
     background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(0,0,0,0.2));
   }
-
-  /* Ruột sách (Giả giấy trắng bên trong) */
   .book::after {
     content: '';
     position: absolute;
@@ -85,8 +74,6 @@ author_profile: true
     border-radius: 3px 10px 10px 3px;
     box-shadow: inset 4px 0 10px rgba(0,0,0,0.1);
   }
-
-  /* 3. Trang trí Nội dung trên bìa */
   .cover h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -94,26 +81,19 @@ author_profile: true
     padding-bottom: 5px;
     color: #fff !important;
   }
-
   .cover p {
     font-size: 0.85rem;
-    opacity: 0; /* Ẩn mô tả bình thường */
+    opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s ease;
   }
-
-  /* Hiện mô tả khi hover */
   .book-container:hover .cover p {
     opacity: 1;
     transform: translateY(0);
   }
-
-  /* Màu sắc riêng cho từng sách */
-  .book-1 .cover { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); } /* Xanh dương */
-  .book-2 .cover { background: linear-gradient(135deg, #d35400 0%, #e67e22 100%); } /* Cam */
-  .book-3 .cover { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); } /* Xanh lá */
-
-  /* Kệ gỗ */
+  .book-1 .cover { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
+  .book-2 .cover { background: linear-gradient(135deg, #d35400 0%, #e67e22 100%); }
+  .book-3 .cover { background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%); }
   .shelf-plank {
     width: 100%;
     height: 20px;
@@ -126,7 +106,6 @@ author_profile: true
 </style>
 
 <div class="bookshelf">
-
   <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" style="text-decoration: none;">
     <div class="book-container">
       <div class="book book-1">
@@ -162,6 +141,6 @@ author_profile: true
       </div>
     </div>
   </a>
-
 </div>
 <div class="shelf-plank"></div>
+{% endraw %}
