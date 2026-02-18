@@ -3,11 +3,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* --- PHẦN 1: NỀN VAN GOGH (GIỮ NGUYÊN) --- */
+  /* --- 1. NỀN CHÍNH (VAN GOGH) --- */
   body {
     background-color: #0d0d0d;
     background-image: 
-      linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), /* Phủ tối nhẹ để nổi chữ */
+      linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
       url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
     background-size: cover;
     background-position: center;
@@ -16,149 +16,105 @@
     font-family: 'Roboto', sans-serif;
   }
 
-  /* --- PHẦN 2: HIỆU ỨNG KÍNH "APPLE GLASS" --- */
+  /* --- 2. HIỆU ỨNG KÍNH (SIDEBAR & ABOUT ME) --- */
   .sidebar, .page__inner-wrap, .masthead {
-    background-color: rgba(30, 30, 32, 0.7) !important; /* Xám đen trong suốt */
-    backdrop-filter: blur(25px) saturate(190%) !important; /* Mờ mịn và tăng rực rỡ */
-    -webkit-backdrop-filter: blur(25px) saturate(190%);
-    border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Viền sáng tinh tế */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important; /* Bóng sâu */
+    background-color: rgba(30, 30, 32, 0.75) !important; /* Xám đen kính */
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
   }
 
-  /* Xóa nền các lớp cha để tránh bị đè */
+  /* Xóa nền các lớp thừa */
   .initial-content, .page__content, #main, .wrapper, .archive {
     background: transparent !important; box-shadow: none !important; border: none !important;
   }
 
-  /* --- PHẦN 3: TINH CHỈNH Ô PROFILE (SIDEBAR) SANG TRỌNG --- */
+  /* --- 3. KỆ SÁCH (PROJECTS) - SỬA LỖI HÌNH & MÀU --- */
+  
+  /* Ảnh nền Thư viện Phép thuật (Thay cho ảnh con mèo lỗi) */
+  .bookshelf {
+    /* Link ảnh thư viện tối màu cực đẹp */
+    background-image: url('https://images.unsplash.com/photo-1507842217121-9e962835d75d?q=80&w=2000&auto=format&fit=crop') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    
+    /* Phủ một lớp đen mờ lên kệ sách để sách nổi bật hơn */
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.6) !important;
+    
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    border-radius: 15px;
+    padding: 60px 20px !important;
+  }
+
+  /* SỬA CÁI Ô VUÔNG TRẮNG -> XÁM BẠC (GIỐNG "Ở NGOÀI") */
+  .book-container .inside-pages {
+    background-color: #e0e0e0 !important; /* Màu xám bạc dịu mắt (thay vì trắng bóc) */
+    background-image: linear-gradient(to right, #d0d0d0, #f5f5f5) !important; /* Tạo chiều sâu trang giấy */
+    box-shadow: inset 5px 0 10px rgba(0,0,0,0.1) !important;
+    border: none !important;
+  }
+
+  /* Chỉnh màu chữ trong sách thành ĐEN để đọc được trên nền xám */
+  .book-container .inside-pages h4, 
+  .book-container .inside-pages small,
+  .book-container .inside-pages i,
+  .book-container .inside-pages a {
+    color: #222 !important; /* Màu đen đậm */
+    text-shadow: none !important;
+  }
+  
+  /* Nút bấm trong sách */
+  .book-container .inside-pages .btn-link {
+    background-color: #333 !important;
+    color: #fff !important; /* Chữ nút màu trắng */
+  }
+
+  /* --- 4. SIDEBAR (PROFILE) --- */
   .sidebar {
-    border-radius: 24px;
-    padding: 35px 25px !important; /* Tăng padding trên dưới cho thoáng */
-    text-align: center; /* Căn giữa nội dung */
+    border-radius: 24px; padding: 35px 25px !important; text-align: center;
   }
-  
-  /* Ảnh đại diện */
   .author__avatar img {
-    border-radius: 50%; /* Bo tròn ảnh */
-    border: 3px solid rgba(255, 215, 0, 0.3); /* Viền vàng mờ */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    width: 130px !important; /* Kích thước cố định đẹp mắt */
-    height: 130px !important;
-    object-fit: cover;
+    border-radius: 50%; border: 3px solid rgba(255, 215, 0, 0.3);
+    width: 130px !important; height: 130px !important; object-fit: cover;
   }
-
-  /* Tên và Bio */
   .author__name {
-    font-family: 'Playfair Display', serif !important;
-    font-size: 1.9rem !important;
-    margin-top: 15px; margin-bottom: 10px;
-    letter-spacing: 0.5px;
-    color: #ffffff !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    font-family: 'Playfair Display', serif !important; font-size: 1.9rem !important;
+    color: #fff !important; margin-top: 15px;
   }
-
   .author__bio {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-size: 1.45rem !important;
-    font-weight: 600 !important;
-    font-style: italic;
-    color: #ffd700 !important; /* Vàng kim */
-    line-height: 1.4;
-    margin-bottom: 20px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    font-family: 'Cormorant Garamond', serif !important; font-size: 1.5rem !important;
+    font-weight: 600 !important; font-style: italic; color: #ffd700 !important;
   }
 
-  /* SỬA LỖI SOCIAL ICONS (Hiện lại nút Gmail, GitHub...) */
-  .author__urls-wrapper {
-    display: block !important; /* Bắt buộc hiện */
-  }
-  .author__urls-wrapper button {
-    display: none !important; /* Ẩn nút "Follow" lỗi trên mobile */
-  }
+  /* --- 5. SOCIAL ICONS (SỬA LỖI MẤT NÚT) --- */
+  .author__urls-wrapper { display: block !important; }
+  .author__urls-wrapper button { display: none !important; }
   .author__urls.social-icons {
-    display: flex !important;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px; /* Khoảng cách giữa các nút */
-    margin-top: 20px;
-    padding: 0 !important;
-    list-style: none !important;
+    display: flex !important; justify-content: center; gap: 10px; margin-top: 20px; padding: 0 !important; list-style: none !important;
   }
-  
-  /* Style cho các nút Social (Tròn, trắng) */
   .author__urls.social-icons li a {
-    display: flex; justify-content: center; align-items: center;
-    width: 40px; height: 40px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 50%;
-    color: #fff !important;
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: all 0.3s ease;
-    text-decoration: none;
+    display: flex; justify-content: center; align-items: center; width: 40px; height: 40px;
+    background: rgba(255,255,255,0.1); border-radius: 50%; color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s;
   }
-  .author__urls.social-icons li a:hover {
-    background: #ffd700; color: #000 !important; /* Hover chuyển màu vàng */
-    transform: translateY(-3px);
-  }
-  .author__urls.social-icons li a i { margin-right: 0 !important; } /* Căn giữa icon */
-  .author__urls.social-icons li a .label { display: none; } /* Chỉ hiện icon, ẩn chữ */
+  .author__urls.social-icons li a:hover { background: #ffd700; color: #000 !important; transform: translateY(-3px); }
+  .author__urls.social-icons li a .label { display: none; }
 
-  /* --- PHẦN 4: KHUNG NỘI DUNG (ABOUT/PROJECTS) --- */
-  .page__inner-wrap {
-    border-radius: 24px; padding: 40px !important; margin-top: 25px;
-  }
-  .archive { margin-top: 20px; } /* Khoảng cách cho trang Projects */
-
-  /* --- PHẦN 5: HEADER & FOOTER --- */
-  .masthead {
-    border-radius: 0 0 24px 24px; padding-bottom: 12px; position: sticky; top: 0; z-index: 1000;
-    border-top: none !important;
-  }
-  .masthead__menu-item a {
-    color: #fff !important; font-weight: 500; padding: 8px 15px; border-radius: 20px; transition: all 0.3s;
-  }
-  .masthead__menu-item a:hover { background: rgba(255,255,255,0.15); color: #ffd700 !important; }
+  /* --- 6. HEADER & FOOTER --- */
+  .masthead { border-radius: 0 0 24px 24px; position: sticky; top: 0; z-index: 1000; border-top: none !important; }
+  .masthead__menu-item a { color: #fff !important; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
+  .masthead__menu-item a:hover { background: rgba(255,255,255,0.2); color: #ffd700 !important; }
 
   .page__footer { background: transparent !important; color: rgba(255,255,255,0.5) !important; margin-top: 60px; }
   .page__footer-copyright, .page__footer .social-icons { display: none !important; }
   .page__footer:after { content: "© 2026 An Nguyen's Little World 🍀"; display: block; text-align: center; font-size: 0.9rem; font-family: 'Playfair Display', serif; }
-
-  /* --- PHẦN 6: NỀN KỆ SÁCH (PROJECTS) & MÀU CHỮ TRONG SÁCH --- */
   
-  /* Ảnh nền kệ sách gỗ cho khu vực Projects */
-  /* NẾU BẠN CÓ ẢNH RIÊNG, THAY LINK Ở DƯỚI BẰNG: /assets/images/ten-anh.jpg */
-  .bookshelf {
-    background-image: url('https://img.freepik.com/free-photo/wooden-bookshelves-filled-with-books-library_1268-14956.jpg?w=1380&t=st=1709020000~exp=1709020600~hmac=example') !important; /* Ảnh ví dụ kệ sách */
-    background-size: cover !important;
-    background-position: center !important;
-    border: 5px solid #3e2723 !important; /* Viền gỗ nâu đậm */
-    border-radius: 15px;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.7), 0 10px 30px rgba(0,0,0,0.5) !important;
-  }
-
-  /* SỬA LỖI MÀU CHỮ TRONG SÁCH (Chuyển về màu tối để đọc được trên giấy) */
-  /* Dùng !important để đè lên quy tắc chữ trắng toàn cầu */
-  .book-container .front-cover p, 
-  .book-container .inside-pages h4, 
-  .book-container .inside-pages small,
-  .book-container .inside-pages i {
-    color: #333 !important; /* Chuyển thành màu xám đen */
-    text-shadow: none !important; /* Bỏ bóng chữ */
-  }
-  /* Riêng tiêu đề bìa sách giữ màu trắng hoặc vàng cho nổi */
-  .book-container .front-cover h3 {
-     color: #fff !important;
-     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-  }
-
-  /* --- MÀU CHỮ TOÀN CẦU (CHO CÁC PHẦN KHÁC) --- */
-  h1, h2, h3, h4, h5, h6, p, li, strong, span, a, .site-title, .site-subtitle { color: #ffffff; }
+  /* --- 7. MÀU CHỮ CHUNG --- */
+  h1, h2, h3, h4, h5, h6, p, li, strong, span, .site-title { color: #ffffff; }
   a { color: #ffffff; text-decoration: none; }
-
-  /* --- MOBILE --- */
+  
   @media (max-width: 768px) {
     .page__inner-wrap { padding: 25px !important; }
-    .sidebar { padding: 30px 20px !important; }
-    .author__urls.social-icons { gap: 8px; }
   }
 </style>
