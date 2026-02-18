@@ -144,7 +144,7 @@ author_profile: true
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
-          <h3>📉 Tech Layoffs & Macro-Econ</h3>
+          <h3>Tech Layoffs Analysis</h3>
           <p>An end-to-end analysis investigating how <strong>Macro-economic indicators</strong> (Interest rates, GDP, Inflation) influence <strong>Tech Layoff trends</strong> in 2025 using Random Forest models.</p>
         </div>
       </div>
