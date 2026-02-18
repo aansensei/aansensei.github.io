@@ -89,7 +89,7 @@ author_profile: true
   }
   
   .cover-content p { 
-    font-size: 0.75rem; /* NHỎ LẠI THEO YÊU CẦU */
+    font-size: 0.45rem; /* NHỎ LẠI THEO YÊU CẦU */
     line-height: 1.4; opacity: 0.9; font-style: italic;
   }
 
