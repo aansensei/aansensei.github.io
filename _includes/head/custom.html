@@ -3,76 +3,123 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
-  /* 2. THIẾT LẬP NỀN (Dùng link Wikimedia ổn định) */
+  /* --- PHẦN 1: NỀN TẢNG (BACKGROUND) --- */
+  /* Thiết lập nền gốc cho toàn bộ trang */
   body {
-    background-color: #0d0d0d;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
+    background-color: #0d0d0d; /* Màu dự phòng tối */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
     background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
     background-position: center;
-    color: #ffffff; /* Chữ mặc định là trắng */
+    background-attachment: fixed; /* Parallax: Nền đứng yên khi cuộn */
+    background-repeat: no-repeat;
+    color: #ffffff; /* Mặc định chữ trắng */
   }
 
-  /* 3. LÀM TRONG SUỐT CÁC KHUNG CHÍNH (Chỉ nhắm vào khung nội dung) */
-  .initial-content, .page__content, .page__inner-wrap, .archive {
+  /* --- PHẦN 2: XỬ LÝ CÁC LỚP TRẮNG (TARGET & OVERRIDE) --- */
+  /* Thay vì xóa tất cả, ta chỉ làm trong suốt những lớp bao ngoài */
+  .initial-content, .page__content, #main, .wrapper {
+    background-color: transparent !important;
+  }
+  
+  /* Riêng lớp giấy nền (page__inner-wrap) và Sidebar sẽ biến thành Ô KÍNH XÁM */
+  .page__inner-wrap, .sidebar {
+    background-color: rgba(30, 30, 30, 0.75) !important; /* Màu xám đen trong suốt */
+    backdrop-filter: blur(12px); /* Hiệu ứng làm mờ nền sau (Kính mờ) */
+    -webkit-backdrop-filter: blur(12px); /* Hỗ trợ Safari */
+    border-radius: 16px; /* Bo góc mềm mại */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Viền sáng mỏng tạo khối */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Đổ bóng sâu */
+    padding: 30px !important; /* Tạo khoảng thở cho nội dung */
+    margin-bottom: 30px;
+  }
+  
+  /* Xử lý riêng cho trang Projects (Archive) để không bị lỗi khung */
+  .archive {
+    background-color: transparent !important;
+    margin-top: 20px;
+  }
+
+  /* --- PHẦN 3: HEADER (MENU) --- */
+  .masthead {
+    background-color: rgba(20, 20, 20, 0.85) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: sticky; /* Giữ menu dính trên cùng khi cuộn (Tùy chọn) */
+    top: 0;
+    z-index: 999;
+  }
+
+  .masthead__inner-wrap {
     background-color: transparent !important;
   }
 
-  /* 4. THANH MENU (HEADER) */
-  .masthead {
-    background-color: rgba(20, 20, 20, 0.8) !important; /* Màu tối mờ */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
+  /* Style nút Menu */
   .masthead__menu-item a {
-    color: #fff !important; /* Chữ menu màu trắng */
-  }
-
-  /* 5. SIDEBAR (CỘT TRÁI) */
-  .sidebar {
-    background-color: rgba(0, 0, 0, 0.5); /* Đen mờ */
-    border-radius: 10px;
-    padding: 15px;
-  }
-
-  /* 6. FONT CHỮ & MÀU SẮC */
-  h1, h2, h3, h4, h5, h6, p, li, a {
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
   }
   
-  a:hover {
-    color: #ffd700; /* Vàng khi di chuột */
-    text-decoration: none;
+  .masthead__menu-item a:hover {
+    color: #ffd700 !important; /* Vàng kim khi hover */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
   }
 
+  /* --- PHẦN 4: TYPOGRAPHY (CHỮ & FONT) --- */
+  h1, h2, h3, h4, h5, h6, p, li, strong {
+    color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6); /* Bóng chữ giúp dễ đọc trên nền kính */
+  }
+
+  a { color: #81d4fa; } /* Màu link xanh sáng */
+  a:hover { color: #ffd700 !important; text-decoration: none; }
+
+  /* Font Bio Quý Tộc */
   .author__bio {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: #ffd700;
+    font-size: 1.5rem;
+    color: #ffd700 !important;
     font-style: italic;
+    line-height: 1.4;
   }
   
   .author__name {
     font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
   }
 
-  /* 7. FOOTER (Ẩn chữ Powered by) */
+  /* --- PHẦN 5: CLEAN FOOTER --- */
   .page__footer {
-    background-color: transparent;
-    color: #bbb;
+    background-color: transparent !important;
     margin-top: 50px;
+    color: #bbb;
+    text-align: center;
   }
   
   .page__footer-copyright {
-    display: none !important;
+    display: none !important; /* Ẩn dòng bản quyền mặc định */
   }
   
   .page__footer:after {
-    content: "© 2026 An Nguyen's Little World 🍀";
+    content: "© 2026 An Nguyen's Little World 🍀"; /* Dòng bản quyền mới */
     display: block;
-    text-align: center;
+    font-family: 'Playfair Display', serif;
     font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    padding-bottom: 20px;
+  }
+  
+  /* Ẩn các icon MXH thừa ở footer nếu không cần */
+  .page__footer .social-icons { display: none; }
+  
+  hr { border-color: rgba(255,255,255,0.2) !important; }
+
+  /* --- PHẦN 6: MOBILE RESPONSIVE (TỐI ƯU ĐIỆN THOẠI) --- */
+  @media (max-width: 768px) {
+    .page__inner-wrap, .sidebar {
+      padding: 20px !important; /* Giảm lề trên điện thoại */
+    }
+    .author__bio { font-size: 1.2rem; }
+    .page__title { font-size: 1.8rem; }
   }
 </style>
