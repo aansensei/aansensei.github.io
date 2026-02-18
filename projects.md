@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "✨ My Fairy Tale Collection"
+title: "✨ My Fairy Tales Collection"
 permalink: /projects/
 author_profile: true
 ---
@@ -9,7 +9,7 @@ author_profile: true
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* --- GIỮ NGUYÊN UI/CSS NHƯ CŨ --- */
+  /* --- CẤU TRÚC KỆ SÁCH --- */
   .bookshelf {
     display: flex; flex-wrap: wrap; gap: 55px; justify-content: center;
     padding: 60px 30px;
@@ -27,11 +27,11 @@ author_profile: true
     transform-style: preserve-3d;
   }
 
-  /* BÌA SÁCH */
+  /* --- BÌA SÁCH (FRONT COVER) --- */
   .front-cover {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     transform-origin: left center;
-    transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1); /* Tốc độ lật 3s */
+    transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 10;
     border-radius: 8px 18px 18px 8px;
     transform-style: preserve-3d;
@@ -39,6 +39,13 @@ author_profile: true
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     padding: 25px 20px;
     border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* KHI LẬT SÁCH: QUAN TRỌNG NHẤT */
+  .book-container:hover .front-cover { 
+    transform: rotateY(-180deg);
+    /* SỬA LỖI CLICK: Khi lật, bìa sách sẽ "trong suốt" với chuột, cho phép click xuyên qua */
+    pointer-events: none; 
   }
 
   .cover-content { backface-visibility: hidden; width: 100%; }
@@ -49,8 +56,8 @@ author_profile: true
     border-radius: 8px 0 0 8px; z-index: 20;
   }
 
-  /* MÀU SẮC */
-  /* Quyển 1 */
+  /* --- MÀU SẮC --- */
+  /* Quyển 1: Tech Layoffs */
   .book-1 .front-cover { 
     background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); 
     box-shadow: 0 0 25px rgba(28, 58, 74, 0.7); 
@@ -58,7 +65,7 @@ author_profile: true
   .book-1 h3 { color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important; }
   .book-1 p { color: #b3e5fc !important; text-shadow: 0 0 5px rgba(179, 229, 252, 0.5); }
 
-  /* Quyển 2 (Cũ là 4 - Semiconductor) */
+  /* Quyển 2: Semiconductor (Vị trí mới) */
   .book-4 .front-cover { 
     background: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); 
     border: 2px solid #00e5ff;
@@ -66,7 +73,7 @@ author_profile: true
   }
   .book-4 h3, .book-4 p { color: #fff !important; text-shadow: 0 0 12px rgba(255, 255, 255, 1) !important; }
 
-  /* Quyển 3 (Cũ là 2 - Sekai) */
+  /* Quyển 3: Project Sekai */
   .book-2 .front-cover { 
     background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); 
     box-shadow: 0 0 25px rgba(255, 154, 158, 0.6);
@@ -74,7 +81,7 @@ author_profile: true
   .book-2 h3 { color: #880e4f !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important; }
   .book-2 p { color: #ad1457 !important; text-shadow: 0 0 2px rgba(255, 255, 255, 0.5); }
 
-  /* Quyển 4 (Future) */
+  /* Quyển 4: Future */
   .book-3 .front-cover { 
     background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%); 
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
@@ -89,19 +96,26 @@ author_profile: true
   }
   .cover-content p { font-family: 'Roboto', sans-serif; font-size: 0.95rem !important; line-height: 1.4; margin-bottom: 0; }
 
-  /* NỘI DUNG BÊN TRONG */
+  /* --- NỘI DUNG BÊN TRONG (CHỨA NÚT) --- */
   .inside-pages {
     position: absolute; top: 0; left: 0; width: 98%; height: 98%;
     background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important;
-    z-index: 1; border-radius: 4px 14px 14px 4px;
+    z-index: 1; /* Mặc định thấp hơn bìa */
+    border-radius: 4px 14px 14px 4px;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 15px; text-align: center;
     border: 1px solid #ccc;
     box-shadow: inset 10px 0 20px rgba(0,0,0,0.1);
     transform: translateZ(-2px); 
+    /* Mặc định không nhận click khi đóng sách để tránh click nhầm */
+    pointer-events: none; 
   }
   
-  .book-container:hover .front-cover { transform: rotateY(-180deg); }
+  /* KHI MỞ SÁCH: Kích hoạt click cho trang bên trong */
+  .book-container:hover .inside-pages {
+    pointer-events: auto !important; 
+    z-index: 20 !important; /* Đẩy lên trên bìa */
+  }
 
   .inside-pages i { font-size: 30px !important; margin-bottom: 15px; }
   .inside-pages h4 { 
@@ -110,19 +124,25 @@ author_profile: true
   }
   .inside-pages small, .inside-pages p { color: #555 !important; text-shadow: none !important; font-size: 0.9rem;}
 
-  /* BUTTONS - SỬA LỖI CLICK: Thêm transform translateZ để nổi lên */
+  /* --- SỬA LỖI NÚT BẤM (BUTTONS) --- */
   .btn-link {
     display: inline-block; padding: 8px 16px;
     background-color: #0a192f !important; color: #fff !important;
     text-decoration: none; border-radius: 30px; font-size: 0.75rem; font-weight: 600;
     margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s;
     
-    /* QUAN TRỌNG: Đẩy nút nổi lên trong không gian 3D để bắt click */
-    transform: translateZ(20px); 
+    /* CỰC KỲ QUAN TRỌNG: Đẩy nút nổi hẳn ra ngoài không gian 3D (50px) để bắt trọn click chuột */
+    transform: translateZ(50px); 
     position: relative;
-    z-index: 100;
+    z-index: 1000;
+    cursor: pointer !important; /* Ép con trỏ thành hình bàn tay */
   }
-  .btn-link:hover { transform: translateZ(20px) translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.3); background-color: #1565c0 !important;}
+  
+  .btn-link:hover { 
+    transform: translateZ(55px) translateY(-2px); /* Khi hover nút càng nổi lên */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3); background-color: #1565c0 !important;
+  }
+  
   .btn-red { background-color: #d32f2f !important; }
   .btn-red:hover { background-color: #f44336 !important; }
   .btn-neon { background: linear-gradient(45deg, #f72585, #7209b7) !important; border: none; }
