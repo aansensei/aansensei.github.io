@@ -9,7 +9,7 @@ Welcome to my portfolio! I am a **Freshman at UW-Madison** double majoring in **
 I love using data to tell stories about the economy and human behavior.
 
 ### 🚀 Featured Project
-**[Global Tech Layoffs & Macro-Economics Analysis](https://tech-layoff-analytics-ncta.streamlit.app/)**
+**[Global Tech Layoffs & Macro-Economics Analysis]([https://tech-layoff-analytics-ncta.streamlit.app/](https://github.com/aansensei/Tech_Layoff_Project/blob/main/README.md))**
 > An end-to-end analysis using Random Forest to predict layoff trends vs. reality.
 > * [View Dashboard](https://tech-layoff-analytics-ncta.streamlit.app/)
 > * [View Code on GitHub](https://github.com/aansensei/tech_layoff_project)
