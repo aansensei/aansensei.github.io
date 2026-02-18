@@ -1,5 +1,6 @@
 # Welcome to Jekyll!
 # Theme Settings
+remote_theme             : "mmistakes/minimal-mistakes"
 minimal_mistakes_skin    : "default" 
 
 # Site Settings
@@ -41,7 +42,7 @@ footer:
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/cao-thien-an-nguyen-0a92a4396/"
 
-# Technical Settings (Do not change)
+# Technical Settings
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
