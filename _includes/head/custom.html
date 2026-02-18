@@ -3,138 +3,69 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
+  /* 1. NỀN VAN GOGH (Dùng Link Tuyệt Đối - Cách chắc ăn nhất) */
+  body {
+    background-color: #0d0d0d !important;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
+      url('https://aansensei.github.io/assets/images/vangogh.jpg') !important;
+    
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh;
+  }
 
-/* ============================= */
-/* 1. NỀN VAN GOGH FIXED         */
-/* ============================= */
+  /* 2. LÀM TRONG SUỐT CÁC KHUNG (Để lộ ảnh nền) */
+  #main, .page, .page__content, .page__inner-wrap, .archive, .initial-content, .layout--single, .greedy-nav, .masthead {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 
-body {
-  background-color: #0d0d0d !important;
+  /* 3. MENU TRÊN CÙNG (Kính mờ) */
+  .masthead {
+    background-color: rgba(20, 20, 20, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  }
 
-  /* ❗ FIXED PATH (không dùng / ở đầu) */
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url('{{ "/assets/images/vangogh.jpg" | relative_url }}')
- !important;
+  /* 4. CỘT PROFILE (Kính mờ) */
+  .sidebar {
+    background-color: rgba(30, 30, 30, 0.5) !important;
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
 
-  background-size: cover !important;
-  background-position: center !important;
-  background-attachment: fixed !important;
-  background-repeat: no-repeat !important;
-  min-height: 100vh;
-}
+  /* 5. CHỮ TRẮNG TOÀN BỘ */
+  body, p, h1, h2, h3, h4, h5, h6, li, a, div, span, .site-title, .site-subtitle {
+    color: #ffffff !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+  }
+  
+  a:hover { color: #ffd700 !important; text-decoration: none; }
 
+  /* Font Bio */
+  .author__bio {
+    font-family: "Cormorant Garamond", serif !important;
+    font-size: 1.5rem !important;
+    font-style: italic;
+    color: #ffd700 !important;
+    margin-top: 15px;
+  }
+  .author__name {
+    font-family: "Playfair Display", serif !important;
+    font-size: 1.8rem !important;
+  }
 
-/* ============================= */
-/* 2. CHỈ LÀM TRONG SUỐT CONTENT */
-/* ============================= */
-
-/* KHÔNG xóa background của masthead ở đây */
-#main,
-.page,
-.page__content,
-.page__inner-wrap,
-.archive,
-.initial-content,
-.layout--single {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-
-/* ============================= */
-/* 3. MENU TRÊN (GLASS EFFECT)   */
-/* ============================= */
-
-.masthead {
-  background-color: rgba(20, 20, 20, 0.6) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
-}
-
-
-/* ============================= */
-/* 4. SIDEBAR PROFILE GLASS      */
-/* ============================= */
-
-.sidebar {
-  background-color: rgba(30, 30, 30, 0.55) !important;
-  border-radius: 15px;
-  padding: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-
-/* ============================= */
-/* 5. TEXT COLOR FIX             */
-/* ============================= */
-
-body,
-p,
-h1, h2, h3, h4, h5, h6,
-li,
-a,
-div,
-span,
-.site-title,
-.site-subtitle {
-  color: #ffffff !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-}
-
-a:hover {
-  color: #ffd700 !important;
-  text-decoration: none;
-}
-
-
-/* ============================= */
-/* 6. FONT PROFILE               */
-/* ============================= */
-
-.author__bio {
-  font-family: "Cormorant Garamond", serif !important;
-  font-size: 1.5rem !important;
-  font-style: italic;
-  color: #ffd700 !important;
-  margin-top: 15px;
-}
-
-.author__name {
-  font-family: "Playfair Display", serif !important;
-  font-size: 1.8rem !important;
-}
-
-
-/* ============================= */
-/* 7. FOOTER CLEAN VERSION       */
-/* ============================= */
-
-.page__footer {
-  background: transparent !important;
-  color: #ccc !important;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  margin-top: 50px;
-}
-
-.page__footer-copyright,
-.page__footer .social-icons {
-  display: none !important;
-}
-
-.page__footer:after {
-  content: "© 2026 An Nguyen's Little World 🍀";
-  display: block;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-hr {
-  border-color: rgba(255,255,255,0.2) !important;
-}
-
+  /* 6. ẨN FOOTER */
+  .page__footer { background: transparent !important; color: #ccc !important; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px; }
+  .page__footer-copyright, .page__footer .social-icons { display: none !important; }
+  .page__footer:after { content: "© 2026 An Nguyen's Little World 🍀"; display: block; text-align: center; font-size: 0.9rem; }
+  hr { border-color: rgba(255,255,255,0.2) !important; }
 </style>
