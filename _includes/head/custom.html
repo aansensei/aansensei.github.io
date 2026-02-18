@@ -14,7 +14,8 @@ body {
   /* ❗ FIXED PATH (không dùng / ở đầu) */
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url('assets/images/vangogh.jpg') !important;
+    url('{{ "/assets/images/vangogh.jpg" | relative_url }}')
+ !important;
 
   background-size: cover !important;
   background-position: center !important;
