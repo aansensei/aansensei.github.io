@@ -1,128 +1,164 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* --- 1. NỀN VAN GOGH (GIỮ NGUYÊN) --- */
+  /* --- PHẦN 1: NỀN VAN GOGH (GIỮ NGUYÊN) --- */
   body {
     background-color: #0d0d0d;
     background-image: 
-      linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), /* Giảm độ tối lớp phủ để nền sáng hơn chút */
+      linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), /* Phủ tối nhẹ để nổi chữ */
       url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    font-family: 'Roboto', sans-serif; /* Font chữ sạch hiện đại cho nội dung */
+    font-family: 'Roboto', sans-serif;
   }
 
-  /* --- 2. CÔNG THỨC "APPLE GLASS" (KÍNH MỜ CAO CẤP) --- */
-  /* Áp dụng cho: Cột Profile, Khung nội dung chính (About Me), Header */
+  /* --- PHẦN 2: HIỆU ỨNG KÍNH "APPLE GLASS" --- */
   .sidebar, .page__inner-wrap, .masthead {
-    background-color: rgba(35, 35, 35, 0.75) !important; /* Màu xám đen, độ đục 75% cho rõ chữ */
-    backdrop-filter: blur(20px) saturate(180%) !important; /* Làm mờ mịn và tăng độ rực rỡ (Chuẩn Apple) */
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Viền sáng mỏng tinh tế */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important; /* Đổ bóng sâu tạo chiều cao */
+    background-color: rgba(30, 30, 32, 0.7) !important; /* Xám đen trong suốt */
+    backdrop-filter: blur(25px) saturate(190%) !important; /* Mờ mịn và tăng rực rỡ */
+    -webkit-backdrop-filter: blur(25px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important; /* Viền sáng tinh tế */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important; /* Bóng sâu */
   }
 
-  /* --- 3. TINH CHỈNH TỪNG KHUNG --- */
-  
-  /* Cột Profile (Cao Thien An) */
-  .sidebar {
-    border-radius: 20px; /* Bo góc tròn hơn */
-    padding: 25px !important;
-    margin-bottom: 20px;
-  }
-
-  /* Khung nội dung (About Me / Projects) */
-  .page__inner-wrap {
-    border-radius: 20px;
-    padding: 40px !important; /* Khoảng cách lề rộng rãi cho thoáng */
-    margin-top: 20px;
-  }
-  
-  /* Sửa lỗi khung trắng thừa (Xóa nền các lớp cha) */
+  /* Xóa nền các lớp cha để tránh bị đè */
   .initial-content, .page__content, #main, .wrapper, .archive {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+    background: transparent !important; box-shadow: none !important; border: none !important;
   }
 
-  /* --- 4. HEADER (THANH TRÊN CÙNG) --- */
-  .masthead {
-    border-radius: 0 0 20px 20px; /* Bo tròn 2 góc dưới */
-    border-top: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    padding-bottom: 10px;
-    position: sticky; top: 0; z-index: 1000; /* Dính lên trên cùng */
-  }
-
-  /* SỬA LỖI CHỮ TIÊU ĐỀ BỊ XÁM/MỜ */
-  .site-title, .site-subtitle, .masthead__menu-item a {
-    color: #ffffff !important; /* Trắng tinh 100% */
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Bóng đen nhẹ để tách khỏi nền kính */
-    font-weight: 700 !important; /* Đậm hơn chút cho rõ */
+  /* --- PHẦN 3: TINH CHỈNH Ô PROFILE (SIDEBAR) SANG TRỌNG --- */
+  .sidebar {
+    border-radius: 24px;
+    padding: 35px 25px !important; /* Tăng padding trên dưới cho thoáng */
+    text-align: center; /* Căn giữa nội dung */
   }
   
-  /* Hiệu ứng nút menu */
-  .masthead__menu-item a:hover {
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
+  /* Ảnh đại diện */
+  .author__avatar img {
+    border-radius: 50%; /* Bo tròn ảnh */
+    border: 3px solid rgba(255, 215, 0, 0.3); /* Viền vàng mờ */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    width: 130px !important; /* Kích thước cố định đẹp mắt */
+    height: 130px !important;
+    object-fit: cover;
   }
 
-  /* --- 5. FONT CHỮ & NỘI DUNG --- */
-  
-  /* Màu chữ chung */
-  h1, h2, h3, h4, h5, h6, p, li, strong, span {
+  /* Tên và Bio */
+  .author__name {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.9rem !important;
+    margin-top: 15px; margin-bottom: 10px;
+    letter-spacing: 0.5px;
     color: #ffffff !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
   }
-  
-  /* Link */
-  a { color: #64b5f6 !important; text-decoration: none; } /* Màu xanh dương sáng kiểu iOS */
-  a:hover { color: #ffd700 !important; }
 
-  /* Font Bio "Quý Tộc" (Đã sửa lỗi không hiện) */
   .author__bio {
-    font-family: 'Cormorant Garamond', serif !important; /* Ép nhận font này */
-    font-size: 1.6rem !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 1.45rem !important;
     font-weight: 600 !important;
     font-style: italic;
     color: #ffd700 !important; /* Vàng kim */
-    line-height: 1.3;
-    margin-top: 15px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    line-height: 1.4;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
   }
-  
-  /* Font Tên */
-  .author__name {
-    font-family: 'Playfair Display', serif !important;
-    font-size: 2rem !important;
-    margin-bottom: 5px;
-  }
-  
-  /* Icon tích xanh (nếu có) */
-  .fa-check-circle { color: #1da1f2 !important; }
 
-  /* --- 6. FOOTER SẠCH --- */
-  .page__footer {
-    background: transparent !important;
-    margin-top: 50px;
-    color: rgba(255,255,255,0.6) !important;
+  /* SỬA LỖI SOCIAL ICONS (Hiện lại nút Gmail, GitHub...) */
+  .author__urls-wrapper {
+    display: block !important; /* Bắt buộc hiện */
   }
-  .page__footer-copyright, .social-icons { display: none !important; }
-  .page__footer:after {
-    content: "© 2026 An Nguyen's Little World 🍀";
-    display: block; text-align: center; font-size: 0.9rem;
-    font-family: 'Playfair Display', serif;
+  .author__urls-wrapper button {
+    display: none !important; /* Ẩn nút "Follow" lỗi trên mobile */
   }
-  hr { border-color: rgba(255,255,255,0.1) !important; }
+  .author__urls.social-icons {
+    display: flex !important;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-top: 20px;
+    padding: 0 !important;
+    list-style: none !important;
+  }
   
-  /* --- 7. MOBILE FIX --- */
+  /* Style cho các nút Social (Tròn, trắng) */
+  .author__urls.social-icons li a {
+    display: flex; justify-content: center; align-items: center;
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .author__urls.social-icons li a:hover {
+    background: #ffd700; color: #000 !important; /* Hover chuyển màu vàng */
+    transform: translateY(-3px);
+  }
+  .author__urls.social-icons li a i { margin-right: 0 !important; } /* Căn giữa icon */
+  .author__urls.social-icons li a .label { display: none; } /* Chỉ hiện icon, ẩn chữ */
+
+  /* --- PHẦN 4: KHUNG NỘI DUNG (ABOUT/PROJECTS) --- */
+  .page__inner-wrap {
+    border-radius: 24px; padding: 40px !important; margin-top: 25px;
+  }
+  .archive { margin-top: 20px; } /* Khoảng cách cho trang Projects */
+
+  /* --- PHẦN 5: HEADER & FOOTER --- */
+  .masthead {
+    border-radius: 0 0 24px 24px; padding-bottom: 12px; position: sticky; top: 0; z-index: 1000;
+    border-top: none !important;
+  }
+  .masthead__menu-item a {
+    color: #fff !important; font-weight: 500; padding: 8px 15px; border-radius: 20px; transition: all 0.3s;
+  }
+  .masthead__menu-item a:hover { background: rgba(255,255,255,0.15); color: #ffd700 !important; }
+
+  .page__footer { background: transparent !important; color: rgba(255,255,255,0.5) !important; margin-top: 60px; }
+  .page__footer-copyright, .page__footer .social-icons { display: none !important; }
+  .page__footer:after { content: "© 2026 An Nguyen's Little World 🍀"; display: block; text-align: center; font-size: 0.9rem; font-family: 'Playfair Display', serif; }
+
+  /* --- PHẦN 6: NỀN KỆ SÁCH (PROJECTS) & MÀU CHỮ TRONG SÁCH --- */
+  
+  /* Ảnh nền kệ sách gỗ cho khu vực Projects */
+  /* NẾU BẠN CÓ ẢNH RIÊNG, THAY LINK Ở DƯỚI BẰNG: /assets/images/ten-anh.jpg */
+  .bookshelf {
+    background-image: url('https://img.freepik.com/free-photo/wooden-bookshelves-filled-with-books-library_1268-14956.jpg?w=1380&t=st=1709020000~exp=1709020600~hmac=example') !important; /* Ảnh ví dụ kệ sách */
+    background-size: cover !important;
+    background-position: center !important;
+    border: 5px solid #3e2723 !important; /* Viền gỗ nâu đậm */
+    border-radius: 15px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.7), 0 10px 30px rgba(0,0,0,0.5) !important;
+  }
+
+  /* SỬA LỖI MÀU CHỮ TRONG SÁCH (Chuyển về màu tối để đọc được trên giấy) */
+  /* Dùng !important để đè lên quy tắc chữ trắng toàn cầu */
+  .book-container .front-cover p, 
+  .book-container .inside-pages h4, 
+  .book-container .inside-pages small,
+  .book-container .inside-pages i {
+    color: #333 !important; /* Chuyển thành màu xám đen */
+    text-shadow: none !important; /* Bỏ bóng chữ */
+  }
+  /* Riêng tiêu đề bìa sách giữ màu trắng hoặc vàng cho nổi */
+  .book-container .front-cover h3 {
+     color: #fff !important;
+     text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
+  }
+
+  /* --- MÀU CHỮ TOÀN CẦU (CHO CÁC PHẦN KHÁC) --- */
+  h1, h2, h3, h4, h5, h6, p, li, strong, span, a, .site-title, .site-subtitle { color: #ffffff; }
+  a { color: #ffffff; text-decoration: none; }
+
+  /* --- MOBILE --- */
   @media (max-width: 768px) {
-    .page__inner-wrap { padding: 20px !important; }
-    .site-title { font-size: 1.2rem !important; }
-    .site-subtitle { display: none !important; } /* Ẩn slogan trên đt cho đỡ chật */
+    .page__inner-wrap { padding: 25px !important; }
+    .sidebar { padding: 30px 20px !important; }
+    .author__urls.social-icons { gap: 8px; }
   }
 </style>
