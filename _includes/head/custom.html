@@ -3,12 +3,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
-  /* 2. SỬA LỖI MẤT NỀN (QUAN TRỌNG: THÊM MÀU ĐEN DỰ PHÒNG) */
+  /* 1. NỀN VAN GOGH (QUAN TRỌNG) */
   body {
-    background-color: #0d0d0d !important; /* Màu đen thay thế nếu ảnh lỗi */
-    background-image: 
-      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg') !important;
+    background-color: #0d0d0d !important;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg") !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
@@ -16,77 +14,54 @@
     min-height: 100vh;
   }
 
-  /* 3. XÓA NỀN TRẮNG CỦA NỘI DUNG (Làm trong suốt) */
-  #main, .page, .page__content, .page__inner-wrap, .archive, .initial-content, .layout--single, .greedy-nav {
-    background-color: transparent !important;
+  /* 2. LÀM TRONG SUỐT CÁC KHUNG NỀN */
+  #main, .page, .page__content, .page__inner-wrap, .archive, .initial-content, .layout--single, .greedy-nav, .masthead {
     background: transparent !important;
+    background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
   }
 
-  /* 4. THANH MENU KÍNH MỜ (HEADER) */
+  /* 3. MENU TRÊN CÙNG (HEADER) */
   .masthead {
-    background-color: rgba(20, 20, 20, 0.6) !important;
+    background-color: rgba(20, 20, 20, 0.7) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Màu chữ menu */
-  .masthead__menu-item, .site-title, .site-subtitle {
-    color: #ffffff !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
   }
 
-  /* 5. CỘT TRÁI KÍNH MỜ (SIDEBAR) */
+  /* 4. CỘT PROFILE (SIDEBAR) */
   .sidebar {
-     background-color: rgba(0,0,0,0.5) !important;
-     border-radius: 15px;
-     padding: 20px;
-     backdrop-filter: blur(8px);
-     border: 1px solid rgba(255,255,255,0.1);
-     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background-color: rgba(30, 30, 30, 0.6) !important;
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
-  /* 6. CHỈNH CHỮ TRẮNG & FONT QUÝ TỘC */
-  /* Ép toàn bộ chữ thành màu trắng */
-  body, p, h1, h2, h3, h4, h5, h6, li, a, div, span {
+  /* 5. CHỮ TRẮNG & FONT CHỮ */
+  body, p, h1, h2, h3, h4, h5, h6, li, a, div, span, .site-title, .site-subtitle {
     color: #ffffff !important;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
   }
   
-  /* Link hover vàng kim */
   a:hover { color: #ffd700 !important; text-decoration: none; }
 
-  /* Font Bio */
   .author__bio {
-    font-family: 'Cormorant Garamond', serif !important;
+    font-family: "Cormorant Garamond", serif !important;
     font-size: 1.5rem !important;
     font-style: italic;
-    font-weight: 600;
     color: #ffd700 !important;
-    text-shadow: 0 2px 5px rgba(0,0,0,1);
-    line-height: 1.3;
     margin-top: 15px;
   }
   .author__name {
-    font-family: 'Playfair Display', serif !important;
+    font-family: "Playfair Display", serif !important;
     font-size: 1.8rem !important;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   }
 
-  /* 7. XÓA CHÂN TRANG THỪA */
-  .page__footer {
-    background-color: transparent !important;
-    color: #bbb !important;
-    margin-top: 50px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .page__footer-copyright { display: none !important; }
-  .page__footer:after {
-    content: "© 2026 An Nguyen's Little World 🍀";
-    display: block; text-align: center; font-size: 0.9rem;
-  }
-  .page__footer .social-icons { display: none !important; }
-  
+  /* 6. ẨN FOOTER */
+  .page__footer { background: transparent !important; color: #ccc !important; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px; }
+  .page__footer-copyright, .page__footer .social-icons { display: none !important; }
+  .page__footer:after { content: "© 2026 An Nguyen's Little World 🍀"; display: block; text-align: center; font-size: 0.9rem; }
   hr { border-color: rgba(255,255,255,0.2) !important; }
 </style>
