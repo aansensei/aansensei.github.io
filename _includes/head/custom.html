@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  /* --- 1. NỀN CHÍNH --- */
+  /* --- 1. NỀN CHÍNH (VAN GOGH) --- */
   body {
     background-color: #0d0d0d;
     background-image: 
@@ -20,18 +20,19 @@
 
   /* --- 2. HEADER & MENU --- */
   .masthead {
-    background-color: rgba(20, 25, 30, 0.9) !important;
+    background-color: rgba(20, 25, 30, 0.95) !important;
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 15px 0; position: sticky; top: 0; z-index: 1000;
   }
   
-  /* MỚI: Chữ "An Nguyen's Little World" - MÀU XANH DƯƠNG ĐẬM */
-  .site-title {
-    color: #1565c0 !important; /* Dark Blue Color */
+  /* CHỮ "An Nguyen's Little World" - MÀU XANH DƯƠNG ĐẬM */
+  .site-title, .site-title a {
+    color: #0d47a1 !important; /* Xanh Dương Đậm (Dark Blue) */
     font-family: 'Playfair Display', serif !important;
     font-size: 1.6rem !important; font-weight: 800 !important;
-    background: none !important; padding: 0 !important; text-shadow: none !important;
+    background: none !important; padding: 0 !important; text-shadow: 0 0 1px #fff !important; /* Viền sáng nhẹ để đọc được trên nền đen */
+    text-decoration: none !important;
   }
   
   /* Nút Menu - XANH NAVY */
@@ -44,37 +45,34 @@
 
   /* --- 3. SIDEBAR (PROFILE) --- */
   .sidebar {
-    background-color: rgba(20, 25, 35, 0.85) !important;
+    background-color: rgba(20, 25, 35, 0.9) !important;
     backdrop-filter: blur(20px); border-radius: 20px; padding: 30px 20px !important;
     border: 1px solid rgba(255,255,255,0.1); text-align: center;
   }
 
-  /* AVATAR TRÒN */
+  /* AVATAR */
   .author__avatar img {
     border-radius: 50% !important; aspect-ratio: 1 / 1; object-fit: cover !important;
-    border: 3px solid #00e5ff; /* Viền Cyan theo tông mới */
+    border: 3px solid #00e5ff; /* Viền Cyan */
     width: 140px !important; height: 140px !important;
     margin-bottom: 15px; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
   }
 
-  /* Tên */
+  /* Tên Sidebar */
   .author__name {
     font-family: 'Playfair Display', serif !important; color: #ffffff !important;
     font-size: 1.8rem !important; margin-bottom: 10px;
   }
   
-  /* MỚI: Dòng Bio - MÀU XANH CYAN, BỎ HYPERLINK */
+  /* Bio Sidebar - MÀU TRẮNG HOẶC CYAN TÙY Ý (Để Cyan cho đồng bộ) */
   .author__bio {
-    font-family: 'Cormorant Garamond', serif !important; font-size: 1.6rem !important;
-    color: #00e5ff !important; /* Cyan sáng */
+    font-family: 'Cormorant Garamond', serif !important; font-size: 1.5rem !important;
+    color: #00e5ff !important;
     font-style: italic; font-weight: 700; margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
-    pointer-events: none; /* Đảm bảo không thể bấm vào */
-    text-decoration: none !important;
   }
   .author__urls { color: rgba(255,255,255,0.9) !important; }
 
-  /* --- 4. STYLE CHO NÚT MẠNG XÃ HỘI NGANG (Giữ nguyên từ bước trước) --- */
+  /* NÚT MẠNG XÃ HỘI NGANG */
   .author__urls-wrapper button { display: none !important; }
   .social-icons-horizontal {
     display: flex; justify-content: center; gap: 15px;
@@ -84,56 +82,60 @@
   .social-btn {
     display: flex !important; justify-content: center; align-items: center;
     width: 45px; height: 45px;
-    background-color: #0a192f; /* Xanh Navy */
-    border-radius: 50%; color: #fff !important;
+    background-color: #0a192f; border-radius: 50%; color: #fff !important;
     border: 1px solid rgba(255,255,255,0.2); font-size: 1.2rem; text-decoration: none; transition: 0.3s;
   }
-  .social-btn:hover {
-    background-color: #00e5ff; /* Hover Cyan */
-    color: #0a192f !important; transform: translateY(-3px);
-  }
-  .social-icons li a i { margin-right: 5px; }
+  .social-btn:hover { background-color: #00e5ff; color: #0a192f !important; transform: translateY(-3px); }
 
-  /* --- 5. NỘI DUNG & PROJECTS --- */
+  /* --- 4. SỬA LỖI MÀU CHỮ & BỎ HYPERLINK (QUAN TRỌNG NHẤT) --- */
+  
   .page__inner-wrap {
-    background-color: rgba(30, 30, 35, 0.8) !important; backdrop-filter: blur(20px);
+    background-color: rgba(30, 30, 35, 0.85) !important; backdrop-filter: blur(20px);
     border-radius: 20px; padding: 40px !important;
     border: 1px solid rgba(255,255,255,0.1); margin-top: 20px;
   }
   .initial-content, .page__content, #main, .wrapper { background: transparent !important; }
 
-  /* MỚI: Tiêu đề Fairy Tale - MÀU XANH CYAN, BỎ HYPERLINK */
-  .page__title, h2, h3 {
-    color: #00e5ff !important; /* Cyan sáng */
+  /* ÉP MÀU CYAN CHO TIÊU ĐỀ + BỎ LINK CLICK */
+  h1, h2, h3, .page__title, .page__title a, h1 a, h2 a {
+    color: #00e5ff !important; /* Xanh Cyan Sáng */
     font-family: 'Playfair Display', serif !important;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
-    pointer-events: none; /* Đảm bảo không thể bấm vào */
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.3) !important; /* Hiệu ứng neon nhẹ */
+    pointer-events: none !important; /* KHÔNG CHO BẤM */
+    cursor: default !important;
+    text-decoration: none !important;
   }
-  p, li, span { color: #ffffff !important; }
+  
+  /* Riêng chữ trong nội dung sách thì phải đen */
+  .book-container h1, .book-container h2, .book-container h3 {
+     color: #000 !important; text-shadow: none !important; pointer-events: auto !important;
+  }
 
-  /* MỚI: KỆ SÁCH GỖ VẼ BẰNG CSS (KHÔNG DÙNG ẢNH NỀN) */
+  p, li, span, strong { color: #ffffff !important; text-shadow: none !important; }
+
+  /* --- 5. KỆ SÁCH GỖ VẼ BẰNG CODE (BỎ HÌNH CŨ) --- */
   .bookshelf {
-    background-image: none !important; /* Bỏ ảnh cũ */
-    /* Tạo màu gỗ nâu dạng gradient */
-    background: linear-gradient(to bottom, #6d4c41, #5d4037) !important; 
+    background-image: none !important; /* Xóa hình con mèo/hình cũ */
+    background-color: #5d4037 !important; /* Màu gỗ nâu */
+    /* Tạo vân gỗ giả bằng gradient */
+    background: repeating-linear-gradient(90deg, #5d4037, #5d4037 10px, #4e342e 10px, #4e342e 20px) !important;
     
-    /* Vẽ viền dày làm khung kệ */
-    border-top: 15px solid #3e2723 !important; /* Viền trên tối màu */
-    border-bottom: 25px solid #3e2723 !important; /* Viền dưới đáy dày hơn */
-    border-left: 12px solid #4e342e !important; /* Viền cạnh bên */
-    border-right: 12px solid #4e342e !important; /* Viền cạnh bên */
+    /* Viền kệ dày tạo khối */
+    border: 15px solid #3e2723 !important;
+    border-bottom: 25px solid #281a16 !important; /* Đáy dày hơn */
     
-    border-radius: 8px; /* Bo góc nhẹ cho kệ */
-    /* Tạo bóng đổ vào trong để tạo chiều sâu hộc tủ */
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.8) !important;
-    
+    border-radius: 10px;
+    box-shadow: inset 0 0 60px #000 !important; /* Bóng sâu bên trong */
     padding: 60px 30px !important;
     margin-top: 30px;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
   }
 
-  /* Sách bên trong kệ */
+  /* Style sách bên trong */
   .book-container .inside-pages { background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important; }
-  .book-container .inside-pages * { color: #222 !important; text-shadow: none !important; }
+  .book-container .inside-pages h4, .book-container .inside-pages small, .book-container .inside-pages i {
+     color: #222 !important; text-shadow: none !important;
+  }
   .book-container .inside-pages .btn-link { background-color: #0a192f !important; color: #fff !important; }
 
   /* --- 6. FOOTER --- */
