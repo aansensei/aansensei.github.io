@@ -11,14 +11,13 @@ author_profile: true
 <style>
   /* --- CẤU TRÚC KỆ SÁCH --- */
   .bookshelf {
-    display: flex; flex-wrap: wrap; gap: 50px; justify-content: center;
+    display: flex; flex-wrap: wrap; gap: 55px; justify-content: center;
     padding: 60px 30px;
-    perspective: 2000px;
+    perspective: 2500px; /* Tăng chiều sâu 3D */
   }
 
   .book-container {
-    width: 230px; /* Rộng hơn */
-    height: 380px; /* Cao hơn hẳn để chứa đủ chữ dài */
+    width: 230px; height: 380px;
     cursor: pointer; position: relative;
     z-index: 1; margin-bottom: 30px;
   }
@@ -26,91 +25,132 @@ author_profile: true
   .book {
     position: relative; width: 100%; height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  /* --- BÌA SÁCH --- */
+  /* --- BÌA SÁCH (FRONT COVER) --- */
   .front-cover {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     transform-origin: left center;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    
+    /* TỐC ĐỘ LẬT: 3s (Rất chậm và mượt) */
+    transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1);
+    
     z-index: 10;
     border-radius: 8px 18px 18px 8px;
-    box-shadow: 5px 5px 20px rgba(0,0,0,0.6), inset 0 0 10px rgba(255,255,255,0.1);
+    
+    /* Thiết lập 3D để thấy mặt sau của bìa */
+    transform-style: preserve-3d;
+    
+    /* QUAN TRỌNG: Để visible để thấy màu nền khi lật lại */
+    backface-visibility: visible; 
+    
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-    padding: 25px 20px; /* Padding rộng để chữ không sát lề */
-    backface-visibility: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    overflow: hidden;
+    padding: 25px 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* --- NỘI DUNG TRÊN BÌA (Sẽ ẩn đi khi lật sách) --- */
+  .cover-content {
+    /* Khi lật sách, chữ sẽ ẩn đi để lộ "mặt trong" của bìa */
+    backface-visibility: hidden; 
+    width: 100%;
   }
 
   /* Gáy sách */
   .front-cover::before {
-    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
-    background: linear-gradient(to right, rgba(0,0,0,0.4), rgba(0,0,0,0.1));
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px;
+    background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.1));
     border-radius: 8px 0 0 8px;
-    border-right: 1px solid rgba(255,255,255,0.2);
+    z-index: 20;
   }
 
-  /* --- MÀU SẮC TỪNG QUYỂN --- */
-  .book-1 .front-cover { background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); color: #e3f2fd; }
-  .book-2 .front-cover { background: linear-gradient(135deg, #ffacc7 0%, #ffd3f0 100%); color: #5d1049 !important; }
-  .book-3 .front-cover { background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%); color: #e0e0e0; }
+  /* --- STYLE MÀU & GLOW CHO TỪNG QUYỂN --- */
+  
+  /* 📘 QUYỂN 1: TECH LAYOFFS (GLOW XANH DƯƠNG) */
+  .book-1 .front-cover { 
+    background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); 
+    /* Glow bao quanh sách */
+    box-shadow: 0 0 25px rgba(28, 58, 74, 0.7); 
+  }
+  /* Chữ tiêu đề: TRẮNG + GLOW */
+  .book-1 h3 { color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important; }
+  .book-1 p { color: #b3e5fc !important; text-shadow: 0 0 5px rgba(179, 229, 252, 0.5); }
 
-  /* 🔥 QUYỂN 4: SEMICONDUCTOR (NEON GLOW) */
+
+  /* 📙 QUYỂN 2: PROJECT SEKAI (GLOW HỒNG) */
+  .book-2 .front-cover { 
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); 
+    /* Glow hồng phấn */
+    box-shadow: 0 0 25px rgba(255, 154, 158, 0.6);
+  }
+  .book-2 h3 { color: #880e4f !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important; }
+  .book-2 p { color: #ad1457 !important; text-shadow: 0 0 2px rgba(255, 255, 255, 0.5); }
+
+
+  /* 🔥 QUYỂN 4: SEMICONDUCTOR (GLOW NEON) */
   .book-4 .front-cover { 
     background: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); 
     border: 2px solid #00e5ff;
-    box-shadow: 0 0 25px rgba(114, 9, 183, 0.8), 0 0 10px rgba(0, 229, 255, 0.6);
+    /* Glow cực mạnh */
+    box-shadow: 0 0 35px rgba(114, 9, 183, 0.8), 0 0 15px rgba(0, 229, 255, 0.8);
   }
-  .book-4 h3, .book-4 p { color: #fff !important; text-shadow: 0 0 8px rgba(0,0,0,0.8) !important; }
+  .book-4 h3, .book-4 p { color: #fff !important; text-shadow: 0 0 12px rgba(255, 255, 255, 1) !important; }
 
-  /* --- FONT CHỮ BÌA --- */
+
+  /* 📓 QUYỂN 3: FUTURE (GLOW TRẮNG BẠC) */
+  .book-3 .front-cover { 
+    background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%); 
+    /* Glow trắng mờ bí ẩn */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+  }
+  .book-3 h3 { color: #fff !important; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6) !important; }
+  .book-3 p { color: #ccc !important; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
+
+
+  /* --- FONT CHỮ --- */
   .cover-content h3 { 
     font-family: "Playfair Display", serif; 
-    font-size: 1.4rem !important;
+    font-size: 1.45rem !important;
     font-weight: 700; margin-bottom: 15px; 
     border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; line-height: 1.2;
   }
-  
-  /* Phần mô tả: Tự động chỉnh size để không bị tràn */
   .cover-content p { 
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9rem !important;
-    line-height: 1.4;
-    font-weight: 400;
-    margin-bottom: 0;
+    font-family: 'Roboto', sans-serif; font-size: 0.95rem !important; line-height: 1.4; margin-bottom: 0;
   }
 
-  /* --- NỘI DUNG BÊN TRONG --- */
+  /* --- NỘI DUNG BÊN TRONG (INSIDE PAGES) --- */
   .inside-pages {
-    position: absolute; top: 2%; left: 2%; width: 96%; height: 96%;
-    background: linear-gradient(to right, #e0e0e0, #f0f0f0) !important;
-    z-index: 1; border-radius: 4px 12px 12px 4px;
+    position: absolute; top: 0; left: 0; width: 98%; height: 98%;
+    /* Màu giấy xám bạc */
+    background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important;
+    z-index: 1; border-radius: 4px 14px 14px 4px;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 15px; text-align: center;
-    border: 1px solid #d0d0d0;
-    box-shadow: inset 3px 0 10px rgba(0,0,0,0.15);
+    border: 1px solid #ccc;
+    box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); /* Bóng gáy sách bên trong */
+    
+    /* Đẩy lùi trang giấy ra sau một chút để không bị đè lên bìa khi chưa mở */
+    transform: translateZ(-2px); 
   }
   
+  /* HIỆU ỨNG LẬT */
   .book-container:hover .front-cover { transform: rotateY(-180deg); }
 
-  .inside-pages i { font-size: 28px !important; margin-bottom: 10px; }
+  .inside-pages i { font-size: 30px !important; margin-bottom: 15px; }
   .inside-pages h4 { 
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem !important; margin: 8px 0; color: #222 !important; font-weight: bold; text-shadow: none !important;
+    font-family: 'Playfair Display', serif; font-size: 1.2rem !important; margin: 8px 0; 
+    color: #222 !important; font-weight: bold; text-shadow: none !important;
   }
-  .inside-pages small, .inside-pages p { color: #555 !important; text-shadow: none !important; font-size: 0.85rem;}
+  .inside-pages small, .inside-pages p { color: #555 !important; text-shadow: none !important; font-size: 0.9rem;}
 
+  /* BUTTONS */
   .btn-link {
-    display: inline-block; padding: 8px 14px;
+    display: inline-block; padding: 8px 16px;
     background-color: #0a192f !important; color: #fff !important;
-    text-decoration: none; border-radius: 30px; font-size: 0.75rem; font-weight: 500;
-    margin-top: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    transition: all 0.3s;
+    text-decoration: none; border-radius: 30px; font-size: 0.75rem; font-weight: 600;
+    margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s;
   }
   .btn-link:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.3); background-color: #1565c0 !important;}
-  
   .btn-red { background-color: #d32f2f !important; }
   .btn-red:hover { background-color: #f44336 !important; }
   .btn-neon { background: linear-gradient(45deg, #f72585, #7209b7) !important; border: none; }
