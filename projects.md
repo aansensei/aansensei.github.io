@@ -144,19 +144,19 @@ author_profile: true
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
-          <h3>The Tale of Layoffs</h3>
-          <p>A data-driven story about how invisible giants called "Macro-Economics" shook the kingdom of Tech in 2025.</p>
+          <h3>📉 Tech Layoffs & Macro-Econ</h3>
+          <p>An end-to-end analysis investigating how <strong>Macro-economic indicators</strong> (Interest rates, GDP, Inflation) influence <strong>Tech Layoff trends</strong> in 2025 using Random Forest models.</p>
         </div>
       </div>
       <div class="inside-pages">
         <div class="page page-left">
           <i class="fab fa-github" style="font-size: 20px;"></i>
-          <h4 style="font-size: 0.8rem;">Grimoire</h4>
+          <h4 style="font-size: 0.8rem;">GitHub</h4>
           <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="btn-link">Code</a>
         </div>
         <div class="page page-right">
           <i class="fas fa-magic" style="font-size: 20px; color: #d63031;"></i>
-          <h4 style="font-size: 0.8rem;">Crystal Ball</h4>
+          <h4 style="font-size: 0.8rem;">Live Dashboard</h4>
           <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="btn-link btn-stream">App</a>
         </div>
       </div>
@@ -167,7 +167,7 @@ author_profile: true
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
-          <h3 style="color: #4a4a4a !important; border-color: rgba(0,0,0,0.2);">Sekai Melody</h3>
+          <h3 style="color: #4a4a4a !important; border-color: rgba(0,0,0,0.2);">Project Sekai Melody</h3>
           <p style="color: #444;">Unlocking the probability secrets behind the magical Gacha songs.</p>
         </div>
       </div>
