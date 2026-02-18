@@ -1,6 +1,6 @@
 # Welcome to Jekyll!
 # Theme Settings
-minimal_mistakes_skin    : "default" # Bạn có thể đổi thành "mint" hoặc "sunrise" nếu thích màu mè hơn
+minimal_mistakes_skin    : "default" 
 
 # Site Settings
 locale                   : "en-US"
@@ -10,13 +10,13 @@ subtitle                 : "Data Science & Economics @ UW-Madison"
 name                     : "Cao Thien An Nguyen"
 description              : "Portfolio of Cao Thien An Nguyen (An). Exploring Data Science, Economics, CS, and Analysis at UW-Madison."
 url                      : "https://aansensei.github.io"
-baseurl                  : "" # Giữ trống nếu dùng tên miền username.github.io
+baseurl                  : "" 
 repository               : "aansensei/aansensei.github.io"
 
 # Site Author
 author:
   name             : "Cao Thien An Nguyen"
-  avatar           : "/assets/images/avatar.jpg" # Xem hướng dẫn bên dưới để thêm ảnh
+  avatar           : "/assets/images/avatar.jpg" 
   bio              : "Where data whispers untold stories."
   location         : "Madison, WI, USA"
   email            : "cnguyen49@wisc.edu"
@@ -41,7 +41,7 @@ footer:
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/cao-thien-an-nguyen-0a92a4396/"
 
-# Các cài đặt kỹ thuật (Giữ nguyên mặc định để web chạy ổn định)
+# Technical Settings (Do not change)
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
@@ -49,8 +49,6 @@ highlighter: rouge
 lsi: false
 excerpt_separator: "\n\n"
 incremental: false
-
-# Markdown Processing
 kramdown:
   input: GFM
   hard_wrap: false
@@ -60,26 +58,18 @@ kramdown:
   toc_levels: 1..6
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
-
-# Sass/SCSS
 sass:
   sass_dir: _sass
   style: compressed
-
-# Outputting
 permalink: /:categories/:title/
 paginate: 5
 search: true
-
-# Plugins
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
-
-# Defaults
 defaults:
   - scope:
       path: ""
