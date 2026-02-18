@@ -1,125 +1,128 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-  /* --- PHẦN 1: NỀN TẢNG (BACKGROUND) --- */
-  /* Thiết lập nền gốc cho toàn bộ trang */
+  /* --- 1. NỀN VAN GOGH (GIỮ NGUYÊN) --- */
   body {
-    background-color: #0d0d0d; /* Màu dự phòng tối */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
+    background-color: #0d0d0d;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), /* Giảm độ tối lớp phủ để nền sáng hơn chút */
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Parallax: Nền đứng yên khi cuộn */
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    color: #ffffff; /* Mặc định chữ trắng */
+    font-family: 'Roboto', sans-serif; /* Font chữ sạch hiện đại cho nội dung */
   }
 
-  /* --- PHẦN 2: XỬ LÝ CÁC LỚP TRẮNG (TARGET & OVERRIDE) --- */
-  /* Thay vì xóa tất cả, ta chỉ làm trong suốt những lớp bao ngoài */
-  .initial-content, .page__content, #main, .wrapper {
-    background-color: transparent !important;
+  /* --- 2. CÔNG THỨC "APPLE GLASS" (KÍNH MỜ CAO CẤP) --- */
+  /* Áp dụng cho: Cột Profile, Khung nội dung chính (About Me), Header */
+  .sidebar, .page__inner-wrap, .masthead {
+    background-color: rgba(35, 35, 35, 0.75) !important; /* Màu xám đen, độ đục 75% cho rõ chữ */
+    backdrop-filter: blur(20px) saturate(180%) !important; /* Làm mờ mịn và tăng độ rực rỡ (Chuẩn Apple) */
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important; /* Viền sáng mỏng tinh tế */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important; /* Đổ bóng sâu tạo chiều cao */
   }
+
+  /* --- 3. TINH CHỈNH TỪNG KHUNG --- */
   
-  /* Riêng lớp giấy nền (page__inner-wrap) và Sidebar sẽ biến thành Ô KÍNH XÁM */
-  .page__inner-wrap, .sidebar {
-    background-color: rgba(30, 30, 30, 0.75) !important; /* Màu xám đen trong suốt */
-    backdrop-filter: blur(12px); /* Hiệu ứng làm mờ nền sau (Kính mờ) */
-    -webkit-backdrop-filter: blur(12px); /* Hỗ trợ Safari */
-    border-radius: 16px; /* Bo góc mềm mại */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Viền sáng mỏng tạo khối */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Đổ bóng sâu */
-    padding: 30px !important; /* Tạo khoảng thở cho nội dung */
-    margin-bottom: 30px;
+  /* Cột Profile (Cao Thien An) */
+  .sidebar {
+    border-radius: 20px; /* Bo góc tròn hơn */
+    padding: 25px !important;
+    margin-bottom: 20px;
   }
-  
-  /* Xử lý riêng cho trang Projects (Archive) để không bị lỗi khung */
-  .archive {
-    background-color: transparent !important;
+
+  /* Khung nội dung (About Me / Projects) */
+  .page__inner-wrap {
+    border-radius: 20px;
+    padding: 40px !important; /* Khoảng cách lề rộng rãi cho thoáng */
     margin-top: 20px;
   }
+  
+  /* Sửa lỗi khung trắng thừa (Xóa nền các lớp cha) */
+  .initial-content, .page__content, #main, .wrapper, .archive {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
 
-  /* --- PHẦN 3: HEADER (MENU) --- */
+  /* --- 4. HEADER (THANH TRÊN CÙNG) --- */
   .masthead {
-    background-color: rgba(20, 20, 20, 0.85) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    position: sticky; /* Giữ menu dính trên cùng khi cuộn (Tùy chọn) */
-    top: 0;
-    z-index: 999;
+    border-radius: 0 0 20px 20px; /* Bo tròn 2 góc dưới */
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-bottom: 10px;
+    position: sticky; top: 0; z-index: 1000; /* Dính lên trên cùng */
   }
 
-  .masthead__inner-wrap {
-    background-color: transparent !important;
-  }
-
-  /* Style nút Menu */
-  .masthead__menu-item a {
-    color: #ffffff !important;
-    font-weight: 500;
-    transition: all 0.3s ease;
+  /* SỬA LỖI CHỮ TIÊU ĐỀ BỊ XÁM/MỜ */
+  .site-title, .site-subtitle, .masthead__menu-item a {
+    color: #ffffff !important; /* Trắng tinh 100% */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important; /* Bóng đen nhẹ để tách khỏi nền kính */
+    font-weight: 700 !important; /* Đậm hơn chút cho rõ */
   }
   
+  /* Hiệu ứng nút menu */
   .masthead__menu-item a:hover {
-    color: #ffd700 !important; /* Vàng kim khi hover */
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
   }
 
-  /* --- PHẦN 4: TYPOGRAPHY (CHỮ & FONT) --- */
-  h1, h2, h3, h4, h5, h6, p, li, strong {
+  /* --- 5. FONT CHỮ & NỘI DUNG --- */
+  
+  /* Màu chữ chung */
+  h1, h2, h3, h4, h5, h6, p, li, strong, span {
     color: #ffffff !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.6); /* Bóng chữ giúp dễ đọc trên nền kính */
   }
+  
+  /* Link */
+  a { color: #64b5f6 !important; text-decoration: none; } /* Màu xanh dương sáng kiểu iOS */
+  a:hover { color: #ffd700 !important; }
 
-  a { color: #81d4fa; } /* Màu link xanh sáng */
-  a:hover { color: #ffd700 !important; text-decoration: none; }
-
-  /* Font Bio Quý Tộc */
+  /* Font Bio "Quý Tộc" (Đã sửa lỗi không hiện) */
   .author__bio {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    color: #ffd700 !important;
+    font-family: 'Cormorant Garamond', serif !important; /* Ép nhận font này */
+    font-size: 1.6rem !important;
+    font-weight: 600 !important;
     font-style: italic;
-    line-height: 1.4;
+    color: #ffd700 !important; /* Vàng kim */
+    line-height: 1.3;
+    margin-top: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   }
   
+  /* Font Tên */
   .author__name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 2rem !important;
+    margin-bottom: 5px;
   }
+  
+  /* Icon tích xanh (nếu có) */
+  .fa-check-circle { color: #1da1f2 !important; }
 
-  /* --- PHẦN 5: CLEAN FOOTER --- */
+  /* --- 6. FOOTER SẠCH --- */
   .page__footer {
-    background-color: transparent !important;
+    background: transparent !important;
     margin-top: 50px;
-    color: #bbb;
-    text-align: center;
+    color: rgba(255,255,255,0.6) !important;
   }
-  
-  .page__footer-copyright {
-    display: none !important; /* Ẩn dòng bản quyền mặc định */
-  }
-  
+  .page__footer-copyright, .social-icons { display: none !important; }
   .page__footer:after {
-    content: "© 2026 An Nguyen's Little World 🍀"; /* Dòng bản quyền mới */
-    display: block;
+    content: "© 2026 An Nguyen's Little World 🍀";
+    display: block; text-align: center; font-size: 0.9rem;
     font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.7);
-    padding-bottom: 20px;
   }
+  hr { border-color: rgba(255,255,255,0.1) !important; }
   
-  /* Ẩn các icon MXH thừa ở footer nếu không cần */
-  .page__footer .social-icons { display: none; }
-  
-  hr { border-color: rgba(255,255,255,0.2) !important; }
-
-  /* --- PHẦN 6: MOBILE RESPONSIVE (TỐI ƯU ĐIỆN THOẠI) --- */
+  /* --- 7. MOBILE FIX --- */
   @media (max-width: 768px) {
-    .page__inner-wrap, .sidebar {
-      padding: 20px !important; /* Giảm lề trên điện thoại */
-    }
-    .author__bio { font-size: 1.2rem; }
-    .page__title { font-size: 1.8rem; }
+    .page__inner-wrap { padding: 20px !important; }
+    .site-title { font-size: 1.2rem !important; }
+    .site-subtitle { display: none !important; } /* Ẩn slogan trên đt cho đỡ chật */
   }
 </style>
