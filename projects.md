@@ -7,135 +7,84 @@ author_profile: true
 
 {% raw %}
 <style>
-  /* 1. TỦ SÁCH GỖ MUN (NỀN TỐI) */
+  /* --- CẤU TRÚC KỆ SÁCH --- */
   .bookshelf {
-    display: flex; flex-wrap: wrap; gap: 60px; justify-content: center;
-    padding: 80px 40px; 
-    background-color: #1a1a1d; /* Màu đen khói */
-    background-image: linear-gradient(#2c2c2e 2px, transparent 2px),
-    linear-gradient(90deg, #2c2c2e 2px, transparent 2px);
-    background-size: 40px 40px; /* Họa tiết lưới mờ */
-    border-radius: 15px;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
-    border: 5px solid #4e4e50;
-  }
-  
-  .book-container {
-    perspective: 2000px; /* 3D sâu hơn */
-    width: 220px; height: 320px;
-    cursor: pointer; position: relative;
-    z-index: 1;
+    display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;
+    padding: 50px 20px;
+    perspective: 2000px;
   }
 
-  /* 2. CẤU TRÚC SÁCH THẬT */
+  .book-container {
+    width: 200px; height: 300px;
+    cursor: pointer; position: relative;
+    z-index: 1; margin-bottom: 20px;
+  }
+
   .book {
     position: relative; width: 100%; height: 100%;
     transform-style: preserve-3d;
+    transition: transform 0.5s;
   }
 
-  /* BÌA TRƯỚC (CÓ ĐỘ DÀY) */
+  /* --- BÌA SÁCH --- */
   .front-cover {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     transform-origin: left center;
-    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); /* CHẬM LẠI 20% */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
     z-index: 10;
-    border-radius: 3px 10px 10px 3px;
-    
-    /* Hiệu ứng bìa da bóng */
-    box-shadow: 
-      inset 4px 0 10px rgba(0,0,0,0.5), /* Bóng gáy */
-      5px 5px 15px rgba(0,0,0,0.5); /* Bóng đổ xuống nền */
+    border-radius: 5px 15px 15px 5px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 15px;
+    backface-visibility: hidden;
   }
 
-  /* GÁY SÁCH (Khi sách đóng) */
+  /* Gáy sách giả */
   .front-cover::before {
-    content: ''; position: absolute;
-    top: 0; left: 0; width: 20px; height: 100%;
-    transform: rotateY(90deg) translateZ(-10px); /* Đặt vào vị trí gáy */
-    background: inherit; /* Cùng màu bìa */
-    filter: brightness(0.7); /* Tối hơn bìa chút */
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 5px 0 0 5px;
   }
 
-  /* TRANG GIẤY DÀY (Nhìn từ cạnh phải khi đóng) */
-  .book::after {
-    content: ''; position: absolute;
-    top: 5px; right: 5px; width: 20px; height: 310px; /* Độ dày cục giấy */
-    background: #fff;
-    transform: rotateY(90deg);
-    border: 1px solid #ddd;
-  }
+  /* --- MÀU BÌA --- */
+  .book-1 .front-cover { background: linear-gradient(135deg, #0f2027 0%, #203a43 100%); color: #fff; }
+  .book-2 .front-cover { background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%); color: #333; }
+  .book-3 .front-cover { background: linear-gradient(135deg, #232526 0%, #414345 100%); color: #fff; }
 
-  /* MỞ SÁCH */
-  .book-container:hover .front-cover {
-    transform: rotateY(-180deg);
+  /* 🔥 QUYỂN 4: SEMICONDUCTOR RESEARCH (NEON STYLE) */
+  .book-4 .front-cover { 
+    background: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); 
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 15px rgba(114, 9, 183, 0.6);
   }
+  .book-4 h3 { color: #fff !important; text-shadow: 0 0 5px rgba(0,0,0,0.5); font-size: 1.1rem !important;}
+  .book-4 p { color: #fff !important; font-weight: 500; font-size: 0.8rem !important;}
 
-  /* 3. TRANG TRÍ BÌA (Huyền ảo hơn) */
-  .cover-content {
-    height: 100%; display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
-    padding: 20px; color: white;
-    background: inherit; border-radius: inherit;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  }
-  
-  .cover-content h3 { 
-    font-family: "Georgia", serif; /* Font chữ kiểu cổ tích */
-    font-size: 1.3rem; margin-bottom: 15px; 
-    border-bottom: 1px solid rgba(255,255,255,0.4); 
-    padding-bottom: 10px; 
-    color: #fff !important; 
-    letter-spacing: 1px;
-  }
-  
-  .cover-content p { 
-    font-size: 0.55rem; /* NHỎ LẠI THEO YÊU CẦU */
-    line-height: 1.4; opacity: 0.9; font-style: italic;
-  }
-
-  /* 4. MÀU BÌA PHA TRỘN (Gradient) */
-  /* Quyển 1: Tech Layoffs (Xanh đen vũ trụ + Tím) */
-  .book-1 .front-cover { 
-    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); 
-  }
-  
-  /* Quyển 2: Project SEKAI (Hồng + Cam + Tím mộng mơ) */
-  .book-2 .front-cover { 
-    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 50%, #FF99AC 100%); 
-  }
-  
-  /* Quyển 3: Coming Soon (Xám bạc bí ẩn) */
-  .book-3 .front-cover { 
-    background: linear-gradient(135deg, #232526 0%, #414345 100%); 
-  }
-
-  /* 5. NỘI DUNG BÊN TRONG (Trang giấy thật) */
+  /* --- NỘI DUNG BÊN TRONG --- */
   .inside-pages {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: #fffdf0; /* Giấy màu ngà cổ điển */
-    z-index: 1; 
-    display: flex; border-radius: 0 5px 5px 0;
-    box-shadow: inset 10px 0 20px rgba(0,0,0,0.1);
+    position: absolute; top: 2%; left: 0; width: 98%; height: 96%;
+    background: #fff; 
+    z-index: 1; border-radius: 0 5px 5px 0;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10px; text-align: center;
     border: 1px solid #ccc;
-    overflow: hidden;
   }
   
-  .page {
-    flex: 1; padding: 15px 5px;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: center; text-align: center;
+  .book-container:hover .front-cover { transform: rotateY(-180deg); }
+
+  .cover-content h3 { 
+    font-family: "Playfair Display", serif; 
+    margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 5px;
   }
-  .page-left { border-right: 1px solid #e0e0e0; }
-  
+  .cover-content p { line-height: 1.3; }
+
+  .inside-pages h4 { font-size: 0.85rem; margin: 5px 0; color: #333 !important; font-weight: bold; }
   .btn-link {
     display: inline-block; padding: 6px 12px;
     background-color: #333; color: #fff !important;
-    text-decoration: none; border-radius: 4px;
-    font-size: 0.7rem; font-weight: bold; margin-top: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-decoration: none; border-radius: 20px; font-size: 0.7rem; font-weight: bold;
+    margin-top: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   }
-  .btn-stream { background: linear-gradient(45deg, #ff6b6b, #ff4757); border: none; }
-
 </style>
 
 <div class="bookshelf">
@@ -145,20 +94,14 @@ author_profile: true
       <div class="front-cover">
         <div class="cover-content">
           <h3>Tech Layoffs Analysis</h3>
-          <p>An end-to-end analysis investigating how <strong>Macro-economic indicators</strong> (Interest rates, GDP, Inflation) influence <strong>Tech Layoff trends</strong> in 2025 using Random Forest models.</p>
+          <p>Investigating how Macro-economic indicators influence Tech Layoff trends.</p>
         </div>
       </div>
       <div class="inside-pages">
-        <div class="page page-left">
-          <i class="fab fa-github" style="font-size: 20px;"></i>
-          <h4 style="font-size: 0.8rem;">GitHub</h4>
-          <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="btn-link">Code</a>
-        </div>
-        <div class="page page-right">
-          <i class="fas fa-magic" style="font-size: 20px; color: #d63031;"></i>
-          <h4 style="font-size: 0.8rem;">Live Dashboard</h4>
-          <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="btn-link btn-stream">App</a>
-        </div>
+        <i class="fas fa-chart-line" style="color: #0f2027; font-size: 20px;"></i>
+        <h4>Data Story</h4>
+        <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="btn-link" style="background: #e74c3c !important;">App</a>
+        <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="btn-link">Code</a>
       </div>
     </div>
   </div>
@@ -167,14 +110,34 @@ author_profile: true
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
-          <h3 style="color: #4a4a4a !important; border-color: rgba(0,0,0,0.2);">Project Sekai Melody</h3>
-          <p style="color: #444;">Unlocking the probability secrets behind the magical Gacha songs.</p>
+          <h3 style="color: #333 !important; border-color: rgba(0,0,0,0.1);">Project Sekai Melody</h3>
+          <p style="color: #444 !important;">Unlocking probability secrets behind Gacha songs.</p>
         </div>
       </div>
       <div class="inside-pages">
-        <div class="page" style="flex: 2;">
-          <h4 style="color: #999;">Writing in progress...</h4>
+        <i class="fas fa-music" style="color: #FF9A9E; font-size: 20px;"></i>
+        <h4>Gacha Sim</h4>
+        <small>Writing in progress...</small>
+      </div>
+    </div>
+  </div>
+  
+  <div class="book-container book-4">
+    <div class="book">
+      <div class="front-cover">
+        <div class="cover-content">
+          <h3>Semiconductor HR</h3>
+          <p>Explores HR Situation in Vietnam & Lessons from TSMC Taiwan.</p>
         </div>
+      </div>
+      <div class="inside-pages">
+        <h4 style="font-family: 'Playfair Display', serif; color: #0d47a1 !important; font-size: 1.2rem; margin-top: 0;">IRJEMS</h4>
+        
+        <i class="fas fa-microchip" style="color: #7209b7; font-size: 22px; margin: 5px 0;"></i>
+        
+        <h4 style="font-size: 0.75rem;">Vol 3, Issue 8 (2024)</h4>
+        
+        <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="btn-link" style="background: linear-gradient(45deg, #f72585, #7209b7) !important; border: none;">View Publication</a>
       </div>
     </div>
   </div>
@@ -184,13 +147,12 @@ author_profile: true
       <div class="front-cover">
         <div class="cover-content">
           <h3>Future Prophecy</h3>
-          <p>Coming Soon...</p>
+          <p>Algorithmic Trading Bot (Planned)</p>
         </div>
       </div>
       <div class="inside-pages">
-        <div class="page" style="flex: 2;">
-          <h4 style="color: #999;">To be continued</h4>
-        </div>
+        <i class="fas fa-user-astronaut" style="color: #333; font-size: 20px;"></i>
+        <h4>Coming Soon...</h4>
       </div>
     </div>
   </div>
