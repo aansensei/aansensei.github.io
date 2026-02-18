@@ -14,17 +14,30 @@ url                      : "https://aansensei.github.io"
 baseurl                  : "" 
 repository               : "aansensei/aansensei.github.io"
 
+# 1. TẮT NÚT TÌM KIẾM (SEARCH)
+search                   : false 
+
+# 2. TẮT CHỮ "FEED" Ở DƯỚI CHÂN TRANG
+atom_feed:
+  hide: true
+
 # Site Author
 author:
-  name             : "Cao Thien An Nguyen"
+  # 3. THÊM TÍCH XANH (Dùng code HTML icon)
+  name             : "Cao Thien An Nguyen <i class='fas fa-check-circle' style='color: #1da1f2; margin-left: 5px; font-size: 0.8em;'></i>"
   avatar           : "/assets/images/avatar.jpg" 
   bio              : "Where data whispers untold stories."
   location         : "Madison, WI, USA"
-  email            : "cnguyen49@wisc.edu"
+  
+  # Giữ dòng email này (nó sẽ tạo ra nút Email đầu tiên)
+  email            : "cnguyen49@wisc.edu" 
+  
+  # 4. XÓA EMAIL THỪA TRONG LIST NÀY
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:cnguyen49@wisc.edu"
+    # - label: "Email"   <-- ĐÃ XÓA DÒNG NÀY ĐỂ KHÔNG BỊ TRÙNG
+    #   icon: "fas fa-fw fa-envelope-square"
+    #   url: "mailto:cnguyen49@wisc.edu"
+    
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/aansensei"
@@ -42,7 +55,7 @@ footer:
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/cao-thien-an-nguyen-0a92a4396/"
 
-# Technical Settings
+# Technical Settings (Giữ nguyên)
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 markdown: kramdown
@@ -64,7 +77,6 @@ sass:
   style: compressed
 permalink: /:categories/:title/
 paginate: 5
-search: true
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
