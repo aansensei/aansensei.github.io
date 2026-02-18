@@ -3,18 +3,50 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 
 <style>
-  /* 2. THIẾT LẬP NỀN VAN GOGH */
-  body {
+  /* 2. ÉP NỀN VAN GOGH CHO TOÀN TRANG (SỬA LỖI MẤT NỀN) */
+  body, html {
     background-image: 
       linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), /* Lớp phủ đen mờ 60% */
-      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Hiệu ứng Parallax: Nền đứng yên khi cuộn */
-    background-repeat: no-repeat;
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    min-height: 100vh;
   }
 
-  /* 3. CHỈNH FONT QUÝ TỘC CHO BIO ("Where data whispers...") */
+  /* 3. LÀM TRONG SUỐT TẤT CẢ CÁC KHỐI (HEADER, CONTENT, FOOTER) */
+  .masthead, .page__footer, .initial-content, .page__content, .archive, .author__urls-wrapper, .sidebar, #main {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  /* Tinh chỉnh Header (Thanh menu trên cùng) */
+  .masthead {
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Kẻ mờ nhẹ */
+    backdrop-filter: blur(2px); /* Mờ nhẹ nền sau menu */
+  }
+
+  /* Tinh chỉnh Sidebar (Cột thông tin bên trái) */
+  .sidebar {
+     background-color: rgba(0,0,0,0.4) !important; /* Đen mờ */
+     border-radius: 15px;
+     padding: 20px;
+     backdrop-filter: blur(5px);
+     border: 1px solid rgba(255,255,255,0.1);
+     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  /* 4. CHỈNH CHỮ TRẮNG TOÀN BỘ */
+  body, p, h1, h2, h3, h4, h5, h6, li, a, .page__content, .masthead__menu-item, .site-title, .site-subtitle {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+  }
+  
+  /* Màu link khi hover (Vàng sáng) */
+  a:hover { color: #ffdd57 !important; text-decoration: none; }
+
+  /* 5. FONT QUÝ TỘC CHO BIO & TÊN */
   .author__bio {
     font-family: 'Cormorant Garamond', serif !important;
     font-size: 1.5rem !important;
@@ -25,8 +57,6 @@
     line-height: 1.3;
     margin-top: 15px;
   }
-
-  /* Chỉnh tên bạn cho sang trọng */
   .author__name {
     font-family: 'Playfair Display', serif !important;
     font-size: 1.8rem !important;
@@ -34,34 +64,35 @@
     margin-bottom: 5px;
   }
 
-  /* 4. BIẾN TOÀN BỘ CHỮ THÀNH MÀU TRẮNG ĐỂ NỔI TRÊN NỀN TỐI */
-  body, p, h1, h2, h3, h4, h5, h6, li, a, .page__content {
-    color: #ffffff !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+  /* 6. XỬ LÝ FOOTER (XÓA DÒNG "POWERED BY...") */
+  .page__footer {
+    color: #bbb !important; /* Màu chữ footer xám nhạt hơn chút */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
   
-  /* Màu link khi hover (Vàng sáng) */
-  a:hover { color: #ffdd57 !important; }
-
-  /* 5. LÀM TRONG SUỐT CÁC KHỐI NỀN MẶC ĐỊNH */
-  .initial-content, .page__content, .archive, .author__urls-wrapper, .sidebar {
-    background-color: transparent !important;
+  /* Ẩn dòng "Powered by Jekyll & Minimal Mistakes" */
+  .page__footer-copyright {
+    display: none !important; 
   }
 
-  /* Tinh chỉnh cột Sidebar bên trái */
-  .sidebar {
-     background-color: rgba(0,0,0,0.4) !important; /* Đen mờ */
-     border-radius: 15px;
-     padding: 20px;
-     backdrop-filter: blur(5px); /* Hiệu ứng kính mờ */
-     border: 1px solid rgba(255,255,255,0.1);
-     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  /* Tự tạo dòng Copyright mới (nếu muốn) */
+  .page__footer:after {
+    content: "© 2026 An Nguyen's Little World 🍀";
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
   }
 
-  /* Chỉnh lại các đường kẻ và Footer */
+  /* Ẩn các nút mạng xã hội thừa ở footer nếu có */
+  .page__footer .social-icons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Chỉnh lại các đường kẻ phân cách */
   hr { border-color: rgba(255,255,255,0.3) !important; }
-  .page__footer { background-color: rgba(0,0,0,0.8) !important; color: #fff !important; }
-  
-  /* Ẩn bớt các nút mạng xã hội thừa nếu có */
-  .author__urls.social-icons li { border: none !important; }
 </style>
