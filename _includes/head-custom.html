@@ -1,0 +1,48 @@
+<style>
+  /* 1. THIẾT LẬP NỀN CHÍNH CHO TOÀN BỘ WEB */
+  body {
+    /* Kỹ thuật LỚP PHỦ: Xếp lớp gradient đen mờ lên trên ảnh */
+    background-image: 
+      linear-gradient(
+        rgba(0, 0, 0, 0.7), /* Màu đen, độ trong suốt 70% (0.7) */
+        rgba(0, 0, 0, 0.7)
+      ),
+      /* Link ảnh gốc (Đang dùng ảnh mẫu chất lượng cao) */
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
+    
+    background-size: cover;       /* Ảnh phủ kín màn hình */
+    background-position: center;  /* Căn giữa ảnh */
+    background-attachment: fixed; /* HIỆU ỨNG PARALLAX: Nền đứng yên khi cuộn */
+    background-repeat: no-repeat;
+  }
+
+  /* 2. LÀM NỔI BẬT CHỮ (Đổi sang màu trắng) */
+  /* Chọn tất cả các loại chữ phổ biến để đổi màu */
+  body, p, h1, h2, h3, h4, h5, h6, li, a, .page__content {
+    color: #ffffff !important; /* Màu trắng tinh */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Bóng đen nhẹ dưới chữ giúp dễ đọc hơn */
+  }
+  
+  /* Màu link khi hover */
+  a:hover {
+    color: #ffdd57 !important; /* Màu vàng sáng như sao khi di chuột vào link */
+  }
+
+  /* 3. LÀM TRONG SUỐT CÁC KHỐI NỘI DUNG */
+  /* Mặc định theme có nền trắng ở các khối, cần làm nó trong suốt để lộ nền Van Gogh */
+  .initial-content, .page__content, .archive, .author__urls-wrapper, .sidebar {
+    background-color: transparent !important; /* Trong suốt hoàn toàn */
+  }
+
+  /* Tăng độ tối cho thanh Sidebar (cột bên trái) để avatar nổi hơn một chút */
+  .sidebar {
+     background-color: rgba(0,0,0,0.3) !important; /* Đen mờ nhẹ 30% */
+     border-radius: 15px;
+     padding: 20px;
+     backdrop-filter: blur(5px); /* Hiệu ứng kính mờ (nếu trình duyệt hỗ trợ) */
+  }
+
+  /* Điều chỉnh lại màu các đường kẻ mờ trong theme */
+  hr { border-color: rgba(255,255,255,0.3) !important; }
+  .page__footer { background-color: rgba(0,0,0,0.5) !important; color: #fff !important; }
+</style>
