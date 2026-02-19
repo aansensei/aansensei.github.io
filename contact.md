@@ -92,6 +92,7 @@ author_profile: true
     
     <div class="contact-info">
       <p class="university-text">University of Wisconsin-Madison</p>
+      <p class="university-text">Cao Thien An Nguyen</p>
       <p><i class="fas fa-envelope-open-text" style="color: #00e5ff; margin-right: 10px;"></i> cnguyen49@wisc.edu</p>
     </div>
 
