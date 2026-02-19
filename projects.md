@@ -9,16 +9,29 @@ author_profile: true
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* --- CẤU TRÚC KỆ SÁCH --- */
+  /* --- 1. SƠN LẠI KỆ SÁCH GỖ (WOOD TEXTURE RESTORED) --- */
   .bookshelf {
     display: flex; flex-wrap: wrap; gap: 55px; justify-content: center;
     padding: 60px 30px;
     perspective: 2500px;
+    
+    /* MÀU GỖ & VÂN GỖ */
+    background-color: #5d4037 !important; /* Màu nâu đất */
+    /* Tạo vân gỗ sọc dọc bằng gradient */
+    background-image: repeating-linear-gradient(90deg, #5d4037, #5d4037 10px, #4e342e 10px, #4e342e 20px) !important;
+    
+    /* VIỀN KỆ DÀY TẠO KHỐI */
+    border: 15px solid #3e2723 !important;
+    border-bottom: 25px solid #281a16 !important; /* Đáy dày hơn để tạo độ sâu */
+    border-radius: 8px;
+    
+    /* BÓNG ĐỔ SÂU BÊN TRONG (Depth) */
+    box-shadow: inset 0 0 80px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5) !important;
   }
 
+  /* --- 2. CẤU TRÚC SÁCH --- */
   .book-container {
     width: 230px; height: 380px;
-    /* Loại bỏ cursor pointer ở container để tránh hiểu nhầm click vào khoảng trắng */
     position: relative;
     z-index: 1; margin-bottom: 30px;
   }
@@ -28,7 +41,7 @@ author_profile: true
     transform-style: preserve-3d;
   }
 
-  /* --- BÌA SÁCH --- */
+  /* --- 3. BÌA SÁCH (FRONT COVER) --- */
   .front-cover {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     transform-origin: left center;
@@ -43,10 +56,10 @@ author_profile: true
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     padding: 25px 20px;
     border: 1px solid rgba(255,255,255,0.15);
-    background-color: #333; /* Màu nền dự phòng để che nội dung */
+    background-color: #333; /* Màu nền dự phòng */
   }
 
-  /* KHI LẬT: Bìa sách xoay và mất khả năng nhận chuột để lộ bên trong */
+  /* KHI LẬT SÁCH */
   .book-container:hover .front-cover { 
     transform: rotateY(-180deg);
     pointer-events: none !important; 
@@ -60,7 +73,7 @@ author_profile: true
     border-radius: 8px 0 0 8px; z-index: 20;
   }
 
-  /* --- MÀU SẮC --- */
+  /* --- 4. MÀU SẮC TỪNG QUYỂN --- */
   /* Quyển 1 */
   .book-1 .front-cover { 
     background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); 
@@ -99,21 +112,16 @@ author_profile: true
   }
   .cover-content p { font-family: 'Roboto', sans-serif; font-size: 0.95rem !important; line-height: 1.4; margin-bottom: 0; }
 
-  /* --- NỘI DUNG BÊN TRONG (INSIDE PAGES) --- */
+  /* --- 5. NỘI DUNG BÊN TRONG (INSIDE PAGES) --- */
   .inside-pages {
     position: absolute; top: 0; left: 0; width: 98%; height: 98%;
     background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important;
-    
-    /* Z-INDEX thấp hơn bìa khi đóng, nhưng KHÔNG để pointer-events none */
     z-index: 10; 
-    
     border-radius: 4px 14px 14px 4px;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     padding: 15px; text-align: center;
     border: 1px solid #ccc;
     box-shadow: inset 10px 0 20px rgba(0,0,0,0.1);
-    
-    /* Giữ nguyên vị trí 3D */
     transform: translateZ(0); 
   }
   
@@ -124,26 +132,22 @@ author_profile: true
   }
   .inside-pages small, .inside-pages p { color: #555 !important; text-shadow: none !important; font-size: 0.9rem;}
 
-  /* --- NÚT BẤM (BUTTONS) - SỬA LỖI CLICK MẠNH MẼ --- */
+  /* --- 6. NÚT BẤM (BUTTONS) - SỬA LỖI CLICK --- */
   .btn-link {
     display: inline-block; padding: 8px 16px;
     background-color: #0a192f !important; color: #fff !important;
     text-decoration: none; border-radius: 30px; font-size: 0.75rem; font-weight: 600;
     margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s;
     
-    /* Đẩy nút lồi hẳn ra ngoài (Z=100px) để vượt qua mọi lớp cản trở */
+    /* Đẩy nút lồi hẳn ra ngoài (Z=100px) */
     transform: translateZ(100px); 
-    
-    /* Đặt z-index cực cao cho chính cái nút */
     position: relative;
     z-index: 9999 !important; 
-    
-    /* Con trỏ chuột bắt buộc là bàn tay */
     cursor: pointer !important; 
   }
   
   .btn-link:hover { 
-    transform: translateZ(105px) translateY(-2px); /* Hover nổi thêm chút nữa */
+    transform: translateZ(105px) translateY(-2px); 
     box-shadow: 0 6px 12px rgba(0,0,0,0.3); background-color: #1565c0 !important;
   }
   
