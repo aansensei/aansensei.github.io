@@ -4,28 +4,33 @@
   <div class="masthead__inner-wrap" style="background: transparent !important;">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav" style="background: transparent !important;">
+        
         {% unless logo_path == empty %}
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
+        
         <a class="site-title" href="{{ '/' | relative_url }}" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">
           {{ site.masthead_title | default: site.title }}
-          {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle }}</span>{% endif %}
         </a>
+
         <ul class="visible-links">
-          {%- for link in site.data.navigation.main -%}
-            <li class="masthead__menu-item">
-              <a href="{{ link.url | relative_url }}" style="color: #e6f1ff !important;" {% if link.description %} title="{{ link.description }}"{% endif %}>{{ link.title }}</a>
-            </li>
-          {%- endfor -%}
+          
+          <li class="masthead__menu-item">
+            <a href="{{ '/' | relative_url }}" style="color: #e6f1ff !important;">About Me</a>
+          </li>
+
+          <li class="masthead__menu-item">
+            <a href="{{ '/projects/' | relative_url }}" style="color: #e6f1ff !important;">Projects</a>
+          </li>
+
+          <li class="masthead__menu-item">
+            <a href="{{ '/projects/#contact-section' | relative_url }}" style="color: #e6f1ff !important;">Contact</a>
+          </li>
+
         </ul>
-        {% if site.search == true %}
-        <button class="search__toggle" type="button">
-          <span class="visually-hidden">{{ site.data.ui-text[site.locale].search_label | default: "Search" }}</span>
-          <i class="fas fa-search" style="color: #fff;"></i>
-        </button>
-        {% endif %}
+
         <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle menu" }}</span>
+          <span class="visually-hidden">Menu</span>
           <div class="navicon"></div>
         </button>
         <ul class="hidden-links hidden"></ul>
