@@ -3,15 +3,20 @@
 <div class="masthead" style="background-color: rgba(10, 25, 47, 0.95) !important; backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);">
   <div class="masthead__inner-wrap" style="background: transparent !important;">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav" style="background: transparent !important;">
+      <nav id="site-nav" class="greedy-nav" style="background: transparent !important; align-items: center;">
         
         {% unless logo_path == empty %}
           <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
         
-        <a class="site-title" href="{{ '/' | relative_url }}" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);">
-          {{ site.masthead_title | default: site.title }}
-        </a>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <a class="site-title" href="{{ '/' | relative_url }}" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.6); margin-bottom: 0;">
+              {{ site.masthead_title | default: site.title }}
+            </a>
+            <span style="font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #e6f1ff; font-weight: 400; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); margin-top: -2px;">
+              Data Science & Economics @ UW-Madison
+            </span>
+        </div>
 
         <ul class="visible-links">
           
