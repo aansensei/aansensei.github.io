@@ -42,7 +42,7 @@ author_profile: true
 
   /* LOGO TO ĐÙNG */
   .ncta-big-logo {
-    width: 280px; /* Chỉnh độ to ở đây */
+    width: 350px; /* Chỉnh độ to ở đây */
     height: auto;
     margin-bottom: 30px;
     filter: drop-shadow(0 0 15px rgba(255,255,255,0.3)); /* Bóng sáng cho logo */
