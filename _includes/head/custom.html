@@ -211,3 +211,18 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. Tìm cái ảnh avatar ở cột bên trái
+    var avatarImage = document.querySelector('.author__avatar img');
+    
+    if (avatarImage) {
+      // 2. Cài đặt dòng chữ Fun fact (Tooltip)
+      avatarImage.setAttribute('title', 'Fun fact: my bias is Kanade Yoisaki from 25時、ナイトコードで。');
+      
+      // 3. Đổi hình con trỏ chuột thành dấu chấm hỏi (help) để gợi sự tò mò
+      avatarImage.style.cursor = 'help';
+    }
+  });
+</script>
