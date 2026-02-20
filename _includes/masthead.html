@@ -3,35 +3,49 @@
 <div class="masthead" style="background-color: rgba(10, 25, 47, 0.5) !important; border-bottom: 1px solid rgba(255,255,255,0.05);">
   <div class="masthead__inner-wrap" style="background: transparent !important;">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav" style="background: transparent !important; align-items: center;">
+      <nav id="site-nav" class="greedy-nav" style="background: transparent !important; align-items: center; display: flex; justify-content: space-between;">
         
-        {% unless logo_path == empty %}
-          <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
-        {% endunless %}
-        
-        <div style="display: flex; flex-direction: column; justify-content: center;">
-            <a class="site-title" href="{{ '/' | relative_url }}" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.6); margin-bottom: 0;">
-              {{ site.masthead_title | default: site.title }}
+        <div style="display: flex; align-items: center; gap: 15px; z-index: 1001;">
+            
+            <a href="{{ '/' | relative_url }}" style="display: flex; align-items: center;" title="Go to Homepage">
+              <img src="{{ '/assets/images/ncta-logo.png' | relative_url }}" alt="NCTA Logo" style="height: 45px; width: auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
             </a>
-            <span style="font-family: 'Playfair Display', serif; font-size: 0.95rem; color: #e6f1ff; font-weight: 400; letter-spacing: 0.5px; text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); margin-top: -2px;">
-              Data Science & Economics @ UW-Madison
-            </span>
+
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+                
+                <span class="site-title" style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.6) !important; margin-bottom: 0 !important; font-family: 'Playfair Display', serif !important; font-size: 1.6rem !important; font-weight: 800 !important; cursor: default;">
+                  {{ site.masthead_title | default: site.title }}
+                </span>
+                
+                <span style="
+                    display: block !important;
+                    font-family: 'Playfair Display', serif !important;
+                    font-size: 0.95rem !important;
+                    color: #e6f1ff !important;
+                    font-weight: 400 !important;
+                    letter-spacing: 0.5px !important;
+                    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
+                    margin-top: -2px !important;
+                    line-height: 1.2 !important;
+                    visibility: visible !important;
+                    opacity: 1 !important;
+                    cursor: default;
+                ">
+                  Data Science & Economics @ UW-Madison
+                </span>
+            </div>
         </div>
 
         <ul class="visible-links">
-          
           <li class="masthead__menu-item">
             <a href="{{ '/' | relative_url }}" style="color: #e6f1ff !important;">About Me</a>
           </li>
-
           <li class="masthead__menu-item">
             <a href="{{ '/projects/' | relative_url }}" style="color: #e6f1ff !important;">Projects</a>
           </li>
-
           <li class="masthead__menu-item">
             <a href="{{ '/contact/' | relative_url }}" style="color: #e6f1ff !important;">Contact</a>
           </li>
-
         </ul>
 
         <button class="greedy-nav__toggle hidden" type="button">
