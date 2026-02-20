@@ -226,3 +226,29 @@
     }
   });
 </script>
+
+
+<style>
+  /* Kích thước của thanh cuộn toàn trang */
+  ::-webkit-scrollbar {
+    width: 6px;  /* Chiều ngang thanh cuộn dọc (để 6px là vừa đẹp, không quá nhỏ để bấm) */
+    height: 6px; /* Chiều cao thanh cuộn ngang (nếu có) */
+  }
+
+  /* Phần rãnh trượt (Màu nền tàng hình) */
+  ::-webkit-scrollbar-track {
+    background: rgba(10, 25, 47, 0.2); 
+  }
+
+  /* Phần thanh nắm kéo (Màu Cyan đặc trưng của bạn) */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.4); 
+    border-radius: 10px; /* Bo tròn 2 đầu */
+  }
+
+  /* Khi rê chuột vào thanh kéo -> Sáng rực lên */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.9); 
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+  }
+</style>
