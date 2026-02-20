@@ -242,7 +242,7 @@ author_profile: true
         <h4 style="font-family: 'Playfair Display', serif; color: #0d47a1 !important; font-size: 1.4rem; margin-top: 0; margin-bottom: 5px;">IRJEMS</h4>
         <i class="fas fa-microchip" style="color: #7209b7; margin-bottom: 10px;"></i>
         <p style="font-weight: 500; color: #333 !important;">Vol 3, Issue 8 (2024)</p>
-        <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="btn-link btn-neon">View Publication</a>
+        <a href="/projects/semiconductor-hr/" class="btn-view-story" onclick="triggerBookOpen('/projects/semiconductor-hr/', 'linear-gradient(45deg, #f72585, #7209b7, #4cc9f0)', 'Semiconductor HR', event)">Read Story</a>
       </div>
     </div>
   </div>
