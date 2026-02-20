@@ -127,7 +127,7 @@ permalink: /projects/tech-layoffs/
   </div>
 
   <div class="glass-box col-right">
-    <img src="/assets/images/tableau-dashboard.png" alt="Tableau Dashboard" class="cover-img">
+    <img src="/assets/images/dashboard_preview.png" alt="Tableau Dashboard" class="cover-img">
     
     <h2 class="proj-title">Tech Layoffs Dashboard</h2>
     
