@@ -234,111 +234,100 @@ author_profile: true
 
 {% raw %}
 <style>
-  /* Màn hình lót che đen mờ */
-  #page-transition-overlay {
+  /* KHÔI PHỤC NÚT VIEW STORY ĐẸP */
+  .btn-view-story {
+    display: inline-block; padding: 10px 25px;
+    background: linear-gradient(45deg, #00e5ff, #007bff) !important; color: #fff !important;
+    text-decoration: none; border-radius: 30px; font-size: 0.9rem; font-weight: bold;
+    margin-top: 15px; transition: all 0.3s; 
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+    position: relative; z-index: 9999 !important; cursor: pointer !important; border: none;
+  }
+  .btn-view-story:hover {
+    transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+  }
+
+  /* MÀN HÌNH CHUYỂN CẢNH */
+  #book-transition-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(10, 25, 47, 0.98); /* Nền tối hơn chút để nổi bật sách */
+    background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(15px);
     z-index: 999999; display: flex; justify-content: center; align-items: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.5s ease-in-out;
-    perspective: 1500px; /* Tạo không gian 3D sâu */
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    perspective: 1500px;
   }
 
-  /* --- CẤU TRÚC SÁCH 3D --- */
-  .book-loader {
-    width: 220px; height: 300px;
-    position: relative;
-    transform-style: preserve-3d; /* Quan trọng: Giữ không gian 3D cho các phần tử con */
-    transform: rotateX(10deg) scale(0.5); /* Góc nhìn nghiêng nhẹ và bắt đầu nhỏ */
-    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Hiệu ứng Zoom mượt */
+  /* KHUNG QUYỂN SÁCH 3D (Ban đầu nhỏ, sau đó Zoom to) */
+  .book-3d-wrapper {
+    width: 230px; height: 380px; position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(10deg) scale(0.6); /* Bắt đầu nhỏ ở xa */
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+  }
+  .book-3d-wrapper.zoom-in {
+    transform: rotateX(0deg) scale(3.5) translateY(20px); /* Phóng to đập vào mắt */
   }
 
-  .book-cover, .book-page {
+  /* BÌA VÀ TRANG SÁCH */
+  .book-3d-cover-front, .book-3d-cover-back, .book-3d-page {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 5px 15px 15px 5px;
-    transform-origin: left center; /* Điểm xoay là gáy sách bên trái */
+    border-radius: 8px 18px 18px 8px;
+    transform-origin: left center;
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    transform-style: preserve-3d;
   }
 
-  /* Bìa trước (Màu gỗ đậm giống kệ sách) */
-  .book-cover.front {
-    background: repeating-linear-gradient(90deg, #5d4037, #5d4037 5px, #4e342e 5px, #4e342e 10px);
-    border: 2px solid #3e2723;
-    z-index: 10;
-    /* Animation lật bìa */
-    animation: bookOpen 2s infinite ease-in-out alternate;
-  }
-  /* Trang trí bìa cho đỡ trống */
-  .book-cover.front::after {
-    content: 'NCTA'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotateY(180deg); /* Chữ ngược để khi lật ra là xuôi */
-    color: rgba(255,255,255,0.2); font-family: serif; font-weight: bold; font-size: 2rem;
-    backface-visibility: hidden;
-  }
-
-  /* Bìa sau */
-  .book-cover.back {
-    background: #3e2723;
-    z-index: 1;
-  }
-
-  /* Các trang giấy bên trong */
-  .book-page {
-    background: linear-gradient(to right, #e0e0e0, #fff);
-    border: 1px solid #ccc;
-    z-index: 5;
-  }
+  .book-3d-cover-back { background: #111; z-index: 1; transform: translateZ(-10px); }
   
-  /* Tạo hiệu ứng các trang lật đuổi nhau */
-  .book-page:nth-child(2) { animation: pageFlip1 2s infinite ease-in-out alternate -0.2s; }
-  .book-page:nth-child(3) { animation: pageFlip2 2s infinite ease-in-out alternate -0.4s; }
-  .book-page:nth-child(4) { animation: pageFlip3 2s infinite ease-in-out alternate -0.6s; }
-
-  /* --- KEYFRAMES (Vũ điệu của sách) --- */
-  /* Bìa mở ra 160 độ */
-  @keyframes bookOpen {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(-160deg); }
+  .book-3d-cover-front {
+    z-index: 10; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    /* Màu bìa sẽ được JS lấy động theo quyển sách bạn bấm */
   }
-  /* Các trang lật theo với góc độ khác nhau tạo độ xòe */
-  @keyframes pageFlip1 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-155deg); } }
-  @keyframes pageFlip2 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-145deg); } }
-  @keyframes pageFlip3 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-135deg); } }
+  .book-3d-page { background: #f5f5f5; border: 1px solid #ccc; z-index: 5; }
 
+  /* HIỆU ỨNG MỞ SÁCH (Kích hoạt khi có class .open) */
+  .book-3d-wrapper.open .book-3d-cover-front { transform: rotateY(-160deg); }
+  .book-3d-wrapper.open .book-3d-page:nth-child(2) { transform: rotateY(-150deg); transition-delay: 0.1s; }
+  .book-3d-wrapper.open .book-3d-page:nth-child(3) { transform: rotateY(-140deg); transition-delay: 0.2s; }
+  .book-3d-wrapper.open .book-3d-page:nth-child(4) { transform: rotateY(-130deg); transition-delay: 0.3s; }
+  .book-3d-wrapper.open .book-3d-page:nth-child(5) { transform: rotateY(-120deg); transition-delay: 0.4s; background: #fff;}
 </style>
 
-<div id="page-transition-overlay">
-  <div class="book-loader" id="book-loader-3d">
-    <div class="book-cover front"></div>
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    <div class="book-cover back"></div>
+<div id="book-transition-overlay">
+  <div class="book-3d-wrapper" id="book-3d">
+    <div class="book-3d-cover-back"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-cover-front" id="book-3d-cover"></div>
   </div>
 </div>
 
 <script>
-  // Hàm kích hoạt hiệu ứng (Giữ nguyên logic cũ, chỉ đổi đối tượng zoom)
-  function triggerBookTransition(url, event) {
-    event.preventDefault(); 
-    
-    const overlay = document.getElementById('page-transition-overlay');
-    // Lấy quyển sách 3D thay vì ảnh GIF
-    const book3D = document.getElementById('book-loader-3d');
-    
-    // 1. Hiện màn hình đen
+  // Hàm này nhận vào Link đến và MÀU CỦA BÌA SÁCH (bgGradient)
+  function triggerBookOpen(url, bgGradient, event) {
+    event.preventDefault();
+    const overlay = document.getElementById('book-transition-overlay');
+    const book = document.getElementById('book-3d');
+    const cover = document.getElementById('book-3d-cover');
+
+    // 1. Áo cho quyển sách ảo cái màu bìa thật của bạn
+    cover.style.background = bgGradient;
+
+    // 2. Hiện màn hình chuyển cảnh lên
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
-    
-    // 2. Zoom mạnh vào quyển sách 3D đang lật
+
+    // 3. Đợi 100ms, sau đó CÙNG LÚC phóng to và mở sách
     setTimeout(() => {
-      book3D.style.transform = 'rotateX(0deg) scale(3.5) translateY(50px)'; 
-      // rotateX(0deg) để nhìn thẳng trực diện khi zoom vào
-      // translateY(50px) để tâm điểm zoom thấp xuống một chút, nhìn rõ các trang đang mở
+      book.classList.add('zoom-in');
+      book.classList.add('open');
     }, 100);
 
-    // 3. Chuyển trang sau 1.5 giây
+    // 4. Mở xong thì nhảy sang trang Project
     setTimeout(() => {
       window.location.href = url;
-    }, 1500);
+    }, 1600);
   }
 </script>
 {% endraw %}
