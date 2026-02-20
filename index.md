@@ -40,7 +40,7 @@ I love using data to tell stories about the economy and human behavior.
   }
 </style>
 
-<a href="/projects/tech-layoffs/" class="btn-cta-project">✨ View in Project</a>
+<a href="/projects/" class="btn-cta-project">✨ View in Project</a>
 
 ---
 
