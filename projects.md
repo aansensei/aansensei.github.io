@@ -154,13 +154,13 @@ author_profile: true
     box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
     position: relative; cursor: pointer !important; border: none;
     z-index: 99999 !important; 
-    transform: translateZ(100px); /* Bắt buộc để nổi lên khỏi sách */
+    transform: translateZ(100px); 
   }
   .btn-view-story:hover {
     transform: translateZ(105px) scale(1.05); box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
   }
 
-  /* --- 8. HIỆU ỨNG SÁCH 3D (ĐÃ NÂNG LÊN 2.25s CHO MƯỢT MÀ) --- */
+  /* --- 8. HIỆU ỨNG SÁCH 3D (ĐÃ HẠ XUỐNG 1.5s, MỞ 2 MẶT, CÓ TIÊU ĐỀ) --- */
   #book-transition-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(15px);
@@ -170,36 +170,44 @@ author_profile: true
   }
 
   .book-3d-wrapper {
-    width: 230px; height: 380px; position: relative;
+    width: 230px; height: 350px; position: relative;
     transform-style: preserve-3d;
-    transform: rotateX(10deg) scale(0.6); 
-    transition: transform 2.25s cubic-bezier(0.25, 1, 0.5, 1); 
+    transform: rotateX(10deg) scale(0.6) translateY(0); 
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
   }
   .book-3d-wrapper.zoom-in {
-    transform: rotateX(0deg) scale(3.5) translateY(20px); 
+    transform: rotateX(10deg) scale(3.5) translateY(20px); 
   }
 
   .book-3d-cover-front, .book-3d-cover-back, .book-3d-page {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 8px 18px 18px 8px;
+    border-radius: 5px 15px 15px 5px;
     transform-origin: left center;
-    transition: transform 2.25s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
     transform-style: preserve-3d;
   }
 
-  .book-3d-cover-back { background: #111; z-index: 1; transform: translateZ(-10px); }
+  .book-3d-cover-back { background: #111; z-index: 1; transform: translateZ(-5px); }
   
   .book-3d-cover-front {
     z-index: 10; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
   }
-  .book-3d-page { background: #f5f5f5; border: 1px solid #ccc; z-index: 5; }
 
-  /* Đã kéo giãn độ delay lật từng trang cho khớp 2.25s */
-  .book-3d-wrapper.open .book-3d-cover-front { transform: rotateY(-160deg); }
-  .book-3d-wrapper.open .book-3d-page:nth-child(2) { transform: rotateY(-150deg); transition-delay: 0.15s; }
-  .book-3d-wrapper.open .book-3d-page:nth-child(3) { transform: rotateY(-140deg); transition-delay: 0.3s; }
-  .book-3d-wrapper.open .book-3d-page:nth-child(4) { transform: rotateY(-130deg); transition-delay: 0.45s; }
-  .book-3d-wrapper.open .book-3d-page:nth-child(5) { transform: rotateY(-120deg); transition-delay: 0.6s; background: #fff;}
+  .book-3d-cover-front h3 {
+    color: #fff; font-family: 'Playfair Display', serif; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    margin: 0;
+  }
+
+  /* Cấu trúc 2 mặt giấy chữ V */
+  .book-3d-page { background: #f9f9f9; border: 1px solid #ccc; }
+  .book-3d-page.left { z-index: 6; background: linear-gradient(to right, #e0e0e0, #fff); }
+  .book-3d-page.right { z-index: 5; background: linear-gradient(to left, #e0e0e0, #fff); }
+
+  /* Mở chữ V */
+  .book-3d-wrapper.open .book-3d-cover-front { transform: rotateY(-170deg); }
+  .book-3d-wrapper.open .book-3d-page.left { transform: rotateY(-160deg); transition-delay: 0.1s; }
+  .book-3d-wrapper.open .book-3d-page.right { transform: rotateY(-20deg); transition-delay: 0.2s; }
 </style>
 
 <div class="bookshelf">
@@ -217,7 +225,7 @@ author_profile: true
         <h4>Data Story & Dashboard</h4>
         <p>End-to-end analysis project.</p>
         
-        <a href="/projects/tech-layoffs/" class="btn-view-story" onclick="triggerBookOpen('/projects/tech-layoffs/', 'linear-gradient(135deg, #09141d 0%, #1c3a4a 100%)', event)">Read Story</a>
+        <a href="/projects/tech-layoffs/" class="btn-view-story" onclick="triggerBookOpen('/projects/tech-layoffs/', 'linear-gradient(135deg, #09141d 0%, #1c3a4a 100%)', 'Tech Layoffs Analysis', event)">Read Story</a>
       </div>
     </div>
   </div>
@@ -277,38 +285,52 @@ author_profile: true
 <div id="book-transition-overlay">
   <div class="book-3d-wrapper" id="book-3d">
     <div class="book-3d-cover-back"></div>
-    <div class="book-3d-page"></div>
-    <div class="book-3d-page"></div>
-    <div class="book-3d-page"></div>
-    <div class="book-3d-page"></div>
-    <div class="book-3d-cover-front" id="book-3d-cover"></div>
+    <div class="book-3d-page right"></div>
+    <div class="book-3d-page left"></div>
+    <div class="book-3d-cover-front" id="book-3d-cover">
+        <h3 id="book-3d-title"></h3>
+    </div>
   </div>
 </div>
 
 <script>
-  function triggerBookOpen(url, bgGradient, event) {
+  // FIX LỖI BACK CỦA TRÌNH DUYỆT
+  window.addEventListener('pageshow', function(event) {
+    const overlay = document.getElementById('book-transition-overlay');
+    const book = document.getElementById('book-3d');
+    if (overlay) {
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      book.classList.remove('zoom-in');
+      book.classList.remove('open');
+    }
+  });
+
+  function triggerBookOpen(url, bgGradient, title, event) {
     event.preventDefault();
     const overlay = document.getElementById('book-transition-overlay');
     const book = document.getElementById('book-3d');
     const cover = document.getElementById('book-3d-cover');
+    const titleEl = document.getElementById('book-3d-title');
 
-    // 1. Gắn màu bìa tương ứng với sách đang bấm
+    // 1. Gắn màu bìa và tiêu đề
     cover.style.background = bgGradient;
+    titleEl.innerText = title;
 
     // 2. Hiện màn hình
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
 
-    // 3. Phóng to và mở sách
+    // 3. Phóng to và mở sách chữ V
     setTimeout(() => {
       book.classList.add('zoom-in');
       book.classList.add('open');
-    }, 100);
+    }, 50);
 
-    // 4. Đợi ĐÚNG 2350ms (2.35s) để khớp với hiệu ứng 2.25s rồi nhảy trang
+    // 4. Nhảy trang sau 1.5s
     setTimeout(() => {
       window.location.href = url;
-    }, 2250);
+    }, 1500);
   }
 </script>
 {% endraw %}
