@@ -77,17 +77,67 @@ permalink: /projects/tech-layoffs/
   .btn-git { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(5px); }
   .btn-git:hover { background: #00e5ff; color: #000 !important; transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,229,255,0.4); border-color: transparent;}
 
-  /* --- MÀN HÌNH CHUYỂN CẢNH (DÀNH CHO NÚT BACK) --- */
+  /* ======================================================= */
+  /* MÀN HÌNH CHUYỂN CẢNH (ĐÃ THAY BẰNG HIỆU ỨNG 3D CSS)    */
+  /* ======================================================= */
   #page-transition-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(25px);
+    background: rgba(10, 25, 47, 0.98); 
     z-index: 999999; display: flex; justify-content: center; align-items: center;
     opacity: 0; pointer-events: none; transition: opacity 0.5s ease-in-out;
+    perspective: 1500px; 
   }
-  #book-flip-gif {
-    width: 250px; border-radius: 15px; box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
-    transform: scale(0.5); transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+
+  .book-loader {
+    width: 220px; height: 300px;
+    position: relative;
+    transform-style: preserve-3d; 
+    transform: rotateX(10deg) scale(0.5); 
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
   }
+
+  .book-cover, .book-page {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 5px 15px 15px 5px;
+    transform-origin: left center; 
+  }
+
+  .book-cover.front {
+    background: repeating-linear-gradient(90deg, #5d4037, #5d4037 5px, #4e342e 5px, #4e342e 10px);
+    border: 2px solid #3e2723;
+    z-index: 10;
+    animation: bookOpen 2s infinite ease-in-out alternate;
+  }
+  
+  .book-cover.front::after {
+    content: 'NCTA'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg); 
+    color: rgba(255,255,255,0.2); font-family: serif; font-weight: bold; font-size: 2rem;
+    backface-visibility: hidden;
+  }
+
+  .book-cover.back {
+    background: #3e2723;
+    z-index: 1;
+  }
+
+  .book-page {
+    background: linear-gradient(to right, #e0e0e0, #fff);
+    border: 1px solid #ccc;
+    z-index: 5;
+  }
+  
+  .book-page:nth-child(2) { animation: pageFlip1 2s infinite ease-in-out alternate -0.2s; }
+  .book-page:nth-child(3) { animation: pageFlip2 2s infinite ease-in-out alternate -0.4s; }
+  .book-page:nth-child(4) { animation: pageFlip3 2s infinite ease-in-out alternate -0.6s; }
+
+  @keyframes bookOpen {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(-160deg); }
+  }
+  @keyframes pageFlip1 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-155deg); } }
+  @keyframes pageFlip2 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-145deg); } }
+  @keyframes pageFlip3 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-135deg); } }
 
   /* Mobile Responsive */
   @media (max-width: 1024px) {
@@ -138,7 +188,13 @@ permalink: /projects/tech-layoffs/
 </div>
 
 <div id="page-transition-overlay">
-  <img src="https://i.pinimg.com/originals/3d/82/66/3d82664d59bcce5b77464a93c72b5358.gif" id="book-flip-gif" alt="Flipping Book">
+  <div class="book-loader" id="book-loader-3d">
+    <div class="book-cover front"></div>
+    <div class="book-page"></div>
+    <div class="book-page"></div>
+    <div class="book-page"></div>
+    <div class="book-cover back"></div>
+  </div>
 </div>
 
 <script>
@@ -146,13 +202,13 @@ permalink: /projects/tech-layoffs/
     event.preventDefault(); 
     
     const overlay = document.getElementById('page-transition-overlay');
-    const gif = document.getElementById('book-flip-gif');
+    const book3D = document.getElementById('book-loader-3d');
     
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
     
     setTimeout(() => {
-      gif.style.transform = 'scale(2.5)'; 
+      book3D.style.transform = 'rotateX(0deg) scale(3.5) translateY(50px)'; 
     }, 100);
 
     setTimeout(() => {
