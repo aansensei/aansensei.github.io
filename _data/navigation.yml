@@ -4,6 +4,8 @@ main:
     url: "/"
   - title: "Projects"
     url: "/projects/"
+  - title: "About Me"       # <--- THÊM DÒNG NÀY
+    url: "/about/"
   - title: "LinkedIn"
     url: "https://www.linkedin.com/in/cao-thien-an-nguyen-0a92a4396/"
     target: "_blank"
