@@ -308,7 +308,7 @@ author_profile: true
     // 4. Đợi ĐÚNG 2350ms (2.35s) để khớp với hiệu ứng 2.25s rồi nhảy trang
     setTimeout(() => {
       window.location.href = url;
-    }, 2350);
+    }, 2250);
   }
 </script>
 {% endraw %}
