@@ -173,8 +173,7 @@ author_profile: true
         <h4>Data Story & Dashboard</h4>
         <p>End-to-end analysis project.</p>
         
-        <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="btn-link btn-red">Live App</a>
-        <a href="https://github.com/aansensei/Tech_Layoff_Project" target="_blank" class="btn-link">GitHub Code</a>
+        <a href="/projects/tech-layoffs/" class="btn-learn-more" onclick="triggerBookTransition('/projects/tech-layoffs/', event)">Read Story</a>
       </div>
     </div>
   </div>
