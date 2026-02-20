@@ -138,3 +138,76 @@
   .page__footer-copyright, .page__footer .social-icons { display: none !important; }
   .page__footer:after { content: "© 2026 Cao Thien An Nguyen 🍀 || Art Work: The Starry Night – Vincent van Gogh"; display: block; text-align: center; color: #ccc; }
 </style>
+
+<style>
+  /* 1. Định nghĩa hạt lấp lánh (Ô vuông) */
+  .cursor-sparkle {
+    position: fixed;
+    top: 0; left: 0;
+    width: 8px; /* Kích thước ô vuông (to nhỏ tùy chỉnh ở đây) */
+    height: 8px;
+    pointer-events: none; /* QUAN TRỌNG: Để chuột không bị vướng vào các hạt này */
+    z-index: 99999; /* Nổi lên trên cùng mọi thứ */
+    
+    /* Hiệu ứng rơi xuống và mờ dần */
+    animation: sparkle-fall 1s linear forwards; 
+  }
+
+  /* 2. Tạo chuyển động rơi và xoay nhẹ */
+  @keyframes sparkle-fall {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(0deg); /* Bắt đầu ngay giữa tâm chuột */
+    }
+    100% {
+      opacity: 0; /* Mờ dần */
+      /* Rơi xuống 50px và xoay 180 độ */
+      transform: translate(-50%, 50px) rotate(180deg); 
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- CẤU HÌNH MÀU SẮC ---
+    // Cyan Neon, Xanh dương đậm, Trắng, Vàng Neon
+    const sparkleColors = ['#00e5ff', '#007bff', '#ffffff', '#ffeb3b']; 
+    
+    let throttleTimer;
+
+    document.addEventListener('mousemove', function(e) {
+      // --- Kỹ thuật "Throttle" (Tiết chế) ---
+      // Chuột di chuyển rất nhanh, nếu tạo hạt liên tục sẽ lag máy.
+      // Đoạn này giúp chỉ tạo hạt mới sau mỗi 20ms (miligiây).
+      if (throttleTimer) return;
+      throttleTimer = setTimeout(() => { throttleTimer = null; }, 20); 
+
+      // 1. Tạo một thẻ DIV mới (hạt vuông)
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('cursor-sparkle');
+      
+      // 2. Đặt vị trí hạt ngay tại đầu con trỏ chuột
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+
+      // 3. Chọn màu ngẫu nhiên từ danh sách trên
+      const randomColor = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
+      sparkle.style.backgroundColor = randomColor;
+      
+      // 4. Thêm chút ngẫu nhiên về kích thước để tự nhiên hơn (Tùy chọn)
+      const randomSize = Math.random() * 6 + 4; // Kích thước từ 4px đến 10px
+      sparkle.style.width = `${randomSize}px`;
+      sparkle.style.height = `${randomSize}px`;
+
+      // 5. Gắn hạt vào trang web
+      document.body.appendChild(sparkle);
+
+      // 6. Dọn dẹp: Xóa hạt đi sau khi nó chạy xong hiệu ứng (1 giây)
+      // Nếu không xóa, trang web sẽ bị tràn bộ nhớ.
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1000); // Thời gian này phải khớp với thời gian animation trong CSS (1s)
+    });
+  });
+</script>
