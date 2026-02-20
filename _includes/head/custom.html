@@ -252,3 +252,101 @@
     box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
   }
 </style>
+
+<style>
+  /* Thiết kế giao diện cho nút */
+  #kanade-return-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 25, 47, 0.6); /* Nền kính mờ */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 15px;
+    padding: 8px 12px;
+    cursor: pointer;
+    
+    /* Ẩn đi khi ở đầu trang */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+
+  /* Trạng thái hiện lên khi cuộn xuống */
+  #kanade-return-top.show {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  /* Hiệu ứng khi rê chuột vào bé Kanade */
+  #kanade-return-top:hover {
+    background: rgba(0, 229, 255, 0.2);
+    border-color: #00e5ff;
+    box-shadow: 0 5px 25px rgba(0, 229, 255, 0.5);
+    transform: translateY(-5px); /* Nảy lên nhẹ */
+  }
+
+  /* Kích thước mặt Kanade */
+  #kanade-return-top img {
+    width: 45px; /* Chỉnh to nhỏ mặt Kanade ở đây */
+    height: auto;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+    transition: transform 0.3s;
+  }
+
+  /* Kanade nhún nhảy khi hover */
+  #kanade-return-top:hover img {
+    transform: scale(1.1);
+  }
+
+  /* Chữ Return to top */
+  #kanade-return-top span {
+    color: #00e5ff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Tự động tạo nút Kanade và nhét vào trang
+    const btn = document.createElement("div");
+    btn.id = "kanade-return-top";
+    btn.innerHTML = `
+        <img src="/assets/images/kanade-chibi.png" alt="Kanade Chibi">
+        <span>Return to top</span>
+    `;
+    document.body.appendChild(btn);
+
+    // 2. Theo dõi khi người dùng cuộn chuột
+    window.addEventListener("scroll", function() {
+        // Nếu cuộn xuống quá 300px thì gọi Kanade ra
+        if (window.scrollY > 300) {
+            btn.classList.add("show");
+        } else {
+            // Lên đầu trang thì cho ẻm đi ngủ
+            btn.classList.remove("show");
+        }
+    });
+
+    // 3. Khi click vào Kanade -> Cuộn mượt mà lên đỉnh
+    btn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+  });
+</script>
