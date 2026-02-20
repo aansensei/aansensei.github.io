@@ -9,61 +9,35 @@ author_profile: true
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  /* --- 1. SƠN LẠI KỆ SÁCH GỖ (WOOD TEXTURE RESTORED) --- */
+  /* --- 1. SƠN LẠI KỆ SÁCH GỖ --- */
   .bookshelf {
     display: flex; flex-wrap: wrap; gap: 55px; justify-content: center;
     padding: 60px 30px;
     perspective: 2500px;
-    
-    /* MÀU GỖ & VÂN GỖ */
     background-color: #5d4037 !important; 
     background-image: repeating-linear-gradient(90deg, #5d4037, #5d4037 10px, #4e342e 10px, #4e342e 20px) !important;
-    
-    /* VIỀN KỆ DÀY TẠO KHỐI */
     border: 15px solid #3e2723 !important;
     border-bottom: 25px solid #281a16 !important; 
     border-radius: 8px;
-    
-    /* BÓNG ĐỔ SÂU BÊN TRONG (Depth) */
     box-shadow: inset 0 0 80px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5) !important;
   }
 
   /* --- 2. CẤU TRÚC SÁCH --- */
   .book-container {
-    width: 230px; height: 380px;
-    position: relative;
-    z-index: 1; margin-bottom: 30px;
+    width: 230px; height: 380px; position: relative; z-index: 1; margin-bottom: 30px;
   }
-
-  .book {
-    position: relative; width: 100%; height: 100%;
-    transform-style: preserve-3d;
-  }
+  .book { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 
   /* --- 3. BÌA SÁCH (FRONT COVER) --- */
   .front-cover {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    transform-origin: left center;
-    transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1);
-    
-    z-index: 20; 
-    border-radius: 8px 18px 18px 8px;
-    transform-style: preserve-3d;
-    backface-visibility: visible; 
+    transform-origin: left center; transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 20; border-radius: 8px 18px 18px 8px; transform-style: preserve-3d; backface-visibility: visible; 
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-    padding: 25px 20px;
-    border: 1px solid rgba(255,255,255,0.15);
-    background-color: #333; 
+    padding: 25px 20px; border: 1px solid rgba(255,255,255,0.15); background-color: #333; 
   }
-
-  /* KHI LẬT SÁCH TRÊN KỆ */
-  .book-container:hover .front-cover { 
-    transform: rotateY(-180deg);
-    pointer-events: none !important; 
-  }
-
+  .book-container:hover .front-cover { transform: rotateY(-180deg); pointer-events: none !important; }
   .cover-content { backface-visibility: hidden; width: 100%; }
-
   .front-cover::before {
     content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 20px;
     background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.1));
@@ -71,135 +45,90 @@ author_profile: true
   }
 
   /* --- 4. MÀU SẮC TỪNG QUYỂN --- */
-  .book-1 .front-cover { 
-    background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); 
-    box-shadow: 0 0 25px rgba(28, 58, 74, 0.7); 
-  }
+  .book-1 .front-cover { background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); box-shadow: 0 0 25px rgba(28, 58, 74, 0.7); }
   .book-1 h3 { color: #ffffff !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important; }
   .book-1 p { color: #b3e5fc !important; text-shadow: 0 0 5px rgba(179, 229, 252, 0.5); }
 
-  .book-4 .front-cover { 
-    background: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); 
-    border: 2px solid #00e5ff;
-    box-shadow: 0 0 35px rgba(114, 9, 183, 0.8), 0 0 15px rgba(0, 229, 255, 0.8);
-  }
+  .book-4 .front-cover { background: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); border: 2px solid #00e5ff; box-shadow: 0 0 35px rgba(114, 9, 183, 0.8), 0 0 15px rgba(0, 229, 255, 0.8); }
   .book-4 h3, .book-4 p { color: #fff !important; text-shadow: 0 0 12px rgba(255, 255, 255, 1) !important; }
 
-  .book-2 .front-cover { 
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); 
-    box-shadow: 0 0 25px rgba(255, 154, 158, 0.6);
-  }
+  .book-2 .front-cover { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); box-shadow: 0 0 25px rgba(255, 154, 158, 0.6); }
   .book-2 h3 { color: #880e4f !important; text-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important; }
   .book-2 p { color: #ad1457 !important; text-shadow: 0 0 2px rgba(255, 255, 255, 0.5); }
 
-  .book-3 .front-cover { 
-    background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%); 
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
-  }
+  .book-3 .front-cover { background: linear-gradient(135deg, #1a1a1a 0%, #383838 100%); box-shadow: 0 0 20px rgba(255, 255, 255, 0.25); }
   .book-3 h3 { color: #fff !important; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6) !important; }
   .book-3 p { color: #ccc !important; text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); }
 
-  .cover-content h3 { 
-    font-family: "Playfair Display", serif; font-size: 1.45rem !important;
-    font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; line-height: 1.2;
-  }
+  .cover-content h3 { font-family: "Playfair Display", serif; font-size: 1.45rem !important; font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; line-height: 1.2; }
   .cover-content p { font-family: 'Roboto', sans-serif; font-size: 0.95rem !important; line-height: 1.4; margin-bottom: 0; }
 
-  /* --- 5. NỘI DUNG BÊN TRONG (INSIDE PAGES) --- */
+  /* --- 5. NỘI DUNG BÊN TRONG --- */
   .inside-pages {
     position: absolute; top: 0; left: 0; width: 98%; height: 98%;
     background: linear-gradient(to right, #e0e0e0, #f5f5f5) !important;
-    z-index: 10; 
-    border-radius: 4px 14px 14px 4px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 15px; text-align: center;
-    border: 1px solid #ccc;
-    box-shadow: inset 10px 0 20px rgba(0,0,0,0.1);
-    transform: translateZ(0); 
+    z-index: 10; border-radius: 4px 14px 14px 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; text-align: center; border: 1px solid #ccc; box-shadow: inset 10px 0 20px rgba(0,0,0,0.1); transform: translateZ(0); 
   }
-  
   .inside-pages i { font-size: 30px !important; margin-bottom: 15px; }
-  .inside-pages h4 { 
-    font-family: 'Playfair Display', serif; font-size: 1.2rem !important; margin: 8px 0; 
-    color: #222 !important; font-weight: bold; text-shadow: none !important;
-  }
+  .inside-pages h4 { font-family: 'Playfair Display', serif; font-size: 1.2rem !important; margin: 8px 0; color: #222 !important; font-weight: bold; text-shadow: none !important; }
   .inside-pages small, .inside-pages p { color: #555 !important; text-shadow: none !important; font-size: 0.9rem;}
 
-  /* --- 6. NÚT BẤM CŨ (Cho các sách khác chưa có bài viết) --- */
-  .btn-link {
-    display: inline-block; padding: 8px 16px;
-    background-color: #0a192f !important; color: #fff !important;
-    text-decoration: none; border-radius: 30px; font-size: 0.75rem; font-weight: 600;
-    margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: all 0.3s;
-    transform: translateZ(100px); 
-    position: relative;
-    z-index: 9999 !important; 
-    cursor: pointer !important; 
-  }
-  .btn-link:hover { 
-    transform: translateZ(105px) translateY(-2px); 
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3); background-color: #1565c0 !important;
-  }
-  .btn-red { background-color: #d32f2f !important; }
-  .btn-red:hover { background-color: #f44336 !important; }
-  .btn-neon { background: linear-gradient(45deg, #f72585, #7209b7) !important; border: none; }
-  .btn-neon:hover { background: linear-gradient(45deg, #ff4081, #9c27b0) !important; box-shadow: 0 0 15px rgba(247, 37, 133, 0.5); }
-
-  /* --- 7. NÚT VIEW STORY ĐẸP (ĐÃ KHÔI PHỤC VÀ FIX Z-INDEX) --- */
+  /* --- 6. NÚT VIEW STORY ĐỘNG MÀU --- */
   .btn-view-story {
+    /* Đặt màu mặc định nếu không truyền biến */
+    --btn-bg: linear-gradient(45deg, #00e5ff, #007bff);
+    --btn-shadow: rgba(0, 229, 255, 0.4);
+
     display: inline-block; padding: 10px 25px;
-    background: linear-gradient(45deg, #00e5ff, #007bff) !important; color: #fff !important;
+    background: var(--btn-bg) !important; 
+    color: #fff !important;
     text-decoration: none; border-radius: 30px; font-size: 0.9rem; font-weight: bold;
     margin-top: 15px; transition: all 0.3s; 
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 15px var(--btn-shadow);
     position: relative; cursor: pointer !important; border: none;
     z-index: 99999 !important; 
     transform: translateZ(100px); 
   }
   .btn-view-story:hover {
-    transform: translateZ(105px) scale(1.05); box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+    transform: translateZ(105px) scale(1.05); 
+    box-shadow: 0 0 25px var(--btn-shadow);
+    filter: brightness(1.2);
   }
 
-  /* --- 8. HIỆU ỨNG SÁCH 3D (ĐÃ HẠ XUỐNG 1.5s, MỞ 2 MẶT, CÓ TIÊU ĐỀ) --- */
+  /* --- 7. HIỆU ỨNG SÁCH 3D (TỪ VỊ TRÍ CLICK) --- */
   #book-transition-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(15px);
-    z-index: 999999; display: flex; justify-content: center; align-items: center;
+    z-index: 999999; 
+    display: block; /* Bỏ flexbox để định vị tuyệt đối */
     opacity: 0; pointer-events: none; transition: opacity 0.3s;
     perspective: 1500px;
   }
 
   .book-3d-wrapper {
-    width: 230px; height: 350px; position: relative;
+    width: 230px; height: 350px; 
+    position: absolute; /* Định vị tuyệt đối để bay từ điểm click */
     transform-style: preserve-3d;
-    transform: rotateX(10deg) scale(0.6) translateY(0); 
-    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
+    top: 50%; left: 50%; /* Trạng thái phòng hờ */
+    transform: translate(-50%, -50%) scale(0.1); 
+    transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
   }
-  .book-3d-wrapper.zoom-in {
-    transform: rotateX(10deg) scale(3.5) translateY(20px); 
+  
+  /* Class xuất phát tại điểm click */
+  .book-3d-wrapper.start-pos { transform: translate(-50%, -50%) scale(0.2) rotateX(0deg); }
+  
+  /* Class đích bay ra giữa màn hình */
+  .book-3d-wrapper.center-pos { 
+    top: 50% !important; left: 50% !important; 
+    transform: translate(-50%, -50%) scale(3.5) translateY(20px) rotateX(0deg); 
   }
 
   .book-3d-cover-front, .book-3d-cover-back, .book-3d-page {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 5px 15px 15px 5px;
-    transform-origin: left center;
-    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
-    transform-style: preserve-3d;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 5px 15px 15px 5px; transform-origin: left center; transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d;
   }
-
   .book-3d-cover-back { background: #111; z-index: 1; transform: translateZ(-5px); }
-  
-  .book-3d-cover-front {
-    z-index: 10; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px;
-  }
-
-  .book-3d-cover-front h3 {
-    color: #fff; font-family: 'Playfair Display', serif; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255,255,255,0.5);
-    margin: 0;
-  }
-
-  /* Cấu trúc 2 mặt giấy chữ V */
+  .book-3d-cover-front { z-index: 10; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+  .book-3d-cover-front h3 { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.5rem; text-shadow: 0 0 10px rgba(255,255,255,0.5); margin: 0; }
   .book-3d-page { background: #f9f9f9; border: 1px solid #ccc; }
   .book-3d-page.left { z-index: 6; background: linear-gradient(to right, #e0e0e0, #fff); }
   .book-3d-page.right { z-index: 5; background: linear-gradient(to left, #e0e0e0, #fff); }
@@ -225,7 +154,12 @@ author_profile: true
         <h4>Data Story & Dashboard</h4>
         <p>End-to-end analysis project.</p>
         
-        <a href="/projects/tech-layoffs/" class="btn-view-story" onclick="triggerBookOpen('/projects/tech-layoffs/', 'linear-gradient(135deg, #09141d 0%, #1c3a4a 100%)', 'Tech Layoffs Analysis', event)">Read Story</a>
+        <a href="/projects/tech-layoffs/" 
+           class="btn-view-story" 
+           style="--btn-bg: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); --btn-shadow: rgba(28, 58, 74, 0.8);"
+           onclick="triggerBookOpen('/projects/tech-layoffs/', 'linear-gradient(135deg, #09141d 0%, #1c3a4a 100%)', 'Tech Layoffs Analysis', event)">
+           Read Story
+        </a>
       </div>
     </div>
   </div>
@@ -242,7 +176,13 @@ author_profile: true
         <h4 style="font-family: 'Playfair Display', serif; color: #0d47a1 !important; font-size: 1.4rem; margin-top: 0; margin-bottom: 5px;">IRJEMS</h4>
         <i class="fas fa-microchip" style="color: #7209b7; margin-bottom: 10px;"></i>
         <p style="font-weight: 500; color: #333 !important;">Vol 3, Issue 8 (2024)</p>
-        <a href="/projects/semiconductor-hr/" class="btn-view-story" onclick="triggerBookOpen('/projects/semiconductor-hr/', 'linear-gradient(45deg, #f72585, #7209b7, #4cc9f0)', 'Semiconductor HR', event)">Read Story</a>
+        
+        <a href="/projects/semiconductor-hr/" 
+           class="btn-view-story" 
+           style="--btn-bg: linear-gradient(45deg, #f72585, #7209b7, #4cc9f0); --btn-shadow: rgba(247, 37, 133, 0.8);"
+           onclick="triggerBookOpen('/projects/semiconductor-hr/', 'linear-gradient(45deg, #f72585, #7209b7, #4cc9f0)', 'Semiconductor HR', event)">
+           Read Story
+        </a>
       </div>
     </div>
   </div>
@@ -294,18 +234,21 @@ author_profile: true
 </div>
 
 <script>
-  // FIX LỖI BACK CỦA TRÌNH DUYỆT
+  // FIX LỖI NÚT BACK CỦA TRÌNH DUYỆT
   window.addEventListener('pageshow', function(event) {
     const overlay = document.getElementById('book-transition-overlay');
     const book = document.getElementById('book-3d');
     if (overlay) {
       overlay.style.opacity = '0';
       overlay.style.pointerEvents = 'none';
-      book.classList.remove('zoom-in');
+      book.classList.remove('center-pos');
+      book.classList.remove('start-pos');
       book.classList.remove('open');
+      book.style.top = ''; book.style.left = '';
     }
   });
 
+  // HÀM MỞ SÁCH TỪ VỊ TRÍ CLICK CHUỘT
   function triggerBookOpen(url, bgGradient, title, event) {
     event.preventDefault();
     const overlay = document.getElementById('book-transition-overlay');
@@ -313,21 +256,33 @@ author_profile: true
     const cover = document.getElementById('book-3d-cover');
     const titleEl = document.getElementById('book-3d-title');
 
-    // 1. Gắn màu bìa và tiêu đề
+    // 1. Tính toán tọa độ cái nút bạn vừa bấm
+    const rect = event.target.getBoundingClientRect();
+    const startX = rect.left + rect.width / 2;
+    const startY = rect.top + rect.height / 2;
+
+    // 2. Đặt quyển sách 3D vào đúng vị trí đó
+    book.style.left = startX + 'px';
+    book.style.top = startY + 'px';
+    book.classList.add('start-pos'); // Set class thu nhỏ
+
+    // 3. Đổ màu và viết tiêu đề lên bìa
     cover.style.background = bgGradient;
     titleEl.innerText = title;
 
-    // 2. Hiện màn hình
+    // 4. Kéo rèm đen xuống
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
 
-    // 3. Phóng to và mở sách chữ V
+    // 5. Sau 50ms (chờ rèm đen kéo xong), bắt đầu phóng to và di chuyển ra giữa
     setTimeout(() => {
-      book.classList.add('zoom-in');
-      book.classList.add('open');
+      book.getBoundingClientRect(); // Ép trình duyệt nhận vị trí mới
+      book.classList.remove('start-pos');
+      book.classList.add('center-pos'); 
+      book.classList.add('open'); 
     }, 50);
 
-    // 4. Nhảy trang sau 1.5s
+    // 6. Nhảy trang
     setTimeout(() => {
       window.location.href = url;
     }, 1500);
