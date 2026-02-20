@@ -232,3 +232,62 @@ author_profile: true
 
 </div>
 {% endraw %}
+
+{% raw %}
+<style>
+  /* Format lại nút duy nhất */
+  .btn-learn-more {
+    display: inline-block; padding: 10px 25px;
+    background: linear-gradient(45deg, #00e5ff, #007bff) !important; color: #fff !important;
+    text-decoration: none; border-radius: 30px; font-size: 0.9rem; font-weight: bold;
+    margin-top: 15px; transition: all 0.3s; transform: translateZ(100px); 
+    position: relative; z-index: 9999 !important; cursor: pointer !important;
+    border: none; box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+  }
+  .btn-learn-more:hover {
+    transform: translateZ(105px) scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.7);
+  }
+
+  /* Màn hình lót che đen mờ khi lật trang */
+  #page-transition-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(10, 25, 47, 0.95); backdrop-filter: blur(25px);
+    z-index: 999999; display: flex; justify-content: center; align-items: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease-in-out;
+  }
+  
+  /* Ảnh GIF lật sách */
+  #book-flip-gif {
+    width: 250px; border-radius: 15px; box-shadow: 0 0 40px rgba(0, 229, 255, 0.5);
+    transform: scale(0.5); transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+</style>
+
+<div id="page-transition-overlay">
+  <img src="https://i.pinimg.com/originals/3d/82/66/3d82664d59bcce5b77464a93c72b5358.gif" id="book-flip-gif" alt="Flipping Book">
+</div>
+
+<script>
+  function triggerBookTransition(url, event) {
+    event.preventDefault(); // Chặn chuyển trang ngay lập tức
+    
+    const overlay = document.getElementById('page-transition-overlay');
+    const gif = document.getElementById('book-flip-gif');
+    
+    // 1. Hiện màn hình đen mờ ra
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'all';
+    
+    // 2. Kích hoạt hiệu ứng Zoom cận cảnh vào quyển sách (Sau 0.1s để mượt)
+    setTimeout(() => {
+      gif.style.transform = 'scale(2.5)'; // Phóng to quyển sách
+    }, 100);
+
+    // 3. Đợi GIF chạy và zoom xong (khoảng 1.5 giây) thì mới chuyển trang
+    setTimeout(() => {
+      window.location.href = url;
+    }, 1500);
+  }
+</script>
+{% endraw %}
