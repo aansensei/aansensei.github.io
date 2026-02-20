@@ -60,7 +60,8 @@ permalink: /projects/tech-layoffs/
   .col-main { min-height: 800px; color: #e6f1ff; line-height: 1.8; }
   .col-main h1 { font-family: 'Playfair Display', serif; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; margin-top: 0; }
   .col-main h2, .col-main h3 { color: #00e5ff; font-family: 'Playfair Display', serif; margin-top: 30px; }
-  .col-main img { border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin: 20px 0; max-width: 100%; }
+  .col-main img { border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin: 20px 0; max-width: 100%; display: block; }
+  .col-main blockquote { border-left: 4px solid #00e5ff; padding-left: 15px; font-style: italic; color: #a0c4ff; background: rgba(0, 229, 255, 0.05); border-radius: 0 8px 8px 0; margin: 20px 0;}
 
   /* --- CỘT PHẢI --- */
   .col-right { position: sticky; top: 100px; text-align: center; }
@@ -78,66 +79,49 @@ permalink: /projects/tech-layoffs/
   .btn-git:hover { background: #00e5ff; color: #000 !important; transform: translateY(-3px); box-shadow: 0 4px 15px rgba(0,229,255,0.4); border-color: transparent;}
 
   /* ======================================================= */
-  /* MÀN HÌNH CHUYỂN CẢNH (ĐÃ THAY BẰNG HIỆU ỨNG 3D CSS)    */
+  /* MÀN HÌNH CHUYỂN CẢNH (ĐÓNG SÁCH 3D CSS)                 */
   /* ======================================================= */
-  #page-transition-overlay {
+  #book-transition-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(10, 25, 47, 0.98); 
+    background: rgba(10, 25, 47, 0.98); backdrop-filter: blur(15px);
     z-index: 999999; display: flex; justify-content: center; align-items: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.5s ease-in-out;
-    perspective: 1500px; 
+    opacity: 0; pointer-events: none; transition: opacity 0.5s;
+    perspective: 1500px;
   }
 
-  .book-loader {
-    width: 220px; height: 300px;
-    position: relative;
-    transform-style: preserve-3d; 
-    transform: rotateX(10deg) scale(0.5); 
+  .book-3d-wrapper {
+    width: 230px; height: 380px; position: relative; transform-style: preserve-3d;
+    transform: rotateX(0deg) scale(3.5) translateY(20px); 
     transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
   }
+  .book-3d-wrapper.zoom-out {
+    transform: rotateX(10deg) scale(0.6); 
+  }
 
-  .book-cover, .book-page {
+  .book-3d-cover-front, .book-3d-cover-back, .book-3d-page {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 5px 15px 15px 5px;
-    transform-origin: left center; 
+    border-radius: 8px 18px 18px 8px; transform-origin: left center;
+    transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); transform-style: preserve-3d;
   }
 
-  .book-cover.front {
-    background: repeating-linear-gradient(90deg, #5d4037, #5d4037 5px, #4e342e 5px, #4e342e 10px);
-    border: 2px solid #3e2723;
+  .book-3d-cover-back { background: #111; z-index: 1; transform: translateZ(-10px); }
+  
+  .book-3d-cover-front {
     z-index: 10;
-    animation: bookOpen 2s infinite ease-in-out alternate;
+    background: linear-gradient(135deg, #09141d 0%, #1c3a4a 100%); 
+    border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    transform: rotateY(-160deg); 
   }
+
+  .book-3d-page { background: #f5f5f5; border: 1px solid #ccc; z-index: 5; }
   
-  .book-cover.front::after {
-    content: 'NCTA'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%) rotateY(180deg); 
-    color: rgba(255,255,255,0.2); font-family: serif; font-weight: bold; font-size: 2rem;
-    backface-visibility: hidden;
-  }
+  .book-3d-page:nth-child(2) { transform: rotateY(-150deg); transition-delay: 0.1s; }
+  .book-3d-page:nth-child(3) { transform: rotateY(-140deg); transition-delay: 0.2s; }
+  .book-3d-page:nth-child(4) { transform: rotateY(-130deg); transition-delay: 0.3s; }
+  .book-3d-page:nth-child(5) { transform: rotateY(-120deg); transition-delay: 0.4s; background: #fff;}
 
-  .book-cover.back {
-    background: #3e2723;
-    z-index: 1;
-  }
-
-  .book-page {
-    background: linear-gradient(to right, #e0e0e0, #fff);
-    border: 1px solid #ccc;
-    z-index: 5;
-  }
-  
-  .book-page:nth-child(2) { animation: pageFlip1 2s infinite ease-in-out alternate -0.2s; }
-  .book-page:nth-child(3) { animation: pageFlip2 2s infinite ease-in-out alternate -0.4s; }
-  .book-page:nth-child(4) { animation: pageFlip3 2s infinite ease-in-out alternate -0.6s; }
-
-  @keyframes bookOpen {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(-160deg); }
-  }
-  @keyframes pageFlip1 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-155deg); } }
-  @keyframes pageFlip2 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-145deg); } }
-  @keyframes pageFlip3 { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(-135deg); } }
+  .book-3d-wrapper.close .book-3d-cover-front { transform: rotateY(0deg); }
+  .book-3d-wrapper.close .book-3d-page { transform: rotateY(0deg); transition-delay: 0s; }
 
   /* Mobile Responsive */
   @media (max-width: 1024px) {
@@ -149,7 +133,7 @@ permalink: /projects/tech-layoffs/
 <div class="project-grid">
 
   <div class="glass-box col-left">
-    <a href="/projects/" class="back-btn" onclick="triggerBookTransition('/projects/', event)"><i class="fas fa-arrow-left"></i> Back to Collection</a>
+    <a href="/projects/" class="back-btn" onclick="triggerBookClose('/projects/', event)"><i class="fas fa-arrow-left"></i> Back to Collection</a>
     
     <div class="author-box">
       <img src="/assets/images/avatar.jpg" alt="Avatar">
@@ -158,21 +142,75 @@ permalink: /projects/tech-layoffs/
     
     <h4 class="toc-title"><i class="fas fa-list-ul"></i> Table of Contents</h4>
     <ul class="toc-list">
-      <li><a href="#introduction">1. Introduction</a></li>
-      <li><a href="#data-collection">2. Data Collection</a></li>
-      <li><a href="#eda">3. Exploratory Data Analysis</a></li>
-      <li><a href="#model">4. Machine Learning Model</a></li>
-      <li><a href="#conclusion">5. Conclusion</a></li>
+      <li><a href="#executive-summary-the-discovery-journey">Executive Summary</a></li>
+      <li><a href="#1-ideation--motivation">1. Ideation & Motivation</a></li>
+      <li><a href="#2-data-selection-strategy">2. Data Selection</a></li>
+      <li><a href="#3-methodology--hypothesis">3. Methodology</a></li>
+      <li><a href="#4-key-results--critical-findings">4. Key Results</a></li>
+      <li><a href="#5-conclusion">5. Conclusion</a></li>
+      <li><a href="#6-future-directions">6. Future Directions</a></li>
     </ul>
   </div>
 
-  <div class="glass-box col-main">
-    <h1>Global Tech Layoffs & Macro-Economics Analysis</h1>
-    
-    <p>Chỗ này sau này bạn sẽ viết nội dung phân tích vào đây. Mọi thứ bạn gõ bằng Markdown hoặc HTML sẽ hiện ra ở đây.</p>
-    
-    <h2 id="introduction">1. Introduction</h2>
-    <p>In this project, we explore how macroeconomic indicators affect layoff trends...</p>
+  <div class="glass-box col-main" markdown="1">
+
+# Global Tech Layoffs & Macro-Economics Analysis
+
+### Executive Summary: The Discovery Journey
+> "I started with a simple hypothesis: Interest rates kill jobs. But the data told a different story."
+
+My investigation went through 3 emotional stages:
+1.  **The Assumption:** I believed stock crashes caused immediate layoffs.
+    * *Discovery:* Data showed a consistent **3-month lag**.
+2.  **The Confusion:** My Rational Model predicted 10k layoffs in 2025, but reality hit 24k.
+    * *The Pivot:* I realized Economic Data wasn't enough.
+3.  **The Realization:** The missing variable was **Human Psychology** (Herd Mentality).
+    * *Result:* I pivoted from a pure technical analysis to a behavioral economics study.
+
+### 1. Ideation & Motivation
+The genesis of this project came from a simple yet troubling observation: In early 2025, despite many tech giants reporting stable profits, thousands of employees were being laid off. As a double major in **Data Science and Economics**, I wanted to investigate whether these layoffs were purely operational necessities or strategic reactions to financial market pressure. I aimed to build a bridge between **Macroeconomic Theory** (The Fed) and **Microeconomic Reality** (The Employee).
+
+### 2. Data Selection Strategy
+To build a holistic view, I curated three distinct datasets:
+* **Macro Level:** I chose **FRED (Federal Reserve Economic Data)** for Interest Rates and CPI because it is the "gold standard" for economic reliability.
+* **Market Level:** I used **Yahoo Finance (yfinance)** to track stock prices of Big Tech companies (MAMAA), serving as a proxy for shareholder sentiment.
+* **Labor Level:** I utilized **Layoffs.fyi**, a crowdsourced database, to get granular, company-specific layoff numbers.
+
+![Top Industries](/assets/images/top_industries_layoffs.png)
+*Figure 1: Sector Vulnerability Analysis (SQL Aggregation). The data reveals that Retail and Consumer sectors—most sensitive to inflation and interest rates—suffered the highest volume of layoffs, validating the connection to macro-economic shifts.*
+
+### 3. Methodology & Hypothesis
+My core hypothesis was the **"Lagged Transmission Theory"**: *Economic shocks do not cause immediate layoffs; there is a delay while management assesses the damage.*
+
+* **Hypothesis:** Stock market crashes precede layoffs by exactly one fiscal quarter (3 months).
+* **Execution:**
+    1.  **Cleaning:** I standardized daily stock data and monthly economic data into a unified time series.
+    2.  **Feature Engineering:** This was the most critical step. I created **Lagged Variables (t-1, t-2, t-3)** to test if past stock returns predict future layoffs.
+    3.  **Modeling:** I compared Linear Regression vs. **Random Forest** to capture non-linear patterns.
+
+![Perfect Storm Chart](/assets/images/advanced_recession_analysis.png)
+*Figure 2: "The Perfect Storm" (Dual-Axis Analysis). The blue line represents Meta's stock price, and the grey bars represent layoffs. Visual inspection confirms the hypothesis: a stock crash at month (t) is consistently followed by a layoff spike at month (t+3).*
+
+### 4. Key Results & Critical Findings
+* **The "3-Month Rule":** The data confirmed my hypothesis. A statistically significant correlation exists between a stock price drop at month t and a layoff spike at month t+3.
+* **Feature Importance:** The Machine Learning model independently validated the economic theory. As shown below, the model ranked "Lagged Stock Returns" and "Interest Rates" as the most critical predictors for layoffs.
+
+![Feature Importance](/assets/images/feature_importance.png)
+*Figure 3: Random Forest Feature Importance. The model identifies 'Interest Rate' and 'Lagged Returns' as the primary drivers of layoffs, outweighing other factors.*
+
+* **The "Social Contagion" Discovery:** While my Machine Learning model correctly predicted the *rising trend* of layoffs in 2025, it underestimated the *magnitude* (predicting ~10k vs. actual ~24k).
+    * *Insight:* This suggests that the 2025 spike was driven by **Herd Mentality**. Companies laid off workers not just for financial reasons, but to mimic competitors.
+
+![Prediction vs Reality](/assets/images/model_prediction_comparison.png)
+*Figure 4: Forecast vs. Reality. The Green line (ML Prediction) captures the upward trend but fails to reach the peak of the Black line (Actual). This gap represents the "Psychological Factor" or Social Contagion that standard economic models miss.*
+
+### 5. Conclusion
+This project has been a **transformative journey** for me as a student exploring the intersection of **numbers and human behavior**. While the **Random Forest model** identified the patterns, the unexplained gap in the **2025 data** helped me ultilize the true power of **social contagion**. It proved that behind every data point lies a story of **collective psychology** that no algorithm can fully capture. This experience has deeply reinforced my belief that **Data Science provides the "What" but Economics provides the "Why"**. Moving forward, I am more inspired than ever to look **beyond the code** to find the heart of every story.
+
+### 6. Future Directions
+To further refine this analysis, future iterations of this project should focus on:
+* **Sentiment Analysis (NLP):** Integrating news sentiment data (via GDELT or Financial Times APIs) to quantify the "Social Contagion" factor directly.
+* **Granular Sector Analysis:** Breaking down layoffs by specific roles (e.g., HR vs. Engineering) to see which departments are leading indicators of recession.
 
   </div>
 
@@ -187,32 +225,33 @@ permalink: /projects/tech-layoffs/
 
 </div>
 
-<div id="page-transition-overlay">
-  <div class="book-loader" id="book-loader-3d">
-    <div class="book-cover front"></div>
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    <div class="book-page"></div>
-    <div class="book-cover back"></div>
+<div id="book-transition-overlay">
+  <div class="book-3d-wrapper" id="book-3d">
+    <div class="book-3d-cover-back"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-page"></div>
+    <div class="book-3d-cover-front"></div>
   </div>
 </div>
 
 <script>
-  function triggerBookTransition(url, event) {
-    event.preventDefault(); 
-    
-    const overlay = document.getElementById('page-transition-overlay');
-    const book3D = document.getElementById('book-loader-3d');
-    
+  function triggerBookClose(url, event) {
+    event.preventDefault();
+    const overlay = document.getElementById('book-transition-overlay');
+    const book = document.getElementById('book-3d');
+
     overlay.style.opacity = '1';
     overlay.style.pointerEvents = 'all';
-    
+
     setTimeout(() => {
-      book3D.style.transform = 'rotateX(0deg) scale(3.5) translateY(50px)'; 
+      book.classList.add('close');
+      book.classList.add('zoom-out');
     }, 100);
 
     setTimeout(() => {
       window.location.href = url;
-    }, 1500);
+    }, 1600);
   }
 </script>
