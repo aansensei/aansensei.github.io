@@ -130,28 +130,24 @@
     position: fixed;
     pointer-events: none;
     z-index: 9999999;
-    /* Animation mượt mà với gia tốc bay giảm dần */
-    animation: particle-float 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    /* ĐÃ TĂNG: Thời gian animation lên 1s */
+    animation: particle-float 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
   
-  /* Phân tử Tứ giác (vuông bo góc nhẹ) */
   .particle-quad {
     border-radius: 2px;
   }
 
-  /* Phân tử Tam giác (Dùng clip-path cắt hình chữ nhật thành tam giác) */
   .particle-tri {
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   }
 
-  /* Chuyển động bay và tàng hình */
   @keyframes particle-float {
     0% {
       transform: translate(0, 0) rotate(0deg) scale(1);
       opacity: 1;
     }
     100% {
-      /* Các biến --tx, --ty, --rot sẽ được Javascript tính toán ngẫu nhiên */
       transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
       opacity: 0;
     }
@@ -160,90 +156,87 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Bảng màu Cyberpunk (Cyan, Hồng Neon, Tím, Trắng)
     const colors = ['#00e5ff', '#f72585', '#7209b7', '#4cc9f0', '#ffffff'];
 
-    // Hàm tạo 1 hạt lấp lánh
     function createParticle(x, y, isBurst = false) {
       const particle = document.createElement('div');
       particle.classList.add('magic-particle');
 
-      // 1. Tỉ lệ: 50% ra Tam Giác, 50% ra Tứ Giác
       const isTriangle = Math.random() > 0.5;
       particle.classList.add(isTriangle ? 'particle-tri' : 'particle-quad');
 
-      // 2. Random màu sắc
       const color = colors[Math.floor(Math.random() * colors.length)];
       particle.style.background = color;
 
-      // 3. Tăng độ phát sáng (Glow X-Treme)
       if (isTriangle) {
-        // Kỹ thuật tạo glow cho clip-path
         particle.style.filter = `drop-shadow(0 0 8px ${color}) drop-shadow(0 0 15px ${color})`;
       } else {
-        // Glow siêu sáng cho tứ giác
         particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}, 0 0 30px ${color}`;
       }
 
-      // 4. Kích thước ngẫu nhiên (Từ 6px đến 16px)
       const size = Math.random() * 10 + 6; 
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
 
-      // 5. Đặt hạt tại ngay đầu mũi chuột
       particle.style.left = `${x - size / 2}px`;
       particle.style.top = `${y - size / 2}px`;
 
-      // 6. Tính toán hướng bay
-      // Nếu là click (Burst) thì văng xa hơn (spread rộng). Rê chuột thì văng gần.
-      const spread = isBurst ? (Math.random() * 100 + 50) : (Math.random() * 40 + 10);
-      const angle = Math.random() * Math.PI * 2; // Góc bay 360 độ
+      const spread = isBurst ? (Math.random() * 120 + 60) : (Math.random() * 40 + 10);
+      const angle = Math.random() * Math.PI * 2; 
       
       const tx = Math.cos(angle) * spread;
-      const ty = Math.sin(angle) * spread + (isBurst ? 0 : 20); // Rê chuột thì hạt có xu hướng rơi nhẹ xuống
+      const ty = Math.sin(angle) * spread + (isBurst ? 0 : 20); 
       
-      const rot = Math.random() * 360 + 180; // Xoay lộn vòng
+      const rot = Math.random() * 360 + 180; 
 
-      // Truyền dữ liệu bay vào CSS
       particle.style.setProperty('--tx', `${tx}px`);
       particle.style.setProperty('--ty', `${ty}px`);
       particle.style.setProperty('--rot', `${rot}deg`);
 
-      // In hạt ra màn hình
       document.body.appendChild(particle);
 
-      // Xóa hạt sau 0.8s (khi animation kết thúc để nhẹ máy)
+      /* ĐÃ TĂNG: Xóa hạt sau 1s (1000ms) để khớp với CSS */
       setTimeout(() => {
         particle.remove();
-      }, 800);
+      }, 1000);
     }
 
-    // ==========================================
-    // HIỆU ỨNG 1: RÊ CHUỘT (TRAIL)
-    // ==========================================
+    // HIỆU ỨNG 1: RÊ CHUỘT
     let lastSpawn = 0;
     document.addEventListener('mousemove', (e) => {
       const now = Date.now();
-      // Giới hạn: cứ 30ms mới đẻ 1 hạt để web không bị giật lag
       if (now - lastSpawn > 30) {
         createParticle(e.clientX, e.clientY, false);
-        // Tỉ lệ 40% đẻ thêm hạt thứ 2 cho dày đặc
         if (Math.random() > 0.6) createParticle(e.clientX, e.clientY, false);
         lastSpawn = now;
       }
     });
 
-    // ==========================================
-    // HIỆU ỨNG 2: CLICK NÚT NỔ HẠT (BURST)
-    // ==========================================
+    // HIỆU ỨNG 2: CLICK NÚT NỔ HẠT (BURST & DELAY)
     document.addEventListener('click', (e) => {
-      // Kiểm tra xem chỗ click có phải là link(a), nút(button) hay các thẻ có class btn không
-      const isButton = e.target.closest('a, button, .btn, .btn-action, .btn-view-story, .btn-cta-project, .masthead__menu-item');
+      const isButton = e.target.closest('a, button, .btn, .btn-action, .btn-view-story, .btn-cta-project, .masthead__menu-item, #kanade-return-top');
       
       if (isButton) {
-        // Nổ tung 30 hạt cùng lúc túa ra các hướng
-        for (let i = 0; i < 30; i++) {
+        // ĐÃ TĂNG: Nổ tung 50 hạt cùng lúc
+        for (let i = 0; i < 50; i++) {
           createParticle(e.clientX, e.clientY, true);
+        }
+
+        // DELAY CHUYỂN TRANG
+        if (isButton.tagName === 'A' && isButton.href) {
+          const target = isButton.getAttribute('target');
+          const onclick = isButton.getAttribute('onclick');
+          const href = isButton.getAttribute('href');
+          
+          // Chỉ delay nếu là link chuyển trang bình thường (Không phải tab mới, không có code onclick riêng, không phải link Table of Content)
+          if (target !== '_blank' && !onclick && href && !href.startsWith('#')) {
+            e.preventDefault(); // Chặn việc chuyển trang ngay
+            
+            // Chờ 150ms để xem hạt nổ rồi mới load trang mới
+            setTimeout(() => {
+              window.location.href = isButton.href;
+            }, 150); 
+          }
         }
       }
     });
