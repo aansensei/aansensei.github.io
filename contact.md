@@ -98,7 +98,7 @@ author_profile: true
 
     <div class="contact-icons">
       <a href="https://github.com/aansensei" target="_blank" class="contact-icon-btn" title="GitHub"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/cao-thien-an-nguyen/" target="_blank" class="contact-icon-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="www.linkedin.com/in/cao-thien-an-nguyen-0a92a4396" target="_blank" class="contact-icon-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       <a href="mailto:cnguyen49@wisc.edu" class="contact-icon-btn" title="Send Email"><i class="fas fa-paper-plane"></i></a>
     </div>
   </div>
