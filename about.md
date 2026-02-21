@@ -118,7 +118,7 @@ author_profile: true
 
   <img src="/assets/images/about-cover.jpg" alt="An Nguyen Journey" class="about-cover-img">
 
-  <p>Xin chào mọi người! I am An. My journey started in the vibrant streets of Ho Chi Minh City, Vietnam, and has led me all the way to Madison.</p>
+  <p>Xin chào mọi người! I am An(uh-n). My journey started in the vibrant streets of Ho Chi Minh City, Vietnam, and has led me all the way to Madison.</p>
 
   <div class="highlight-quote">
     "Where data whispers untold stories"
