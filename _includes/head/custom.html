@@ -156,31 +156,39 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+    // Bảng màu Cyberpunk (Cyan, Hồng Neon, Tím, Trắng)
     const colors = ['#00e5ff', '#f72585', '#7209b7', '#4cc9f0', '#ffffff'];
 
+    // Hàm tạo 1 hạt lấp lánh
     function createParticle(x, y, isBurst = false) {
       const particle = document.createElement('div');
       particle.classList.add('magic-particle');
 
+      // 1. Tỉ lệ: 50% ra Tam Giác, 50% ra Tứ Giác
       const isTriangle = Math.random() > 0.5;
       particle.classList.add(isTriangle ? 'particle-tri' : 'particle-quad');
 
+      // 2. Random màu sắc
       const color = colors[Math.floor(Math.random() * colors.length)];
       particle.style.background = color;
 
+      // 3. Tăng độ phát sáng (Glow X-Treme)
       if (isTriangle) {
         particle.style.filter = `drop-shadow(0 0 8px ${color}) drop-shadow(0 0 15px ${color})`;
       } else {
         particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}, 0 0 30px ${color}`;
       }
 
+      // 4. Kích thước ngẫu nhiên (Từ 6px đến 16px)
       const size = Math.random() * 10 + 6; 
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
 
+      // 5. Đặt hạt tại ngay đầu mũi chuột
       particle.style.left = `${x - size / 2}px`;
       particle.style.top = `${y - size / 2}px`;
 
+      // 6. Tính toán hướng bay
       const spread = isBurst ? (Math.random() * 120 + 60) : (Math.random() * 40 + 10);
       const angle = Math.random() * Math.PI * 2; 
       
@@ -189,19 +197,23 @@
       
       const rot = Math.random() * 360 + 180; 
 
+      // Truyền dữ liệu bay vào CSS
       particle.style.setProperty('--tx', `${tx}px`);
       particle.style.setProperty('--ty', `${ty}px`);
       particle.style.setProperty('--rot', `${rot}deg`);
 
+      // In hạt ra màn hình
       document.body.appendChild(particle);
 
-      /* ĐÃ TĂNG: Xóa hạt sau 1s (1000ms) để khớp với CSS */
+      // Xóa hạt sau 1s
       setTimeout(() => {
         particle.remove();
       }, 1000);
     }
 
-    // HIỆU ỨNG 1: RÊ CHUỘT
+    // ==========================================
+    // HIỆU ỨNG 1: RÊ CHUỘT (TRAIL)
+    // ==========================================
     let lastSpawn = 0;
     document.addEventListener('mousemove', (e) => {
       const now = Date.now();
@@ -212,24 +224,30 @@
       }
     });
 
-    // HIỆU ỨNG 2: CLICK NÚT NỔ HẠT (BURST & DELAY)
+    // ==========================================
+    // HIỆU ỨNG 2: CLICK NÚT NỔ HẠT (BURST)
+    // ==========================================
     document.addEventListener('click', (e) => {
       const isButton = e.target.closest('a, button, .btn, .btn-action, .btn-view-story, .btn-cta-project, .masthead__menu-item, #kanade-return-top');
       
       if (isButton) {
-        // ĐÃ TĂNG: Nổ tung 50 hạt cùng lúc
-        for (let i = 0; i < 50; i++) {
+        // GIẢM VỀ 30 HẠT ĐỂ HẾT LAG
+        for (let i = 0; i < 30; i++) {
           createParticle(e.clientX, e.clientY, true);
         }
 
-        // DELAY CHUYỂN TRANG
+        // ĐIỀU KIỆN DELAY CHUYỂN TRANG
         if (isButton.tagName === 'A' && isButton.href) {
           const target = isButton.getAttribute('target');
           const onclick = isButton.getAttribute('onclick');
-          const href = isButton.getAttribute('href');
+          const href = isButton.getAttribute('href'); // Lấy nguyên chuỗi link gốc
           
-          // Chỉ delay nếu là link chuyển trang bình thường (Không phải tab mới, không có code onclick riêng, không phải link Table of Content)
-          if (target !== '_blank' && !onclick && href && !href.startsWith('#')) {
+          // Kiểm tra xem link có chứa dấu '#' (Nghĩa là link mục lục Table of Contents)
+          const isAnchorLink = href && href.includes('#');
+
+          // CHỈ DELAY VỚI CÁC LINK CHUYỂN TRANG THÔNG THƯỜNG
+          // (Bỏ qua link tab mới, link có hàm js riêng, VÀ link mục lục)
+          if (target !== '_blank' && !onclick && !isAnchorLink) {
             e.preventDefault(); // Chặn việc chuyển trang ngay
             
             // Chờ 150ms để xem hạt nổ rồi mới load trang mới
