@@ -21,7 +21,7 @@ I love using data to tell stories about the economy and human behavior.
 > Current Situation of Human Resources in the Semiconductor Industry in Vietnam and Experiences From TSMC Taiwan.
 > * [View Full Paper (IRJEMS)](https://irjems.org/irjems-v3i8p112.html){:target="_blank"}
 
-<a href="/projects/" class="btn-cta-project btn-neon">✨ View in Project</a>
+<a href="/projects/semiconductor-hr/" class="btn-cta-project btn-neon">✨ View in Project</a>
 
 <style>
   /* CSS cấu trúc chung cho nút CTA */
