@@ -116,7 +116,7 @@ author_profile: true
 
 <div class="about-content">
 
-  <img src="/assets/images/about-cover.jpg" alt="An Nguyen Journey" class="about-cover-img">
+  <img src="/assets/images/about-cover.jpg" alt="An Nguyen Journey" class="about-cover-img reveal-item">
 
   <p>Xin chào mọi người! I am An(uh-n). My journey started in the vibrant streets of Ho Chi Minh City, Vietnam, and has led me all the way to Madison.</p>
 
@@ -142,49 +142,49 @@ author_profile: true
 
   <div class="spotify-grid">
     
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-leoneed.jpg" alt="Leo/need" class="artist-img">
       <div class="artist-name">Leo/need</div>
       <a href="https://open.spotify.com/artist/7CXyP7IN0L3ySUeIQ6Ymu1?si=339b688f842e4e8d" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-yoasobi.jpg" alt="YOASOBI" class="artist-img">
       <div class="artist-name">YOASOBI</div>
       <a href="https://open.spotify.com/artist/64tJ2EAv1R6UaZqc4iOCyj?si=-T2h4DnsRjCwgjkWzf4Pxw" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-myuk.jpg" alt="Myuk" class="artist-img">
       <div class="artist-name">Myuk</div>
       <a href="https://open.spotify.com/artist/7oVNI7cJUA5f1Qvu8vQlq9?si=sODV_eVIQXWTAqx8ZgFkuw" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-nightcord.jpg" alt="Nightcord at 25:00" class="artist-img">
       <div class="artist-name">Nightcord at 25:00</div>
       <a href="https://open.spotify.com/artist/1VMXuPyhNldYomz8ojLKP7?si=AdeZG3qUSWCNou38hXj0lQ" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-yorushika.jpg" alt="Yorushika" class="artist-img">
       <div class="artist-name">Yorushika</div>
       <a href="https://open.spotify.com/artist/4UK2Lzi6fBfUi9rpDt6cik?si=97e645c64c774bfd" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-zutomayo.jpg" alt="Zutomayo" class="artist-img">
       <div class="artist-name">Zutomayo</div>
       <a href="https://open.spotify.com/artist/38WbKH6oKAZskBhqDFA8Uj?si=27a990fb48ed43a6" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-mrsgreenapple.jpg" alt="Mrs. GREEN APPLE" class="artist-img">
       <div class="artist-name">Mrs. GREEN APPLE</div>
       <a href="https://open.spotify.com/artist/4QvgGvpgzgyUOo8Yp8LDm9?si=3ba12b499f2444a8" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
     </div>
 
-    <div class="artist-card">
+    <div class="artist-card reveal-item">
       <img src="/assets/images/artist-kenshi.jpg" alt="Kenshi Yonezu" class="artist-img">
       <div class="artist-name">Kenshi Yonezu</div>
       <a href="https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB?si=ysSuEtYOQrCF39vBn7KP_g" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> View in Spotify</a>
