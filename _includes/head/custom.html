@@ -472,8 +472,8 @@
 
         // Tính độ lệch của chuột so với tâm nút
         // Nhân với 0.3 (30%) để nút không bay ra quá xa, tạo lực hút nam châm vừa phải
-        const moveX = (e.clientX - centerX) * 0.3;
-        const moveY = (e.clientY - centerY) * 0.3;
+        const moveX = (e.clientX - centerX) * 0.15;
+        const moveY = (e.clientY - centerY) * 0.15;
 
         // Áp dụng di chuyển (kết hợp với việc phóng to nhẹ 1.05 giống code cũ của bạn)
         btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
