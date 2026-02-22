@@ -2,7 +2,7 @@
 layout: splash
 title: "Tech Layoffs Analysis"
 permalink: /projects/tech-layoffs/
-og_image: "/assets/images/tech-layoffs-cover.jpg"
+og_image: "/assets/images/advanced_recession_analysis.png"
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
