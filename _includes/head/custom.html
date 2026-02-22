@@ -382,3 +382,56 @@
     text-shadow: none !important;
   }
 </style>
+
+<style>
+  /* 1. HIỆU ỨNG FADE-IN TOÀN TRANG KHI LOAD (0.5s) */
+  body {
+    animation: pageFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  @keyframes pageFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* 2. HIỆU ỨNG SCROLL (FADE-IN TRƯỢT LÊN NHẸ NHÀNG) */
+  /* Gắn class .reveal-item vào bất cứ thứ gì bạn muốn nó trượt lên */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(30px); /* Bắt đầu ở vị trí thấp hơn 30px */
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform; /* Tối ưu hóa card đồ họa (GPU) */
+  }
+
+  /* Class này sẽ được JS tự động thêm vào khi cuộn tới nơi */
+  .reveal-item.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Cấu hình con mắt theo dõi (Intersection Observer)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15 // Kích hoạt khi 15% phần tử xuất hiện trên màn hình
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Thêm class để hiện ra
+          entry.target.classList.add('reveal-visible');
+          // Sau khi hiện rồi thì ngừng theo dõi để đỡ tốn tài nguyên máy
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    // Tìm tất cả các phần tử có class 'reveal-item' và gắn con mắt theo dõi vào
+    document.querySelectorAll('.reveal-item').forEach((el) => {
+      observer.observe(el);
+    });
+  });
+</script>
