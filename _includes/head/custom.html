@@ -454,3 +454,42 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Quét tìm tất cả các nút Xanh Neon, Hồng Neon, Spotify trên toàn web
+    const magneticButtons = document.querySelectorAll('.btn-cta-project, .btn-view-story, .btn-spotify');
+
+    magneticButtons.forEach(btn => {
+      // 2. Khi chuột di chuyển bên trong khu vực của nút
+      btn.addEventListener('mousemove', function(e) {
+        // Lấy kích thước và vị trí của nút trên màn hình
+        const rect = btn.getBoundingClientRect();
+        
+        // Tính toán tọa độ tâm của cái nút
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Tính độ lệch của chuột so với tâm nút
+        // Nhân với 0.3 (30%) để nút không bay ra quá xa, tạo lực hút nam châm vừa phải
+        const moveX = (e.clientX - centerX) * 0.3;
+        const moveY = (e.clientY - centerY) * 0.3;
+
+        // Áp dụng di chuyển (kết hợp với việc phóng to nhẹ 1.05 giống code cũ của bạn)
+        btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+        
+        // Chỉnh transition siêu ngắn để nút bám theo chuột mượt mà ngay lập tức
+        btn.style.transition = 'transform 0.1s ease-out';
+      });
+
+      // 3. Khi chuột thả ra (rời khỏi nút)
+      btn.addEventListener('mouseleave', function() {
+        // Xóa biến dạng, trả nút về vị trí số 0 ban đầu
+        btn.style.transform = '';
+        
+        // Bật lại hiệu ứng đàn hồi để nút nảy về vị trí cũ một cách núng nính
+        btn.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+      });
+    });
+  });
+</script>
