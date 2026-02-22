@@ -36,6 +36,22 @@ I love using data to tell stories about the economy and human behavior.
 </div>
 
 <style>
+  /* ======================================================= */
+  /* LÀM NỔI BẬT CÁC HYPERLINK DẠNG CHỮ Ở TRANG CHỦ          */
+  /* ======================================================= */
+  .reveal-item a:not(.btn-cta-project) {
+    color: #00e5ff !important; /* Màu Cyan Neon sáng rực */
+    text-decoration: none !important;
+    font-weight: 600;
+    border-bottom: 1px dashed rgba(0, 229, 255, 0.5); /* Gạch chân nét đứt tinh tế */
+    transition: all 0.3s ease;
+  }
+
+  .reveal-item a:not(.btn-cta-project):hover {
+    color: #f72585 !important; /* Đổi sang Hồng Neon khi rê chuột */
+    text-shadow: 0 0 10px rgba(247, 37, 133, 0.6); /* Phát sáng nhẹ */
+    border-bottom: 1px solid #f72585; /* Gạch chân nét liền khi hover */
+  }
   /* CSS cấu trúc chung cho nút CTA */
   .btn-cta-project {
     display: inline-flex; align-items: center; gap: 8px;
