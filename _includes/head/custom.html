@@ -493,3 +493,108 @@
     });
   });
 </script>
+
+<style>
+  #data-storm-container {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    pointer-events: none; /* Chuột đâm xuyên qua, không cản trở click nút */
+    z-index: 1; /* Nổi trên nền Van Gogh nhưng nằm dưới các khối nội dung */
+    overflow: hidden;
+  }
+
+  .data-particle {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace; /* Font chuẩn dân code */
+    font-weight: bold;
+    opacity: 0;
+    will-change: transform, opacity; /* Bật tăng tốc phần cứng (GPU) để web không lag */
+    animation: floatUp linear infinite;
+  }
+
+  /* Hiệu ứng bay từ dưới đáy màn hình lên trên đỉnh */
+  @keyframes floatUp {
+    0% { 
+      transform: translateY(110vh) rotate(0deg); 
+      opacity: 0; 
+    }
+    10% { 
+      opacity: var(--max-opacity); /* Sáng dần lên khi xuất hiện */
+    }
+    90% { 
+      opacity: var(--max-opacity); 
+    }
+    100% { 
+      /* Bay qua khỏi màn hình và xoay theo góc ngẫu nhiên */
+      transform: translateY(-10vh) rotate(var(--rot)); 
+      opacity: 0; 
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Kho tàng ký hiệu của dân Data Science & Economics
+    const symbols = [
+      '∑', '∫', '≈', 'Δ', 'μ', 'σ', 'λ', '∞', 'θ', 'π', /* Toán học & Thống kê */
+      '{ }', '</>', '[ ]', '()', '!=', '==', '=>',      /* Code & Logic */
+      '0', '1', 'f(x)', 'O(n)', 'pd.df', 'def'          /* Data Science / CS */
+    ];
+    
+    // 2. Hai màu chủ đạo của Cyberpunk
+    const colors = ['#00e5ff', '#f72585']; 
+
+    // 3. Tạo khung chứa bão dữ liệu
+    const container = document.createElement('div');
+    container.id = 'data-storm-container';
+    document.body.appendChild(container);
+
+    // Số lượng ký hiệu bay cùng lúc (Chỉnh 30-40 là vừa đẹp, không bị rối mắt)
+    const particleCount = 35; 
+
+    for (let i = 0; i < particleCount; i++) {
+      createDataParticle();
+    }
+
+    function createDataParticle() {
+      const el = document.createElement('div');
+      el.classList.add('data-particle');
+      
+      // Random ký hiệu
+      el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      
+      // Random màu và tạo độ phát sáng (Glow)
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      el.style.color = color;
+      el.style.textShadow = `0 0 10px ${color}`; 
+      
+      // Kích thước ngẫu nhiên (Từ nhỏ xíu đến vừa vừa)
+      const size = Math.random() * 1.2 + 0.8; 
+      el.style.fontSize = `${size}rem`;
+      
+      // Vị trí xuất phát ngẫu nhiên trên chiều ngang màn hình
+      el.style.left = `${Math.random() * 100}vw`;
+      
+      // Tốc độ bay ngẫu nhiên (Từ 15s đến 35s cho 1 hành trình -> Rất chậm và chill)
+      const duration = Math.random() * 20 + 15; 
+      el.style.animationDuration = `${duration}s`;
+      
+      // Delay ngẫu nhiên để các ký hiệu không xuất hiện cùng 1 lúc
+      const delay = Math.random() * 20;
+      el.style.animationDelay = `-${delay}s`; 
+      
+      // Góc xoay ngẫu nhiên
+      const rot = Math.random() * 360 - 180;
+      el.style.setProperty('--rot', `${rot}deg`);
+      
+      // Độ mờ ngẫu nhiên (Từ 15% đến 30%)
+      const maxOp = Math.random() * 0.15 + 0.15; 
+      el.style.setProperty('--max-opacity', maxOp);
+      
+      container.appendChild(el);
+    }
+  });
+</script>
