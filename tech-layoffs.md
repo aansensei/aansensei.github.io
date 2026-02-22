@@ -209,8 +209,11 @@ og_image: "/assets/images/advanced_recession_analysis.png"
 </div>
 
 <script>
-  // SỬA LỖI NÚT BACK CỦA TRÌNH DUYỆT (Chống kẹt màn hình đen)
+  // SỬA LỖI NÚT BACK CỦA TRÌNH DUYỆT & MỞ KHÓA SCROLL
   window.addEventListener('pageshow', function(event) {
+    // 1. Phục hồi lại thanh cuộn nếu người dùng bấm Back
+    document.body.style.overflow = ''; 
+
     const overlay = document.getElementById('book-transition-overlay');
     const book = document.getElementById('book-3d');
     if (overlay) {
@@ -223,6 +226,10 @@ og_image: "/assets/images/advanced_recession_analysis.png"
 
   function triggerBookClose(url, event) {
     event.preventDefault();
+
+    // 2. KHÓA CHẶT THANH CUỘN LẠI KHI BẮT ĐẦU ĐÓNG SÁCH
+    document.body.style.overflow = 'hidden';
+
     const overlay = document.getElementById('book-transition-overlay');
     const book = document.getElementById('book-3d');
 
