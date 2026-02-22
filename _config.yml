@@ -13,6 +13,7 @@ description              : "Portfolio of Cao Thien An Nguyen (An). Exploring Dat
 url                      : "https://aansensei.github.io"
 baseurl                  : "" 
 repository               : "aansensei/aansensei.github.io"
+og_image                 : "/assets/images/about-cover.jpg"
 
 # 1. TẮT NÚT TÌM KIẾM (SEARCH)
 search                   : false 
@@ -83,6 +84,7 @@ plugins:
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
+  - jekyll-seo-tag
 defaults:
   - scope:
       path: ""
