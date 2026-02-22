@@ -70,7 +70,7 @@ author_profile: true
 </style>
 
 <div class="bookshelf">
-  <div class="book-container book-1">
+  <div class="book-container book-1 reveal-item">
     <div class="book">
       <div class="front-cover"><div class="cover-content"><h3>Tech Layoffs Analysis</h3><p>An end-to-end analysis investigating how Macro-economic indicators influence Tech Layoff trends.</p></div></div>
       <div class="inside-pages"><i class="fas fa-chart-line" style="color: #1c3a4a;"></i><h4>Data Story & Dashboard</h4><p>End-to-end analysis project.</p>
@@ -79,7 +79,7 @@ author_profile: true
     </div>
   </div>
 
-  <div class="book-container book-4">
+  <div class="book-container book-4 reveal-item">
     <div class="book">
       <div class="front-cover"><div class="cover-content"><h3>Semiconductor HR</h3><p>Current Situation of Human Resources in the Semiconductor Industry in Vietnam and Experiences From TSMC Taiwan.</p></div></div>
       <div class="inside-pages"><h4 style="font-family: 'Playfair Display', serif; color: #0d47a1 !important; font-size: 1.4rem; margin-top: 0; margin-bottom: 5px;">IRJEMS</h4><i class="fas fa-microchip" style="color: #7209b7; margin-bottom: 10px;"></i><p style="font-weight: 500; color: #333 !important;">Vol 3, Issue 8 (2024)</p>
@@ -88,14 +88,14 @@ author_profile: true
     </div>
   </div>
   
-  <div class="book-container book-2">
+  <div class="book-container book-2 reveal-item">
     <div class="book">
       <div class="front-cover"><div class="cover-content"><h3>Project Sekai Melody</h3><p>Unlocking the probability secrets behind the magical Gacha songs.</p></div></div>
       <div class="inside-pages"><i class="fas fa-music" style="color: #d81b60;"></i><h4>Gacha Probability Model</h4><small>Writing in progress...</small></div>
     </div>
   </div>
 
-  <div class="book-container book-3">
+  <div class="book-container book-3 reveal-item">
     <div class="book">
       <div class="front-cover"><div class="cover-content"><h3>Future Prophecy</h3><p>Algorithmic Trading Bot (Planned)</p></div></div>
       <div class="inside-pages"><i class="fas fa-user-astronaut" style="color: #333;"></i><h4>Trading Bot Project</h4><small>(Planned)</small><p>Coming Soon...</p></div>
