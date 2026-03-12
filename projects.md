@@ -5,10 +5,31 @@ permalink: /projects/
 author_profile: true
 ---
 
+<a href="https://aansensei.github.io/space-shooter/" target="_blank" class="easter-egg-rocket" title="Restricted Area: Top Secret Fairy Tale">🚀</a>
+
 {% raw %}
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
+  /* ======================================================= */
+  /* CSS CHO TÊN LỬA BÍ MẬT                                  */
+  /* ======================================================= */
+  .easter-egg-rocket { 
+    float: right; 
+    margin-top: -65px; /* Kéo tên lửa bay ngược lên nằm chung dòng với Title */
+    margin-right: 10px;
+    font-size: 1.8rem; 
+    text-decoration: none !important; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative; 
+    z-index: 50; 
+  }
+  .easter-egg-rocket:hover { 
+    transform: scale(1.3) translateY(-5px) rotate(15deg); 
+    filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.9)); 
+    cursor: pointer;
+  }
+
   /* --- KỆ SÁCH & CẤU TRÚC SÁCH (GIỮ NGUYÊN) --- */
   .bookshelf { display: flex; flex-wrap: wrap; gap: 55px; justify-content: center; padding: 60px 30px; perspective: 2500px; background-color: #5d4037 !important; background-image: repeating-linear-gradient(90deg, #5d4037, #5d4037 10px, #4e342e 10px, #4e342e 20px) !important; border: 15px solid #3e2723 !important; border-bottom: 25px solid #281a16 !important; border-radius: 8px; box-shadow: inset 0 0 80px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5) !important; }
   .book-container { width: 230px; height: 380px; position: relative; z-index: 1; margin-bottom: 30px; }
