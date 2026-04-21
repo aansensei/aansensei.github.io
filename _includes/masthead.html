@@ -1,59 +1,484 @@
+<!-- masthead.html: thanh nav cố định trên cùng — logo, tên web, nav links, hamburger mobile, nút đổi theme -->
 {% capture logo_path %}{{ site.logo }}{% endcapture %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap"
+  rel="stylesheet">
 
-<div class="masthead" style="background-color: rgba(10, 25, 47, 0.65) !important; border-bottom: 1px solid rgba(255,255,255,0.05);">
-  <div class="masthead__inner-wrap" style="background: transparent !important;">
+<style>
+  /* thanh nav trên cùng */
+  .masthead {
+    background: rgba(2, 1, 10, .92) !important;
+    backdrop-filter: blur(18px) !important;
+    border-bottom: 1px solid rgba(201, 162, 39, .15) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    transition: background 1.5s ease, border-color 1.5s ease !important;
+  }
+
+  /* day mode */
+  body.an-day-mode .masthead {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.25) !important;
+  }
+
+  .masthead__inner-wrap {
+    background: transparent !important;
+    padding: 0 16px !important;
+  }
+
+  .masthead__menu {
+    padding: 8px 0 !important;
+  }
+
+  /* link nav desktop */
+  .masthead__menu-item a {
+    background: rgba(4, 2, 18, .72) !important;
+    color: rgba(248, 244, 236, .9) !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: .93rem !important;
+    font-weight: 600 !important;
+    letter-spacing: .07em !important;
+    margin-left: 5px !important;
+    border: 1px solid rgba(201, 162, 39, .22) !important;
+    transition: all .3s !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* day mode */
+  body.an-day-mode .masthead__menu-item a {
+    background: rgba(240, 240, 240, 0.8) !important;
+    color: #2c2c2c !important;
+    border-color: rgba(184, 134, 11, 0.3) !important;
+  }
+
+  .masthead__menu-item a:hover {
+    background: rgba(201, 162, 39, .16) !important;
+    border-color: rgba(201, 162, 39, .55) !important;
+    color: #f0c84a !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 14px rgba(201, 162, 39, .28) !important;
+  }
+
+  body.an-day-mode .masthead__menu-item a:hover {
+    background: rgba(184, 134, 11, 0.15) !important;
+    color: #b8860b !important;
+    box-shadow: 0 4px 14px rgba(184, 134, 11, .2) !important;
+  }
+
+  /* hamburger tự làm */
+  #an-ham-btn {
+    display: none;
+    background: rgba(201, 162, 39, .14);
+    border: 1px solid rgba(201, 162, 39, .38);
+    border-radius: 8px;
+    padding: 7px 11px;
+    cursor: none;
+    transition: all .3s;
+    flex-shrink: 0;
+  }
+
+  body.an-day-mode #an-ham-btn {
+    background: rgba(184, 134, 11, .15);
+    border-color: rgba(184, 134, 11, .4);
+  }
+
+  #an-ham-btn:hover {
+    background: rgba(201, 162, 39, .28);
+    border-color: rgba(201, 162, 39, .65);
+  }
+
+  .an-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #f0c84a;
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  body.an-day-mode .an-bar {
+    background: #b8860b;
+  }
+
+  .an-bar+.an-bar {
+    margin-top: 5px;
+  }
+
+  #an-ham-btn.open .an-bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  #an-ham-btn.open .an-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  #an-ham-btn.open .an-bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* dropdown menu mobile */
+  #an-ham-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 12px;
+    background: rgba(3, 2, 16, .97);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(201, 162, 39, .28);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .55);
+    padding: 8px;
+    min-width: 185px;
+    z-index: 9999;
+    list-style: none;
+    margin: 0;
+    transition: background 1.5s ease;
+  }
+
+  body.an-day-mode #an-ham-menu {
+    background: rgba(255, 255, 255, .97);
+    border-color: rgba(184, 134, 11, .3);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .15);
+  }
+
+  #an-ham-menu.show {
+    display: block;
+  }
+
+  #an-ham-menu li a {
+    color: rgba(248, 244, 236, .9) !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 1.05rem !important;
+    padding: 10px 18px !important;
+    border-radius: 8px !important;
+    transition: all .2s !important;
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(201, 162, 39, .08) !important;
+    text-decoration: none !important;
+  }
+
+  body.an-day-mode #an-ham-menu li a {
+    color: #2c2c2c !important;
+    border-bottom-color: rgba(184, 134, 11, .1) !important;
+  }
+
+  #an-ham-menu li:last-child a {
+    border-bottom: none !important;
+  }
+
+  #an-ham-menu li a:hover {
+    background: rgba(201, 162, 39, .16) !important;
+    color: #f0c84a !important;
+    padding-left: 24px !important;
+  }
+
+  body.an-day-mode #an-ham-menu li a:hover {
+    background: rgba(184, 134, 11, .15) !important;
+    color: #b8860b !important;
+  }
+
+  #an-ham-menu li a i {
+    color: #b8860b;
+  }
+
+  /* tên web + subtitle */
+  #an-nav-title,
+  .site-title,
+  .site-title:visited,
+  .masthead__title,
+  .masthead__title:visited {
+    font-family: 'Cinzel Decorative', serif !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #f0c84a !important;
+    -webkit-text-fill-color: #f0c84a !important;
+    /* ép qua màu theme */
+    white-space: nowrap !important;
+    text-shadow: 0 0 16px rgba(201, 162, 39, 0.4) !important;
+    line-height: 1 !important;
+    letter-spacing: .04em !important;
+    display: block !important;
+    text-align: left !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition: text-shadow 1.5s ease, color 1.5s ease, -webkit-text-fill-color 1.5s ease !important;
+  }
+
+  /* day mode dùng vàng sậm hơn cho dễ đọc */
+  body.an-day-mode #an-nav-title,
+  body.an-day-mode .site-title,
+  body.an-day-mode .site-title:visited,
+  body.an-day-mode .masthead__title,
+  body.an-day-mode .masthead__title:visited {
+    color: #b8860b !important;
+    -webkit-text-fill-color: #b8860b !important;
+    text-shadow: 0 0 16px rgba(184, 134, 11, 0.4) !important;
+  }
+
+  #an-nav-subtitle {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: .7rem !important;
+    color: rgba(255, 248, 235, .7) !important;
+    -webkit-text-fill-color: rgba(255, 248, 235, .7) !important;
+    font-style: italic !important;
+    letter-spacing: .09em !important;
+    margin: 0 !important;
+    margin-top: 5px !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    display: block !important;
+    text-align: left !important;
+    transition: color 1.5s ease, -webkit-text-fill-color 1.5s ease !important;
+  }
+
+  /* subtitle day mode */
+  body.an-day-mode #an-nav-subtitle {
+    color: #8b4513 !important;
+    -webkit-text-fill-color: #8b4513 !important;
+  }
+
+  /* fix mobile */
+  @media(max-width:768px) {
+    #an-ham-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .visible-links {
+      display: none !important;
+    }
+
+    .greedy-nav__toggle {
+      display: none !important;
+    }
+
+    /* logo sát title hơn trên mobile */
+    #an-main-nav {
+      gap: 4px !important;
+    }
+
+    #an-nav-logo-link {
+      margin-right: 0 !important;
+    }
+
+    #an-nav-logo {
+      height: 52px !important;
+      /* bỏ shadow cho sắc nét hơn */
+      filter: none !important;
+    }
+
+    .author__urls-wrapper button,
+    .author__urls-wrapper .btn--inverse {
+      display: none !important;
+      height: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .author__urls-wrapper,
+    .author__urls-wrapper>nav,
+    .author__urls-wrapper .author__urls {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      flex-direction: row !important;
+      justify-content: center !important;
+      gap: 6px 14px !important;
+      margin-top: 10px !important;
+      padding-top: 10px !important;
+      border-top: 1px solid rgba(201, 162, 39, .14) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      position: static !important;
+      height: auto !important;
+      width: auto !important;
+      overflow: visible !important;
+    }
+
+    .author__urls a {
+      font-size: .82rem !important;
+    }
+  }
+
+  /* nút đổi theme sáng/tối */
+  #an-theme-toggle-desktop {
+    position: relative;
+    overflow: visible !important;
+    transition: all .3s cubic-bezier(.25, 1, .5, 1) !important;
+  }
+
+  /* hào quang xoay khi hover */
+  #an-theme-toggle-desktop::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    background: conic-gradient(rgba(120, 80, 255, 0) 0deg,
+        rgba(160, 120, 255, .75) 80deg,
+        rgba(220, 180, 255, .95) 180deg,
+        rgba(80, 200, 255, .75) 280deg,
+        rgba(120, 80, 255, 0) 360deg);
+    opacity: 0;
+    transition: opacity .3s ease;
+    z-index: -1;
+  }
+
+  /* vầng sáng sau nút */
+  #an-theme-toggle-desktop::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: rgba(130, 90, 255, .15);
+    opacity: 0;
+    transition: opacity .3s ease, transform .3s ease;
+    transform: scale(.8);
+    z-index: -2;
+  }
+
+  #an-theme-toggle-desktop:hover {
+    transform: translateY(-3px) scale(1.12) !important;
+    box-shadow: 0 0 18px rgba(140, 100, 255, .6), 0 0 40px rgba(80, 180, 255, .22) !important;
+    border-color: rgba(160, 120, 255, .8) !important;
+  }
+
+  #an-theme-toggle-desktop:hover::before {
+    opacity: 1;
+  }
+
+  #an-theme-toggle-desktop:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* icon xoay khi hover */
+  #an-theme-toggle-desktop:hover #an-theme-icon-desktop {
+    transform: rotate(30deg) scale(1.15) !important;
+    color: #e0d0ff !important;
+    text-shadow: 0 0 14px rgba(180, 140, 255, .9), 0 0 28px rgba(100, 180, 255, .5);
+  }
+
+  /* click: nhún + flash */
+  #an-theme-toggle-desktop:active {
+    transform: translateY(0) scale(.92) !important;
+    box-shadow: 0 0 8px rgba(140, 100, 255, .4) !important;
+    transition: all .08s ease !important;
+  }
+
+  #an-theme-toggle-desktop:active::before {
+    opacity: .5;
+  }
+</style>
+
+<div class="masthead" style="position:relative;">
+  <div class="masthead__inner-wrap" style="background:transparent!important;">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav" style="background: transparent !important;">
-        
-        <a class="site-logo" href="{{ '/' | relative_url }}" style="margin-right: 15px; display: inline-block; vertical-align: middle;">
-          <img src="{{ '/assets/images/ncta-logo.png' | relative_url }}" alt="NCTA Logo" style="height: 80px !important; max-height: 80px !important; width: auto; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+      <nav id="an-main-nav" style="display:flex;align-items:center;width:100%;gap:10px;position:relative;">
+
+        <!-- logo -->
+        <a id="an-nav-logo-link" href="{{ '/' | relative_url }}"
+          style="display:inline-flex;align-items:center;flex-shrink:0;margin-right:2px;">
+          <img id="an-nav-logo" src="{{ '/assets/images/ncta-logo.svg' | relative_url }}" alt="NCTA"
+            style="height:68px;width:auto;filter:drop-shadow(0 0 6px rgba(0,191,255,.5));transition:transform .3s;"
+            onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
         </a>
 
-        <div class="site-title" style="display: inline-flex; flex-direction: column; justify-content: center; vertical-align: middle; z-index: 1001; padding-top: 5px;">
-            
-            <span style="color: #ffffff !important; text-shadow: 0 0 10px rgba(0, 229, 255, 0.6) !important; margin-bottom: 0 !important; font-family: 'Playfair Display', serif !important; font-size: 1.5rem !important; font-weight: 800 !important; cursor: default; line-height: 1;">
-              {{ site.masthead_title | default: site.title }}
-            </span>
-            
-            <span style="
-                display: block !important;
-                font-family: 'Playfair Display', serif !important;
-                font-size: 0.85rem !important;
-                color: #e6f1ff !important;
-                font-weight: 400 !important;
-                letter-spacing: 0.5px !important;
-                text-shadow: 0 0 8px rgba(255, 255, 255, 0.5) !important;
-                margin-top: 4px !important;
-                line-height: 1.2 !important;
-                cursor: default;
-            ">
-              Data Science & Economics @ UW-Madison
-            </span>
+        <!-- tên web -->
+        <div id="an-nav-title-wrap"
+          style="text-decoration:none!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;flex-shrink:0;min-width:0;flex:1;cursor:default;margin-left:0;padding-left:0;">
+          <span id="an-nav-title" class="site-title masthead__title"
+            style="margin: 0; padding: 0; align-self: flex-start;">Nexus Datorum ✨</span>
+          <span id="an-nav-subtitle" style="margin: 0; padding: 0; margin-top: 5px; align-self: flex-start;">Data
+            Science &amp; Economics @ UW&#8209;Madison</span>
         </div>
 
-        <ul class="visible-links">
-          <li class="masthead__menu-item">
-            <a href="{{ '/' | relative_url }}" style="color: #e6f1ff !important;">Home</a>
-          </li>
-          
-          <li class="masthead__menu-item">
-            <a href="{{ '/about/' | relative_url }}" style="color: #e6f1ff !important;">About Me</a>
-          </li>
-
-          <li class="masthead__menu-item">
-            <a href="{{ '/projects/' | relative_url }}" style="color: #e6f1ff !important;">Projects</a>
-          </li>
-          <li class="masthead__menu-item">
-            <a href="{{ '/contact/' | relative_url }}" style="color: #e6f1ff !important;">Contact</a>
+        <!-- nav desktop -->
+        <ul class="visible-links"
+          style="display:flex;align-items:center;list-style:none;margin:0;padding:0;flex-shrink:0;">
+          <li class="masthead__menu-item"><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li class="masthead__menu-item"><a href="{{ '/about/' | relative_url }}">About Me</a></li>
+          <li class="masthead__menu-item"><a href="{{ '/projects/' | relative_url }}">Projects</a></li>
+          <li class="masthead__menu-item"><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+          <!-- nút đổi theme -->
+          <li class="masthead__menu-item" style="margin-left: 8px;">
+            <a href="#" id="an-theme-toggle-desktop" title="Space-Time Alteration"
+              style="padding: 6px 12px !important; border-radius: 50% !important;">
+              <i class="fas fa-sun" id="an-theme-icon-desktop" style="font-size: 1rem; transition: transform 0.5s;"></i>
+            </a>
           </li>
         </ul>
 
-        <button class="greedy-nav__toggle hidden" type="button">
-          <span class="visually-hidden">Menu</span>
-          <div class="navicon"></div>
+        <!-- hamburger mobile -->
+        <button id="an-ham-btn" type="button" aria-label="Menu" style="cursor:pointer!important;">
+          <span class="an-bar"></span>
+          <span class="an-bar"></span>
+          <span class="an-bar"></span>
         </button>
-        <ul class="hidden-links hidden"></ul>
+
+        <!-- dropdown -->
+        <ul id="an-ham-menu">
+          <li><a href="{{ '/' | relative_url }}"><i class="fas fa-home"></i>Home</a></li>
+          <li><a href="{{ '/about/' | relative_url }}"><i class="fas fa-user"></i>About Me</a></li>
+          <li><a href="{{ '/projects/' | relative_url }}"><i class="fas fa-book-open"></i>Projects</a></li>
+          <li><a href="{{ '/contact/' | relative_url }}"><i class="fas fa-paper-plane"></i>Contact</a></li>
+          <!-- đổi theme mobile -->
+          <li><a href="#" id="an-theme-toggle-mobile"><i class="fas fa-sun" id="an-theme-icon-mobile"></i>Change
+              Time</a></li>
+        </ul>
+
       </nav>
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('an-ham-btn');
+    var menu = document.getElementById('an-ham-menu');
+
+    if (btn && menu) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        menu.classList.toggle('show');
+        btn.classList.toggle('open');
+      });
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.remove('show');
+          btn.classList.remove('open');
+        }
+      });
+    }
+
+    /* đổi icon + class khi click */
+    function toggleTheme(e) {
+      e.preventDefault();
+      document.body.classList.toggle('an-day-mode');
+
+      var isDay = document.body.classList.contains('an-day-mode');
+      var iconDesk = document.getElementById('an-theme-icon-desktop');
+      var iconMob = document.getElementById('an-theme-icon-mobile');
+
+      if (isDay) {
+        if (iconDesk) { iconDesk.classList.remove('fa-sun'); iconDesk.classList.add('fa-moon'); iconDesk.style.transform = 'rotate(360deg)'; }
+        if (iconMob) { iconMob.classList.remove('fa-sun'); iconMob.classList.add('fa-moon'); }
+      } else {
+        if (iconDesk) { iconDesk.classList.remove('fa-moon'); iconDesk.classList.add('fa-sun'); iconDesk.style.transform = 'rotate(0deg)'; }
+        if (iconMob) { iconMob.classList.remove('fa-moon'); iconMob.classList.add('fa-sun'); }
+      }
+    }
+
+    var deskBtn = document.getElementById('an-theme-toggle-desktop');
+    var mobBtn = document.getElementById('an-theme-toggle-mobile');
+    if (deskBtn) deskBtn.addEventListener('click', toggleTheme);
+    if (mobBtn) mobBtn.addEventListener('click', toggleTheme);
+
+  })();
+</script>

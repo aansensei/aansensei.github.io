@@ -1,9 +1,48 @@
----
-# Only the main Sass file needs front matter (the dashes are enough)
-search: false
----
-
-@charset "utf-8";
+--- # Only the main Sass file needs front matter (the dashes are enough) search: false --- @charset "utf-8";
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+/* ================================
+   FORCE GOLD TITLE (FINAL FIX)
+================================ */
+
+/* Navbar title */
+.greedy-nav .site-title,
+.greedy-nav .site-title:link,
+.greedy-nav .site-title:visited,
+.greedy-nav .site-title:hover,
+.greedy-nav .site-title:active,
+.greedy-nav .site-title a,
+.greedy-nav .site-title a:link,
+.greedy-nav .site-title a:visited,
+.greedy-nav .site-title a:hover,
+#an-nav-title {
+    color: #f0c84a !important;
+    -webkit-text-fill-color: #f0c84a !important;
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+/* ================================
+   BỔ SUNG THEO GỢI Ý (ĐÁNH THẲNG VÀO MASTHEAD__TITLE)
+================================ */
+.masthead__title,
+.masthead__title a {
+    color: #f0c84a !important;
+    -webkit-text-fill-color: #f0c84a !important;
+}
+
+/* Bản siêu mạnh (Ultimate Override): Ép mọi thành phần con bên trong tiêu đề */
+.site-title *,
+.masthead__title * {
+    color: #f0c84a !important;
+    -webkit-text-fill-color: #f0c84a !important;
+}
+
+/* ================================
+   FORCE GOLD FOR PAGE TITLES
+================================ */
+.page__title {
+    color: #f0c84a !important;
+}
