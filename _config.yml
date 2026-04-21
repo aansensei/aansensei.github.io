@@ -1,0 +1,87 @@
+remote_theme: "mmistakes/minimal-mistakes"
+minimal_mistakes_skin: "default"
+
+locale: "en-US"
+title: "An's Magical World"
+title_separator: "-"
+subtitle: "Data Science & Economics @ UW-Madison"
+name: "Cao Thien An Nguyen"
+description: "Portfolio of Cao Thien An Nguyen — Data Science & Economics at UW-Madison."
+url: "https://aansensei.github.io"
+baseurl: ""
+repository: "aansensei/aansensei.github.io"
+og_image: "/assets/images/about-cover.jpg"
+
+include:
+  - _pages
+
+search: false
+atom_feed:
+  hide: true
+
+author:
+  name: "Cao Thien An Nguyen"
+  avatar: "/assets/images/avatar.jpg"
+  bio: "Where data whispers untold stories."
+  location: "Madison, WI, USA"
+  email: "cnguyen49@wisc.edu"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/aansensei"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/cao-thien-an-nguyen"
+
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/aansensei"
+
+encoding: "utf-8"
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+permalink: /:categories/:title/
+paginate: 5
+
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: false
+      related: false
+  - scope:
+      path: "_pages"
+    values:
+      layout: single
+      author_profile: true

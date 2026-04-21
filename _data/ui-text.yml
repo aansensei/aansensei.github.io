@@ -1,0 +1,15 @@
+en: &DEFAULT_EN
+  # Follow/Unfollow buttons
+  label_follow: "Follow"
+  label_unfollow: "Unfollow"
+  label_follow_on: "Follow on"
+  
+  # Sidebar labels
+  label_bio_about: "About"
+  
+  # Table of contents
+  label_toc: "Contents"
+  
+  # Empty strings to hide things
+  label_pagination_previous: "Prev"
+  label_pagination_next: "Next"

@@ -1,0 +1,600 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600;1,700&family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  /* --- 1. NỀN CHÍNH (VAN GOGH) - GIỮ NGUYÊN --- */
+  body {
+    background-color: #0d0d0d;
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+  }
+
+  /* --- 2. HEADER & MENU (ĐOẠN FIX QUAN TRỌNG) --- */
+  .masthead {
+    background-color: rgba(10, 25, 47, 0.6) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: sticky; top: 0; z-index: 1000;
+    padding: 10px 0;
+  }
+
+  .masthead__inner-wrap {
+    background-color: transparent !important;
+  }
+
+  .site-title, .site-title a {
+    color: #ffffff !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.6rem !important; font-weight: 800 !important;
+    background: none !important; padding: 0 !important; 
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.5) !important;
+    text-decoration: none !important;
+  }
+  
+  .masthead__menu-item a {
+    background-color: #0a192f !important; 
+    color: #ffffff !important;
+    padding: 8px 18px !important; border-radius: 20px; font-weight: 500;
+    margin-left: 5px; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+  }
+  .masthead__menu-item a:hover { 
+    background-color: #1565c0 !important;
+    transform: translateY(-2px); 
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  }
+
+  /* --- 3. FIX TRIỆT ĐỂ CÁC VÙNG TRẮNG CỨNG ĐẦU --- */
+  .initial-content, .page__content, #main, .wrapper, .page, .archive {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+
+  /* --- 4. CÁC PHẦN CÒN LẠI CỦA FILE GỐC (GIỮ NGUYÊN) --- */
+
+  .sidebar {
+    background-color: rgba(20, 25, 35, 0.85) !important;
+    backdrop-filter: blur(20px); border-radius: 20px; padding: 30px 20px !important;
+    border: 1px solid rgba(255,255,255,0.1); text-align: center;
+  }
+
+  .author__avatar img {
+    border-radius: 50% !important; aspect-ratio: 1 / 1; object-fit: cover !important;
+    border: 3px solid #00e5ff;
+    width: 140px !important; height: 140px !important;
+    margin-bottom: 15px; box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  }
+
+  .author__name {
+    font-family: 'Playfair Display', serif !important; color: #ffffff !important;
+    font-size: 1.8rem !important; margin-bottom: 10px;
+  }
+  
+  .author__bio {
+    font-family: 'Cormorant Garamond', serif !important; font-size: 1.5rem !important;
+    color: #00e5ff !important;
+    font-style: italic; font-weight: 700; margin-bottom: 20px;
+  }
+  .author__urls { color: rgba(255,255,255,0.9) !important; }
+
+  .author__urls-wrapper button { display: none !important; }
+  .social-icons-horizontal {
+    display: flex; justify-content: center; gap: 15px;
+    margin-top: 20px; padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .social-btn {
+    display: flex !important; justify-content: center; align-items: center;
+    width: 45px; height: 45px;
+    background-color: #0a192f; border-radius: 50%; color: #fff !important;
+    border: 1px solid rgba(255,255,255,0.2); font-size: 1.2rem; text-decoration: none; transition: 0.3s;
+  }
+  .social-btn:hover { background-color: #00e5ff; color: #0a192f !important; transform: translateY(-3px); }
+
+  .page__inner-wrap {
+    background-color: rgba(30, 30, 35, 0.75) !important; backdrop-filter: blur(20px);
+    border-radius: 20px; padding: 40px !important;
+    border: 1px solid rgba(255,255,255,0.1); margin-top: 20px;
+  }
+
+  h1, h2, h3, .page__title, .page__title a, h1 a, h2 a {
+    color: #00e5ff !important; 
+    font-family: 'Playfair Display', serif !important;
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.3) !important;
+    pointer-events: none !important;
+    cursor: default !important;
+    text-decoration: none !important;
+  }
+  
+  .book-container h1, .book-container h2, .book-container h3 {
+     color: #000 !important; text-shadow: none !important; pointer-events: auto !important;
+  }
+
+  p, li, span, strong { color: #ffffff !important; text-shadow: none !important; }
+
+  .page__footer { background: transparent !important; margin-top: 50px; }
+  .page__footer-copyright, .page__footer .social-icons { display: none !important; }
+  .page__footer:after { content: "© 2026 Cao Thien An Nguyen 🍀 || Art Work: The Starry Night – Vincent van Gogh"; display: block; text-align: center; color: #ccc; }
+</style>
+
+<style>
+  .magic-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999999;
+    /* ĐÃ TĂNG: Thời gian animation lên 1s */
+    animation: particle-float 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .particle-quad {
+    border-radius: 2px;
+  }
+
+  .particle-tri {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  @keyframes particle-float {
+    0% {
+      transform: translate(0, 0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Bảng màu Cyberpunk (Cyan, Hồng Neon, Tím, Trắng)
+    const colors = ['#00e5ff', '#f72585', '#7209b7', '#4cc9f0', '#ffffff'];
+
+    // Hàm tạo 1 hạt lấp lánh
+    function createParticle(x, y, isBurst = false) {
+      const particle = document.createElement('div');
+      particle.classList.add('magic-particle');
+
+      // 1. Tỉ lệ: 50% ra Tam Giác, 50% ra Tứ Giác
+      const isTriangle = Math.random() > 0.5;
+      particle.classList.add(isTriangle ? 'particle-tri' : 'particle-quad');
+
+      // 2. Random màu sắc
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.background = color;
+
+      // 3. Tăng độ phát sáng (Glow X-Treme)
+      if (isTriangle) {
+        particle.style.filter = `drop-shadow(0 0 8px ${color}) drop-shadow(0 0 15px ${color})`;
+      } else {
+        particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}, 0 0 30px ${color}`;
+      }
+
+      // 4. Kích thước ngẫu nhiên (Từ 6px đến 16px)
+      const size = Math.random() * 10 + 6; 
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+
+      // 5. Đặt hạt tại ngay đầu mũi chuột
+      particle.style.left = `${x - size / 2}px`;
+      particle.style.top = `${y - size / 2}px`;
+
+      // 6. Tính toán hướng bay
+      const spread = isBurst ? (Math.random() * 120 + 60) : (Math.random() * 40 + 10);
+      const angle = Math.random() * Math.PI * 2; 
+      
+      const tx = Math.cos(angle) * spread;
+      const ty = Math.sin(angle) * spread + (isBurst ? 0 : 20); 
+      
+      const rot = Math.random() * 360 + 180; 
+
+      // Truyền dữ liệu bay vào CSS
+      particle.style.setProperty('--tx', `${tx}px`);
+      particle.style.setProperty('--ty', `${ty}px`);
+      particle.style.setProperty('--rot', `${rot}deg`);
+
+      // In hạt ra màn hình
+      document.body.appendChild(particle);
+
+      // Xóa hạt sau 1s
+      setTimeout(() => {
+        particle.remove();
+      }, 1000);
+    }
+
+    // ==========================================
+    // HIỆU ỨNG 1: RÊ CHUỘT (TRAIL)
+    // ==========================================
+    let lastSpawn = 0;
+    document.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastSpawn > 30) {
+        createParticle(e.clientX, e.clientY, false);
+        if (Math.random() > 0.6) createParticle(e.clientX, e.clientY, false);
+        lastSpawn = now;
+      }
+    });
+
+    // ==========================================
+    // HIỆU ỨNG 2: CLICK NÚT NỔ HẠT (BURST)
+    // ==========================================
+    document.addEventListener('click', (e) => {
+      const isButton = e.target.closest('a, button, .btn, .btn-action, .btn-view-story, .btn-cta-project, .masthead__menu-item, #kanade-return-top');
+      
+      if (isButton) {
+        // GIẢM VỀ 30 HẠT ĐỂ HẾT LAG
+        for (let i = 0; i < 30; i++) {
+          createParticle(e.clientX, e.clientY, true);
+        }
+
+        // ĐIỀU KIỆN DELAY CHUYỂN TRANG
+        if (isButton.tagName === 'A' && isButton.href) {
+          const target = isButton.getAttribute('target');
+          const onclick = isButton.getAttribute('onclick');
+          const href = isButton.getAttribute('href'); // Lấy nguyên chuỗi link gốc
+          
+          // Kiểm tra xem link có chứa dấu '#' (Nghĩa là link mục lục Table of Contents)
+          const isAnchorLink = href && href.includes('#');
+
+          // CHỈ DELAY VỚI CÁC LINK CHUYỂN TRANG THÔNG THƯỜNG
+          // (Bỏ qua link tab mới, link có hàm js riêng, VÀ link mục lục)
+          if (target !== '_blank' && !onclick && !isAnchorLink) {
+            e.preventDefault(); // Chặn việc chuyển trang ngay
+            
+            // Chờ 150ms để xem hạt nổ rồi mới load trang mới
+            setTimeout(() => {
+              window.location.href = isButton.href;
+            }, 150); 
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var avatarImage = document.querySelector('.author__avatar img');
+    if (avatarImage) {
+      avatarImage.setAttribute('title', 'Fun fact: my bias is Kanade Yoisaki from 25時、ナイトコードで。');
+      avatarImage.style.cursor = 'help';
+    }
+  });
+</script>
+
+<style>
+  ::-webkit-scrollbar {
+    width: 6px; 
+    height: 6px; 
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(10, 25, 47, 0.2); 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.4); 
+    border-radius: 10px; 
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.9); 
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
+  }
+</style>
+
+<style>
+  #kanade-return-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 25, 47, 0.6); 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 15px;
+    padding: 8px 12px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+  #kanade-return-top.show {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+  #kanade-return-top:hover {
+    background: rgba(0, 229, 255, 0.2);
+    border-color: #00e5ff;
+    box-shadow: 0 5px 25px rgba(0, 229, 255, 0.5);
+    transform: translateY(-5px); 
+  }
+  #kanade-return-top img {
+    width: 65px; 
+    height: auto;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+    transition: transform 0.3s;
+  }
+  #kanade-return-top:hover img {
+    transform: scale(1.1);
+  }
+  #kanade-return-top span {
+    color: #00e5ff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const btn = document.createElement("div");
+    btn.id = "kanade-return-top";
+    btn.innerHTML = `
+        <img src="/assets/images/kanade-chibi.png" alt="Kanade Chibi">
+        <span>Return to top</span>
+    `;
+    document.body.appendChild(btn);
+
+    window.addEventListener("scroll", function() {
+        if (window.scrollY > 300) {
+            btn.classList.add("show");
+        } else {
+            btn.classList.remove("show");
+        }
+    });
+
+    btn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+  });
+</script>
+
+<style>
+  ::selection {
+    background-color: #00e5ff !important; /* Nền màu Cyan */
+    color: #ffffff !important;            /* Chữ màu trắng */
+    text-shadow: none !important;
+  }
+
+  ::-moz-selection {
+    background-color: #00e5ff !important; 
+    color: #ffffff !important;
+    text-shadow: none !important;
+  }
+</style>
+
+<style>
+  /* 1. HIỆU ỨNG FADE-IN TOÀN TRANG KHI LOAD (0.5s) */
+ /* ================================================== */
+  /* 1. HIỆU ỨNG FADE-IN NỘI DUNG (GIỮ NGUYÊN NỀN VANGOGH)*/
+  /* ================================================== */
+  
+  /* Thanh Menu trượt nhẹ từ trên xuống */
+  .masthead {
+    opacity: 0;
+    animation: fadeSlideDown 0.6s ease-out 0.1s forwards;
+  }
+
+  /* Toàn bộ nội dung chính (Avatar, Bài viết) trượt nhẹ từ dưới lên */
+  .initial-content {
+    opacity: 0;
+    animation: fadeSlideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+  }
+
+  /* Khai báo chuyển động */
+  @keyframes fadeSlideDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeSlideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 2. HIỆU ỨNG SCROLL (FADE-IN TRƯỢT LÊN NHẸ NHÀNG) */
+  /* Gắn class .reveal-item vào bất cứ thứ gì bạn muốn nó trượt lên */
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(30px); /* Bắt đầu ở vị trí thấp hơn 30px */
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: opacity, transform; /* Tối ưu hóa card đồ họa (GPU) */
+  }
+
+  /* Class này sẽ được JS tự động thêm vào khi cuộn tới nơi */
+  .reveal-item.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Cấu hình con mắt theo dõi (Intersection Observer)
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15 // Kích hoạt khi 15% phần tử xuất hiện trên màn hình
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Thêm class để hiện ra
+          entry.target.classList.add('reveal-visible');
+          // Sau khi hiện rồi thì ngừng theo dõi để đỡ tốn tài nguyên máy
+          observer.unobserve(entry.target); 
+        }
+      });
+    }, observerOptions);
+
+    // Tìm tất cả các phần tử có class 'reveal-item' và gắn con mắt theo dõi vào
+    document.querySelectorAll('.reveal-item').forEach((el) => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Quét tìm tất cả các nút Xanh Neon, Hồng Neon, Spotify trên toàn web
+    const magneticButtons = document.querySelectorAll('.btn-cta-project, .btn-view-story, .btn-spotify');
+
+    magneticButtons.forEach(btn => {
+      // 2. Khi chuột di chuyển bên trong khu vực của nút
+      btn.addEventListener('mousemove', function(e) {
+        // Lấy kích thước và vị trí của nút trên màn hình
+        const rect = btn.getBoundingClientRect();
+        
+        // Tính toán tọa độ tâm của cái nút
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Tính độ lệch của chuột so với tâm nút
+        // Nhân với 0.3 (30%) để nút không bay ra quá xa, tạo lực hút nam châm vừa phải
+        const moveX = (e.clientX - centerX) * 0.15;
+        const moveY = (e.clientY - centerY) * 0.15;
+
+        // Áp dụng di chuyển (kết hợp với việc phóng to nhẹ 1.05 giống code cũ của bạn)
+        btn.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+        
+        // Chỉnh transition siêu ngắn để nút bám theo chuột mượt mà ngay lập tức
+        btn.style.transition = 'transform 0.1s ease-out';
+      });
+
+      // 3. Khi chuột thả ra (rời khỏi nút)
+      btn.addEventListener('mouseleave', function() {
+        // Xóa biến dạng, trả nút về vị trí số 0 ban đầu
+        btn.style.transform = '';
+        
+        // Bật lại hiệu ứng đàn hồi để nút nảy về vị trí cũ một cách núng nính
+        btn.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+      });
+    });
+  });
+</script>
+
+<style>
+  #data-storm-container {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    pointer-events: none; /* Chuột đâm xuyên qua, không cản trở click nút */
+    z-index: 1; /* Nổi trên nền Van Gogh nhưng nằm dưới các khối nội dung */
+    overflow: hidden;
+  }
+
+  .data-particle {
+    position: absolute;
+    font-family: 'Courier New', Courier, monospace; /* Font chuẩn dân code */
+    font-weight: bold;
+    opacity: 0;
+    will-change: transform, opacity; /* Bật tăng tốc phần cứng (GPU) để web không lag */
+    animation: floatUp linear infinite;
+  }
+
+  /* Hiệu ứng bay từ dưới đáy màn hình lên trên đỉnh */
+  @keyframes floatUp {
+    0% { 
+      transform: translateY(110vh) rotate(0deg); 
+      opacity: 0; 
+    }
+    10% { 
+      opacity: var(--max-opacity); /* Sáng dần lên khi xuất hiện */
+    }
+    90% { 
+      opacity: var(--max-opacity); 
+    }
+    100% { 
+      /* Bay qua khỏi màn hình và xoay theo góc ngẫu nhiên */
+      transform: translateY(-10vh) rotate(var(--rot)); 
+      opacity: 0; 
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Kho tàng ký hiệu của dân Data Science & Economics
+    const symbols = [
+      '∑', '∫', '≈', 'Δ', 'μ', 'σ', 'λ', '∞', 'θ', 'π', /* Toán học & Thống kê */
+      '{ }', '</>', '[ ]', '()', '!=', '==', '=>',      /* Code & Logic */
+      '0', '1', 'f(x)', 'O(n)', 'pd.df', 'def'          /* Data Science / CS */
+    ];
+    
+    // 2. Hai màu chủ đạo của Cyberpunk
+    const colors = ['#00e5ff', '#f72585']; 
+
+    // 3. Tạo khung chứa bão dữ liệu
+    const container = document.createElement('div');
+    container.id = 'data-storm-container';
+    document.body.appendChild(container);
+
+    // Số lượng ký hiệu bay cùng lúc (Chỉnh 30-40 là vừa đẹp, không bị rối mắt)
+    const particleCount = 30; 
+
+    for (let i = 0; i < particleCount; i++) {
+      createDataParticle();
+    }
+
+    function createDataParticle() {
+      const el = document.createElement('div');
+      el.classList.add('data-particle');
+      
+      // Random ký hiệu
+      el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      
+      // Random màu và tạo độ phát sáng (Glow)
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      el.style.color = color;
+      el.style.textShadow = `0 0 10px ${color}`; 
+      
+      // Kích thước ngẫu nhiên (Từ nhỏ xíu đến vừa vừa)
+      const size = Math.random() * 1.2 + 0.8; 
+      el.style.fontSize = `${size}rem`;
+      
+      // Vị trí xuất phát ngẫu nhiên trên chiều ngang màn hình
+      el.style.left = `${Math.random() * 100}vw`;
+      
+      // Tốc độ bay ngẫu nhiên (Từ 15s đến 35s cho 1 hành trình -> Rất chậm và chill)
+      const duration = Math.random() * 20 + 15; 
+      el.style.animationDuration = `${duration}s`;
+      
+      // Delay ngẫu nhiên để các ký hiệu không xuất hiện cùng 1 lúc
+      const delay = Math.random() * 20;
+      el.style.animationDelay = `-${delay}s`; 
+      
+      // Góc xoay ngẫu nhiên
+      const rot = Math.random() * 360 - 180;
+      el.style.setProperty('--rot', `${rot}deg`);
+      
+      // Độ mờ ngẫu nhiên (Từ 15% đến 30%)
+      const maxOp = Math.random() * 0.15 + 0.15; 
+      el.style.setProperty('--max-opacity', maxOp);
+      
+      container.appendChild(el);
+    }
+  });
+</script>
