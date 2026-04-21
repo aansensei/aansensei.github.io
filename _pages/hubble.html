@@ -1,0 +1,220 @@
+---
+layout: null
+permalink: /hubble/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The giant elliptical galaxy in the center of this image is the most massive and brightest member of galaxy cluster Abell 2261. More than a million light-years wide, the galaxy is about 10 times bigger than our Milky Way galaxy. Captured by the Hubble Space Telescope on March 9, 2011.">
+  <title>Galaxy Cluster Abell 2261 — Hubble Birthday</title>
+  <link rel="shortcut icon" type="image/svg+xml" href="/assets/images/cube-logo-filled.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: #000;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: #e8e4d8;
+    }
+
+    #hubble-bg {
+      position: fixed;
+      inset: 0;
+      background: url('/assets/images/hubble.png') center center / cover no-repeat;
+      z-index: 0;
+    }
+
+    /* Vignette */
+    #hubble-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);
+    }
+
+    /* Back arrow top-left */
+    #back-btn {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 50;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #c9a227;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    #back-btn:hover { background: rgba(255,255,255,0.12); color: #f0c84a; }
+
+    /* Panel wrapper anchored at bottom-left */
+    #panel-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 28px;
+      z-index: 40;
+      width: min(480px, calc(100vw - 56px));
+    }
+
+    /* Toggle button — the ^ chevron */
+    #panel-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 28px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      margin-bottom: 0;
+      transition: background 0.2s;
+    }
+    #panel-toggle:hover { background: rgba(255,255,255,0.12); }
+    #panel-toggle svg {
+      width: 16px; height: 16px;
+      stroke: rgba(255,255,255,0.75);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 0.4s ease;
+    }
+    #panel-wrapper.open #panel-toggle svg { transform: rotate(180deg); }
+
+    /* The sliding panel */
+    #panel-body {
+      background: rgba(5, 8, 20, 0.72);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 0 10px 0 0;
+      padding: 20px 22px 22px;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.4s ease,
+                  padding 0.4s ease;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    #panel-wrapper.open #panel-body {
+      max-height: min(420px, calc(100dvh - 160px));
+      overflow-y: auto;
+      opacity: 1;
+      padding-top: 20px;
+      padding-bottom: 22px;
+    }
+
+    #panel-body::-webkit-scrollbar { width: 3px; }
+    #panel-body::-webkit-scrollbar-track { background: transparent; }
+    #panel-body::-webkit-scrollbar-thumb { background: rgba(201,162,39,0.4); border-radius: 2px; }
+
+    .panel-date {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(180,210,255,0.9);
+      margin-bottom: 6px;
+    }
+
+    .panel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.18rem;
+      font-weight: 600;
+      color: #e8e4d8;
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .panel-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(180,210,255,0.3);
+      margin-bottom: 13px;
+    }
+
+    .panel-official {
+      font-size: 0.902rem;
+      color: rgba(200,215,240,0.82);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+
+    .panel-personal {
+      font-size: 0.95rem;
+      color: rgba(240,236,224,0.96);
+      line-height: 1.75;
+    }
+
+    .panel-personal strong {
+      color: #c9a227;
+      font-weight: 600;
+    }
+    .panel-official strong {
+      color: #c9a227;
+      font-weight: 600;
+    }
+
+    /* Hubble credit bottom-right */
+    #hubble-credit {
+      position: fixed;
+      bottom: 14px;
+      right: 18px;
+      z-index: 30;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: rgba(201,162,39,0.6);
+      font-family: 'Cormorant Garamond', serif;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="hubble-bg"></div>
+
+  <a id="back-btn" href="javascript:window.close()" onclick="if(history.length>1){history.back();return false;}">&#8592; Close</a>
+
+  <div id="panel-wrapper" class="open">
+    <button id="panel-toggle" aria-label="Toggle info panel">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+    <div id="panel-body">
+      <p class="panel-date">On March 9 in 2011</p>
+      <h1 class="panel-title">Galaxy Cluster Abell 2261</h1>
+      <div class="panel-divider"></div>
+      <p class="panel-official">
+        The giant elliptical galaxy in the center of this image is the most massive and brightest member of galaxy cluster Abell 2261. More than a million light-years wide, the galaxy is about 10 times bigger than our Milky Way galaxy.
+      </p>
+      <p class="panel-personal">
+        I think about this image a lot. There are <strong>hundreds of galaxies</strong> in this single frame, each one a system of billions of stars, and Hubble caught all of them in one shot. That is a lot of data points in one picture.<br><br>
+        It reminds me why I care about data science. Not every dataset fits neatly into a model. Sometimes the most interesting thing is just learning to see <strong>what is actually there</strong>, the same way Hubble had to point at a patch of sky that looked empty and wait.
+      </p>
+    </div>
+  </div>
+
+  <p id="hubble-credit">NASA / ESA / Hubble Space Telescope</p>
+
+  <script>
+    var wrapper = document.getElementById('panel-wrapper');
+    var btn = document.getElementById('panel-toggle');
+    btn.addEventListener('click', function() {
+      wrapper.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
