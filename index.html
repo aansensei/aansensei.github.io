@@ -1,0 +1,1386 @@
+---
+layout: single
+author_profile: true
+title: "Hello, I'm An Nguyen"
+---
+<!-- index.html: trang chủ — giới thiệu bản thân, featured projects, sách 3D + mini game, tech stack -->
+
+<style>
+  .home-chapter {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: .8rem;
+    color: #c9a227;
+    letter-spacing: .3em;
+    opacity: .65;
+    margin-bottom: .4rem;
+  }
+
+  .home-chapter::before {
+    content: '— ';
+  }
+
+  .home-chapter::after {
+    content: ' —';
+  }
+
+  .home-intro {
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.08rem;
+    line-height: 1.95;
+    color: rgba(240, 230, 208, .9) !important;
+    margin-bottom: 1.6rem;
+  }
+
+  .home-intro strong {
+    color: #f0c84a !important;
+    font-weight: 600;
+  }
+
+  .home-divider {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin: 2rem 0 1.4rem;
+  }
+
+  .home-divider::before,
+  .home-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201, 162, 39, .35));
+  }
+
+  .home-divider::after {
+    background: linear-gradient(to left, transparent, rgba(201, 162, 39, .35));
+  }
+
+  .home-divider-text {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: .75rem;
+    color: #c9a227;
+    letter-spacing: .2em;
+    white-space: nowrap;
+    opacity: .8;
+  }
+
+  .home-project-card {
+    background: rgba(8, 12, 35, .6);
+    border: 1px solid rgba(201, 162, 39, .18);
+    border-left: 3px solid #2a9d8f;
+    border-radius: 0 10px 10px 0;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.6rem;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-project-card::before {
+    content: '✦';
+    position: absolute;
+    top: .6rem;
+    right: .8rem;
+    color: #c9a227;
+    font-size: .65rem;
+    opacity: .3;
+  }
+
+  .home-project-card:hover {
+    transform: translateX(5px);
+    border-left-color: #f0c84a;
+    box-shadow: -2px 0 16px rgba(201, 162, 39, .2);
+  }
+
+  .home-project-card.card-rose {
+    border-left-color: #c94f7c;
+  }
+
+  .home-project-card.card-rose:hover {
+    border-left-color: #e87a9c;
+    box-shadow: -2px 0 16px rgba(201, 79, 124, .2);
+  }
+
+  .home-project-card.card-crimson {
+    border-left-color: #8b0000;
+  }
+
+  .home-project-card.card-crimson:hover {
+    border-left-color: #c0392b;
+    box-shadow: -2px 0 16px rgba(139, 0, 0, .25);
+  }
+
+  .home-project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #52c9b9 !important;
+    text-decoration: none !important;
+    border-bottom: 1px dashed rgba(82, 201, 185, .4);
+    transition: color .25s, border-color .25s;
+    display: inline;
+  }
+
+  .home-project-title:hover {
+    color: #f0c84a !important;
+    border-bottom-color: rgba(240, 200, 74, .4);
+  }
+
+  .card-rose .home-project-title {
+    color: #e87a9c !important;
+    border-bottom-color: rgba(232, 122, 156, .35);
+  }
+
+  .card-rose .home-project-title:hover {
+    color: #f0c84a !important;
+  }
+
+  .card-crimson .home-project-title {
+    color: #e05c5c !important;
+    border-bottom-color: rgba(224, 92, 92, .35);
+  }
+
+  .card-crimson .home-project-title:hover {
+    color: #f0c84a !important;
+  }
+
+  .home-project-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: .98rem;
+    color: rgba(196, 196, 224, .7) !important;
+    margin: .5rem 0 .4rem;
+    line-height: 1.7;
+  }
+
+  .home-project-links {
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    margin: .5rem 0 .9rem;
+    padding-left: .4rem;
+  }
+
+  .home-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .9rem;
+    color: rgba(240, 230, 208, .6) !important;
+    text-decoration: none !important;
+    border-bottom: 1px dashed rgba(240, 230, 208, .25);
+    transition: color .25s, border-color .25s;
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+  }
+
+  .home-link::before {
+    content: '› ';
+    opacity: .5;
+  }
+
+  .home-link:hover {
+    color: #f0c84a !important;
+    border-bottom-color: rgba(240, 200, 74, .4);
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+  }
+
+  @media(max-width:600px) {
+    .tech-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tech-group {
+    background: rgba(8, 12, 35, .55);
+    border: 1px solid rgba(201, 162, 39, .12);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    transition: border-color .3s, box-shadow .3s;
+  }
+
+  .tech-group:hover {
+    border-color: rgba(201, 162, 39, .3);
+    box-shadow: 0 4px 20px rgba(201, 162, 39, .08);
+  }
+
+  .tech-group-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .78rem;
+    letter-spacing: .2em;
+    color: #c9a227 !important;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+    opacity: .75;
+  }
+
+  .tech-group-label::before {
+    content: '✦ ';
+    font-size: .6rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+  }
+
+  .tech-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .85rem;
+    padding: .2rem .7rem;
+    background: rgba(42, 157, 143, .1);
+    border: 1px solid rgba(42, 157, 143, .25);
+    border-radius: 12px;
+    color: #52c9b9 !important;
+  }
+</style>
+
+<div class="reveal-item">
+  <p class="home-chapter">Chapter One</p>
+  <p class="home-intro">Welcome to my portfolio! I am a <strong>Freshman at UW-Madison</strong> double majoring in
+    <strong>Data Science &amp; Economics</strong>.
+  </p>
+  <p class="home-intro">I love using data to tell stories about the economy and human behavior. Every dataset is a
+    <strong>fairy tale in disguise</strong> — waiting for someone who knows how to listen.
+  </p>
+</div>
+
+<div class="home-divider reveal-item"><span class="home-divider-text">🚀 Featured Projects</span></div>
+
+<div class="home-project-card reveal-item">
+  <a href="https://github.com/aansensei/Tech_Layoff_Project/blob/main/README.md" target="_blank"
+    class="home-project-title">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
+  <p class="home-project-desc">An end-to-end analysis using Random Forest to predict layoff trends vs. reality.</p>
+  <div class="home-project-links">
+    <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="home-link">View Dashboard</a>
+    <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="home-link">View Code on GitHub</a>
+  </div>
+  <a href="/projects/tech-layoffs/" class="btn-cta-project btn-blue"
+    onclick="anBookOpen('/projects/tech-layoffs/','linear-gradient(160deg,#0a1520,#1a3a55)','Tech Layoffs Analysis',event)">✦
+    Open the Tale</a>
+</div>
+
+<div class="home-project-card card-rose reveal-item">
+  <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-project-title">Reflection: Human
+    Resources in Vietnam's Semiconductor Industry</a>
+  <p class="home-project-desc">Current Situation of Human Resources in the Semiconductor Industry in Vietnam and
+    Experiences From TSMC Taiwan.</p>
+  <div class="home-project-links">
+    <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-link">View Full Paper (IRJEMS)</a>
+  </div>
+  <a href="/projects/semiconductor-hr/" class="btn-cta-project btn-neon"
+    onclick="anBookOpen('/projects/semiconductor-hr/','linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)','Semiconductor HR',event)">✦
+    Open the Tale</a>
+</div>
+
+<div class="home-project-card card-crimson reveal-item">
+  <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-project-title">Shadow Rent Index
+    — Real-Time Housing Inflation Tracker</a>
+  <p class="home-project-desc">An automated ETL data pipeline tracking real-time housing inflation. Generates a zero-lag
+    "Shadow Rent Index" as a leading macroeconomic indicator using Python, Selenium, and PostgreSQL.</p>
+  <div class="home-project-links">
+    <a href="https://shadow-rent-index-ncta.streamlit.app/" target="_blank" class="home-link">View Dashboard</a>
+    <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-link">View Code on GitHub</a>
+  </div>
+  <a href="/projects/shadow-rent/" class="btn-cta-project btn-crimson"
+    onclick="anBookOpen('/projects/shadow-rent/','linear-gradient(160deg,#1a0000,#4a0000,#8b0000)','Shadow Rent Index',event)">✦
+    Open the Tale</a>
+</div>
+
+<!-- phần sách mở + mini game space shooter -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  /* reset hết style của theme, ko thì nó ghi đè lung tung */
+  .mb-scene *,
+  .mb-scene *::before,
+  .mb-scene *::after {
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .mb-scene canvas {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .mb-scene h2,
+  .mb-scene h2::before,
+  .mb-scene h2::after,
+  .mb-scene span {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+  }
+
+  .mb-scene a,
+  .mb-scene a::before,
+  .mb-scene a::after {
+    background-image: none !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
+  /* layout chính của cái scene */
+  .mb-scene {
+    width: 100%;
+    height: 350px !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 25px !important;
+    position: relative;
+    margin: -4rem 0 1.5rem 0 !important;
+    z-index: 10;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+  }
+
+  .mb-anchor {
+    position: relative;
+    width: 360px;
+    height: 216px;
+    border: none !important;
+  }
+
+  /* vòng tròn ma thuật SVG, nằm sau sách */
+  .mb-magic-circle-layer {
+    position: absolute;
+    inset: 0;
+    perspective: 1200px;
+    z-index: 5 !important;
+    pointer-events: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mb-mc-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 410px;
+    height: 410px;
+    transform: translate(-50%, -50%) translateZ(-100px) scale(0.5);
+    opacity: 0;
+    transition: transform 2.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 2s;
+  }
+
+  .mb-scene.is-open .mb-mc-wrapper {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) translateZ(-50px) scale(1) !important;
+  }
+
+  .mb-magic-circle-svg {
+    width: 100%;
+    height: 100%;
+    animation: mbSpin 40s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 170, 0, 0.4));
+  }
+
+  @keyframes mbSpin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* sách 3D, 2 nửa trái/phải */
+  .mb-book-layer {
+    position: absolute;
+    inset: 0;
+    perspective: 1200px;
+    z-index: 10 !important;
+    pointer-events: none !important;
+  }
+
+  .mb-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(-200px) scale(0.7);
+    transform-style: preserve-3d !important;
+    transition: transform 2.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .mb-scene.is-open .mb-wrapper {
+    transform: translateZ(30px) scale(0.95) !important;
+  }
+
+  .mb-half {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    transform-style: preserve-3d !important;
+    transition: transform 2.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .mb-left-half {
+    left: 0 !important;
+    transform-origin: right center !important;
+    transform: rotateY(89deg);
+  }
+
+  .mb-right-half {
+    right: 0 !important;
+    transform-origin: left center !important;
+    transform: rotateY(-89deg);
+  }
+
+  .mb-scene.is-open .mb-left-half {
+    transform: rotateY(0deg) !important;
+  }
+
+  .mb-scene.is-open .mb-right-half {
+    transform: rotateY(0deg) !important;
+  }
+
+  .mb-cover,
+  .mb-page-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden !important;
+    border-radius: 3px !important;
+  }
+
+  .mb-cover {
+    background: radial-gradient(circle at center, #1e293b 0%, #060b14 100%) !important;
+    border: 2px solid #d4af37 !important;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .mb-cover::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    border: 1px dashed rgba(212, 175, 55, 0.6) !important;
+  }
+
+  .mb-cover::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(212, 175, 55, 0.4) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2) !important;
+  }
+
+  .mb-page-bg {
+    width: 96%;
+    height: 94%;
+    top: 3%;
+    background: #fcf8eb !important;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(160, 135, 75, 0.55) !important;
+  }
+
+  .mb-left-half .mb-cover {
+    transform: rotateY(180deg) translateZ(1px);
+    border-radius: 5px 0 0 5px !important;
+  }
+
+  .mb-left-half .mb-page-bg {
+    right: 0;
+    transform: translateZ(1px);
+    border-radius: 3px 0 0 3px !important;
+  }
+
+  .mb-right-half .mb-cover {
+    transform: rotateY(180deg) translateZ(1px);
+    border-radius: 0 5px 5px 0 !important;
+  }
+
+  .mb-right-half .mb-page-bg {
+    left: 0;
+    transform: translateZ(1px);
+    border-radius: 0 3px 3px 0 !important;
+  }
+
+  .mb-flip-page {
+    position: absolute;
+    width: 96%;
+    height: 94%;
+    top: 3%;
+    left: 0;
+    background: linear-gradient(to left, #f8f2df, #c8bfa0) !important;
+    box-shadow: -3px 0 8px rgba(0, 0, 0, 0.35), inset 0 0 12px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(150, 125, 65, 0.5) !important;
+    transform-origin: left center !important;
+    transform-style: preserve-3d !important;
+    border-radius: 0 3px 3px 0 !important;
+    transform: rotateY(0deg) translateZ(2px);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .mb-flip-page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #bfb590, #ddd6c0) !important;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2) !important;
+    transform: rotateY(180deg) translateZ(0.5px);
+    backface-visibility: hidden !important;
+    border-radius: 3px 0 0 3px !important;
+  }
+
+  .fp-1 {
+    animation-delay: 0s !important;
+  }
+
+  .fp-2 {
+    animation-delay: 0.14s !important;
+  }
+
+  .fp-3 {
+    animation-delay: 0.28s !important;
+  }
+
+  .fp-4 {
+    animation-delay: 0.42s !important;
+  }
+
+  .fp-5 {
+    animation-delay: 0.56s !important;
+  }
+
+  /* canvas vẽ khói và sao bay */
+  .mb-canvas-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 50 !important;
+    pointer-events: none !important;
+  }
+
+  #mb-dream-canvas {
+    position: absolute;
+    bottom: 5px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 660px !important;
+    height: 420px !important;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .mb-scene.is-open #mb-dream-canvas {
+    opacity: 1 !important;
+  }
+
+  /* nút bấm + chữ nổi lên sách */
+  #mb-ui-force-layer {
+    position: absolute;
+    bottom: 70px !important;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 999999 !important;
+    width: 100%;
+    pointer-events: none !important;
+  }
+
+  .mb-scene.is-hovered #mb-ui-force-layer {
+    opacity: 1 !important;
+  }
+
+  #mb-title-force {
+    font-family: 'Press Start 2P', system-ui, sans-serif !important;
+    color: #00e5ff !important;
+    -webkit-text-fill-color: #00e5ff !important;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.8), 0 0 15px rgba(0, 229, 255, 0.5) !important;
+    font-size: 0.675rem !important;
+    line-height: 1.5 !important;
+    margin: 0 0 10px 0 !important;
+    letter-spacing: 1px !important;
+  }
+
+  #mb-btn-force {
+    display: inline-block !important;
+    font-family: 'Press Start 2P', system-ui, sans-serif !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border: 2px solid #00e5ff !important;
+    color: #00e5ff !important;
+    -webkit-text-fill-color: #00e5ff !important;
+    padding: 7px 14px !important;
+    font-size: 0.5rem !important;
+    text-transform: uppercase !important;
+    box-shadow: inset 0 0 8px rgba(0, 229, 255, 0.4), 0 0 10px rgba(0, 229, 255, 0.5) !important;
+    transition: all 0.3s !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    line-height: normal !important;
+  }
+
+  #mb-btn-force {
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  #mb-btn-force::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -50% !important;
+    left: -100% !important;
+    width: 55% !important;
+    height: 200% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+    transform: skewX(-20deg) !important;
+    animation: mbBtnShine 2.2s ease-in-out infinite !important;
+  }
+
+  @keyframes mbBtnShine {
+    0% {
+      left: -100%;
+    }
+
+    35%,
+    100% {
+      left: 160%;
+    }
+  }
+
+  #mb-btn-force:hover {
+    background: #00e5ff !important;
+    color: #000 !important;
+    -webkit-text-fill-color: #000 !important;
+    border-color: #fff !important;
+    box-shadow: 0 0 18px rgba(0, 229, 255, 1), 0 0 40px rgba(0, 229, 255, 0.6), inset 0 0 14px rgba(0, 229, 255, 0.25) !important;
+    transform: scale(1.07) !important;
+  }
+
+  /* đẩy UI lên trước khi sách mở */
+  .mb-scene.is-open #mb-ui-force-layer {
+    transform: perspective(600px) translateX(-50%) translateZ(22px) !important;
+  }
+
+  /* scanline + viền neon kiểu hologram */
+  #mb-ui-force-layer::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: -18px -28px !important;
+    background-image: repeating-linear-gradient(0deg,
+        rgba(0, 229, 255, 0.045) 0px,
+        rgba(0, 229, 255, 0.045) 1px,
+        transparent 1px,
+        transparent 4px) !important;
+    border-radius: 6px !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    animation: mbHologramFlicker 3.5s ease-in-out infinite !important;
+  }
+
+  @keyframes mbHologramFlicker {
+
+    0%,
+    82%,
+    100% {
+      opacity: 1;
+    }
+
+    83% {
+      opacity: 0.65;
+    }
+
+    84% {
+      opacity: 1;
+    }
+
+    89% {
+      opacity: 0.45;
+    }
+
+    90% {
+      opacity: 1;
+    }
+  }
+
+  /* glitch effect tên game */
+  @keyframes mbTitleGlitch {
+
+    0%,
+    87%,
+    100% {
+      transform: none;
+      color: #00e5ff !important;
+      -webkit-text-fill-color: #00e5ff !important;
+    }
+
+    88% {
+      transform: translateX(-3px);
+      color: #ff00cc !important;
+      -webkit-text-fill-color: #ff00cc !important;
+      text-shadow: 3px 0 #00e5ff !important;
+    }
+
+    89% {
+      transform: translateX(3px);
+      color: #00ffcc !important;
+      -webkit-text-fill-color: #00ffcc !important;
+      text-shadow: -3px 0 #ff00cc !important;
+    }
+
+    90% {
+      transform: translateX(-1px) skewX(-4deg);
+      color: #00e5ff !important;
+      -webkit-text-fill-color: #00e5ff !important;
+    }
+
+    91% {
+      transform: none;
+      text-shadow: 0 0 8px rgba(0, 229, 255, 0.8), 0 0 15px rgba(0, 229, 255, 0.5) !important;
+    }
+  }
+
+  #mb-title-force {
+    animation: mbTitleGlitch 5s ease-in-out infinite !important;
+  }
+</style>
+
+<!-- wrapper chính, bắt hover/click ở đây -->
+<div class="mb-scene" id="mb-intro-section">
+  <div class="mb-anchor">
+
+    <!-- vòng tròn ma thuật -->
+    <div class="mb-magic-circle-layer">
+      <div class="mb-mc-wrapper">
+        <svg class="mb-magic-circle-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="mb-rune-ring"
+              d="M 250 35 A 215 215 0 0 1 465 250 A 215 215 0 0 1 250 465 A 215 215 0 0 1 35 250 A 215 215 0 0 1 250 35" />
+          </defs>
+          <g stroke-linecap="round" stroke-linejoin="round">
+            <!-- vòng ngoài + rune chạy vòng -->
+            <circle cx="250" cy="250" r="240" stroke="#ffcc00" stroke-width="3" fill="none" />
+            <circle cx="250" cy="250" r="232" stroke="#ffaa00" stroke-width="1" fill="none" />
+            <text font-size="11" fill="#ffcc00" opacity="0.82" font-family="serif">
+              <textPath href="#mb-rune-ring" textLength="1351" lengthAdjust="spacingAndGlyphs">ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ
+                ✦ ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ ✦ ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ ✦ ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ ✦ ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ
+                ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ ✦ ᛞᚨᛏᚨ ᚱᛖᚢᛖᚨᛚᛊ ᚺᛁᛞᛞᛖᚾ ᛏᚱᚢᛏᚺ ✦</textPath>
+            </text>
+            <circle cx="250" cy="250" r="198" stroke="#ffaa00" stroke-width="2" fill="none" />
+            <!-- hình thoi + vuông + bát giác -->
+            <polygon points="250,52 448,250 250,448 52,250" stroke="#ffcc00" stroke-width="2" fill="none" />
+            <polygon points="110,110 390,110 390,390 110,390" stroke="#ffcc00" stroke-width="2" fill="none" />
+            <polygon points="250,52 390,110 448,250 390,390 250,448 110,390 52,250 110,110" stroke="#ffaa00"
+              stroke-width="1" fill="none" opacity="0.4" />
+            <!-- 6 chấm rỗng trang trí -->
+            <circle cx="332" cy="109" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <circle cx="413" cy="250" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <circle cx="332" cy="391" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <circle cx="169" cy="391" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <circle cx="87" cy="250" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <circle cx="169" cy="109" r="3.5" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.75" />
+            <!-- lục giác nối 6 chấm -->
+            <polygon points="332,109 413,250 332,391 169,391 87,250 169,109" stroke="#ffaa00" stroke-width="0.8"
+              fill="none" opacity="0.38" />
+            <!-- vòng trong -->
+            <circle cx="250" cy="250" r="130" stroke="#ffaa00" stroke-width="3" fill="none" />
+            <circle cx="250" cy="250" r="120" stroke="#ffcc00" stroke-width="1" fill="none" stroke-dasharray="5 5" />
+            <!-- ngôi sao 6 cánh, 2 tam giác đan nhau -->
+            <polygon points="250,130 146,310 354,310" stroke="#ffaa00" stroke-width="2" fill="none" />
+            <polygon points="250,370 146,190 354,190" stroke="#ffaa00" stroke-width="2" fill="none" />
+            <!-- rune tại 6 đỉnh -->
+            <text x="250" y="119" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffcc00"
+              opacity="0.85" font-family="serif">ᚠ</text>
+            <text x="358" y="316" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffcc00"
+              opacity="0.85" font-family="serif">ᚢ</text>
+            <text x="142" y="316" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffcc00"
+              opacity="0.85" font-family="serif">ᚦ</text>
+            <text x="250" y="381" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffaa00"
+              opacity="0.85" font-family="serif">ᚨ</text>
+            <text x="142" y="184" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffaa00"
+              opacity="0.85" font-family="serif">ᚱ</text>
+            <text x="358" y="184" text-anchor="middle" dominant-baseline="middle" font-size="13" fill="#ffaa00"
+              opacity="0.85" font-family="serif">ᚲ</text>
+            <!-- 2 vòng phụ -->
+            <circle cx="250" cy="250" r="95" stroke="#ffaa00" stroke-width="1" fill="none" opacity="0.65" />
+            <circle cx="250" cy="250" r="78" stroke="#ffcc00" stroke-width="0.8" fill="none" stroke-dasharray="3 6"
+              opacity="0.55" />
+            <!-- lục giác nội tiếp ngôi sao -->
+            <polygon points="285,190 319,250 285,310 215,310 181,250 215,190" stroke="#ffcc00" stroke-width="1.5"
+              fill="none" opacity="0.9" />
+            <!-- 12 vạch tick xung quanh -->
+            <line x1="250" y1="200" x2="250" y2="182" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="275" y1="207" x2="284" y2="191" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="293" y1="225" x2="309" y2="216" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="300" y1="250" x2="318" y2="250" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="293" y1="275" x2="309" y2="284" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="275" y1="293" x2="284" y2="309" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="250" y1="300" x2="250" y2="318" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="225" y1="293" x2="216" y2="309" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="207" y1="275" x2="191" y2="284" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="200" y1="250" x2="182" y2="250" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="207" y1="225" x2="191" y2="216" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <line x1="225" y1="207" x2="216" y2="191" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+            <!-- pentagram ở giữa -->
+            <polygon points="250,208 275,284 210,237 290,237 225,284" stroke="#ffaa00" stroke-width="1.2" fill="none"
+              opacity="0.85" />
+            <!-- vòng trong cùng -->
+            <circle cx="250" cy="250" r="50" stroke="#ffcc00" stroke-width="2" fill="none" />
+            <circle cx="250" cy="250" r="30" stroke="#ffaa00" stroke-width="4" fill="none" stroke-dasharray="10 15" />
+            <!-- tâm: vòng + dấu + -->
+            <circle cx="250" cy="250" r="12" stroke="#ffcc00" stroke-width="1" fill="none" opacity="0.8" />
+            <line x1="238" y1="250" x2="262" y2="250" stroke="#ffcc00" stroke-width="0.8" opacity="0.65" />
+            <line x1="250" y1="238" x2="250" y2="262" stroke="#ffcc00" stroke-width="0.8" opacity="0.65" />
+            <circle cx="250" cy="250" r="3" fill="#ffcc00" opacity="0.9" />
+            <!-- 6 chấm đỉnh lục giác -->
+            <circle cx="285" cy="190" r="3" fill="#ffcc00" />
+            <circle cx="319" cy="250" r="3" fill="#ffcc00" />
+            <circle cx="285" cy="310" r="3" fill="#ffcc00" />
+            <circle cx="215" cy="310" r="3" fill="#ffcc00" />
+            <circle cx="181" cy="250" r="3" fill="#ffcc00" />
+            <circle cx="215" cy="190" r="3" fill="#ffcc00" />
+            <!-- 8 chấm trắng góc ngoài -->
+            <circle cx="250" cy="52" r="5" fill="#fff" />
+            <circle cx="448" cy="250" r="5" fill="#fff" />
+            <circle cx="250" cy="448" r="5" fill="#fff" />
+            <circle cx="52" cy="250" r="5" fill="#fff" />
+            <circle cx="110" cy="110" r="5" fill="#fff" />
+            <circle cx="390" cy="110" r="5" fill="#fff" />
+            <circle cx="390" cy="390" r="5" fill="#fff" />
+            <circle cx="110" cy="390" r="5" fill="#fff" />
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- sách 3D -->
+    <div class="mb-book-layer">
+      <div class="mb-wrapper" id="mb-magic-book">
+        <div class="mb-half mb-left-half">
+          <div class="mb-cover"></div>
+          <div class="mb-page-bg"></div>
+        </div>
+        <div class="mb-half mb-right-half">
+          <div class="mb-cover"></div>
+          <div class="mb-page-bg"></div>
+          <div class="mb-flip-page fp-1"></div>
+          <div class="mb-flip-page fp-2"></div>
+          <div class="mb-flip-page fp-3"></div>
+          <div class="mb-flip-page fp-4"></div>
+          <div class="mb-flip-page fp-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- canvas vẽ hiệu ứng, ko chặn click -->
+    <div class="mb-canvas-layer">
+      <canvas id="mb-dream-canvas"></canvas>
+    </div>
+
+    <!-- nút + tên game, dùng ID để ép font qua theme -->
+    <div id="mb-ui-force-layer">
+      <h2 id="mb-title-force"
+        style="font-family: 'Press Start 2P', cursive !important; color: #00e5ff !important; -webkit-text-fill-color: #00e5ff !important;">
+        Pisces:<br>Space Journey</h2>
+      <a href="https://aansensei.github.io/space-shooter/" target="_blank" id="mb-btn-force"
+        style="font-family: 'Press Start 2P', cursive !important; color: #00e5ff !important; -webkit-text-fill-color: #00e5ff !important;">Play
+        Now</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    const scene = document.getElementById('mb-intro-section');
+    let isBookOpen = false;
+    let isHovered = false;
+
+    // preload GPU khi còn cách 500px
+    const preloadObserver = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      ['.mb-mc-wrapper', '.mb-book-layer .mb-wrapper', '.mb-canvas-layer canvas'].forEach(sel => {
+        const el = scene.querySelector(sel);
+        if (el) el.style.willChange = 'transform, opacity';
+      });
+      startAnimate();
+      preloadObserver.disconnect();
+    }, { rootMargin: '0px 0px 500px 0px' });
+    preloadObserver.observe(scene);
+
+    // mở sách khi scroll tới
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          scene.classList.add('is-open');
+          isBookOpen = true;
+          startAnimate();
+        } else {
+          scene.classList.remove('is-open', 'is-hovered');
+          isBookOpen = false;
+          isHovered = false;
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(scene);
+
+    const canvas = document.getElementById('mb-dream-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 660;
+    canvas.height = 420;
+
+    const anchor = document.querySelector('.mb-anchor');
+    scene.addEventListener('mousemove', (e) => {
+      if (!isBookOpen) return;
+      const anchorRect = anchor.getBoundingClientRect();
+      const canvasRect = canvas.getBoundingClientRect();
+      const inBook = e.clientX >= anchorRect.left && e.clientX <= anchorRect.right &&
+        e.clientY >= anchorRect.top && e.clientY <= anchorRect.bottom;
+      const inCloud = e.clientX >= canvasRect.left && e.clientX <= canvasRect.right &&
+        e.clientY >= canvasRect.top && e.clientY <= canvasRect.bottom;
+      const shouldHover = inBook || inCloud;
+      if (shouldHover !== isHovered) {
+        isHovered = shouldHover;
+        scene.classList.toggle('is-hovered', shouldHover);
+      }
+    });
+    scene.addEventListener('mouseleave', () => { scene.classList.remove('is-hovered'); isHovered = false; });
+
+    const flipPages = [
+      document.querySelector('.fp-1'),
+      document.querySelector('.fp-2'),
+      document.querySelector('.fp-3'),
+      document.querySelector('.fp-4'),
+      document.querySelector('.fp-5')
+    ];
+    let pageProgress = [0, 0.2, 0.4, 0.6, 0.8];
+    let currentFlipSpeed = 0;
+
+    let cloudGrowth = 0;
+    let time = 0;
+    let starSpeed = 0.5;
+
+    function drawMorphingCloud(ctx, t) {
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      const d1 = Math.sin(t * 0.03) * 8;
+      const d2 = Math.cos(t * 0.04) * 12;
+      const d3 = Math.sin(t * 0.02) * 16;
+      const d4 = Math.cos(t * 0.05) * 8;
+      ctx.bezierCurveTo(-15 + d1, -10 - d2, -50 - d3, -25 + d1, -80 - d2, -60 - d3);
+      ctx.bezierCurveTo(-150 - d4, -80 + d1, -180 + d2, -130 - d4, -80 + d3, -150 - d2);
+      ctx.bezierCurveTo(-50 + d1, -180 - d3, 50 - d2, -180 + d4, 80 - d1, -150 + d3);
+      ctx.bezierCurveTo(180 + d4, -130 - d2, 150 - d3, -80 + d1, 80 + d2, -60 - d4);
+      ctx.bezierCurveTo(50 - d1, -25 + d3, 15 + d2, -10 - d1, 0, 0);
+      ctx.closePath();
+    }
+
+    class MagicParticle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = 0; this.y = 0;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 6;
+        this.speedY = (Math.random() * -3) - 0.5;
+        this.life = 1;
+        this.decay = Math.random() * 0.008 + 0.003;
+        this.wobbleSpeed = Math.random() * 0.1;
+        this.wobbleSize = Math.random() * 2;
+        this.seed = Math.random() * 100;
+        this.color = Math.random() > 0.5 ? '0, 229, 255' : '168, 85, 247';
+      }
+      update() {
+        this.x += this.speedX + Math.sin(time * this.wobbleSpeed + this.seed) * this.wobbleSize;
+        this.y += this.speedY;
+        this.life -= this.decay;
+        if (this.life <= 0 && isBookOpen) this.reset();
+      }
+      draw(ctx) {
+        if (this.life <= 0) return;
+        ctx.fillStyle = `rgba(${this.color}, ${this.life * 0.1})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 4, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(${this.color}, ${this.life * 0.35})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = `rgba(${this.color}, ${this.life})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    const particles = Array.from({ length: 120 }, () => new MagicParticle());
+
+    const RUNES = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ', 'ᚺ', 'ᚾ', 'ᛁ', 'ᛃ', 'ᛇ', 'ᛈ', 'ᛉ', 'ᛊ', 'ᛏ', 'ᛒ', 'ᛖ', 'ᛗ', 'ᛚ', 'ᛜ', 'ᛞ', 'ᛟ'];
+    class RuneParticle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = (Math.random() - 0.5) * 80;
+        this.y = (Math.random() - 0.5) * 40;
+        this.rune = RUNES[Math.floor(Math.random() * RUNES.length)];
+        this.size = Math.random() * 10 + 8;
+        this.speedX = (Math.random() - 0.5) * 4;
+        this.speedY = (Math.random() * -2.5) - 0.3;
+        this.life = 1;
+        this.decay = Math.random() * 0.005 + 0.002;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.03;
+        this.color = Math.random() > 0.5 ? '255, 215, 80' : '168, 85, 247';
+        this.delay = Math.random() * 200;
+      }
+      update() {
+        if (this.delay > 0) { this.delay--; return; }
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.rotation += this.rotSpeed;
+        this.life -= this.decay;
+        if (this.life <= 0 && isBookOpen) this.reset();
+      }
+      draw(ctx) {
+        if (this.life <= 0 || this.delay > 0) return;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.life * 0.85;
+        ctx.fillStyle = `rgb(${this.color})`;
+        ctx.font = `${this.size}px serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(this.rune, 0, 0);
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
+    }
+    const runeParticles = Array.from({ length: 18 }, () => new RuneParticle());
+
+    class Star {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * (canvas.height - 80);
+        this.size = Math.random() * 1.5 + 0.5;
+        this.baseSpd = Math.random() * 1.5 + 0.5;
+      }
+      update(mod) {
+        this.x -= this.baseSpd * mod;
+        if (this.x < -20) { this.x = canvas.width + 20; this.y = Math.random() * (canvas.height - 80); }
+      }
+      draw(ctx) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.5 + 0.5})`;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+    const stars = Array.from({ length: 150 }, () => new Star());
+
+    const shipDesign = [
+      [0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0],
+      [0, 0, 3, 3, 1, 1, 1, 0, 0, 0, 0],
+      [0, 3, 3, 1, 1, 1, 1, 1, 0, 0, 0],
+      [1, 1, 1, 1, 4, 1, 1, 1, 1, 0, 0],
+      [1, 4, 4, 2, 2, 2, 2, 1, 1, 1, 0],
+      [1, 4, 4, 2, 2, 2, 2, 2, 2, 1, 1],
+      [1, 4, 4, 2, 2, 2, 2, 1, 1, 1, 0],
+      [1, 1, 1, 1, 4, 1, 1, 1, 1, 0, 0],
+      [0, 3, 3, 1, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 3, 3, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0]
+    ];
+
+    function drawShip(x, y, pSize, tilt) {
+      ctx.save();
+      ctx.translate(x, y + tilt);
+      ctx.rotate(tilt * 0.015);
+      for (let r = 0; r < shipDesign.length; r++) {
+        for (let c = 0; c < shipDesign[r].length; c++) {
+          let type = shipDesign[r][c];
+          if (type !== 0) {
+            if (type === 1) ctx.fillStyle = '#e2e8f0';
+            else if (type === 2) ctx.fillStyle = '#00e5ff';
+            else if (type === 3) ctx.fillStyle = '#8b5cf6';
+            else if (type === 4) ctx.fillStyle = '#94a3b8';
+            ctx.shadowBlur = type === 2 ? 8 : 0;
+            ctx.shadowColor = '#00e5ff';
+            ctx.fillRect(c * pSize, r * pSize, pSize, pSize);
+          }
+        }
+      }
+      ctx.fillStyle = isHovered ? '#a855f7' : '#00e5ff';
+      ctx.shadowBlur = isHovered ? 8 : 4;
+      ctx.shadowColor = ctx.fillStyle;
+      const engLen = isHovered ? Math.random() * 12 + 8 : Math.random() * 5 + 3;
+      ctx.fillRect(-engLen, 4.5 * pSize, engLen, 2 * pSize);
+      ctx.restore();
+    }
+
+    function animate() {
+      const targetFlipSpeed = isBookOpen ? (isHovered ? 0.012 : 0.0015) : 0;
+      currentFlipSpeed += (targetFlipSpeed - currentFlipSpeed) * 0.15;
+
+      if (isBookOpen || currentFlipSpeed > 0.001) {
+        flipPages.forEach((page, i) => {
+          if (!page) return;
+          pageProgress[i] += currentFlipSpeed;
+          if (pageProgress[i] > 1) pageProgress[i] -= 1;
+          const p = pageProgress[i];
+          const angle = -180 * p;
+          let opacity = 1;
+          if (p < 0.1) opacity = p / 0.1;
+          else if (p > 0.8) opacity = 1 - ((p - 0.8) / 0.2);
+          page.style.transform = `rotateY(${angle}deg) translateZ(2px)`;
+          page.style.opacity = opacity;
+        });
+      } else {
+        flipPages.forEach(page => { if (page) page.style.opacity = 0; });
+      }
+
+      if (!isBookOpen && cloudGrowth < 0.01) {
+        requestAnimationFrame(animate);
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const tgGrow = isBookOpen ? 1 : 0;
+      cloudGrowth += (tgGrow - cloudGrowth) * 0.1;
+
+      if (cloudGrowth > 0.05) {
+        const cx = canvas.width / 2;
+        const cy = canvas.height - 20;
+        const floatY = Math.sin(time * 0.02) * 10;
+        const currentScale = cloudGrowth * 0.95;
+        const cloudScale = currentScale * 1.2;
+
+        ctx.save();
+        ctx.translate(cx, cy + floatY);
+        ctx.scale(currentScale, currentScale);
+        particles.forEach(p => { p.update(); p.draw(ctx); });
+        runeParticles.forEach(p => { p.update(); p.draw(ctx); });
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(cx, cy + floatY);
+        ctx.scale(cloudScale, cloudScale);
+        drawMorphingCloud(ctx, time);
+        ctx.clip();
+        ctx.scale(1 / cloudScale, 1 / cloudScale);
+        ctx.translate(-cx, -(cy + floatY));
+
+        const grad = ctx.createRadialGradient(cx, cy - 80, 20, cx, cy - 80, 160);
+        grad.addColorStop(0, '#0f172a'); grad.addColorStop(1, '#020617');
+        ctx.fillStyle = grad; ctx.fill();
+
+        starSpeed += ((isHovered ? 2.5 : 0.5) - starSpeed) * 0.05;
+        stars.forEach(s => { s.update(starSpeed); s.draw(ctx); });
+
+        ctx.translate(cx, cy + floatY);
+        ctx.scale(currentScale, currentScale);
+        const shipTilt = Math.sin(time * (isHovered ? 0.04 : 0.02)) * 8;
+        drawShip(-20, -110, 3.2, shipTilt);
+        ctx.restore();
+
+        ctx.save();
+        ctx.translate(cx, cy + floatY);
+        ctx.scale(cloudScale, cloudScale);
+        drawMorphingCloud(ctx, time);
+
+        const gradAngle = time * 0.015;
+        const strokeGrad = ctx.createConicGradient(gradAngle, 0, -150);
+        strokeGrad.addColorStop(0, 'rgba(0, 229, 255, 0)');
+        strokeGrad.addColorStop(0.2, 'rgba(0, 229, 255, 0.4)');
+        strokeGrad.addColorStop(0.4, 'rgba(0, 229, 255, 0)');
+        strokeGrad.addColorStop(0.6, 'rgba(0, 229, 255, 0.4)');
+        strokeGrad.addColorStop(0.8, 'rgba(0, 229, 255, 0)');
+        strokeGrad.addColorStop(1, 'rgba(0, 229, 255, 0)');
+        ctx.lineWidth = 14;
+        ctx.strokeStyle = strokeGrad;
+        ctx.stroke();
+
+        const strokeGrad2 = ctx.createConicGradient(-gradAngle * 1.5, 0, -150);
+        strokeGrad2.addColorStop(0, 'rgba(0, 229, 255, 0.8)');
+        strokeGrad2.addColorStop(0.25, 'rgba(0, 229, 255, 0)');
+        strokeGrad2.addColorStop(0.5, 'rgba(0, 229, 255, 0.8)');
+        strokeGrad2.addColorStop(0.75, 'rgba(0, 229, 255, 0)');
+        strokeGrad2.addColorStop(1, 'rgba(0, 229, 255, 0.8)');
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = strokeGrad2;
+        ctx.stroke();
+        ctx.restore();
+      }
+      time++;
+      if (isBookOpen || cloudGrowth > 0.001) {
+        requestAnimationFrame(animate);
+      } else {
+        rafRunning = false;
+      }
+    }
+    let rafRunning = false;
+    function startAnimate() {
+      if (!rafRunning) { rafRunning = true; animate(); }
+    }
+    startAnimate();
+  })();
+</script>
+<!-- hết phần sách -->
+
+<div class="home-divider reveal-item" style="margin-top: 3rem;"><span class="home-divider-text">🛠️ Tech Stack</span>
+</div>
+
+<div class="tech-grid reveal-item">
+  <div class="tech-group">
+    <div class="tech-group-label">Languages</div>
+    <div class="tech-tags"><span class="tech-tag">Python</span><span class="tech-tag">SQL</span><span
+        class="tech-tag">R</span></div>
+  </div>
+  <div class="tech-group">
+    <div class="tech-group-label">Libraries</div>
+    <div class="tech-tags"><span class="tech-tag">Pandas</span><span class="tech-tag">NumPy</span><span
+        class="tech-tag">Scikit-Learn</span><span class="tech-tag">Plotly</span><span
+        class="tech-tag">Matplotlib</span><span class="tech-tag">Selenium</span></div>
+  </div>
+  <div class="tech-group">
+    <div class="tech-group-label">Tools</div>
+    <div class="tech-tags"><span class="tech-tag">Tableau</span><span class="tech-tag">Streamlit</span><span
+        class="tech-tag">Git</span><span class="tech-tag">Jupyter</span><span class="tech-tag">PostgreSQL</span></div>
+  </div>
+</div>
+
+<!-- overlay sách, dùng chung với custom.html -->
+
+<style>
+  #an-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(2, 1, 10, .97);
+    backdrop-filter: blur(20px);
+    z-index: 999999;
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+    perspective: 1400px;
+  }
+
+  #an-book {
+    width: 220px;
+    height: 340px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  .ab-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 14px 14px 5px;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transition: transform .7s cubic-bezier(.4, 0, .2, 1);
+  }
+
+  #ab-back {
+    background: #06031a;
+    transform: translateZ(-6px);
+    z-index: 1;
+  }
+
+  #ab-p1 {
+    background: linear-gradient(to left, #cec6ae, #eae4d4);
+    border: 1px solid #c5bcaa;
+    transform: translateZ(-4px);
+    z-index: 2;
+  }
+
+  #ab-p2 {
+    background: linear-gradient(to right, #d5cdb8, #ede8dc);
+    border: 1px solid #c5bcaa;
+    transform: translateZ(-2px);
+    z-index: 3;
+  }
+
+  #ab-p3 {
+    background: linear-gradient(to left, #d2cabc, #e8e4d8);
+    border: 1px solid #c5bcaa;
+    transform: translateZ(0);
+    z-index: 4;
+  }
+
+  #ab-front {
+    border: 1px solid rgba(201, 162, 39, .4);
+    box-shadow: 0 0 32px rgba(0, 0, 0, .7), 0 0 22px rgba(201, 162, 39, .4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 22px;
+    transform: translateZ(2px);
+    z-index: 5;
+  }
+
+  #ab-front h3 {
+    color: #fff !important;
+    font-family: 'Cinzel Decorative', serif !important;
+    font-size: 1.25rem !important;
+    text-shadow: 0 0 16px rgba(255, 255, 255, .8) !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+    line-height: 1.4 !important;
+  }
+</style>
+<div id="an-overlay">
+  <div id="an-book">
+    <div id="ab-back" class="ab-layer"></div>
+    <div id="ab-p1" class="ab-layer"></div>
+    <div id="ab-p2" class="ab-layer"></div>
+    <div id="ab-p3" class="ab-layer"></div>
+    <div id="ab-front" class="ab-layer">
+      <h3 id="ab-title"></h3>
+    </div>
+  </div>
+</div>
+<script>
+  window.addEventListener('pageshow', function () {
+    document.body.style.overflow = '';
+    var ov = document.getElementById('an-overlay'), bk = document.getElementById('an-book');
+    if (ov) { ov.style.opacity = '0'; ov.style.pointerEvents = 'none'; }
+    if (bk && typeof anBookReset === 'function') anBookReset(bk);
+  });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Cao Thien An Nguyen",
+  "alternateName": ["aansensei", "Thien An Nguyen"],
+  "jobTitle": "Data Scientist, Economist",
+  "sameAs": [
+    "https://github.com/aansensei/aansensei.github.io",
+    "https://www.linkedin.com/in/cao-thien-an-nguyen/"
+  ],
+  "url": "https://aansensei.dev/"
+}
+</script>
+
+<meta name="keywords"
+  content="Nguyễn Cao Thiên Ân, Thiên Ân, Data Scientist, Data Engineer, Quantitative Analyst, Python Developer, Automation & Web Scraping Engineer, Full-stack AI/ML Developer, Economic Data Analyst, Interactive AI/ML Designer">
