@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Construction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #07051a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+    }
+
+    /* ── starfield ── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── rhythm game canvas ── */
+    #rhythm-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* ── lane glow lines ── */
+    .lanes {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    /* ── content ── */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6rem;
+    }
+
+    .divider-line {
+      width: 260px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,162,39,.55), transparent);
+    }
+
+    .label {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .65rem;
+      letter-spacing: .35em;
+      color: #c9a227;
+      opacity: .7;
+      text-transform: uppercase;
+    }
+
+    .title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.1rem, 3vw, 1.75rem);
+      color: #f0e6c8;
+      text-shadow: 0 0 28px rgba(201,162,39,.45), 0 0 60px rgba(201,162,39,.18);
+      line-height: 1.35;
+      letter-spacing: .04em;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: rgba(240,230,208,.65);
+      letter-spacing: .06em;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .sticker {
+      width: clamp(120px, 18vw, 180px);
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 18px rgba(201,162,39,.3));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .ornament {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .7rem;
+      color: rgba(201,162,39,.4);
+      letter-spacing: .5em;
+    }
+
+    /* ── hit line glow at bottom ── */
+    .hit-line {
+      position: fixed;
+      bottom: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(600px, 90vw);
+      height: 2px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(201,162,39,.0) 5%,
+        rgba(201,162,39,.6) 20%,
+        rgba(255,220,100,.9) 50%,
+        rgba(201,162,39,.6) 80%,
+        rgba(201,162,39,.0) 95%,
+        transparent 100%
+      );
+      z-index: 3;
+      pointer-events: none;
+      box-shadow: 0 0 12px rgba(201,162,39,.4), 0 0 30px rgba(201,162,39,.15);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars-canvas"></canvas>
+  <canvas id="rhythm-canvas"></canvas>
+  <div class="hit-line"></div>
+
+  <div class="content">
+    <p class="label">A new tale is being written</p>
+    <div class="divider-line"></div>
+    <h1 class="title">Under Construction</h1>
+    <p class="subtitle">This page is currently being crafted.<br>Stay tuned.</p>
+    <img class="sticker" src="/assets/images/kanade-building-sticker.png" alt="Kanade building">
+    <div class="divider-line"></div>
+    <p class="ornament">* * *</p>
+  </div>
+
+  <script>
+  /* ── starfield ── */
+  (function () {
+    const c = document.getElementById('stars-canvas');
+    const ctx = c.getContext('2d');
+    let W, H, stars = [];
+    function resize() {
+      W = c.width  = window.innerWidth;
+      H = c.height = window.innerHeight;
+    }
+    function initStars() {
+      stars = Array.from({ length: 160 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.2 + 0.2,
+        a: Math.random(),
+        da: (Math.random() * 0.004 + 0.001) * (Math.random() > 0.5 ? 1 : -1)
+      }));
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, W, H);
+      stars.forEach(s => {
+        s.a += s.da;
+        if (s.a > 1 || s.a < 0) s.da *= -1;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,245,220,${s.a * 0.85})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+    resize();
+    initStars();
+    drawStars();
+    window.addEventListener('resize', () => { resize(); initStars(); });
+  })();
+
+  /* ── rhythm game ── */
+  (function () {
+    const c  = document.getElementById('rhythm-canvas');
+    const ctx = c.getContext('2d');
+    let W, H;
+
+    const LANE_COUNT = 5;
+    const NOTE_W     = 52;
+    const NOTE_H     = 18;
+    const HIT_FRAC   = 0.82;          // hit line at 82% down
+    const LANE_COLORS = [
+      'rgba(180,100,240,',   // purple
+      'rgba(80,200,240,',    // cyan
+      'rgba(240,200,80,',    // gold
+      'rgba(80,200,240,',    // cyan
+      'rgba(180,100,240,',   // purple
+    ];
+
+    function resize() {
+      W = c.width  = window.innerWidth;
+      H = c.height = window.innerHeight;
+    }
+
+    class Note {
+      constructor(lane) {
+        this.lane  = lane;
+        this.reset(true);
+      }
+      laneX() {
+        const total = NOTE_W * LANE_COUNT + 20 * (LANE_COUNT - 1);
+        const startX = (W - total) / 2;
+        return startX + this.lane * (NOTE_W + 20) + NOTE_W / 2;
+      }
+      reset(init) {
+        // stagger spawn so notes are not all at top at once
+        this.y = init
+          ? -(Math.random() * H)
+          : -(NOTE_H + Math.random() * 60);
+        this.speed = 1.8 + Math.random() * 1.2;
+        this.alpha = 1;
+        this.dead  = false;
+      }
+      update() {
+        this.y += this.speed;
+        const hitY = H * HIT_FRAC;
+        if (this.y > hitY + NOTE_H * 2) {
+          this.reset(false);
+        }
+        // fade near hit line
+        const dist = Math.abs(this.y - hitY);
+        this.alpha = dist < NOTE_H * 3 ? dist / (NOTE_H * 3) : 1;
+      }
+      draw() {
+        const x   = this.laneX();
+        const col = LANE_COLORS[this.lane];
+        const r   = 8;
+
+        // outer glow
+        ctx.shadowBlur  = 18;
+        ctx.shadowColor = col + '0.7)';
+
+        // pill shape
+        ctx.beginPath();
+        ctx.moveTo(x - NOTE_W / 2 + r, this.y);
+        ctx.lineTo(x + NOTE_W / 2 - r, this.y);
+        ctx.quadraticCurveTo(x + NOTE_W / 2, this.y, x + NOTE_W / 2, this.y + r);
+        ctx.lineTo(x + NOTE_W / 2, this.y + NOTE_H - r);
+        ctx.quadraticCurveTo(x + NOTE_W / 2, this.y + NOTE_H, x + NOTE_W / 2 - r, this.y + NOTE_H);
+        ctx.lineTo(x - NOTE_W / 2 + r, this.y + NOTE_H);
+        ctx.quadraticCurveTo(x - NOTE_W / 2, this.y + NOTE_H, x - NOTE_W / 2, this.y + NOTE_H - r);
+        ctx.lineTo(x - NOTE_W / 2, this.y + r);
+        ctx.quadraticCurveTo(x - NOTE_W / 2, this.y, x - NOTE_W / 2 + r, this.y);
+        ctx.closePath();
+
+        ctx.fillStyle = col + (this.alpha * 0.7) + ')';
+        ctx.fill();
+
+        // inner bright stripe
+        ctx.shadowBlur = 0;
+        ctx.fillStyle  = col + (this.alpha * 0.9) + ')';
+        ctx.fillRect(x - NOTE_W / 2 + 6, this.y + 4, NOTE_W - 12, 4);
+      }
+    }
+
+    // 3 notes per lane staggered
+    let notes = [];
+    function initNotes() {
+      notes = [];
+      for (let l = 0; l < LANE_COUNT; l++) {
+        for (let k = 0; k < 3; k++) {
+          notes.push(new Note(l));
+        }
+      }
+    }
+
+    function drawLanes() {
+      const total  = NOTE_W * LANE_COUNT + 20 * (LANE_COUNT - 1);
+      const startX = (W - total) / 2;
+      for (let l = 0; l < LANE_COUNT; l++) {
+        const cx = startX + l * (NOTE_W + 20) + NOTE_W / 2;
+        // subtle lane track
+        ctx.strokeStyle = 'rgba(201,162,39,0.08)';
+        ctx.lineWidth   = 1;
+        ctx.setLineDash([4, 8]);
+        ctx.beginPath();
+        ctx.moveTo(cx, 0);
+        ctx.lineTo(cx, H);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      drawLanes();
+      notes.forEach(n => { n.update(); n.draw(); });
+      requestAnimationFrame(loop);
+    }
+
+    resize();
+    initNotes();
+    loop();
+    window.addEventListener('resize', () => { resize(); initNotes(); });
+  })();
+  </script>
+</body>
+</html>

@@ -54,6 +54,7 @@ author_profile: true
 
 .btn-story-rose{background:linear-gradient(135deg,#c9477a,#7b1040);box-shadow:0 0 12px rgba(201,71,122,.55);}
 .book-4 .front-cover{background:linear-gradient(160deg,#0e0e0e,#252525,#3a3a3a);}
+.book-4 .cover-content h3{font-size:.78rem!important;}
 
 /* ── BOOK-4: cover-back with skills on hover ── */
 .book-4 .front-cover { position: relative; }
