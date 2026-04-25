@@ -20,67 +20,78 @@
       position: relative;
     }
 
-    /* ── starfield ── */
-    #stars-canvas {
+    canvas {
       position: fixed;
       inset: 0;
-      z-index: 0;
       pointer-events: none;
     }
 
-    /* ── rhythm game canvas ── */
-    #rhythm-canvas {
+    #stars-canvas { z-index: 0; }
+    #rhythm-canvas { z-index: 1; }
+
+    .hit-line {
       position: fixed;
-      inset: 0;
-      z-index: 1;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(520px, 88vw);
+      height: 3px;
+      z-index: 3;
       pointer-events: none;
-      opacity: 0.35;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(201,162,39,.5) 10%,
+        rgba(255,224,120,1) 50%,
+        rgba(201,162,39,.5) 90%,
+        transparent 100%
+      );
+      box-shadow:
+        0 0 8px  rgba(255,220,80,.8),
+        0 0 24px rgba(201,162,39,.5),
+        0 0 50px rgba(201,162,39,.2);
+      animation: hitlinePulse 1.8s ease-in-out infinite;
     }
 
-    /* ── lane glow lines ── */
-    .lanes {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 0;
+    @keyframes hitlinePulse {
+      0%,100% { opacity: .9; }
+      50%      { opacity: 1; box-shadow: 0 0 14px rgba(255,220,80,1), 0 0 40px rgba(201,162,39,.7), 0 0 80px rgba(201,162,39,.3); }
     }
 
-    /* ── content ── */
     .content {
       position: relative;
       z-index: 10;
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.6rem;
-    }
-
-    .divider-line {
-      width: 260px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(201,162,39,.55), transparent);
+      gap: 1.4rem;
+      pointer-events: none;
     }
 
     .label {
       font-family: 'Cinzel Decorative', serif;
-      font-size: .65rem;
-      letter-spacing: .35em;
-      color: #c9a227;
-      opacity: .7;
+      font-size: .72rem;
+      letter-spacing: .38em;
+      color: #f0d87a;
+      text-shadow: 0 0 16px rgba(240,200,80,.7), 0 0 32px rgba(201,162,39,.4);
       text-transform: uppercase;
+    }
+
+    .divider-line {
+      width: 240px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,162,39,.6), transparent);
     }
 
     .title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.1rem, 3vw, 1.75rem);
-      color: #f0e6c8;
-      text-shadow: 0 0 28px rgba(201,162,39,.45), 0 0 60px rgba(201,162,39,.18);
+      font-size: clamp(1.15rem, 3.5vw, 1.9rem);
+      color: #f5ecd4;
+      text-shadow:
+        0 0 20px rgba(240,200,80,.55),
+        0 0 50px rgba(201,162,39,.25),
+        0 2px 4px rgba(0,0,0,.8);
       line-height: 1.35;
       letter-spacing: .04em;
     }
@@ -88,52 +99,30 @@
     .subtitle {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: clamp(.95rem, 2vw, 1.15rem);
-      color: rgba(240,230,208,.65);
-      letter-spacing: .06em;
-      max-width: 480px;
-      line-height: 1.7;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(240,225,195,.78);
+      letter-spacing: .07em;
+      max-width: 440px;
+      line-height: 1.75;
+      text-shadow: 0 1px 6px rgba(0,0,0,.6);
     }
 
     .sticker {
-      width: clamp(120px, 18vw, 180px);
-      image-rendering: pixelated;
-      filter: drop-shadow(0 0 18px rgba(201,162,39,.3));
+      width: clamp(110px, 16vw, 165px);
+      filter: drop-shadow(0 0 20px rgba(201,162,39,.35)) drop-shadow(0 4px 12px rgba(0,0,0,.5));
       animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50%       { transform: translateY(-10px); }
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-11px); }
     }
 
     .ornament {
       font-family: 'Cinzel Decorative', serif;
-      font-size: .7rem;
-      color: rgba(201,162,39,.4);
-      letter-spacing: .5em;
-    }
-
-    /* ── hit line glow at bottom ── */
-    .hit-line {
-      position: fixed;
-      bottom: 18%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(600px, 90vw);
-      height: 2px;
-      background: linear-gradient(to right,
-        transparent 0%,
-        rgba(201,162,39,.0) 5%,
-        rgba(201,162,39,.6) 20%,
-        rgba(255,220,100,.9) 50%,
-        rgba(201,162,39,.6) 80%,
-        rgba(201,162,39,.0) 95%,
-        transparent 100%
-      );
-      z-index: 3;
-      pointer-events: none;
-      box-shadow: 0 0 12px rgba(201,162,39,.4), 0 0 30px rgba(201,162,39,.15);
+      font-size: .72rem;
+      color: rgba(201,162,39,.55);
+      letter-spacing: .55em;
     }
   </style>
 </head>
@@ -141,7 +130,9 @@
 
   <canvas id="stars-canvas"></canvas>
   <canvas id="rhythm-canvas"></canvas>
-  <div class="hit-line"></div>
+
+  <!-- hit line positioned by JS after measuring lane area -->
+  <div class="hit-line" id="hit-line-el"></div>
 
   <div class="content">
     <p class="label">A new tale is being written</p>
@@ -153,167 +144,469 @@
     <p class="ornament">* * *</p>
   </div>
 
-  <script>
-  /* ── starfield ── */
-  (function () {
-    const c = document.getElementById('stars-canvas');
-    const ctx = c.getContext('2d');
-    let W, H, stars = [];
-    function resize() {
-      W = c.width  = window.innerWidth;
-      H = c.height = window.innerHeight;
+<script>
+/* ════════════════════════════════
+   STARFIELD
+════════════════════════════════ */
+(function () {
+  const c   = document.getElementById('stars-canvas');
+  const ctx = c.getContext('2d');
+  let W, H, stars = [];
+
+  function resize() { W = c.width = window.innerWidth; H = c.height = window.innerHeight; }
+
+  function init() {
+    stars = Array.from({ length: 180 }, () => ({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      r:  Math.random() * 1.3 + 0.15,
+      a:  Math.random(),
+      da: (Math.random() * 0.005 + 0.001) * (Math.random() > .5 ? 1 : -1)
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const s of stars) {
+      s.a += s.da;
+      if (s.a > 1 || s.a < 0) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,245,220,${s.a * .8})`;
+      ctx.fill();
     }
-    function initStars() {
-      stars = Array.from({ length: 160 }, () => ({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: Math.random() * 1.2 + 0.2,
-        a: Math.random(),
-        da: (Math.random() * 0.004 + 0.001) * (Math.random() > 0.5 ? 1 : -1)
-      }));
+    requestAnimationFrame(draw);
+  }
+
+  resize(); init(); draw();
+  window.addEventListener('resize', () => { resize(); init(); });
+})();
+
+/* ════════════════════════════════
+   RHYTHM GAME
+════════════════════════════════ */
+(function () {
+  const c   = document.getElementById('rhythm-canvas');
+  const ctx = c.getContext('2d');
+  let W, H;
+
+  /* ── constants ── */
+  const LANES      = 5;
+  const NOTE_W     = 76;
+  const NOTE_H     = 22;
+  const LANE_GAP   = 14;
+  const HIT_BOTTOM = 0.80;   // hit line at 80% of screen height
+
+  const COLORS = [
+    { base: '#e040a0', glow: 'rgba(224,64,160,',  dark: '#7b0040' },
+    { base: '#9b5cf6', glow: 'rgba(155,92,246,',  dark: '#4a0090' },
+    { base: '#f0c84a', glow: 'rgba(240,200,74,',  dark: '#8a6a00' },
+    { base: '#38bdf8', glow: 'rgba(56,189,248,',  dark: '#0050a0' },
+    { base: '#34d399', glow: 'rgba(52,211,153,',  dark: '#005040' },
+  ];
+
+  /* ── resize ── */
+  function resize() {
+    W = c.width  = window.innerWidth;
+    H = c.height = window.innerHeight;
+    // reposition hit line element
+    const el = document.getElementById('hit-line-el');
+    if (el) el.style.bottom = (100 - HIT_BOTTOM * 100) + '%';
+  }
+
+  function laneX(l) {
+    const total = NOTE_W * LANES + LANE_GAP * (LANES - 1);
+    return (W - total) / 2 + l * (NOTE_W + LANE_GAP) + NOTE_W / 2;
+  }
+
+  const hitY = () => H * HIT_BOTTOM;
+
+  /* ════ NOTE TYPES ════ */
+  // 0 = tap (short pill)
+  // 1 = hold (long pill with trail)
+  // 2 = flick (diamond + arrows)
+
+  /* ── pre-built rhythm pattern (lane, type, holdLen) repeating ── */
+  const PATTERN = [
+    {l:2, t:0}, {l:0, t:0}, {l:4, t:0},
+    {l:1, t:1, hold:90}, {l:3, t:1, hold:90},
+    {l:2, t:2}, {l:0, t:0}, {l:4, t:0},
+    {l:1, t:0}, {l:3, t:0},
+    {l:2, t:1, hold:120},
+    {l:0, t:2}, {l:4, t:2},
+    {l:1, t:0}, {l:3, t:0}, {l:2, t:0},
+    {l:0, t:1, hold:80}, {l:4, t:1, hold:80},
+    {l:2, t:2}, {l:1, t:0}, {l:3, t:0},
+  ];
+
+  /* ── particle pool ── */
+  const particles = [];
+
+  class Particle {
+    constructor(x, y, color) {
+      this.x  = x; this.y = y;
+      this.vx = (Math.random() - .5) * 5;
+      this.vy = (Math.random() - 1.2) * 5;
+      this.r  = Math.random() * 5 + 2;
+      this.a  = 1;
+      this.col = color;
     }
-    function drawStars() {
-      ctx.clearRect(0, 0, W, H);
-      stars.forEach(s => {
-        s.a += s.da;
-        if (s.a > 1 || s.a < 0) s.da *= -1;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,245,220,${s.a * 0.85})`;
-        ctx.fill();
-      });
-      requestAnimationFrame(drawStars);
+    update() { this.x += this.vx; this.y += this.vy; this.vy += .12; this.a -= .045; }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, this.a);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.col;
+      ctx.shadowBlur  = 10;
+      ctx.shadowColor = this.col;
+      ctx.fill();
+      ctx.restore();
     }
-    resize();
-    initStars();
-    drawStars();
-    window.addEventListener('resize', () => { resize(); initStars(); });
-  })();
+  }
 
-  /* ── rhythm game ── */
-  (function () {
-    const c  = document.getElementById('rhythm-canvas');
-    const ctx = c.getContext('2d');
-    let W, H;
+  /* ── ring burst ── */
+  const rings = [];
 
-    const LANE_COUNT = 5;
-    const NOTE_W     = 52;
-    const NOTE_H     = 18;
-    const HIT_FRAC   = 0.82;          // hit line at 82% down
-    const LANE_COLORS = [
-      'rgba(180,100,240,',   // purple
-      'rgba(80,200,240,',    // cyan
-      'rgba(240,200,80,',    // gold
-      'rgba(80,200,240,',    // cyan
-      'rgba(180,100,240,',   // purple
-    ];
+  class Ring {
+    constructor(x, y, color) {
+      this.x = x; this.y = y; this.r = 0; this.a = 1; this.col = color;
+    }
+    update() { this.r += 6; this.a -= .07; }
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, this.a);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.strokeStyle = this.col;
+      ctx.lineWidth   = 2.5;
+      ctx.shadowBlur  = 12;
+      ctx.shadowColor = this.col;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
 
-    function resize() {
-      W = c.width  = window.innerWidth;
-      H = c.height = window.innerHeight;
+  /* ── flash ── */
+  const flashes = [];
+
+  class Flash {
+    constructor(lane) { this.lane = lane; this.a = 0.6; }
+    update() { this.a -= .06; }
+    draw() {
+      const x = laneX(this.lane);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, this.a);
+      const g = ctx.createLinearGradient(x, 0, x, hitY());
+      g.addColorStop(0, 'transparent');
+      g.addColorStop(1, COLORS[this.lane].glow + '0.25)');
+      ctx.fillStyle = g;
+      ctx.fillRect(x - NOTE_W / 2, 0, NOTE_W, hitY());
+      ctx.restore();
+    }
+  }
+
+  function spawnHitFX(lane) {
+    const x = laneX(lane);
+    const y = hitY();
+    const col = COLORS[lane].base;
+    for (let i = 0; i < 18; i++) particles.push(new Particle(x, y, col));
+    rings.push(new Ring(x, y, col));
+    rings.push(new Ring(x, y, col));
+    flashes.push(new Flash(lane));
+  }
+
+  /* ── notes ── */
+  class Note {
+    constructor(lane, type, holdLen) {
+      this.lane    = lane;
+      this.type    = type;          // 0 tap | 1 hold | 2 flick
+      this.holdLen = holdLen || 0;
+      this.hit     = false;
+      this.y       = -60 - Math.random() * 200;
+      this.speed   = 2.2 + Math.random() * .6;
     }
 
-    class Note {
-      constructor(lane) {
-        this.lane  = lane;
-        this.reset(true);
+    update() {
+      this.y += this.speed;
+      const hy = hitY();
+      if (!this.hit && this.y >= hy - 6) {
+        this.hit = true;
+        spawnHitFX(this.lane);
       }
-      laneX() {
-        const total = NOTE_W * LANE_COUNT + 20 * (LANE_COUNT - 1);
-        const startX = (W - total) / 2;
-        return startX + this.lane * (NOTE_W + 20) + NOTE_W / 2;
-      }
-      reset(init) {
-        // stagger spawn so notes are not all at top at once
-        this.y = init
-          ? -(Math.random() * H)
-          : -(NOTE_H + Math.random() * 60);
-        this.speed = 1.8 + Math.random() * 1.2;
-        this.alpha = 1;
-        this.dead  = false;
-      }
-      update() {
-        this.y += this.speed;
-        const hitY = H * HIT_FRAC;
-        if (this.y > hitY + NOTE_H * 2) {
-          this.reset(false);
-        }
-        // fade near hit line
-        const dist = Math.abs(this.y - hitY);
-        this.alpha = dist < NOTE_H * 3 ? dist / (NOTE_H * 3) : 1;
-      }
-      draw() {
-        const x   = this.laneX();
-        const col = LANE_COLORS[this.lane];
-        const r   = 8;
+    }
 
-        // outer glow
+    isDead() { return this.y > hitY() + NOTE_H + this.holdLen + 20; }
+
+    draw() {
+      const x  = laneX(this.lane);
+      const y  = this.y;
+      const c  = COLORS[this.lane];
+      const hy = hitY();
+      const alpha = this.y > hy - NOTE_H * 2
+        ? Math.max(0, (hy + NOTE_H - this.y) / (NOTE_H * 3))
+        : 1;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      if (this.type === 0) {
+        // ── TAP: pill ──
+        drawPill(ctx, x, y, NOTE_W, NOTE_H, c, false);
+
+      } else if (this.type === 1) {
+        // ── HOLD: trail + head ──
+        const tailTop = y - this.holdLen;
+        const tw = NOTE_W * .55;
+
+        // trail body
+        const trailGrad = ctx.createLinearGradient(x, tailTop, x, y);
+        trailGrad.addColorStop(0, c.glow + '0)');
+        trailGrad.addColorStop(.3, c.glow + '.35)');
+        trailGrad.addColorStop(1, c.glow + '.55)');
+        ctx.fillStyle = trailGrad;
         ctx.shadowBlur  = 18;
-        ctx.shadowColor = col + '0.7)';
+        ctx.shadowColor = c.base;
+        roundRect(ctx, x - tw / 2, tailTop + NOTE_H / 2, tw, this.holdLen, 6);
+        ctx.fill();
 
-        // pill shape
+        // trail center line
+        ctx.strokeStyle = c.glow + '0.5)';
+        ctx.lineWidth   = 2;
+        ctx.shadowBlur  = 6;
         ctx.beginPath();
-        ctx.moveTo(x - NOTE_W / 2 + r, this.y);
-        ctx.lineTo(x + NOTE_W / 2 - r, this.y);
-        ctx.quadraticCurveTo(x + NOTE_W / 2, this.y, x + NOTE_W / 2, this.y + r);
-        ctx.lineTo(x + NOTE_W / 2, this.y + NOTE_H - r);
-        ctx.quadraticCurveTo(x + NOTE_W / 2, this.y + NOTE_H, x + NOTE_W / 2 - r, this.y + NOTE_H);
-        ctx.lineTo(x - NOTE_W / 2 + r, this.y + NOTE_H);
-        ctx.quadraticCurveTo(x - NOTE_W / 2, this.y + NOTE_H, x - NOTE_W / 2, this.y + NOTE_H - r);
-        ctx.lineTo(x - NOTE_W / 2, this.y + r);
-        ctx.quadraticCurveTo(x - NOTE_W / 2, this.y, x - NOTE_W / 2 + r, this.y);
+        ctx.moveTo(x, tailTop + NOTE_H / 2);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        // head pill
+        drawPill(ctx, x, y, NOTE_W, NOTE_H, c, true);
+
+        // tail end cap
+        drawPill(ctx, x, tailTop, NOTE_W * .75, NOTE_H * .7, c, false);
+
+      } else {
+        // ── FLICK: diamond + arrow wings ──
+        const hw = NOTE_W * .52;
+        const hh = NOTE_H * 1.1;
+
+        // glow
+        ctx.shadowBlur  = 28;
+        ctx.shadowColor = c.base;
+
+        // diamond
+        ctx.beginPath();
+        ctx.moveTo(x,      y - hh);
+        ctx.lineTo(x + hw, y);
+        ctx.lineTo(x,      y + hh);
+        ctx.lineTo(x - hw, y);
         ctx.closePath();
 
-        ctx.fillStyle = col + (this.alpha * 0.7) + ')';
+        const dg = ctx.createRadialGradient(x, y, 0, x, y, hw);
+        dg.addColorStop(0, c.base);
+        dg.addColorStop(.5, c.glow + '0.8)');
+        dg.addColorStop(1, c.glow + '0.3)');
+        ctx.fillStyle = dg;
         ctx.fill();
 
-        // inner bright stripe
-        ctx.shadowBlur = 0;
-        ctx.fillStyle  = col + (this.alpha * 0.9) + ')';
-        ctx.fillRect(x - NOTE_W / 2 + 6, this.y + 4, NOTE_W - 12, 4);
-      }
-    }
-
-    // 3 notes per lane staggered
-    let notes = [];
-    function initNotes() {
-      notes = [];
-      for (let l = 0; l < LANE_COUNT; l++) {
-        for (let k = 0; k < 3; k++) {
-          notes.push(new Note(l));
-        }
-      }
-    }
-
-    function drawLanes() {
-      const total  = NOTE_W * LANE_COUNT + 20 * (LANE_COUNT - 1);
-      const startX = (W - total) / 2;
-      for (let l = 0; l < LANE_COUNT; l++) {
-        const cx = startX + l * (NOTE_W + 20) + NOTE_W / 2;
-        // subtle lane track
-        ctx.strokeStyle = 'rgba(201,162,39,0.08)';
-        ctx.lineWidth   = 1;
-        ctx.setLineDash([4, 8]);
-        ctx.beginPath();
-        ctx.moveTo(cx, 0);
-        ctx.lineTo(cx, H);
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth   = 1.2;
+        ctx.globalAlpha = alpha * .6;
         ctx.stroke();
-        ctx.setLineDash([]);
+        ctx.globalAlpha = alpha;
+
+        // arrow wings
+        ctx.shadowBlur = 10;
+        ctx.strokeStyle = c.base;
+        ctx.lineWidth   = 2.5;
+        ctx.lineCap     = 'round';
+        ctx.lineJoin    = 'round';
+
+        // left arrow
+        ctx.beginPath();
+        ctx.moveTo(x - hw - 8, y);
+        ctx.lineTo(x - hw - 22, y);
+        ctx.moveTo(x - hw - 22, y);
+        ctx.lineTo(x - hw - 14, y - 7);
+        ctx.moveTo(x - hw - 22, y);
+        ctx.lineTo(x - hw - 14, y + 7);
+        ctx.stroke();
+
+        // right arrow
+        ctx.beginPath();
+        ctx.moveTo(x + hw + 8, y);
+        ctx.lineTo(x + hw + 22, y);
+        ctx.moveTo(x + hw + 22, y);
+        ctx.lineTo(x + hw + 14, y - 7);
+        ctx.moveTo(x + hw + 22, y);
+        ctx.lineTo(x + hw + 14, y + 7);
+        ctx.stroke();
       }
+
+      ctx.restore();
+    }
+  }
+
+  /* ── drawing helpers ── */
+  function drawPill(ctx, x, y, w, h, c, isHead) {
+    const r = h / 2;
+    ctx.shadowBlur  = isHead ? 28 : 18;
+    ctx.shadowColor = c.base;
+
+    // pill shape
+    ctx.beginPath();
+    ctx.moveTo(x - w / 2 + r, y);
+    ctx.arcTo(x + w / 2, y,     x + w / 2, y + h, r);
+    ctx.arcTo(x + w / 2, y + h, x - w / 2, y + h, r);
+    ctx.arcTo(x - w / 2, y + h, x - w / 2, y,     r);
+    ctx.arcTo(x - w / 2, y,     x + w / 2, y,     r);
+    ctx.closePath();
+
+    const g = ctx.createLinearGradient(x - w / 2, y, x + w / 2, y + h);
+    g.addColorStop(0,   c.base);
+    g.addColorStop(.45, '#fff');
+    g.addColorStop(1,   c.base);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    // inner shine
+    ctx.beginPath();
+    ctx.rect(x - w / 2 + 6, y + 4, w - 12, h * .28);
+    ctx.fillStyle = 'rgba(255,255,255,.35)';
+    ctx.shadowBlur = 0;
+    ctx.fill();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  /* ── lane tracks ── */
+  function drawTracks() {
+    for (let l = 0; l < LANES; l++) {
+      const x = laneX(l);
+      ctx.save();
+      const g = ctx.createLinearGradient(x, 0, x, H);
+      g.addColorStop(0,   'rgba(255,255,255,0)');
+      g.addColorStop(.4,  COLORS[l].glow + '0.04)');
+      g.addColorStop(.85, COLORS[l].glow + '0.10)');
+      g.addColorStop(1,   COLORS[l].glow + '0.04)');
+      ctx.strokeStyle = g;
+      ctx.lineWidth   = NOTE_W;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+
+      // dashed center guide
+      ctx.setLineDash([5, 10]);
+      ctx.strokeStyle = COLORS[l].glow + '0.07)';
+      ctx.lineWidth   = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+  }
+
+  /* ── hit line dots ── */
+  function drawHitDots(time) {
+    for (let l = 0; l < LANES; l++) {
+      const x = laneX(l);
+      const y = hitY();
+      const pulse = .7 + .3 * Math.sin(time * .06 + l * .7);
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x, y, 7 * pulse, 0, Math.PI * 2);
+      ctx.fillStyle   = COLORS[l].base;
+      ctx.shadowBlur  = 18;
+      ctx.shadowColor = COLORS[l].base;
+      ctx.globalAlpha = pulse;
+      ctx.fill();
+
+      // ring
+      ctx.beginPath();
+      ctx.arc(x, y, 13 * pulse, 0, Math.PI * 2);
+      ctx.strokeStyle = COLORS[l].base;
+      ctx.lineWidth   = 1.5;
+      ctx.globalAlpha = pulse * .4;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ── note spawner ── */
+  const notes       = [];
+  let   patIdx      = 0;
+  let   spawnTimer  = 0;
+  const SPAWN_INTERVAL = 38; // frames between notes
+
+  function spawnNext() {
+    const p = PATTERN[patIdx % PATTERN.length];
+    notes.push(new Note(p.l, p.t, p.hold || 0));
+    patIdx++;
+  }
+
+  /* ── main loop ── */
+  let time = 0;
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    drawTracks();
+
+    // update + draw effects
+    for (let i = rings.length - 1; i >= 0; i--) {
+      rings[i].update(); rings[i].draw();
+      if (rings[i].a <= 0) rings.splice(i, 1);
+    }
+    for (let i = flashes.length - 1; i >= 0; i--) {
+      flashes[i].update(); flashes[i].draw();
+      if (flashes[i].a <= 0) flashes.splice(i, 1);
     }
 
-    function loop() {
-      ctx.clearRect(0, 0, W, H);
-      drawLanes();
-      notes.forEach(n => { n.update(); n.draw(); });
-      requestAnimationFrame(loop);
+    // update + draw notes
+    for (let i = notes.length - 1; i >= 0; i--) {
+      notes[i].update();
+      notes[i].draw();
+      if (notes[i].isDead()) notes.splice(i, 1);
     }
 
-    resize();
-    initNotes();
-    loop();
-    window.addEventListener('resize', () => { resize(); initNotes(); });
-  })();
-  </script>
+    for (let i = particles.length - 1; i >= 0; i--) {
+      particles[i].update(); particles[i].draw();
+      if (particles[i].a <= 0) particles.splice(i, 1);
+    }
+
+    drawHitDots(time);
+
+    // spawn
+    spawnTimer++;
+    if (spawnTimer >= SPAWN_INTERVAL) { spawnTimer = 0; spawnNext(); }
+
+    time++;
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  // pre-spawn some notes spread out so screen isn't empty at start
+  for (let i = 0; i < 8; i++) {
+    const p = PATTERN[i % PATTERN.length];
+    const n = new Note(p.l, p.t, p.hold || 0);
+    n.y = -(i * 120 + Math.random() * 60);
+    notes.push(n);
+    patIdx++;
+  }
+
+  loop();
+  window.addEventListener('resize', resize);
+})();
+</script>
 </body>
 </html>
