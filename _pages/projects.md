@@ -53,7 +53,7 @@ author_profile: true
 }
 
 .btn-story-rose{background:linear-gradient(135deg,#c9477a,#7b1040);box-shadow:0 0 12px rgba(201,71,122,.55);}
-.book-4 .front-cover{background:linear-gradient(160deg,#061a10,#0f3d20,#1a6b3a);}
+.book-4 .front-cover{background:linear-gradient(160deg,#0e0e0e,#252525,#3a3a3a);}
 
 /* ── BOOK-4: cover-back with skills on hover ── */
 .book-4 .front-cover { position: relative; }
@@ -63,7 +63,7 @@ author_profile: true
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: #061a10;
+  background: #111111;
   border-radius: 6px 14px 14px 6px;
   overflow: hidden;
   transform: scaleX(-1);
@@ -245,7 +245,7 @@ author_profile: true
       <div class="front-cover">
         <div class="cover-content"><h3>Shrinkflation Detective</h3><p>Uncovering the hidden inflation that CPI never reports</p></div>
         <div class="cover-back">
-          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#061a10;">
+          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#111111;">
             <span style="font-size:2.8rem;">🔍</span>
           </div>
           <div class="cover-back-tags">
@@ -264,7 +264,7 @@ author_profile: true
         </div>
       </div>
       <div class="inside-pages">
-        <i class="fas fa-search" style="color:#1a6b3a;"></i>
+        <i class="fas fa-search" style="color:#888;"></i>
         <h4>Shrinkflation Detective</h4>
         <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
         <span class="coming-badge">✦ In Progress ✦</span>
