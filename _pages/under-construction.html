@@ -1,0 +1,654 @@
+---
+layout: none
+permalink: /under-construction.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Construction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #07051a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+    }
+
+    canvas { position: fixed; inset: 0; pointer-events: none; }
+    #stars-canvas  { z-index: 0; }
+    #rhythm-canvas { z-index: 1; }
+
+    /* ── hit line ── */
+    #hit-line-el {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(520px, 88vw);
+      height: 3px;
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+        transparent, rgba(201,162,39,.5) 15%,
+        rgba(255,224,120,1) 50%,
+        rgba(201,162,39,.5) 85%, transparent);
+      box-shadow: 0 0 8px rgba(255,220,80,.8), 0 0 28px rgba(201,162,39,.5), 0 0 60px rgba(201,162,39,.2);
+      animation: hlPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes hlPulse {
+      0%,100% { opacity:.9; }
+      50%      { opacity:1; box-shadow: 0 0 14px rgba(255,220,80,1), 0 0 48px rgba(201,162,39,.7); }
+    }
+
+    /* ── content ── */
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.3rem;
+      pointer-events: none;
+    }
+
+    .label {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .72rem;
+      letter-spacing: .38em;
+      color: #f0d87a;
+      text-shadow: 0 0 14px rgba(240,200,80,.8), 0 0 30px rgba(201,162,39,.5);
+      text-transform: uppercase;
+    }
+
+    .divider-line {
+      width: 240px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,162,39,.6), transparent);
+    }
+
+    .title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.15rem, 3.5vw, 1.9rem);
+      color: #f5ecd4;
+      text-shadow: 0 0 22px rgba(240,200,80,.6), 0 0 55px rgba(201,162,39,.3), 0 2px 4px rgba(0,0,0,.9);
+      line-height: 1.35;
+      letter-spacing: .04em;
+    }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(240,225,195,.8);
+      letter-spacing: .07em;
+      max-width: 440px;
+      line-height: 1.75;
+      text-shadow: 0 1px 6px rgba(0,0,0,.7);
+    }
+
+    .sticker {
+      width: clamp(110px, 16vw, 165px);
+      filter: drop-shadow(0 0 22px rgba(201,162,39,.4)) drop-shadow(0 4px 14px rgba(0,0,0,.6));
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-11px); }
+    }
+
+    .ornament {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .72rem;
+      color: rgba(201,162,39,.55);
+      letter-spacing: .55em;
+    }
+
+    /* ── back button ── */
+    .btn-back {
+      position: fixed;
+      top: 1.4rem;
+      left: 1.6rem;
+      z-index: 20;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(240,220,160,.75);
+      text-decoration: none;
+      letter-spacing: .06em;
+      border: 1px solid rgba(201,162,39,.2);
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      background: rgba(7,5,26,.6);
+      backdrop-filter: blur(6px);
+      transition: color .25s, border-color .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .btn-back::before { content: '\2190\00A0'; }
+    .btn-back:hover {
+      color: #f0c84a;
+      border-color: rgba(201,162,39,.5);
+      box-shadow: 0 0 14px rgba(201,162,39,.2);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars-canvas"></canvas>
+  <canvas id="rhythm-canvas"></canvas>
+  <div id="hit-line-el"></div>
+
+  <a class="btn-back" onclick="history.length>1?history.back():window.location.href='/'" href="#">Return</a>
+
+  <div class="content">
+    <p class="label">A new tale is being written</p>
+    <div class="divider-line"></div>
+    <h1 class="title">Under Construction</h1>
+    <p class="subtitle">This page is currently being crafted.<br>Stay tuned.</p>
+    <img class="sticker" src="/assets/images/kanade-building-sticker.png" alt="Kanade building">
+    <div class="divider-line"></div>
+    <p class="ornament">* * *</p>
+  </div>
+
+<script>
+/* ════════ STARFIELD ════════ */
+(function () {
+  const c = document.getElementById('stars-canvas');
+  const x = c.getContext('2d');
+  let W, H, st = [];
+  function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  function init()   {
+    st = Array.from({length:180}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      r: Math.random()*1.3+.15,
+      a: Math.random(),
+      da: (Math.random()*.005+.001) * (Math.random()>.5?1:-1)
+    }));
+  }
+  function draw() {
+    x.clearRect(0,0,W,H);
+    for (const s of st) {
+      s.a += s.da;
+      if (s.a>1||s.a<0) s.da *= -1;
+      x.beginPath(); x.arc(s.x,s.y,s.r,0,Math.PI*2);
+      x.fillStyle = `rgba(255,245,220,${s.a*.8})`; x.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  resize(); init(); draw();
+  window.addEventListener('resize', () => { resize(); init(); });
+})();
+
+/* ════════ RHYTHM GAME ════════ */
+(function () {
+  const cv  = document.getElementById('rhythm-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H;
+
+  const LANES     = 5;
+  const NOTE_W    = 72;
+  const NOTE_H    = 20;
+  const LANE_GAP  = 16;
+  const HIT_FRAC  = 0.80;
+
+  const COLORS = [
+    { base:'#e040a0', glow:'rgba(224,64,160,',  r:224, g:64,  b:160 },
+    { base:'#9b5cf6', glow:'rgba(155,92,246,',  r:155, g:92,  b:246 },
+    { base:'#f0c84a', glow:'rgba(240,200,74,',  r:240, g:200, b:74  },
+    { base:'#38bdf8', glow:'rgba(56,189,248,',  r:56,  g:189, b:248 },
+    { base:'#34d399', glow:'rgba(52,211,153,',  r:52,  g:211, b:153 },
+  ];
+
+  function resize() {
+    W = cv.width  = innerWidth;
+    H = cv.height = innerHeight;
+    const el = document.getElementById('hit-line-el');
+    if (el) el.style.bottom = (100 - HIT_FRAC * 100) + '%';
+  }
+
+  const hitY  = () => H * HIT_FRAC;
+  const laneX = l => {
+    const total = NOTE_W * LANES + LANE_GAP * (LANES - 1);
+    return (W - total) / 2 + l * (NOTE_W + LANE_GAP) + NOTE_W / 2;
+  };
+
+  /* ── rhythm pattern: t=0 tap, t=1 hold, t=2 flick ── */
+  const PAT = [
+    {l:2,t:0},   {l:0,t:0},   {l:4,t:0},
+    {l:1,t:1,h:320}, {l:3,t:1,h:280},
+    {l:2,t:2},   {l:0,t:0},   {l:4,t:0},
+    {l:1,t:0},   {l:3,t:0},
+    {l:2,t:1,h:380},
+    {l:0,t:2},   {l:4,t:2},
+    {l:1,t:0},   {l:3,t:0},   {l:2,t:0},
+    {l:0,t:1,h:260}, {l:4,t:1,h:260},
+    {l:2,t:2},   {l:1,t:0},   {l:3,t:0},
+    {l:0,t:0},   {l:4,t:2},   {l:2,t:1,h:340},
+    {l:1,t:2},   {l:3,t:2},
+  ];
+
+  /* ── particles / rings / flashes ── */
+  const fx = { particles:[], rings:[], flashes:[] };
+
+  function spawnHit(lane, isFlick) {
+    const x = laneX(lane), y = hitY(), c = COLORS[lane];
+    for (let i=0; i<20; i++) {
+      const angle = Math.random()*Math.PI*2;
+      const spd   = Math.random()*4+1;
+      fx.particles.push({
+        x, y,
+        vx: Math.cos(angle)*spd * (isFlick ? 1.6 : 1),
+        vy: Math.sin(angle)*spd * (isFlick ? 1.6 : 1) - (isFlick?2:0),
+        r: Math.random()*5+2,
+        a: 1,
+        col: c.base
+      });
+    }
+    fx.rings.push({x, y, r:0, a:1, col:c.base});
+    fx.rings.push({x, y, r:0, a:.6, col:'#fff', delay:4});
+    fx.flashes.push({lane, a:.55});
+  }
+
+  function updateFX() {
+    for (let arr of [fx.particles, fx.rings, fx.flashes]) {
+      for (let i=arr.length-1; i>=0; i--) {
+        const e = arr[i];
+        if (e.delay && e.delay > 0) { e.delay--; continue; }
+        if (arr === fx.particles) { e.x+=e.vx; e.y+=e.vy; e.vy+=.13; e.a-=.045; }
+        if (arr === fx.rings)     { e.r+=7; e.a-=.07; }
+        if (arr === fx.flashes)   { e.a-=.055; }
+        if (e.a<=0) arr.splice(i,1);
+      }
+    }
+  }
+
+  function drawFX() {
+    for (const p of fx.particles) {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0,p.a);
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle = p.col;
+      ctx.shadowBlur=10; ctx.shadowColor=p.col;
+      ctx.fill(); ctx.restore();
+    }
+    for (const r of fx.rings) {
+      if (r.delay && r.delay>0) continue;
+      ctx.save();
+      ctx.globalAlpha = Math.max(0,r.a);
+      ctx.beginPath(); ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
+      ctx.strokeStyle=r.col; ctx.lineWidth=2.5;
+      ctx.shadowBlur=14; ctx.shadowColor=r.col;
+      ctx.stroke(); ctx.restore();
+    }
+    for (const f of fx.flashes) {
+      const x = laneX(f.lane);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0,f.a);
+      const g = ctx.createLinearGradient(x,0,x,hitY());
+      g.addColorStop(0,'transparent');
+      g.addColorStop(1, COLORS[f.lane].glow+'0.3)');
+      ctx.fillStyle=g;
+      ctx.fillRect(x-NOTE_W/2,0,NOTE_W,hitY());
+      ctx.restore();
+    }
+  }
+
+  /* ── NOTE ── */
+  const NOTE_FALL=0, NOTE_HELD=1, NOTE_DEAD=2;
+
+  class Note {
+    constructor(lane, type, holdLen) {
+      this.lane    = lane;
+      this.type    = type;
+      this.holdLen = holdLen || 0;
+      this.origHold = this.holdLen;
+      this.state   = NOTE_FALL;
+      this.y       = -80 - Math.random()*160;
+      this.speed   = 2.2 + Math.random()*.5;
+      // flick direction: random diagonal up-left or up-right
+      this.flickDir = Math.random() > .5 ? 1 : -1;
+      // hold ripple timer
+      this.rippleT = 0;
+    }
+
+    update() {
+      if (this.state === NOTE_DEAD) return;
+
+      const hy = hitY();
+
+      if (this.state === NOTE_FALL) {
+        this.y += this.speed;
+        if (this.y >= hy) {
+          if (this.type === 1) {
+            this.state = NOTE_HELD;
+            this.y = hy;
+            spawnHit(this.lane, false);
+          } else {
+            this.state = NOTE_DEAD;
+            spawnHit(this.lane, this.type === 2);
+          }
+        }
+      } else if (this.state === NOTE_HELD) {
+        // consume hold from the top: trail top moves down
+        this.holdLen -= this.speed;
+        this.rippleT++;
+        if (this.holdLen <= 0) {
+          this.state = NOTE_DEAD;
+          spawnHit(this.lane, false);
+        }
+      }
+    }
+
+    isDead() { return this.state === NOTE_DEAD; }
+
+    draw() {
+      if (this.state === NOTE_DEAD) return;
+      const hy = hitY();
+      const x  = laneX(this.lane);
+      const c  = COLORS[this.lane];
+
+      /* clip everything to above hit line */
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, W, hy + 2);
+      ctx.clip();
+
+      if (this.type === 0) {
+        /* ── TAP ── */
+        drawPill(x, this.y, NOTE_W, NOTE_H, c);
+
+      } else if (this.type === 1) {
+        /* ── HOLD ── */
+        if (this.state === NOTE_FALL) {
+          drawHold(x, this.y, this.holdLen, NOTE_W, NOTE_H, c);
+        } else {
+          // held: head locked at hy, trail from (hy - holdLen) to hy
+          drawHold(x, hy, this.holdLen, NOTE_W, NOTE_H, c);
+        }
+        ctx.restore();
+
+        // hold finger effect drawn OUTSIDE clip (at hit line, below)
+        if (this.state === NOTE_HELD) {
+          drawFingerHold(x, hy, c, this.rippleT);
+        }
+        return;
+
+      } else {
+        /* ── FLICK ── */
+        drawFlick(x, this.y, NOTE_W, NOTE_H, c, this.flickDir);
+      }
+
+      ctx.restore();
+    }
+  }
+
+  /* ── drawing helpers ── */
+
+  function drawPill(x, y, w, h, c) {
+    const r = h / 2;
+    ctx.save();
+    ctx.shadowBlur = 22; ctx.shadowColor = c.base;
+    ctx.beginPath();
+    ctx.moveTo(x - w/2 + r, y);
+    ctx.arcTo(x+w/2, y,   x+w/2, y+h, r);
+    ctx.arcTo(x+w/2, y+h, x-w/2, y+h, r);
+    ctx.arcTo(x-w/2, y+h, x-w/2, y,   r);
+    ctx.arcTo(x-w/2, y,   x+w/2, y,   r);
+    ctx.closePath();
+    const g = ctx.createLinearGradient(x-w/2, y, x+w/2, y+h);
+    g.addColorStop(0,   c.base);
+    g.addColorStop(.4,  '#fff');
+    g.addColorStop(1,   c.base);
+    ctx.fillStyle = g; ctx.fill();
+    // shine
+    ctx.shadowBlur=0;
+    ctx.fillStyle='rgba(255,255,255,.32)';
+    ctx.fillRect(x-w/2+7, y+4, w-14, h*.28);
+    ctx.restore();
+  }
+
+  function drawHold(x, headY, holdLen, w, h, c) {
+    const tw   = w * .62;
+    const topY = headY - holdLen;
+    const trailH = Math.max(0, holdLen - h/2);
+    ctx.save();
+
+    // outer glow layer (wide, soft)
+    ctx.shadowBlur = 0;
+    const og = ctx.createLinearGradient(x, topY, x, headY);
+    og.addColorStop(0,  c.glow+'0)');
+    og.addColorStop(.15, c.glow+'.18)');
+    og.addColorStop(.85, c.glow+'.22)');
+    og.addColorStop(1,  c.glow+'.1)');
+    ctx.fillStyle = og;
+    roundRect(x - tw/2 - 8, topY + h/2, tw + 16, trailH, 10);
+    ctx.fill();
+
+    // solid trail body
+    const tg = ctx.createLinearGradient(x - tw/2, topY, x + tw/2, headY);
+    tg.addColorStop(0,   c.glow+'0)');
+    tg.addColorStop(.1,  c.glow+'.45)');
+    tg.addColorStop(.5,  c.glow+'.6)');
+    tg.addColorStop(.9,  c.glow+'.7)');
+    tg.addColorStop(1,   c.glow+'.5)');
+    ctx.fillStyle = tg;
+    ctx.shadowBlur = 14; ctx.shadowColor = c.base;
+    roundRect(x - tw/2, topY + h/2, tw, trailH, 8);
+    ctx.fill();
+
+    // center bright spine
+    const sg = ctx.createLinearGradient(x, topY, x, headY);
+    sg.addColorStop(0,   c.glow+'0)');
+    sg.addColorStop(.2,  c.glow+'.7)');
+    sg.addColorStop(.85, 'rgba(255,255,255,.8)');
+    sg.addColorStop(1,   c.glow+'.5)');
+    ctx.strokeStyle = sg;
+    ctx.lineWidth = 3; ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(x, topY + h/2);
+    ctx.lineTo(x, headY);
+    ctx.stroke();
+
+    ctx.restore();
+
+    // tail end cap
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0,0,W,hitY()+2); ctx.clip();
+    drawPill(x, topY, w * .75, h * .65, c);
+    ctx.restore();
+
+    // head pill
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0,0,W,hitY()+2); ctx.clip();
+    drawPill(x, headY, w, h, c);
+    ctx.restore();
+  }
+
+  function drawFlick(x, y, w, h, c, dir) {
+    // dir: 1 = up-right, -1 = up-left
+    const hw = w * .48, hh = h * 1.1;
+    ctx.save();
+    ctx.shadowBlur = 30; ctx.shadowColor = c.base;
+
+    // diamond
+    ctx.beginPath();
+    ctx.moveTo(x,      y - hh);
+    ctx.lineTo(x + hw, y);
+    ctx.lineTo(x,      y + hh);
+    ctx.lineTo(x - hw, y);
+    ctx.closePath();
+    const dg = ctx.createRadialGradient(x,y,0, x,y,hw);
+    dg.addColorStop(0,  c.base);
+    dg.addColorStop(.5, c.glow+'.8)');
+    dg.addColorStop(1,  c.glow+'.25)');
+    ctx.fillStyle = dg; ctx.fill();
+
+    // white edge
+    ctx.strokeStyle='rgba(255,255,255,.5)';
+    ctx.lineWidth=1.2; ctx.shadowBlur=0; ctx.stroke();
+
+    // diagonal arrow (up-left or up-right)
+    const ax = x + dir * (hw + 6);
+    const ay = y - hh * .3;
+    const alen = 26;
+    // arrow shaft going diagonally
+    ctx.strokeStyle = c.base;
+    ctx.lineWidth   = 2.8;
+    ctx.lineCap     = 'round';
+    ctx.lineJoin    = 'round';
+    ctx.shadowBlur  = 12; ctx.shadowColor = c.base;
+
+    ctx.beginPath();
+    ctx.moveTo(ax, ay);
+    ctx.lineTo(ax + dir * alen, ay - alen);
+    ctx.stroke();
+
+    // arrowhead
+    ctx.beginPath();
+    ctx.moveTo(ax + dir * alen, ay - alen);
+    ctx.lineTo(ax + dir * alen - dir*10, ay - alen);
+    ctx.moveTo(ax + dir * alen, ay - alen);
+    ctx.lineTo(ax + dir * alen, ay - alen + 10);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawFingerHold(x, hy, c, t) {
+    // ripple rings emanating from hit line
+    ctx.save();
+    for (let i = 0; i < 3; i++) {
+      const phase = (t + i * 20) % 60;
+      const prog  = phase / 60;
+      const r     = prog * 32 + 8;
+      const a     = (1 - prog) * .65;
+      ctx.globalAlpha = a;
+      ctx.beginPath();
+      ctx.arc(x, hy, r, 0, Math.PI*2);
+      ctx.strokeStyle = c.base;
+      ctx.lineWidth   = 2;
+      ctx.shadowBlur  = 10; ctx.shadowColor = c.base;
+      ctx.stroke();
+    }
+
+    // finger circle (press indicator)
+    const pulse = .85 + .15 * Math.sin(t * .18);
+    ctx.globalAlpha = .9;
+    ctx.beginPath();
+    ctx.arc(x, hy, 10 * pulse, 0, Math.PI*2);
+    const fg = ctx.createRadialGradient(x, hy-3, 1, x, hy, 10*pulse);
+    fg.addColorStop(0,   '#fff');
+    fg.addColorStop(.4,  c.base);
+    fg.addColorStop(1,   c.glow+'.4)');
+    ctx.fillStyle = fg;
+    ctx.shadowBlur = 18; ctx.shadowColor = c.base;
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function roundRect(x, y, w, h, r) {
+    if (h <= 0) { h = 0; }
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y,   x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x,   y+h, r);
+    ctx.arcTo(x,   y+h, x,   y,   r);
+    ctx.arcTo(x,   y,   x+w, y,   r);
+    ctx.closePath();
+  }
+
+  /* ── lane tracks ── */
+  function drawTracks() {
+    for (let l=0; l<LANES; l++) {
+      const x = laneX(l);
+      ctx.save();
+      const g = ctx.createLinearGradient(x,0, x,H);
+      g.addColorStop(0,    'rgba(255,255,255,0)');
+      g.addColorStop(.35,  COLORS[l].glow+'.04)');
+      g.addColorStop(.82,  COLORS[l].glow+'.11)');
+      g.addColorStop(1,    COLORS[l].glow+'.04)');
+      ctx.strokeStyle=g; ctx.lineWidth=NOTE_W;
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+      ctx.setLineDash([5,10]);
+      ctx.strokeStyle=COLORS[l].glow+'.07)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+  }
+
+  /* ── hit line dots ── */
+  function drawHitDots(t) {
+    for (let l=0; l<LANES; l++) {
+      const x=laneX(l), y=hitY();
+      const p = .7 + .3*Math.sin(t*.06 + l*.7);
+      ctx.save();
+      ctx.globalAlpha=p;
+      ctx.beginPath(); ctx.arc(x,y,7*p,0,Math.PI*2);
+      ctx.fillStyle=COLORS[l].base;
+      ctx.shadowBlur=18; ctx.shadowColor=COLORS[l].base;
+      ctx.fill();
+      ctx.globalAlpha=p*.4;
+      ctx.beginPath(); ctx.arc(x,y,14*p,0,Math.PI*2);
+      ctx.strokeStyle=COLORS[l].base; ctx.lineWidth=1.5;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* ── spawner ── */
+  const notes=[]; let patIdx=0, spawnT=0;
+  const INTERVAL=42;
+
+  function spawnNext() {
+    const p=PAT[patIdx%PAT.length];
+    notes.push(new Note(p.l, p.t, p.h||0));
+    patIdx++;
+  }
+
+  /* ── main loop ── */
+  let t=0;
+  function loop() {
+    ctx.clearRect(0,0,W,H);
+    drawTracks();
+    updateFX(); drawFX();
+
+    for (let i=notes.length-1; i>=0; i--) {
+      notes[i].update();
+      notes[i].draw();
+      if (notes[i].isDead()) notes.splice(i,1);
+    }
+
+    drawHitDots(t);
+    spawnT++;
+    if (spawnT>=INTERVAL) { spawnT=0; spawnNext(); }
+    t++;
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  // pre-seed notes spread across screen
+  for (let i=0; i<10; i++) {
+    const p=PAT[i%PAT.length];
+    const n=new Note(p.l, p.t, p.h||0);
+    n.y = -(i*110 + Math.random()*60);
+    notes.push(n); patIdx++;
+  }
+  loop();
+  window.addEventListener('resize', resize);
+})();
+</script>
+</body>
+</html>
