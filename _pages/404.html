@@ -147,6 +147,9 @@ permalink: /404.html
       width: 95%;
       height: 95%;
       object-fit: contain;
+      -webkit-user-drag: none;
+      user-drag: none;
+      pointer-events: none;
     }
 
     /* Orbit rings — positioned relative to .scene */
@@ -310,7 +313,7 @@ permalink: /404.html
       <div class="image-float">
         <div class="image-frame-outer">
           <div class="image-frame-inner">
-            <img src="/assets/images/kanade-404.png" alt="Kanade">
+            <img src="/assets/images/kanade-404.png" alt="Kanade" draggable="false">
           </div>
         </div>
       </div>
@@ -339,18 +342,41 @@ permalink: /404.html
 
   /* ── Stars ── */
   function buildStars() {
-    stars = Array.from({ length: 180 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: Math.random() < 0.08 ? Math.random() * 1.8 + 1.2 : Math.random() * 1.0 + 0.2,
-    }));
+    stars = Array.from({ length: 240 }, () => {
+      const big = Math.random() < 0.07;
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: big ? Math.random() * 1.5 + 1.3 : Math.random() * 0.85 + 0.18,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.016 + 0.005,
+        baseA: Math.random() * 0.3 + 0.5,
+        ampA:  Math.random() * 0.28 + 0.14,
+        cross: big && Math.random() < 0.55,
+        color: Math.random() < 0.18 ? '#b8d0ff' : Math.random() < 0.15 ? '#fff5cc' : '#fff9ee',
+      };
+    });
   }
 
   function drawStars() {
-    ctx.fillStyle = '#fff9ee';
     for (const s of stars) {
-      /* Random alpha each frame = twinkling (same trick as index.html) */
-      ctx.globalAlpha = Math.random() * 0.55 + 0.3;
+      const alpha = Math.max(0.05, s.baseA + Math.sin(t * s.speed + s.phase) * s.ampA);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle   = s.color;
+      ctx.strokeStyle = s.color;
+
+      if (s.cross) {
+        /* 4-pointed sparkle for bright stars */
+        const len = s.r * 3.8;
+        ctx.lineWidth = s.r * 0.7;
+        ctx.beginPath(); ctx.moveTo(s.x - len, s.y); ctx.lineTo(s.x + len, s.y); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(s.x, s.y - len); ctx.lineTo(s.x, s.y + len); ctx.stroke();
+        const dl = len * 0.55;
+        ctx.lineWidth = s.r * 0.35;
+        ctx.beginPath(); ctx.moveTo(s.x - dl, s.y - dl); ctx.lineTo(s.x + dl, s.y + dl); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(s.x + dl, s.y - dl); ctx.lineTo(s.x - dl, s.y + dl); ctx.stroke();
+      }
+
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
       ctx.fill();

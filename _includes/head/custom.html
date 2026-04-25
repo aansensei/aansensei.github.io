@@ -57,10 +57,16 @@
   });
 </script>
 <link rel="apple-touch-icon" href="/assets/images/ncta-logo.svg">
-<meta property="og:title" content="AanSekai — An's Magical World">
-<meta property="og:description" content="Where data whispers untold stories. Portfolio of Cao Thien An Nguyen.">
-<meta property="og:image" content="/assets/images/about-cover.jpg">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:type"        content="website">
+<meta property="og:site_name"  content="{{ site.title }}">
+<meta property="og:title"      content="{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}AanSekai — An's Magical World{% endif %}">
+<meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+<meta property="og:url"        content="{{ site.url }}{{ page.url }}">
+<meta property="og:image"      content="https://aansensei.github.io/assets/images/about-cover.jpg">
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}AanSekai — An's Magical World{% endif %}">
+<meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+<meta name="twitter:image"       content="https://aansensei.github.io/assets/images/about-cover.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

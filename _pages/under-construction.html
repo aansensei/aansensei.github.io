@@ -4,93 +4,185 @@ permalink: /under-construction.html
 ---
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Under Construction</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background: #07051a;
       min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
       font-family: 'Cormorant Garamond', serif;
       user-select: none;
       -webkit-user-select: none;
     }
-    canvas { position: fixed; inset: 0; pointer-events: none; }
-    #rhythm-canvas { z-index: 1; }
 
-    #hit-line-el {
-      position: fixed; left: 50%; transform: translateX(-50%);
-      width: min(560px, 94vw); height: 3px;
-      z-index: 3; pointer-events: none; border-radius: 2px;
-      background: linear-gradient(to right,
-        transparent, rgba(201,162,39,.5) 12%,
-        rgba(255,224,120,1) 50%,
-        rgba(201,162,39,.5) 88%, transparent);
-      box-shadow: 0 0 10px rgba(255,220,80,.9), 0 0 30px rgba(201,162,39,.6);
-      animation: hlPulse 1.6s ease-in-out infinite;
-    }
-    @keyframes hlPulse{0%,100%{opacity:.88;}50%{opacity:1;box-shadow:0 0 18px rgba(255,220,80,1),0 0 55px rgba(201,162,39,.8);}}
-    .content {
-      position: relative; z-index: 10;
-      text-align: center; padding: 2rem 1.5rem;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1.25rem;
+    canvas {
+      position: fixed;
+      inset: 0;
       pointer-events: none;
     }
+
+    #rhythm-canvas {
+      z-index: 1;
+    }
+
+    #hit-line-el {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(560px, 94vw);
+      height: 3px;
+      z-index: 3;
+      pointer-events: none;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+          transparent, rgba(201, 162, 39, .5) 12%,
+          rgba(255, 224, 120, 1) 50%,
+          rgba(201, 162, 39, .5) 88%, transparent);
+      box-shadow: 0 0 10px rgba(255, 220, 80, .9), 0 0 30px rgba(201, 162, 39, .6);
+      animation: hlPulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes hlPulse {
+
+      0%,
+      100% {
+        opacity: .88;
+      }
+
+      50% {
+        opacity: 1;
+        box-shadow: 0 0 18px rgba(255, 220, 80, 1), 0 0 55px rgba(201, 162, 39, .8);
+      }
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      pointer-events: none;
+    }
+
     .label {
       font-family: 'Cinzel Decorative', serif;
-      font-size: .73rem; letter-spacing: .4em; color: #f5de7a;
-      text-shadow: 0 0 16px rgba(245,210,80,.9), 0 0 36px rgba(201,162,39,.55);
+      font-size: .73rem;
+      letter-spacing: .4em;
+      color: #f5de7a;
+      text-shadow: 0 0 16px rgba(245, 210, 80, .9), 0 0 36px rgba(201, 162, 39, .55);
       text-transform: uppercase;
     }
-    .divider-line { width: 240px; height: 1px; background: linear-gradient(to right, transparent, rgba(201,162,39,.65), transparent); }
+
+    .divider-line {
+      width: 240px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201, 162, 39, .65), transparent);
+    }
+
     .title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.15rem, 3.5vw, 1.9rem); color: #f5ecd4;
-      text-shadow: 0 0 24px rgba(240,200,80,.65), 0 0 60px rgba(201,162,39,.3), 0 2px 5px rgba(0,0,0,.95);
-      line-height: 1.35; letter-spacing: .04em;
+      font-size: clamp(1.15rem, 3.5vw, 1.9rem);
+      color: #f5ecd4;
+      text-shadow: 0 0 24px rgba(240, 200, 80, .65), 0 0 60px rgba(201, 162, 39, .3), 0 2px 5px rgba(0, 0, 0, .95);
+      line-height: 1.35;
+      letter-spacing: .04em;
     }
+
     .subtitle {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-size: clamp(1rem, 2.2vw, 1.2rem); color: rgba(240,225,195,.82);
-      letter-spacing: .07em; max-width: 440px; line-height: 1.75;
-      text-shadow: 0 1px 8px rgba(0,0,0,.75);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(240, 225, 195, .82);
+      letter-spacing: .07em;
+      max-width: 440px;
+      line-height: 1.75;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, .75);
     }
+
     .sticker {
       width: clamp(110px, 16vw, 165px);
-      filter: drop-shadow(0 0 22px rgba(201,162,39,.4)) drop-shadow(0 4px 14px rgba(0,0,0,.6));
-      animation: float 4s ease-in-out infinite; pointer-events: none;
+      filter: drop-shadow(0 0 22px rgba(201, 162, 39, .4)) drop-shadow(0 4px 14px rgba(0, 0, 0, .6));
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
     }
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
-    .ornament { font-family:'Cinzel Decorative',serif; font-size:.72rem; color:rgba(201,162,39,.55); letter-spacing:.55em; }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-11px)
+      }
+    }
+
+    .ornament {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .72rem;
+      color: rgba(201, 162, 39, .55);
+      letter-spacing: .55em;
+    }
 
     .btn-back {
-      position: fixed; top: 1.2rem; left: 1.4rem; z-index: 20;
+      position: fixed;
+      top: 1.2rem;
+      left: 1.4rem;
+      z-index: 20;
       font-family: 'Cinzel Decorative', serif;
-      font-size: .78rem; color: #f0d87a;
-      text-decoration: none; letter-spacing: .18em;
-      border: 1.5px solid rgba(201,162,39,.5); padding: .55rem 1.3rem;
-      border-radius: 24px; background: rgba(7,5,26,.8);
+      font-size: .78rem;
+      color: #f0d87a;
+      text-decoration: none;
+      letter-spacing: .18em;
+      border: 1.5px solid rgba(201, 162, 39, .5);
+      padding: .55rem 1.3rem;
+      border-radius: 24px;
+      background: rgba(7, 5, 26, .8);
       backdrop-filter: blur(8px);
-      box-shadow: 0 0 14px rgba(201,162,39,.18), inset 0 0 8px rgba(201,162,39,.06);
+      box-shadow: 0 0 14px rgba(201, 162, 39, .18), inset 0 0 8px rgba(201, 162, 39, .06);
       transition: color .25s, border-color .3s, box-shadow .3s, background .25s;
-      cursor: pointer; text-transform: uppercase;
-      user-select: none; -webkit-user-select: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      user-select: none;
+      -webkit-user-select: none;
     }
-    .btn-back::before { content: '\2190\00A0\00A0'; }
+
+    .btn-back::before {
+      content: '\2190\00A0\00A0';
+    }
+
     .btn-back:hover {
-      color: #fff; border-color: rgba(201,162,39,.9);
-      background: rgba(20,14,50,.92);
-      box-shadow: 0 0 22px rgba(201,162,39,.45), inset 0 0 12px rgba(201,162,39,.12);
+      color: #fff;
+      border-color: rgba(201, 162, 39, .9);
+      background: rgba(20, 14, 50, .92);
+      box-shadow: 0 0 22px rgba(201, 162, 39, .45), inset 0 0 12px rgba(201, 162, 39, .12);
     }
   </style>
 </head>
+
 <body>
   <canvas id="rhythm-canvas"></canvas>
   <div id="hit-line-el"></div>
@@ -107,453 +199,454 @@ permalink: /under-construction.html
     <p class="ornament">* * *</p>
   </div>
 
-<script>
-document.addEventListener('selectstart', e => e.preventDefault());
-document.addEventListener('contextmenu', e => e.preventDefault());
+  <script>
+    document.addEventListener('selectstart', e => e.preventDefault());
+    document.addEventListener('contextmenu', e => e.preventDefault());
 
-/* ═══ SINGLE CANVAS: stars + rhythm ═══ */
-(function(){
-  const cv=document.getElementById('rhythm-canvas'),ctx=cv.getContext('2d');
-  let W,H;
+    /* ═══ SINGLE CANVAS: stars + rhythm ═══ */
+    (function () {
+      const cv = document.getElementById('rhythm-canvas'), ctx = cv.getContext('2d');
+      let W, H;
 
-  /* ── starfield ── */
-  let stars=[];
-  function initStars(){
-    stars=Array.from({length:140},()=>({
-      x:Math.random()*W,y:Math.random()*H,
-      r:Math.random()*1.3+.15,
-      a:Math.random(),
-      da:(Math.random()*.005+.001)*(Math.random()>.5?1:-1)
-    }));
-  }
-  function drawStars(){
-    ctx.fillStyle='#fff5dc';
-    for(const s of stars){
-      s.a+=s.da;if(s.a>1||s.a<0)s.da*=-1;
-      ctx.globalAlpha=s.a*.8;
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
-    }
-    ctx.globalAlpha=1;
-  }
+      /* ── starfield ── */
+      let stars = [];
+      function initStars() {
+        stars = Array.from({ length: 140 }, () => ({
+          x: Math.random() * W, y: Math.random() * H,
+          r: Math.random() * 1.3 + .15,
+          a: Math.random(),
+          da: (Math.random() * .005 + .001) * (Math.random() > .5 ? 1 : -1)
+        }));
+      }
+      function drawStars() {
+        ctx.fillStyle = '#fff5dc';
+        for (const s of stars) {
+          s.a += s.da; if (s.a > 1 || s.a < 0) s.da *= -1;
+          ctx.globalAlpha = s.a * .8;
+          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      }
 
-  /* ═══ RHYTHM ENGINE — 16-bar loop, 160 BPM ═══ */
-  const LANES=6, NOTE_W=58, LANE_GAP=10, HIT_FRAC=.80;
-  const LOOP_FRAMES=1740;
-  const TRAVEL_F=112;
+      /* ═══ RHYTHM ENGINE — 16-bar loop, 160 BPM ═══ */
+      const LANES = 6, NOTE_W = 58, LANE_GAP = 10, HIT_FRAC = .80;
+      const LOOP_FRAMES = 1740;
+      const TRAVEL_F = 112;
 
-  const C=[
-    {b:'#c9a227',g:'rgba(201,162,39,'},
-    {b:'#9b5cf6',g:'rgba(155,92,246,'},
-    {b:'#e07060',g:'rgba(224,112,96,'},
-    {b:'#2dd4bf',g:'rgba(45,212,191,'},
-    {b:'#c94f7c',g:'rgba(201,79,124,'},
-    {b:'#7ec8c8',g:'rgba(126,200,200,'},
-  ];
-  const CRIT={b:'#fffde0',g:'rgba(255,253,224,'};
+      const C = [
+        { b: '#c9a227', g: 'rgba(201,162,39,' },
+        { b: '#9b5cf6', g: 'rgba(155,92,246,' },
+        { b: '#e07060', g: 'rgba(224,112,96,' },
+        { b: '#2dd4bf', g: 'rgba(45,212,191,' },
+        { b: '#c94f7c', g: 'rgba(201,79,124,' },
+        { b: '#7ec8c8', g: 'rgba(126,200,200,' },
+      ];
+      const CRIT = { b: '#fffde0', g: 'rgba(255,253,224,' };
 
-  /* ── cached geometry + offscreen track canvas ── */
-  let laneXs=[], trackOC=null;
+      /* ── cached geometry + offscreen track canvas ── */
+      let laneXs = [], trackOC = null;
 
-  function buildLaneXs(){
-    const tot=NOTE_W*LANES+LANE_GAP*(LANES-1);
-    laneXs=Array.from({length:LANES},(_,l)=>(W-tot)/2+l*(NOTE_W+LANE_GAP)+NOTE_W/2);
-  }
+      function buildLaneXs() {
+        const tot = NOTE_W * LANES + LANE_GAP * (LANES - 1);
+        laneXs = Array.from({ length: LANES }, (_, l) => (W - tot) / 2 + l * (NOTE_W + LANE_GAP) + NOTE_W / 2);
+      }
 
-  function buildTrackOC(){
-    trackOC=document.createElement('canvas');
-    trackOC.width=W;trackOC.height=H;
-    const tc=trackOC.getContext('2d'),hy=H*HIT_FRAC;
-    for(let l=0;l<LANES;l++){
-      const cx=laneXs[l];
-      const g=tc.createLinearGradient(cx,0,cx,H);
-      g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.38,C[l].g+'.04)');g.addColorStop(.83,C[l].g+'.12)');g.addColorStop(1,C[l].g+'.04)');
-      tc.strokeStyle=g;tc.lineWidth=NOTE_W+LANE_GAP;tc.beginPath();tc.moveTo(cx,0);tc.lineTo(cx,H);tc.stroke();
-      tc.setLineDash([5,11]);tc.strokeStyle=C[l].g+'.08)';tc.lineWidth=1;tc.beginPath();tc.moveTo(cx,0);tc.lineTo(cx,hy);tc.stroke();
-      tc.setLineDash([]);
-    }
-  }
+      function buildTrackOC() {
+        trackOC = document.createElement('canvas');
+        trackOC.width = W; trackOC.height = H;
+        const tc = trackOC.getContext('2d'), hy = H * HIT_FRAC;
+        for (let l = 0; l < LANES; l++) {
+          const cx = laneXs[l];
+          const g = tc.createLinearGradient(cx, 0, cx, H);
+          g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.38, C[l].g + '.04)'); g.addColorStop(.83, C[l].g + '.12)'); g.addColorStop(1, C[l].g + '.04)');
+          tc.strokeStyle = g; tc.lineWidth = NOTE_W + LANE_GAP; tc.beginPath(); tc.moveTo(cx, 0); tc.lineTo(cx, H); tc.stroke();
+          tc.setLineDash([5, 11]); tc.strokeStyle = C[l].g + '.08)'; tc.lineWidth = 1; tc.beginPath(); tc.moveTo(cx, 0); tc.lineTo(cx, hy); tc.stroke();
+          tc.setLineDash([]);
+        }
+      }
 
-  function resize(){
-    W=cv.width=innerWidth;H=cv.height=innerHeight;
-    const el=document.getElementById('hit-line-el');
-    if(el)el.style.bottom=(100-HIT_FRAC*100)+'%';
-    buildLaneXs();buildTrackOC();initStars();
-  }
+      function resize() {
+        W = cv.width = innerWidth; H = cv.height = innerHeight;
+        const el = document.getElementById('hit-line-el');
+        if (el) el.style.bottom = (100 - HIT_FRAC * 100) + '%';
+        buildLaneXs(); buildTrackOC(); initStars();
+      }
 
-  const hitY=()=>H*HIT_FRAC;
-  const noteSpd=()=>hitY()/TRAVEL_F;
-  function laneX(l){return laneXs[l];}
-  function geom(l,s){return{cx:laneXs[l]+(s-1)*(NOTE_W+LANE_GAP)/2,w:s*NOTE_W+(s-1)*LANE_GAP};}
-  function computeDelta(f,gt){
-    let raw=((f-gt%LOOP_FRAMES)+LOOP_FRAMES)%LOOP_FRAMES;
-    return raw>LOOP_FRAMES*.65?raw-LOOP_FRAMES:raw;
-  }
+      const hitY = () => H * HIT_FRAC;
+      const noteSpd = () => hitY() / TRAVEL_F;
+      function laneX(l) { return laneXs[l]; }
+      function geom(l, s) { return { cx: laneXs[l] + (s - 1) * (NOTE_W + LANE_GAP) / 2, w: s * NOTE_W + (s - 1) * LANE_GAP }; }
+      function computeDelta(f, gt) {
+        let raw = ((f - gt % LOOP_FRAMES) + LOOP_FRAMES) % LOOP_FRAMES;
+        return raw > LOOP_FRAMES * .65 ? raw - LOOP_FRAMES : raw;
+      }
 
-  /* ══ NOTE SCHEDULE ══
-     Bars 1-8  (frames 0-719):   faithful to SVG chart 0708/append
-     Bars 9-16 (frames 720-1439): extended with holds, ladders, slides, freestyle
-  */
-  const SCH=[
-    /* ── BARS 1-8: original chart pattern ── */
-    /* A: lanes 0,2,3 (y=18→-117) */
-    {f:5, l:0,t:0,s:1},{f:5, l:2,t:0,s:1},{f:5, l:3,t:0,s:1.5},
-    {f:20,l:0,t:0,s:1},{f:20,l:2,t:0,s:1},{f:20,l:3,t:0,s:1.5},
-    {f:35,l:0,t:0,s:1},{f:35,l:2,t:0,s:1},{f:35,l:3,t:0,s:1.5},
-    {f:50,l:0,t:0,s:1},{f:50,l:2,t:0,s:1},{f:50,l:3,t:0,s:1.5},
-    /* B: flicks + cascade (y=-252→-477) */
-    {f:95, l:0,t:2,s:1.5},{f:95, l:4,t:2,s:1.5},
-    {f:110,l:1,t:0,s:1},
-    {f:125,l:2,t:0,s:1},
-    {f:140,l:1,t:0,s:1},{f:140,l:3,t:0,s:1},
-    {f:155,l:2,t:0,s:1},
-    {f:170,l:3,t:0,s:1},
-    /* C: 5+2+3,0-wide (y=1638→1503) */
-    {f:185,l:5,t:0,s:1},{f:185,l:2,t:0,s:1},{f:185,l:3,t:0,s:1.5},{f:185,l:0,t:0,s:2},
-    {f:200,l:5,t:0,s:1},{f:200,l:2,t:0,s:1},{f:200,l:3,t:0,s:1.5},
-    {f:215,l:5,t:0,s:1},{f:215,l:2,t:0,s:1},{f:215,l:3,t:0,s:1.5},
-    {f:230,l:5,t:0,s:1},{f:230,l:2,t:0,s:1},{f:230,l:3,t:0,s:1.5},
-    /* D: 4+1+2+ (y=1368→1233) */
-    {f:275,l:4,t:0,s:1},{f:275,l:1,t:0,s:1},{f:275,l:2,t:0,s:1.5},
-    {f:290,l:4,t:0,s:1},{f:290,l:1,t:0,s:1},{f:290,l:2,t:0,s:1.5},
-    {f:305,l:4,t:0,s:1},{f:305,l:1,t:0,s:1},{f:305,l:2,t:0,s:1.5},
-    {f:320,l:4,t:0,s:1},{f:320,l:1,t:0,s:1},{f:320,l:2,t:0,s:1.5},
-    /* E: 3+0+1+ (y=1098→963) */
-    {f:365,l:3,t:0,s:1},{f:365,l:0,t:0,s:1},{f:365,l:1,t:0,s:1.5},
-    {f:380,l:3,t:0,s:1},{f:380,l:0,t:0,s:1},{f:380,l:1,t:0,s:1.5},
-    {f:395,l:3,t:0,s:1},{f:395,l:0,t:0,s:1},{f:395,l:1,t:0,s:1.5},
-    {f:410,l:3,t:0,s:1},{f:410,l:0,t:0,s:1},{f:410,l:1,t:0,s:1.5},
-    /* F: wide specials (y=828,693) */
-    {f:455,l:0,t:2,s:2},{f:455,l:4,t:0,s:2,cr:1},
-    {f:500,l:4,t:2,s:2},{f:500,l:0,t:0,s:2,cr:1},
-    /* G: repeat C (y=558→423) */
-    {f:545,l:5,t:0,s:1},{f:545,l:2,t:0,s:1},{f:545,l:3,t:0,s:1.5},{f:545,l:0,t:0,s:2},
-    {f:560,l:5,t:0,s:1},{f:560,l:2,t:0,s:1},{f:560,l:3,t:0,s:1.5},
-    {f:575,l:5,t:0,s:1},{f:575,l:2,t:0,s:1},{f:575,l:3,t:0,s:1.5},
-    {f:590,l:5,t:0,s:1},{f:590,l:2,t:0,s:1},{f:590,l:3,t:0,s:1.5},
-    /* H: repeat D (y=288→153) */
-    {f:635,l:4,t:0,s:1},{f:635,l:1,t:0,s:1},{f:635,l:2,t:0,s:1.5},
-    {f:650,l:4,t:0,s:1},{f:650,l:1,t:0,s:1},{f:650,l:2,t:0,s:1.5},
-    {f:665,l:4,t:0,s:1},{f:665,l:1,t:0,s:1},{f:665,l:2,t:0,s:1.5},
-    {f:680,l:4,t:0,s:1},{f:680,l:1,t:0,s:1},{f:680,l:2,t:0,s:1.5},
+      /* ══ NOTE SCHEDULE ══
+         Bars 1-8  (frames 0-719):   faithful to SVG chart 0708/append
+         Bars 9-16 (frames 720-1439): extended with holds, ladders, slides, freestyle
+      */
+      const SCH = [
+        /* ── BARS 1-8: original chart pattern ── */
+        /* A: lanes 0,2,3 (y=18→-117) */
+        { f: 5, l: 0, t: 0, s: 1 }, { f: 5, l: 2, t: 0, s: 1 }, { f: 5, l: 3, t: 0, s: 1.5 },
+        { f: 20, l: 0, t: 0, s: 1 }, { f: 20, l: 2, t: 0, s: 1 }, { f: 20, l: 3, t: 0, s: 1.5 },
+        { f: 35, l: 0, t: 0, s: 1 }, { f: 35, l: 2, t: 0, s: 1 }, { f: 35, l: 3, t: 0, s: 1.5 },
+        { f: 50, l: 0, t: 0, s: 1 }, { f: 50, l: 2, t: 0, s: 1 }, { f: 50, l: 3, t: 0, s: 1.5 },
+        /* B: flicks + cascade (y=-252→-477) */
+        { f: 95, l: 0, t: 2, s: 1.5 }, { f: 95, l: 4, t: 2, s: 1.5 },
+        { f: 110, l: 1, t: 0, s: 1 },
+        { f: 125, l: 2, t: 0, s: 1 },
+        { f: 140, l: 1, t: 0, s: 1 }, { f: 140, l: 3, t: 0, s: 1 },
+        { f: 155, l: 2, t: 0, s: 1 },
+        { f: 170, l: 3, t: 0, s: 1 },
+        /* C: 5+2+3,0-wide (y=1638→1503) */
+        { f: 185, l: 5, t: 0, s: 1 }, { f: 185, l: 2, t: 0, s: 1 }, { f: 185, l: 3, t: 0, s: 1.5 }, { f: 185, l: 0, t: 0, s: 2 },
+        { f: 200, l: 5, t: 0, s: 1 }, { f: 200, l: 2, t: 0, s: 1 }, { f: 200, l: 3, t: 0, s: 1.5 },
+        { f: 215, l: 5, t: 0, s: 1 }, { f: 215, l: 2, t: 0, s: 1 }, { f: 215, l: 3, t: 0, s: 1.5 },
+        { f: 230, l: 5, t: 0, s: 1 }, { f: 230, l: 2, t: 0, s: 1 }, { f: 230, l: 3, t: 0, s: 1.5 },
+        /* D: 4+1+2+ (y=1368→1233) */
+        { f: 275, l: 4, t: 0, s: 1 }, { f: 275, l: 1, t: 0, s: 1 }, { f: 275, l: 2, t: 0, s: 1.5 },
+        { f: 290, l: 4, t: 0, s: 1 }, { f: 290, l: 1, t: 0, s: 1 }, { f: 290, l: 2, t: 0, s: 1.5 },
+        { f: 305, l: 4, t: 0, s: 1 }, { f: 305, l: 1, t: 0, s: 1 }, { f: 305, l: 2, t: 0, s: 1.5 },
+        { f: 320, l: 4, t: 0, s: 1 }, { f: 320, l: 1, t: 0, s: 1 }, { f: 320, l: 2, t: 0, s: 1.5 },
+        /* E: 3+0+1+ (y=1098→963) */
+        { f: 365, l: 3, t: 0, s: 1 }, { f: 365, l: 0, t: 0, s: 1 }, { f: 365, l: 1, t: 0, s: 1.5 },
+        { f: 380, l: 3, t: 0, s: 1 }, { f: 380, l: 0, t: 0, s: 1 }, { f: 380, l: 1, t: 0, s: 1.5 },
+        { f: 395, l: 3, t: 0, s: 1 }, { f: 395, l: 0, t: 0, s: 1 }, { f: 395, l: 1, t: 0, s: 1.5 },
+        { f: 410, l: 3, t: 0, s: 1 }, { f: 410, l: 0, t: 0, s: 1 }, { f: 410, l: 1, t: 0, s: 1.5 },
+        /* F: wide specials (y=828,693) */
+        { f: 455, l: 0, t: 2, s: 2 }, { f: 455, l: 4, t: 0, s: 2, cr: 1 },
+        { f: 500, l: 4, t: 2, s: 2 }, { f: 500, l: 0, t: 0, s: 2, cr: 1 },
+        /* G: repeat C (y=558→423) */
+        { f: 545, l: 5, t: 0, s: 1 }, { f: 545, l: 2, t: 0, s: 1 }, { f: 545, l: 3, t: 0, s: 1.5 }, { f: 545, l: 0, t: 0, s: 2 },
+        { f: 560, l: 5, t: 0, s: 1 }, { f: 560, l: 2, t: 0, s: 1 }, { f: 560, l: 3, t: 0, s: 1.5 },
+        { f: 575, l: 5, t: 0, s: 1 }, { f: 575, l: 2, t: 0, s: 1 }, { f: 575, l: 3, t: 0, s: 1.5 },
+        { f: 590, l: 5, t: 0, s: 1 }, { f: 590, l: 2, t: 0, s: 1 }, { f: 590, l: 3, t: 0, s: 1.5 },
+        /* H: repeat D (y=288→153) */
+        { f: 635, l: 4, t: 0, s: 1 }, { f: 635, l: 1, t: 0, s: 1 }, { f: 635, l: 2, t: 0, s: 1.5 },
+        { f: 650, l: 4, t: 0, s: 1 }, { f: 650, l: 1, t: 0, s: 1 }, { f: 650, l: 2, t: 0, s: 1.5 },
+        { f: 665, l: 4, t: 0, s: 1 }, { f: 665, l: 1, t: 0, s: 1 }, { f: 665, l: 2, t: 0, s: 1.5 },
+        { f: 680, l: 4, t: 0, s: 1 }, { f: 680, l: 1, t: 0, s: 1 }, { f: 680, l: 2, t: 0, s: 1.5 },
 
-    /* ── BARS 9-16: extended freestyle ── */
-    /* I: bridge — mirror pairs outer→inner */
-    {f:725,l:0,t:0,s:1},{f:725,l:5,t:0,s:1},
-    {f:740,l:1,t:0,s:1},{f:740,l:4,t:0,s:1},
-    {f:755,l:2,t:0,s:1},{f:755,l:3,t:0,s:1},
-    {f:770,l:1,t:2,s:1},{f:770,l:4,t:2,s:1},
-    /* taps while holds are active (bar 10) */
-    {f:808,l:2,t:0,s:1},{f:808,l:3,t:0,s:1},
-    {f:823,l:2,t:0,s:1},{f:823,l:3,t:0,s:1},
-    {f:838,l:2,t:2,s:1},{f:838,l:3,t:2,s:1},
-    {f:853,l:1,t:0,s:1},{f:853,l:4,t:0,s:1},
-    /* J: ladder ascending lanes 0→5 */
-    {f:868,l:0,t:0,s:1},{f:875,l:1,t:0,s:1},{f:882,l:2,t:0,s:1},
-    {f:889,l:3,t:0,s:1},{f:896,l:4,t:0,s:1},{f:903,l:5,t:0,s:1},
-    /* descending 5→0 */
-    {f:912,l:5,t:0,s:1},{f:919,l:4,t:0,s:1},{f:926,l:3,t:0,s:1},
-    {f:933,l:2,t:0,s:1},{f:940,l:1,t:0,s:1},{f:947,l:0,t:0,s:1},
-    /* faster ascending 0→5 */
-    {f:953,l:0,t:0,s:1},{f:957,l:1,t:0,s:1},{f:961,l:2,t:0,s:1},
-    {f:965,l:3,t:0,s:1},{f:969,l:4,t:0,s:1},{f:973,l:5,t:0,s:1},
-    /* anchor flicks after ladder */
-    {f:980,l:0,t:2,s:1},{f:980,l:5,t:2,s:1},
-    /* K: slide endpoints */
-    {f:990, l:0,t:0,s:1},{f:1020,l:5,t:0,s:1},
-    {f:1030,l:5,t:0,s:1},{f:1060,l:0,t:0,s:1},
-    {f:1070,l:1,t:0,s:1},{f:1082,l:4,t:0,s:1},
-    {f:1085,l:4,t:0,s:1},{f:1097,l:1,t:0,s:1},
-    /* L: dense middle section */
-    {f:1105,l:2,t:0,s:1},{f:1105,l:3,t:0,s:1},
-    {f:1113,l:1,t:0,s:1},{f:1113,l:4,t:0,s:1},
-    {f:1121,l:2,t:0,s:1},{f:1121,l:3,t:0,s:1},
-    {f:1129,l:0,t:0,s:1},{f:1129,l:5,t:0,s:1},
-    {f:1137,l:1,t:2,s:1},{f:1137,l:4,t:2,s:1},
-    {f:1150,l:2,t:0,s:1},{f:1150,l:3,t:0,s:1},
-    {f:1158,l:0,t:2,s:2},{f:1158,l:4,t:0,s:2,cr:1},
-    /* M: outer ladder while holds active */
-    {f:1185,l:0,t:0,s:1},{f:1192,l:5,t:0,s:1},
-    {f:1199,l:0,t:0,s:1},{f:1206,l:5,t:0,s:1},
-    {f:1213,l:1,t:0,s:1},{f:1220,l:4,t:0,s:1},
-    {f:1227,l:1,t:2,s:1},{f:1234,l:4,t:2,s:1},
-    {f:1245,l:0,t:0,s:1},{f:1252,l:5,t:0,s:1},
-    /* N: finale zigzag */
-    {f:1283,l:0,t:0,s:1},{f:1290,l:5,t:0,s:1},
-    {f:1297,l:1,t:0,s:1},{f:1304,l:4,t:0,s:1},
-    {f:1311,l:2,t:0,s:1},{f:1318,l:3,t:0,s:1},
-    {f:1325,l:2,t:2,s:1},{f:1325,l:3,t:2,s:1},
-    {f:1335,l:0,t:2,s:2},{f:1335,l:4,t:0,s:2,cr:1},
-    /* slide endpoints near finale */
-    {f:1360,l:2,t:0,s:1},{f:1380,l:4,t:0,s:1},
-    {f:1383,l:3,t:0,s:1},{f:1403,l:1,t:0,s:1},
-    /* final burst ladder */
-    {f:1395,l:0,t:0,s:1},{f:1399,l:1,t:0,s:1},{f:1403,l:2,t:0,s:1},
-    {f:1407,l:3,t:0,s:1},{f:1411,l:4,t:0,s:1},{f:1415,l:5,t:0,s:1},
-    /* final wide */
-    {f:1425,l:0,t:0,s:2,cr:1},{f:1425,l:4,t:2,s:2},
+        /* ── BARS 9-16: extended freestyle ── */
+        /* I: bridge — mirror pairs outer→inner */
+        { f: 725, l: 0, t: 0, s: 1 }, { f: 725, l: 5, t: 0, s: 1 },
+        { f: 740, l: 1, t: 0, s: 1 }, { f: 740, l: 4, t: 0, s: 1 },
+        { f: 755, l: 2, t: 0, s: 1 }, { f: 755, l: 3, t: 0, s: 1 },
+        { f: 770, l: 1, t: 2, s: 1 }, { f: 770, l: 4, t: 2, s: 1 },
+        /* taps while holds are active (bar 10) */
+        { f: 808, l: 2, t: 0, s: 1 }, { f: 808, l: 3, t: 0, s: 1 },
+        { f: 823, l: 2, t: 0, s: 1 }, { f: 823, l: 3, t: 0, s: 1 },
+        { f: 838, l: 2, t: 2, s: 1 }, { f: 838, l: 3, t: 2, s: 1 },
+        { f: 853, l: 1, t: 0, s: 1 }, { f: 853, l: 4, t: 0, s: 1 },
+        /* J: ladder ascending lanes 0→5 */
+        { f: 868, l: 0, t: 0, s: 1 }, { f: 875, l: 1, t: 0, s: 1 }, { f: 882, l: 2, t: 0, s: 1 },
+        { f: 889, l: 3, t: 0, s: 1 }, { f: 896, l: 4, t: 0, s: 1 }, { f: 903, l: 5, t: 0, s: 1 },
+        /* descending 5→0 */
+        { f: 912, l: 5, t: 0, s: 1 }, { f: 919, l: 4, t: 0, s: 1 }, { f: 926, l: 3, t: 0, s: 1 },
+        { f: 933, l: 2, t: 0, s: 1 }, { f: 940, l: 1, t: 0, s: 1 }, { f: 947, l: 0, t: 0, s: 1 },
+        /* faster ascending 0→5 */
+        { f: 953, l: 0, t: 0, s: 1 }, { f: 957, l: 1, t: 0, s: 1 }, { f: 961, l: 2, t: 0, s: 1 },
+        { f: 965, l: 3, t: 0, s: 1 }, { f: 969, l: 4, t: 0, s: 1 }, { f: 973, l: 5, t: 0, s: 1 },
+        /* anchor flicks after ladder */
+        { f: 980, l: 0, t: 2, s: 1 }, { f: 980, l: 5, t: 2, s: 1 },
+        /* K: slide endpoints */
+        { f: 990, l: 0, t: 0, s: 1 }, { f: 1020, l: 5, t: 0, s: 1 },
+        { f: 1030, l: 5, t: 0, s: 1 }, { f: 1060, l: 0, t: 0, s: 1 },
+        { f: 1070, l: 1, t: 0, s: 1 }, { f: 1082, l: 4, t: 0, s: 1 },
+        { f: 1085, l: 4, t: 0, s: 1 }, { f: 1097, l: 1, t: 0, s: 1 },
+        /* L: dense middle section */
+        { f: 1105, l: 2, t: 0, s: 1 }, { f: 1105, l: 3, t: 0, s: 1 },
+        { f: 1113, l: 1, t: 0, s: 1 }, { f: 1113, l: 4, t: 0, s: 1 },
+        { f: 1121, l: 2, t: 0, s: 1 }, { f: 1121, l: 3, t: 0, s: 1 },
+        { f: 1129, l: 0, t: 0, s: 1 }, { f: 1129, l: 5, t: 0, s: 1 },
+        { f: 1137, l: 1, t: 2, s: 1 }, { f: 1137, l: 4, t: 2, s: 1 },
+        { f: 1150, l: 2, t: 0, s: 1 }, { f: 1150, l: 3, t: 0, s: 1 },
+        { f: 1158, l: 0, t: 2, s: 2 }, { f: 1158, l: 4, t: 0, s: 2, cr: 1 },
+        /* M: outer ladder while holds active */
+        { f: 1185, l: 0, t: 0, s: 1 }, { f: 1192, l: 5, t: 0, s: 1 },
+        { f: 1199, l: 0, t: 0, s: 1 }, { f: 1206, l: 5, t: 0, s: 1 },
+        { f: 1213, l: 1, t: 0, s: 1 }, { f: 1220, l: 4, t: 0, s: 1 },
+        { f: 1227, l: 1, t: 2, s: 1 }, { f: 1234, l: 4, t: 2, s: 1 },
+        { f: 1245, l: 0, t: 0, s: 1 }, { f: 1252, l: 5, t: 0, s: 1 },
+        /* N: finale zigzag */
+        { f: 1283, l: 0, t: 0, s: 1 }, { f: 1290, l: 5, t: 0, s: 1 },
+        { f: 1297, l: 1, t: 0, s: 1 }, { f: 1304, l: 4, t: 0, s: 1 },
+        { f: 1311, l: 2, t: 0, s: 1 }, { f: 1318, l: 3, t: 0, s: 1 },
+        { f: 1325, l: 2, t: 2, s: 1 }, { f: 1325, l: 3, t: 2, s: 1 },
+        { f: 1335, l: 0, t: 2, s: 2 }, { f: 1335, l: 4, t: 0, s: 2, cr: 1 },
+        /* slide endpoints near finale */
+        { f: 1360, l: 2, t: 0, s: 1 }, { f: 1380, l: 4, t: 0, s: 1 },
+        { f: 1383, l: 3, t: 0, s: 1 }, { f: 1403, l: 1, t: 0, s: 1 },
+        /* final burst ladder */
+        { f: 1395, l: 0, t: 0, s: 1 }, { f: 1399, l: 1, t: 0, s: 1 }, { f: 1403, l: 2, t: 0, s: 1 },
+        { f: 1407, l: 3, t: 0, s: 1 }, { f: 1411, l: 4, t: 0, s: 1 }, { f: 1415, l: 5, t: 0, s: 1 },
+        /* final wide */
+        { f: 1425, l: 0, t: 0, s: 2, cr: 1 }, { f: 1425, l: 4, t: 2, s: 2 },
 
-    /* ── BARS 17-19: 5-second outro ── */
-    /* O: mirror symmetry burst — outer→inner→center */
-    {f:1440,l:0,t:0,s:1},{f:1440,l:5,t:0,s:1},
-    {f:1463,l:1,t:0,s:1},{f:1463,l:4,t:0,s:1},
-    {f:1485,l:2,t:0,s:1},{f:1485,l:3,t:0,s:1},
-    {f:1508,l:0,t:2,s:1.5},{f:1508,l:4,t:2,s:1.5},
-    /* P: alternating dense cascade */
-    {f:1530,l:0,t:0,s:1},{f:1530,l:5,t:0,s:1},
-    {f:1541,l:1,t:0,s:1},{f:1541,l:4,t:0,s:1},
-    {f:1552,l:2,t:0,s:1},{f:1552,l:3,t:0,s:1},
-    {f:1563,l:0,t:0,s:1},{f:1563,l:5,t:0,s:1},
-    {f:1575,l:2,t:2,s:1},{f:1575,l:3,t:2,s:1},
-    {f:1586,l:1,t:0,s:1},{f:1586,l:4,t:0,s:1},
-    {f:1598,l:0,t:0,s:2},{f:1598,l:4,t:2,s:2},
-    /* Q: grand finale — ladder + wide burst */
-    {f:1620,l:0,t:0,s:1},{f:1624,l:1,t:0,s:1},{f:1628,l:2,t:0,s:1},
-    {f:1632,l:3,t:0,s:1},{f:1636,l:4,t:0,s:1},{f:1640,l:5,t:0,s:1},
-    {f:1648,l:5,t:2,s:1},{f:1648,l:0,t:2,s:1},
-    {f:1665,l:1,t:0,s:1},{f:1665,l:4,t:0,s:1},
-    {f:1680,l:2,t:0,s:1.5},{f:1680,l:0,t:0,s:1},
-    {f:1695,l:3,t:0,s:2,cr:1},
-    {f:1710,l:0,t:2,s:2},{f:1710,l:4,t:0,s:2,cr:1},
-    {f:1725,l:2,t:0,s:2,cr:1},
-  ];
-  SCH.forEach(n=>{if(n.t===2)n.fd=(Math.random()>.5?1:-1);});
-  const NS=SCH.map(()=>({fired:false}));
+        /* ── BARS 17-19: 5-second outro ── */
+        /* O: mirror symmetry burst — outer→inner→center */
+        { f: 1440, l: 0, t: 0, s: 1 }, { f: 1440, l: 5, t: 0, s: 1 },
+        { f: 1463, l: 1, t: 0, s: 1 }, { f: 1463, l: 4, t: 0, s: 1 },
+        { f: 1485, l: 2, t: 0, s: 1 }, { f: 1485, l: 3, t: 0, s: 1 },
+        { f: 1508, l: 0, t: 2, s: 1.5 }, { f: 1508, l: 4, t: 2, s: 1.5 },
+        /* P: alternating dense cascade */
+        { f: 1530, l: 0, t: 0, s: 1 }, { f: 1530, l: 5, t: 0, s: 1 },
+        { f: 1541, l: 1, t: 0, s: 1 }, { f: 1541, l: 4, t: 0, s: 1 },
+        { f: 1552, l: 2, t: 0, s: 1 }, { f: 1552, l: 3, t: 0, s: 1 },
+        { f: 1563, l: 0, t: 0, s: 1 }, { f: 1563, l: 5, t: 0, s: 1 },
+        { f: 1575, l: 2, t: 2, s: 1 }, { f: 1575, l: 3, t: 2, s: 1 },
+        { f: 1586, l: 1, t: 0, s: 1 }, { f: 1586, l: 4, t: 0, s: 1 },
+        { f: 1598, l: 0, t: 0, s: 2 }, { f: 1598, l: 4, t: 2, s: 2 },
+        /* Q: grand finale — ladder + wide burst */
+        { f: 1620, l: 0, t: 0, s: 1 }, { f: 1624, l: 1, t: 0, s: 1 }, { f: 1628, l: 2, t: 0, s: 1 },
+        { f: 1632, l: 3, t: 0, s: 1 }, { f: 1636, l: 4, t: 0, s: 1 }, { f: 1640, l: 5, t: 0, s: 1 },
+        { f: 1648, l: 5, t: 2, s: 1 }, { f: 1648, l: 0, t: 2, s: 1 },
+        { f: 1665, l: 1, t: 0, s: 1 }, { f: 1665, l: 4, t: 0, s: 1 },
+        { f: 1680, l: 2, t: 0, s: 1.5 }, { f: 1680, l: 0, t: 0, s: 1 },
+        { f: 1695, l: 3, t: 0, s: 2, cr: 1 },
+        { f: 1710, l: 0, t: 2, s: 2 }, { f: 1710, l: 4, t: 0, s: 2, cr: 1 },
+        { f: 1725, l: 2, t: 0, s: 2, cr: 1 },
+      ];
+      SCH.forEach(n => { if (n.t === 2) n.fd = (Math.random() > .5 ? 1 : -1); });
+      const NS = SCH.map(() => ({ fired: false }));
 
-  /* ══ HOLD NOTES ══ */
-  const HOLDS=[
-    {f:788, l:0,s:1,dur:105},
-    {f:788, l:5,s:1,dur:105},
-    {f:1178,l:2,s:1,dur:88},
-    {f:1178,l:3,s:1,dur:88},
-    {f:1643,l:2,s:1,dur:55},
-    {f:1643,l:3,s:1,dur:55},
-  ];
-  const NSH=HOLDS.map(()=>({fired:false}));
+      /* ══ HOLD NOTES ══ */
+      const HOLDS = [
+        { f: 788, l: 0, s: 1, dur: 105 },
+        { f: 788, l: 5, s: 1, dur: 105 },
+        { f: 1178, l: 2, s: 1, dur: 88 },
+        { f: 1178, l: 3, s: 1, dur: 88 },
+        { f: 1643, l: 2, s: 1, dur: 55 },
+        { f: 1643, l: 3, s: 1, dur: 55 },
+      ];
+      const NSH = HOLDS.map(() => ({ fired: false }));
 
-  /* ══ SLIDES ══ */
-  const SLIDES=[
-    {sf:990, sl:0,ef:1020,el:5},
-    {sf:1030,sl:5,ef:1060,el:0},
-    {sf:1070,sl:1,ef:1082,el:4},
-    {sf:1085,sl:4,ef:1097,el:1},
-    {sf:1250,sl:0,ef:1275,el:3},
-    {sf:1278,sl:5,ef:1303,el:2},
-    {sf:1360,sl:2,ef:1380,el:4},
-    {sf:1383,sl:3,ef:1403,el:1},
-    {sf:1665,sl:0,ef:1680,el:5},
-    {sf:1695,sl:5,ef:1710,el:0},
-  ];
+      /* ══ SLIDES ══ */
+      const SLIDES = [
+        { sf: 990, sl: 0, ef: 1020, el: 5 },
+        { sf: 1030, sl: 5, ef: 1060, el: 0 },
+        { sf: 1070, sl: 1, ef: 1082, el: 4 },
+        { sf: 1085, sl: 4, ef: 1097, el: 1 },
+        { sf: 1250, sl: 0, ef: 1275, el: 3 },
+        { sf: 1278, sl: 5, ef: 1303, el: 2 },
+        { sf: 1360, sl: 2, ef: 1380, el: 4 },
+        { sf: 1383, sl: 3, ef: 1403, el: 1 },
+        { sf: 1665, sl: 0, ef: 1680, el: 5 },
+        { sf: 1695, sl: 5, ef: 1710, el: 0 },
+      ];
 
-  /* ── FX pools ── */
-  const FX={p:[],r:[],fl:[]};
-  function spawnFX(l,s,isFlick){
-    const{cx}=geom(l,s||1),y=hitY();
-    for(let i=0;i<12;i++){
-      const a=Math.random()*Math.PI*2,sp=Math.random()*4.5+1.2;
-      FX.p.push({x:cx,y,vx:Math.cos(a)*sp*(isFlick?1.9:1),vy:Math.sin(a)*sp*(isFlick?1.9:1)-(isFlick?2.8:0),r:Math.random()*4.5+1.5,a:1,col:C[l].b});
-    }
-    FX.r.push({x:cx,y,r:0,a:1,col:C[l].b});
-    FX.r.push({x:cx,y,r:0,a:.45,col:'#fff',dl:5});
-    FX.fl.push({l,s:s||1,a:.65});
-  }
-  function updateFX(){
-    FX.p.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.13;p.a-=.045;});
-    FX.r.forEach(r=>{if(r.dl&&r.dl>0){r.dl--;return;}r.r+=8;r.a-=.075;});
-    FX.fl.forEach(f=>f.a-=.055);
-    FX.p=FX.p.filter(e=>e.a>0);FX.r=FX.r.filter(e=>e.a>0);FX.fl=FX.fl.filter(e=>e.a>0);
-  }
-  function drawFX(){
-    /* particles: batched, no save/restore, no shadowBlur */
-    for(const p of FX.p){
-      ctx.globalAlpha=Math.max(0,p.a);
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.col;ctx.fill();
-    }
-    ctx.globalAlpha=1;
-    /* rings */
-    for(const r of FX.r){
-      if(r.dl&&r.dl>0)continue;
-      ctx.save();ctx.globalAlpha=Math.max(0,r.a);
-      ctx.beginPath();ctx.arc(r.x,r.y,r.r,0,Math.PI*2);
-      ctx.strokeStyle=r.col;ctx.lineWidth=2.5;
-      ctx.shadowBlur=6;ctx.shadowColor=r.col;
-      ctx.stroke();ctx.restore();
-    }
-    /* flash columns */
-    for(const f of FX.fl){
-      const{cx,w}=geom(f.l,f.s),hy=hitY();
-      ctx.save();ctx.globalAlpha=Math.max(0,f.a);
-      const g=ctx.createLinearGradient(cx,0,cx,hy);
-      g.addColorStop(0,'transparent');g.addColorStop(1,C[f.l].g+'.32)');
-      ctx.fillStyle=g;ctx.fillRect(cx-w/2,0,w,hy);
-      ctx.restore();
-    }
-  }
+      /* ── FX pools ── */
+      const FX = { p: [], r: [], fl: [] };
+      function spawnFX(l, s, isFlick) {
+        const { cx } = geom(l, s || 1), y = hitY();
+        for (let i = 0; i < 12; i++) {
+          const a = Math.random() * Math.PI * 2, sp = Math.random() * 4.5 + 1.2;
+          FX.p.push({ x: cx, y, vx: Math.cos(a) * sp * (isFlick ? 1.9 : 1), vy: Math.sin(a) * sp * (isFlick ? 1.9 : 1) - (isFlick ? 2.8 : 0), r: Math.random() * 4.5 + 1.5, a: 1, col: C[l].b });
+        }
+        FX.r.push({ x: cx, y, r: 0, a: 1, col: C[l].b });
+        FX.r.push({ x: cx, y, r: 0, a: .45, col: '#fff', dl: 5 });
+        FX.fl.push({ l, s: s || 1, a: .65 });
+      }
+      function updateFX() {
+        FX.p.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += .13; p.a -= .045; });
+        FX.r.forEach(r => { if (r.dl && r.dl > 0) { r.dl--; return; } r.r += 8; r.a -= .075; });
+        FX.fl.forEach(f => f.a -= .055);
+        FX.p = FX.p.filter(e => e.a > 0); FX.r = FX.r.filter(e => e.a > 0); FX.fl = FX.fl.filter(e => e.a > 0);
+      }
+      function drawFX() {
+        /* particles: batched, no save/restore, no shadowBlur */
+        for (const p of FX.p) {
+          ctx.globalAlpha = Math.max(0, p.a);
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.col; ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        /* rings */
+        for (const r of FX.r) {
+          if (r.dl && r.dl > 0) continue;
+          ctx.save(); ctx.globalAlpha = Math.max(0, r.a);
+          ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+          ctx.strokeStyle = r.col; ctx.lineWidth = 2.5;
+          ctx.shadowBlur = 6; ctx.shadowColor = r.col;
+          ctx.stroke(); ctx.restore();
+        }
+        /* flash columns */
+        for (const f of FX.fl) {
+          const { cx, w } = geom(f.l, f.s), hy = hitY();
+          ctx.save(); ctx.globalAlpha = Math.max(0, f.a);
+          const g = ctx.createLinearGradient(cx, 0, cx, hy);
+          g.addColorStop(0, 'transparent'); g.addColorStop(1, C[f.l].g + '.32)');
+          ctx.fillStyle = g; ctx.fillRect(cx - w / 2, 0, w, hy);
+          ctx.restore();
+        }
+      }
 
-  /* ── drawing helpers ── */
-  const NOTE_H=20;
+      /* ── drawing helpers ── */
+      const NOTE_H = 20;
 
-  function rRect(cx,y,w,h,r){
-    ctx.beginPath();ctx.moveTo(cx-w/2+r,y);
-    ctx.arcTo(cx+w/2,y,cx+w/2,y+h,r);ctx.arcTo(cx+w/2,y+h,cx-w/2,y+h,r);
-    ctx.arcTo(cx-w/2,y+h,cx-w/2,y,r);ctx.arcTo(cx-w/2,y,cx+w/2,y,r);ctx.closePath();
-  }
+      function rRect(cx, y, w, h, r) {
+        ctx.beginPath(); ctx.moveTo(cx - w / 2 + r, y);
+        ctx.arcTo(cx + w / 2, y, cx + w / 2, y + h, r); ctx.arcTo(cx + w / 2, y + h, cx - w / 2, y + h, r);
+        ctx.arcTo(cx - w / 2, y + h, cx - w / 2, y, r); ctx.arcTo(cx - w / 2, y, cx + w / 2, y, r); ctx.closePath();
+      }
 
-  function drawPill(cx,y,w,h,col,crit){
-    const r=h/2;
-    ctx.save();ctx.shadowBlur=crit?14:10;ctx.shadowColor=col.b;
-    rRect(cx,y,w,h,r);
-    const g=ctx.createLinearGradient(cx-w/2,y,cx+w/2,y+h);
-    if(crit){g.addColorStop(0,'#fff');g.addColorStop(.35,'#ffe570');g.addColorStop(1,'#e09800');}
-    else{g.addColorStop(0,col.b);g.addColorStop(.42,'#fff');g.addColorStop(1,col.b);}
-    ctx.fillStyle=g;ctx.fill();
-    ctx.shadowBlur=0;ctx.fillStyle=crit?'rgba(255,255,255,.58)':'rgba(255,255,255,.28)';
-    ctx.fillRect(cx-w/2+7,y+4,w-14,h*.27);ctx.restore();
-  }
+      function drawPill(cx, y, w, h, col, crit) {
+        const r = h / 2;
+        ctx.save(); ctx.shadowBlur = crit ? 14 : 10; ctx.shadowColor = col.b;
+        rRect(cx, y, w, h, r);
+        const g = ctx.createLinearGradient(cx - w / 2, y, cx + w / 2, y + h);
+        if (crit) { g.addColorStop(0, '#fff'); g.addColorStop(.35, '#ffe570'); g.addColorStop(1, '#e09800'); }
+        else { g.addColorStop(0, col.b); g.addColorStop(.42, '#fff'); g.addColorStop(1, col.b); }
+        ctx.fillStyle = g; ctx.fill();
+        ctx.shadowBlur = 0; ctx.fillStyle = crit ? 'rgba(255,255,255,.58)' : 'rgba(255,255,255,.28)';
+        ctx.fillRect(cx - w / 2 + 7, y + 4, w - 14, h * .27); ctx.restore();
+      }
 
-  function drawFlick(cx,y,w,h,col,dir){
-    const hw=w*.48,hh=h*1.18;
-    ctx.save();ctx.shadowBlur=14;ctx.shadowColor=col.b;
-    ctx.beginPath();ctx.moveTo(cx,y-hh);ctx.lineTo(cx+hw,y);ctx.lineTo(cx,y+hh);ctx.lineTo(cx-hw,y);ctx.closePath();
-    const dg=ctx.createRadialGradient(cx,y,0,cx,y,hw);
-    dg.addColorStop(0,col.b);dg.addColorStop(.5,col.g+'.88)');dg.addColorStop(1,col.g+'.2)');
-    ctx.fillStyle=dg;ctx.fill();
-    ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.2;ctx.shadowBlur=0;ctx.stroke();
-    const ax=cx+dir*(hw+4),ay=y-hh*.22,len=22;
-    ctx.strokeStyle=col.b;ctx.lineWidth=2.8;ctx.lineCap='round';ctx.lineJoin='round';
-    ctx.shadowBlur=6;ctx.shadowColor=col.b;
-    ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ax+dir*len,ay-len);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(ax+dir*len,ay-len);ctx.lineTo(ax+dir*len-dir*9,ay-len);ctx.moveTo(ax+dir*len,ay-len);ctx.lineTo(ax+dir*len,ay-len+9);ctx.stroke();
-    ctx.restore();
-  }
+      function drawFlick(cx, y, w, h, col, dir) {
+        const hw = w * .48, hh = h * 1.18;
+        ctx.save(); ctx.shadowBlur = 14; ctx.shadowColor = col.b;
+        ctx.beginPath(); ctx.moveTo(cx, y - hh); ctx.lineTo(cx + hw, y); ctx.lineTo(cx, y + hh); ctx.lineTo(cx - hw, y); ctx.closePath();
+        const dg = ctx.createRadialGradient(cx, y, 0, cx, y, hw);
+        dg.addColorStop(0, col.b); dg.addColorStop(.5, col.g + '.88)'); dg.addColorStop(1, col.g + '.2)');
+        ctx.fillStyle = dg; ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = 1.2; ctx.shadowBlur = 0; ctx.stroke();
+        const ax = cx + dir * (hw + 4), ay = y - hh * .22, len = 22;
+        ctx.strokeStyle = col.b; ctx.lineWidth = 2.8; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        ctx.shadowBlur = 6; ctx.shadowColor = col.b;
+        ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax + dir * len, ay - len); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(ax + dir * len, ay - len); ctx.lineTo(ax + dir * len - dir * 9, ay - len); ctx.moveTo(ax + dir * len, ay - len); ctx.lineTo(ax + dir * len, ay - len + 9); ctx.stroke();
+        ctx.restore();
+      }
 
-  function drawHoldTrail(cx,topY,botY,w,col){
-    const tw=w*.58,h=botY-topY;if(h<2)return;
-    ctx.save();
-    const og=ctx.createLinearGradient(cx,topY,cx,botY);
-    og.addColorStop(0,col.g+'0)');og.addColorStop(.15,col.g+'.14)');og.addColorStop(.88,col.g+'.18)');og.addColorStop(1,col.g+'.06)');
-    ctx.fillStyle=og;
-    ctx.beginPath();ctx.rect(cx-(tw+16)/2,topY,tw+16,h);ctx.fill();
-    const mg=ctx.createLinearGradient(cx,topY,cx,botY);
-    mg.addColorStop(0,col.g+'0)');mg.addColorStop(.08,col.g+'.5)');mg.addColorStop(.9,col.g+'.7)');mg.addColorStop(1,col.g+'.38)');
-    ctx.fillStyle=mg;ctx.shadowBlur=8;ctx.shadowColor=col.b;
-    ctx.beginPath();ctx.rect(cx-tw/2,topY,tw,h);ctx.fill();
-    const sg=ctx.createLinearGradient(cx,topY,cx,botY);
-    sg.addColorStop(0,col.g+'0)');sg.addColorStop(.15,col.g+'.7)');sg.addColorStop(.85,'rgba(255,255,255,.82)');sg.addColorStop(1,col.g+'.4)');
-    ctx.strokeStyle=sg;ctx.lineWidth=3;ctx.shadowBlur=4;
-    ctx.beginPath();ctx.moveTo(cx,topY);ctx.lineTo(cx,botY);ctx.stroke();
-    ctx.restore();
-  }
+      function drawHoldTrail(cx, topY, botY, w, col) {
+        const tw = w * .58, h = botY - topY; if (h < 2) return;
+        ctx.save();
+        const og = ctx.createLinearGradient(cx, topY, cx, botY);
+        og.addColorStop(0, col.g + '0)'); og.addColorStop(.15, col.g + '.14)'); og.addColorStop(.88, col.g + '.18)'); og.addColorStop(1, col.g + '.06)');
+        ctx.fillStyle = og;
+        ctx.beginPath(); ctx.rect(cx - (tw + 16) / 2, topY, tw + 16, h); ctx.fill();
+        const mg = ctx.createLinearGradient(cx, topY, cx, botY);
+        mg.addColorStop(0, col.g + '0)'); mg.addColorStop(.08, col.g + '.5)'); mg.addColorStop(.9, col.g + '.7)'); mg.addColorStop(1, col.g + '.38)');
+        ctx.fillStyle = mg; ctx.shadowBlur = 8; ctx.shadowColor = col.b;
+        ctx.beginPath(); ctx.rect(cx - tw / 2, topY, tw, h); ctx.fill();
+        const sg = ctx.createLinearGradient(cx, topY, cx, botY);
+        sg.addColorStop(0, col.g + '0)'); sg.addColorStop(.15, col.g + '.7)'); sg.addColorStop(.85, 'rgba(255,255,255,.82)'); sg.addColorStop(1, col.g + '.4)');
+        ctx.strokeStyle = sg; ctx.lineWidth = 3; ctx.shadowBlur = 4;
+        ctx.beginPath(); ctx.moveTo(cx, topY); ctx.lineTo(cx, botY); ctx.stroke();
+        ctx.restore();
+      }
 
-  function drawFingerHold(cx,hy,col,t){
-    ctx.save();
-    for(let i=0;i<3;i++){
-      const ph=(t+i*22)%65,pr=ph/65,r=pr*35+8,a=(1-pr)*.65;
-      ctx.globalAlpha=a;ctx.beginPath();ctx.arc(cx,hy,r,0,Math.PI*2);
-      ctx.strokeStyle=col.b;ctx.lineWidth=2;ctx.shadowBlur=6;ctx.shadowColor=col.b;ctx.stroke();
-    }
-    const p=.85+.15*Math.sin(t*.18);
-    ctx.globalAlpha=.92;ctx.beginPath();ctx.arc(cx,hy,10*p,0,Math.PI*2);
-    const fg=ctx.createRadialGradient(cx,hy-3,1,cx,hy,10*p);
-    fg.addColorStop(0,'#fff');fg.addColorStop(.4,col.b);fg.addColorStop(1,col.g+'.38)');
-    ctx.fillStyle=fg;ctx.shadowBlur=10;ctx.shadowColor=col.b;ctx.fill();
-    ctx.restore();
-  }
+      function drawFingerHold(cx, hy, col, t) {
+        ctx.save();
+        for (let i = 0; i < 3; i++) {
+          const ph = (t + i * 22) % 65, pr = ph / 65, r = pr * 35 + 8, a = (1 - pr) * .65;
+          ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(cx, hy, r, 0, Math.PI * 2);
+          ctx.strokeStyle = col.b; ctx.lineWidth = 2; ctx.shadowBlur = 6; ctx.shadowColor = col.b; ctx.stroke();
+        }
+        const p = .85 + .15 * Math.sin(t * .18);
+        ctx.globalAlpha = .92; ctx.beginPath(); ctx.arc(cx, hy, 10 * p, 0, Math.PI * 2);
+        const fg = ctx.createRadialGradient(cx, hy - 3, 1, cx, hy, 10 * p);
+        fg.addColorStop(0, '#fff'); fg.addColorStop(.4, col.b); fg.addColorStop(1, col.g + '.38)');
+        ctx.fillStyle = fg; ctx.shadowBlur = 10; ctx.shadowColor = col.b; ctx.fill();
+        ctx.restore();
+      }
 
-  /* ── slide/trace rendering ── */
-  function drawSlide(sl,gt){
-    const hy=hitY(),spd=noteSpd();
-    const sd=computeDelta(sl.sf,gt), ed=computeDelta(sl.ef,gt);
-    if(sd>TRAVEL_F+10&&ed>TRAVEL_F+10)return;
-    if(sd<-20&&ed<-20)return;
-    const sx=laneX(sl.sl),ex=laneX(sl.el);
-    const sy=hy-sd*spd, ey=hy-ed*spd;
-    if(sy<-80&&ey<-80)return;
-    ctx.save();
-    ctx.beginPath();ctx.rect(0,0,W,hy+2);ctx.clip();
-    const cpx=(sx+ex)/2, cpy=(sy+ey)/2-Math.abs(sx-ex)*.18;
-    const grad=ctx.createLinearGradient(sx,sy,ex,ey);
-    grad.addColorStop(0,C[sl.sl].b);grad.addColorStop(1,C[sl.el].b);
-    ctx.strokeStyle=grad;ctx.lineWidth=NOTE_H*.72;ctx.lineCap='round';
-    ctx.shadowBlur=10;ctx.shadowColor=C[sl.sl].b;ctx.globalAlpha=.72;
-    ctx.beginPath();ctx.moveTo(sx,sy);ctx.quadraticCurveTo(cpx,cpy,ex,ey);ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=NOTE_H*.18;ctx.shadowBlur=0;ctx.globalAlpha=.5;
-    ctx.beginPath();ctx.moveTo(sx,sy);ctx.quadraticCurveTo(cpx,cpy,ex,ey);ctx.stroke();
-    ctx.restore();
-  }
+      /* ── slide/trace rendering ── */
+      function drawSlide(sl, gt) {
+        const hy = hitY(), spd = noteSpd();
+        const sd = computeDelta(sl.sf, gt), ed = computeDelta(sl.ef, gt);
+        if (sd > TRAVEL_F + 10 && ed > TRAVEL_F + 10) return;
+        if (sd < -20 && ed < -20) return;
+        const sx = laneX(sl.sl), ex = laneX(sl.el);
+        const sy = hy - sd * spd, ey = hy - ed * spd;
+        if (sy < -80 && ey < -80) return;
+        ctx.save();
+        ctx.beginPath(); ctx.rect(0, 0, W, hy + 2); ctx.clip();
+        const cpx = (sx + ex) / 2, cpy = (sy + ey) / 2 - Math.abs(sx - ex) * .18;
+        const grad = ctx.createLinearGradient(sx, sy, ex, ey);
+        grad.addColorStop(0, C[sl.sl].b); grad.addColorStop(1, C[sl.el].b);
+        ctx.strokeStyle = grad; ctx.lineWidth = NOTE_H * .72; ctx.lineCap = 'round';
+        ctx.shadowBlur = 10; ctx.shadowColor = C[sl.sl].b; ctx.globalAlpha = .72;
+        ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(cpx, cpy, ex, ey); ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = NOTE_H * .18; ctx.shadowBlur = 0; ctx.globalAlpha = .5;
+        ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(cpx, cpy, ex, ey); ctx.stroke();
+        ctx.restore();
+      }
 
-  function drawHitDots(t){
-    for(let l=0;l<LANES;l++){
-      const cx=laneX(l),hy=hitY(),p=.7+.3*Math.sin(t*.07+l*.75);
-      ctx.save();ctx.globalAlpha=p;ctx.beginPath();ctx.arc(cx,hy,7*p,0,Math.PI*2);
-      ctx.fillStyle=C[l].b;ctx.shadowBlur=10;ctx.shadowColor=C[l].b;ctx.fill();
-      ctx.globalAlpha=p*.32;ctx.beginPath();ctx.arc(cx,hy,15*p,0,Math.PI*2);
-      ctx.strokeStyle=C[l].b;ctx.lineWidth=1.5;ctx.stroke();ctx.restore();
-    }
-  }
+      function drawHitDots(t) {
+        for (let l = 0; l < LANES; l++) {
+          const cx = laneX(l), hy = hitY(), p = .7 + .3 * Math.sin(t * .07 + l * .75);
+          ctx.save(); ctx.globalAlpha = p; ctx.beginPath(); ctx.arc(cx, hy, 7 * p, 0, Math.PI * 2);
+          ctx.fillStyle = C[l].b; ctx.shadowBlur = 10; ctx.shadowColor = C[l].b; ctx.fill();
+          ctx.globalAlpha = p * .32; ctx.beginPath(); ctx.arc(cx, hy, 15 * p, 0, Math.PI * 2);
+          ctx.strokeStyle = C[l].b; ctx.lineWidth = 1.5; ctx.stroke(); ctx.restore();
+        }
+      }
 
-  /* ── main loop ── */
-  let gt=0;
-  function loop(){
-    ctx.clearRect(0,0,W,H);
-    drawStars();
-    ctx.drawImage(trackOC,0,0);
-    updateFX();drawFX();
+      /* ── main loop ── */
+      let gt = 0;
+      function loop() {
+        ctx.clearRect(0, 0, W, H);
+        drawStars();
+        ctx.drawImage(trackOC, 0, 0);
+        updateFX(); drawFX();
 
-    const hy=hitY(),spd=noteSpd();
+        const hy = hitY(), spd = noteSpd();
 
-    /* slides (behind notes) */
-    for(const sl of SLIDES)drawSlide(sl,gt);
+        /* slides (behind notes) */
+        for (const sl of SLIDES) drawSlide(sl, gt);
 
-    /* hold notes */
-    for(let i=0;i<HOLDS.length;i++){
-      const n=HOLDS[i],ns=NSH[i];
-      const hd=computeDelta(n.f,gt);
-      const td=computeDelta(n.f+n.dur,gt);
-      if(hd>TRAVEL_F+n.dur&&td>TRAVEL_F)continue;
-      if(hd<-25&&td<-5)continue;
-      const headY=hd>0?hy-hd*spd:hy;
-      const tailY=td>0?hy-td*spd:hy;
-      const isHeld=hd<=0&&td>0;
-      const{cx,w}=geom(n.l,n.s||1);
-      const col=C[n.l];
-      /* trail connects center-of-tail → center-of-head for clean seam */
-      const tailH=NOTE_H*.65, headH=NOTE_H;
-      const trailTop=tailY+tailH*.5, trailBot=headY+headH*.5;
-      ctx.save();ctx.beginPath();ctx.rect(0,0,W,hy+2);ctx.clip();
-      if(trailTop<trailBot-4)drawHoldTrail(cx,trailTop,trailBot,w,col);
-      if(!isHeld)drawPill(cx,headY,w,headH,col,false);
-      drawPill(cx,tailY,w*.75,tailH,col,false);
-      ctx.restore();
-      if(isHeld)drawFingerHold(cx,hy,col,gt);
-      if(ns&&!ns.fired&&hd<=1&&hd>-8){ns.fired=true;spawnFX(n.l,n.s,false);}
-      if(hd>TRAVEL_F*.4)ns.fired=false;
-    }
+        /* hold notes */
+        for (let i = 0; i < HOLDS.length; i++) {
+          const n = HOLDS[i], ns = NSH[i];
+          const hd = computeDelta(n.f, gt);
+          const td = computeDelta(n.f + n.dur, gt);
+          if (hd > TRAVEL_F + n.dur && td > TRAVEL_F) continue;
+          if (hd < -25 && td < -5) continue;
+          const headY = hd > 0 ? hy - hd * spd : hy;
+          const tailY = td > 0 ? hy - td * spd : hy;
+          const isHeld = hd <= 0 && td > 0;
+          const { cx, w } = geom(n.l, n.s || 1);
+          const col = C[n.l];
+          /* trail connects center-of-tail → center-of-head for clean seam */
+          const tailH = NOTE_H * .65, headH = NOTE_H;
+          const trailTop = tailY + tailH * .5, trailBot = headY + headH * .5;
+          ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hy + 2); ctx.clip();
+          if (trailTop < trailBot - 4) drawHoldTrail(cx, trailTop, trailBot, w, col);
+          if (!isHeld) drawPill(cx, headY, w, headH, col, false);
+          drawPill(cx, tailY, w * .75, tailH, col, false);
+          ctx.restore();
+          if (isHeld) drawFingerHold(cx, hy, col, gt);
+          if (ns && !ns.fired && hd <= 1 && hd > -8) { ns.fired = true; spawnFX(n.l, n.s, false); }
+          if (hd > TRAVEL_F * .4) ns.fired = false;
+        }
 
-    /* tap / flick notes */
-    for(let i=0;i<SCH.length;i++){
-      const n=SCH[i],ns=NS[i];
-      const delta=computeDelta(n.f,gt);
-      if(delta>TRAVEL_F*.5)ns.fired=false;
-      if(!ns.fired&&delta<=1&&delta>-8){ns.fired=true;spawnFX(n.l,n.s||1,n.t===2);}
-      const y=hy-delta*spd;
-      if(y<-NOTE_H-60||y>hy+NOTE_H+4)continue;
-      ctx.save();ctx.beginPath();ctx.rect(0,0,W,hy+2);ctx.clip();
-      const{cx,w}=geom(n.l,n.s||1);
-      const col=n.cr?CRIT:C[n.l];
-      if(n.t===2)drawFlick(cx,y,w,NOTE_H,col,n.fd||1);
-      else drawPill(cx,y,w,NOTE_H,col,!!n.cr);
-      ctx.restore();
-    }
+        /* tap / flick notes */
+        for (let i = 0; i < SCH.length; i++) {
+          const n = SCH[i], ns = NS[i];
+          const delta = computeDelta(n.f, gt);
+          if (delta > TRAVEL_F * .5) ns.fired = false;
+          if (!ns.fired && delta <= 1 && delta > -8) { ns.fired = true; spawnFX(n.l, n.s || 1, n.t === 2); }
+          const y = hy - delta * spd;
+          if (y < -NOTE_H - 60 || y > hy + NOTE_H + 4) continue;
+          ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hy + 2); ctx.clip();
+          const { cx, w } = geom(n.l, n.s || 1);
+          const col = n.cr ? CRIT : C[n.l];
+          if (n.t === 2) drawFlick(cx, y, w, NOTE_H, col, n.fd || 1);
+          else drawPill(cx, y, w, NOTE_H, col, !!n.cr);
+          ctx.restore();
+        }
 
-    drawHitDots(gt);
-    gt++;
-    requestAnimationFrame(loop);
-  }
+        drawHitDots(gt);
+        gt++;
+        requestAnimationFrame(loop);
+      }
 
-  resize();loop();
-  window.addEventListener('resize',resize);
-})();
-</script>
+      resize(); loop();
+      window.addEventListener('resize', resize);
+    })();
+  </script>
 </body>
+
 </html>
