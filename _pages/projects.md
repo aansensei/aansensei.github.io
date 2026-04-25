@@ -96,6 +96,7 @@ author_profile: true
 .btn-view-story:hover{filter:brightness(1.2);transform:scale(1.05);}
 .btn-story-blue{background:linear-gradient(135deg,#2a9d8f,#0e4f8f);box-shadow:0 0 12px rgba(42,157,143,.55);}
 .btn-story-neon{background:linear-gradient(135deg,#c94f7c,#6a00c0);box-shadow:0 0 12px rgba(201,79,124,.55);}
+.btn-story-dark{background:linear-gradient(135deg,#2a2a2a,#111);box-shadow:0 0 10px rgba(201,162,39,.3);border:1px solid rgba(201,162,39,.25);}
 .coming-badge{display:inline-block;padding:5px 13px;margin-top:11px;background:rgba(201,162,39,.15);border:1px dashed rgba(201,162,39,.4);border-radius:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:#c9a227!important;pointer-events:none;}
 
 @media(max-width:640px){
@@ -268,7 +269,7 @@ author_profile: true
         <i class="fas fa-search" style="color:#888;"></i>
         <h4>Shrinkflation Detective</h4>
         <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
-        <span class="coming-badge">✦ In Progress ✦</span>
+        <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">✦ Read the Tale</button>
       </div>
     </div>
   </div>
