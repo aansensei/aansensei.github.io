@@ -53,7 +53,32 @@ author_profile: true
 }
 
 .btn-story-rose{background:linear-gradient(135deg,#c9477a,#7b1040);box-shadow:0 0 12px rgba(201,71,122,.55);}
-.book-4 .front-cover{background:linear-gradient(160deg,#0e0e0e,#252525,#3a3a3a);}
+.book-4 .front-cover{background:linear-gradient(160deg,#061a10,#0f3d20,#1a6b3a);}
+
+/* ── BOOK-4: cover-back with skills on hover ── */
+.book-4 .front-cover { position: relative; }
+
+.book-4 .cover-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #061a10;
+  border-radius: 6px 14px 14px 6px;
+  overflow: hidden;
+  transform: scaleX(-1);
+  opacity: 0;
+  transition: none;
+  pointer-events: none;
+}
+.book-4.book-container:hover .cover-back {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.35s;
+}
+.book-4.book-container:hover .cover-content {
+  opacity: 0;
+  transition: none;
+}
 
 .cover-content{backface-visibility:hidden;width:100%;}
 .cover-content::before{content:'✦';display:block;color:rgba(201,162,39,.55);font-size:.68rem;margin-bottom:10px;letter-spacing:.3em;}
@@ -217,12 +242,32 @@ author_profile: true
 
   <div class="book-container book-4 reveal-item">
     <div class="book">
-      <div class="front-cover"><div class="cover-content"><h3>Future Prophecy</h3><p>Algorithmic Trading Bot — the next chapter</p></div></div>
+      <div class="front-cover">
+        <div class="cover-content"><h3>Shrinkflation Detective</h3><p>Uncovering the hidden inflation that CPI never reports</p></div>
+        <div class="cover-back">
+          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#061a10;">
+            <span style="font-size:2.8rem;">🔍</span>
+          </div>
+          <div class="cover-back-tags">
+            <span class="cover-back-tag">Python</span>
+            <span class="cover-back-tag">SQL</span>
+            <span class="cover-back-tag">Kroger API</span>
+            <span class="cover-back-tag">FRED API</span>
+            <span class="cover-back-tag">Pandas</span>
+            <span class="cover-back-tag">PostgreSQL</span>
+            <span class="cover-back-tag">SQLAlchemy</span>
+            <span class="cover-back-tag">Statsmodels</span>
+            <span class="cover-back-tag">Streamlit</span>
+            <span class="cover-back-tag">Plotly</span>
+            <span class="cover-back-tag">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
       <div class="inside-pages">
-        <i class="fas fa-user-astronaut" style="color:#555;"></i>
-        <h4>Trading Bot Project</h4>
-        <p>Planned &amp; in research</p>
-        <span class="coming-badge">✦ Planned ✦</span>
+        <i class="fas fa-search" style="color:#1a6b3a;"></i>
+        <h4>Shrinkflation Detective</h4>
+        <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
+        <span class="coming-badge">✦ In Progress ✦</span>
       </div>
     </div>
   </div>
