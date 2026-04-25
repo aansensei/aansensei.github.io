@@ -1,0 +1,140 @@
+<style>
+  body { cursor: none !important; }
+  * { cursor: none !important; }
+
+  #an-moon {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999999;
+    transform: translate(-50%, -50%);
+    will-change: left, top;
+  }
+
+  #an-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(201, 162, 39, .35);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999998;
+    transform: translate(-50%, -50%);
+    transition: width .25s, height .25s, border-color .25s, box-shadow .25s, background .25s;
+    will-change: left, top;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #an-ring::before,
+  #an-ring::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #an-ring::before {
+    width: calc(100% + 14px);
+    height: calc(100% + 14px);
+    border: 1px dashed rgba(240, 200, 74, 0.7);
+    animation: anRingSpin 7s linear infinite;
+  }
+
+  #an-ring::after {
+    width: calc(100% + 28px);
+    height: calc(100% + 28px);
+    border: 1px dotted rgba(255, 248, 235, 0.5);
+    animation: anRingSpinRev 10s linear infinite;
+  }
+
+  #an-ring.noble-hover {
+    width: 52px !important;
+    height: 52px !important;
+    border-color: rgba(240, 200, 74, 0.9) !important;
+    box-shadow: 0 0 20px rgba(201, 162, 39, 0.5), inset 0 0 12px rgba(201, 162, 39, 0.2) !important;
+    background: rgba(201, 162, 39, 0.08) !important;
+  }
+
+  #an-ring.noble-hover::before,
+  #an-ring.noble-hover::after {
+    opacity: 1;
+  }
+
+  @keyframes anRingSpin    { 100% { transform: rotate(360deg);  } }
+  @keyframes anRingSpinRev { 100% { transform: rotate(-360deg); } }
+
+  @media (hover: none) and (pointer: coarse) {
+    #an-moon, #an-ring { display: none !important; }
+    body, * { cursor: auto !important; }
+  }
+</style>
+<script>
+(function () {
+  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isTouch) return;
+
+  var MS = 48;
+  var mc = document.createElement('canvas');
+  mc.id = 'an-moon'; mc.width = MS; mc.height = MS;
+  var mx = mc.getContext('2d');
+  var rg = document.createElement('div');
+  rg.id = 'an-ring';
+  document.body.append(mc, rg);
+
+  var cX = -1000, cY = -1000, rX = -1000, rY = -1000;
+  var isHovering = false;
+  var t = 0;
+
+  document.addEventListener('mousemove', function (ev) { cX = ev.clientX; cY = ev.clientY; });
+
+  function drawCursor(big) {
+    mx.clearRect(0, 0, MS, MS);
+    var cx = MS / 2, cy = MS / 2, r = big ? 11 : 7.5;
+    mx.save();
+    mx.shadowColor = '#f0c84a'; mx.shadowBlur = big ? 16 : 8;
+    var g = mx.createRadialGradient(cx - r * .22, cy - r * .2, 0, cx, cy, r);
+    g.addColorStop(0, big ? '#fff8d5' : '#ffe8a5');
+    g.addColorStop(.45, big ? '#ffd84a' : '#f0c030');
+    g.addColorStop(1, '#b88a18');
+    mx.fillStyle = g;
+    mx.beginPath(); mx.arc(cx, cy, r, 0, Math.PI * 2); mx.fill();
+
+    if (!big) {
+      mx.shadowBlur = 0; mx.globalCompositeOperation = 'destination-out';
+      mx.beginPath(); mx.arc(cx + r * .44, cy - r * .08, r * .84, 0, Math.PI * 2); mx.fill();
+    }
+
+    mx.globalCompositeOperation = 'source-over';
+    mx.fillStyle = 'rgba(140,90,0,.15)';
+    if (!big) {
+      mx.beginPath(); mx.arc(cx - r * .52, cy + r * .26, r * .18, 0, Math.PI * 2); mx.fill();
+      mx.beginPath(); mx.arc(cx - r * .22, cy - r * .32, r * .12, 0, Math.PI * 2); mx.fill();
+    } else {
+      mx.beginPath(); mx.arc(cx - r * .3,  cy + r * .3,  r * .25, 0, Math.PI * 2); mx.fill();
+      mx.beginPath(); mx.arc(cx + r * .2,  cy - r * .4,  r * .2,  0, Math.PI * 2); mx.fill();
+      mx.beginPath(); mx.arc(cx + r * .4,  cy + r * .1,  r * .3,  0, Math.PI * 2); mx.fill();
+      mx.beginPath(); mx.arc(cx - r * .1,  cy - r * .1,  r * .15, 0, Math.PI * 2); mx.fill();
+    }
+    mx.restore();
+  }
+
+  function loop() {
+    t++;
+    drawCursor(isHovering);
+    mc.style.left = cX + 'px'; mc.style.top = cY + 'px';
+    rX += (cX - rX) * .12; rY += (cY - rY) * .12;
+    rg.style.left = rX + 'px'; rg.style.top = rY + 'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a, button').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { isHovering = true;  rg.classList.add('noble-hover'); });
+      el.addEventListener('mouseleave', function () { isHovering = false; rg.classList.remove('noble-hover'); });
+    });
+  });
+})();
+</script>
