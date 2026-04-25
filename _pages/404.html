@@ -1,0 +1,419 @@
+---
+layout: none
+permalink: /404.html
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Lost in Space</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      background: #07051a;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* ── Background photo ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+    .bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(4, 2, 18, 0.55) 0%,
+        rgba(4, 2, 18, 0.35) 40%,
+        rgba(4, 2, 18, 0.65) 100%
+      );
+    }
+
+    /* ── Canvas: stars + aurora ── */
+    #fx-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ── Glow orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .orb-tl {
+      top: -8rem; left: -8rem;
+      width: 28rem; height: 28rem;
+      background: radial-gradient(circle, rgba(59,130,246,.18) 0%, transparent 70%);
+    }
+    .orb-br {
+      bottom: -10rem; right: -10rem;
+      width: 34rem; height: 34rem;
+      background: radial-gradient(circle, rgba(236,72,153,.14) 0%, transparent 70%);
+    }
+    .orb-mid {
+      top: 30%; left: 60%;
+      width: 18rem; height: 18rem;
+      background: radial-gradient(circle, rgba(139,92,246,.10) 0%, transparent 70%);
+    }
+
+    /* ── Content ── */
+    .content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      width: 90%;
+      max-width: 38rem;
+      gap: 0;
+    }
+
+    /* ── Image scene (float + rings) ── */
+    .scene {
+      position: relative;
+      width: 17rem;
+      height: 17rem;
+      margin: 0 auto 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-float {
+      animation: float 3.6s ease-in-out infinite;
+      position: relative;
+      z-index: 3;
+    }
+
+    .image-frame-outer {
+      position: relative;
+      width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+      box-shadow:
+        0 0 28px rgba(192, 132, 252, .65),
+        0 0 60px rgba(96, 165, 250, .25),
+        inset 0 0 12px rgba(244, 114, 182, .15);
+      animation: glow-pulse 2.8s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%,100% { box-shadow: 0 0 28px rgba(192,132,252,.65), 0 0 60px rgba(96,165,250,.25); }
+      50%      { box-shadow: 0 0 44px rgba(244,114,182,.85), 0 0 90px rgba(192,132,252,.40); }
+    }
+
+    .image-frame-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #f5f5f8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .image-frame-inner img {
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+    }
+
+    /* Orbit rings — positioned relative to .scene */
+    .ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      border-radius: 50%;
+      border-style: solid;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+    }
+    .ring-1 {
+      width: 13.5rem; height: 13.5rem;
+      border-width: 1.5px;
+      border-color: rgba(96, 165, 250, .38);
+      animation: spin-cw 22s linear infinite;
+    }
+    .ring-1::after {
+      content: '';
+      position: absolute;
+      top: -3px; left: 40%;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #60a5fa;
+      box-shadow: 0 0 8px #60a5fa, 0 0 16px #60a5fa;
+    }
+    .ring-2 {
+      width: 16.5rem; height: 16.5rem;
+      border-width: 1px;
+      border-color: rgba(192, 132, 252, .22);
+      animation: spin-ccw 34s linear infinite;
+    }
+    .ring-2::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; right: 35%;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #c084fc;
+      box-shadow: 0 0 6px #c084fc, 0 0 14px #c084fc;
+    }
+
+    /* ── Typography ── */
+    .error-code {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 900;
+      font-size: clamp(5.5rem, 18vw, 8rem);
+      line-height: 1;
+      letter-spacing: .05em;
+      background: linear-gradient(135deg, #93c5fd 0%, #c084fc 45%, #f9a8d4 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 28px rgba(192,132,252,.55));
+      margin-bottom: .6rem;
+      animation: code-glow 3s ease-in-out infinite;
+    }
+    @keyframes code-glow {
+      0%,100% { filter: drop-shadow(0 0 24px rgba(192,132,252,.5)); }
+      50%      { filter: drop-shadow(0 0 42px rgba(249,168,212,.85)) drop-shadow(0 0 80px rgba(192,132,252,.35)); }
+    }
+
+    .divider {
+      width: 200px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(192,132,252,.6), transparent);
+      margin: .4rem auto .9rem;
+    }
+
+    .page-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-weight: 400;
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      letter-spacing: .08em;
+      color: #f0eaff;
+      text-shadow: 0 0 22px rgba(192,132,252,.45), 0 2px 8px rgba(0,0,0,.8);
+      margin-bottom: .9rem;
+    }
+
+    .description {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      color: rgba(214, 205, 235, .85);
+      line-height: 1.85;
+      letter-spacing: .03em;
+      max-width: 30rem;
+      text-shadow: 0 1px 6px rgba(0,0,0,.7);
+      margin-bottom: 2rem;
+    }
+
+    .ornament {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .7rem;
+      color: rgba(192, 132, 252, .45);
+      letter-spacing: .5em;
+      margin-top: 1.4rem;
+    }
+
+    /* ── Button ── */
+    .btn-home {
+      display: inline-block;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: .82rem;
+      font-weight: 400;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #fff;
+      text-decoration: none;
+      padding: .72rem 2.2rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      background-size: 200% 200%;
+      box-shadow: 0 4px 24px rgba(139,92,246,.5), 0 2px 8px rgba(0,0,0,.4);
+      transition: transform .28s ease, box-shadow .28s ease, background-position .4s ease;
+      animation: btn-shift 5s ease infinite;
+    }
+    .btn-home:hover {
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 8px 36px rgba(139,92,246,.7), 0 4px 14px rgba(0,0,0,.4);
+      background-position: right center;
+    }
+    @keyframes btn-shift {
+      0%,100% { background-position: left center; }
+      50%      { background-position: right center; }
+    }
+
+
+    /* ── Animations ── */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-16px); }
+    }
+    @keyframes spin-cw  { to { transform: translate(-50%,-50%) rotate(360deg); } }
+    @keyframes spin-ccw { to { transform: translate(-50%,-50%) rotate(-360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg">
+    <img
+      src="https://images.unsplash.com/photo-1546827326-910decf5d0f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+      alt="Galaxy background"
+    >
+    <div class="bg-overlay"></div>
+  </div>
+
+  <!-- Canvas: aurora + twinkling stars -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Glow orbs -->
+  <div class="orb orb-tl"></div>
+  <div class="orb orb-br"></div>
+  <div class="orb orb-mid"></div>
+
+  <!-- Main content -->
+  <main class="content">
+
+    <!-- Image with orbit rings -->
+    <div class="scene">
+      <div class="image-float">
+        <div class="image-frame-outer">
+          <div class="image-frame-inner">
+            <img src="/assets/images/kanade-404.png" alt="Kanade">
+          </div>
+        </div>
+      </div>
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+    </div>
+
+    <!-- Text -->
+    <h1 class="error-code">404</h1>
+    <div class="divider"></div>
+    <h2 class="page-title">Lost in Space</h2>
+    <p class="description">
+      Oops! Looks like you've drifted into the void.<br>
+      The page you're looking for doesn't exist in this galaxy.
+    </p>
+
+    <a class="btn-home" href="/">Return to Cockpit</a>
+    <p class="ornament">✦ &nbsp; ✦ &nbsp; ✦</p>
+  </main>
+
+<script>
+(function () {
+  const cv = document.getElementById('fx-canvas');
+  const ctx = cv.getContext('2d');
+  let W, H, stars = [], t = 0;
+
+  /* ── Stars ── */
+  function buildStars() {
+    stars = Array.from({ length: 180 }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() < 0.08 ? Math.random() * 1.8 + 1.2 : Math.random() * 1.0 + 0.2,
+    }));
+  }
+
+  function drawStars() {
+    ctx.fillStyle = '#fff9ee';
+    for (const s of stars) {
+      /* Random alpha each frame = twinkling (same trick as index.html) */
+      ctx.globalAlpha = Math.random() * 0.55 + 0.3;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* ── Aurora ── */
+  const AURORA = [
+    { yF: .28, amp: .055, freq: .0038, spd: .006, ph: 0.0, r:   0, g: 255, b: 160, a: .065 },
+    { yF: .18, amp: .045, freq: .0030, spd: .008, ph: 1.8, r:   0, g: 210, b: 255, a: .055 },
+    { yF: .35, amp: .065, freq: .0050, spd: .005, ph: 3.3, r: 180, g:   0, b: 255, a: .045 },
+    { yF: .12, amp: .040, freq: .0060, spd: .010, ph: 5.0, r:   0, g: 255, b: 220, a: .050 },
+  ];
+
+  function drawAurora() {
+    for (const b of AURORA) {
+      const yMid = H * b.yF;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(W, 0);
+      ctx.lineTo(W, yMid);
+
+      for (let x = W; x >= 0; x -= 7) {
+        const w1 = Math.sin(x * b.freq + t * b.spd + b.ph) * H * b.amp;
+        const w2 = Math.sin(x * b.freq * 2.3 + t * b.spd * 0.65 + b.ph + 2) * H * b.amp * 0.35;
+        ctx.lineTo(x, yMid + w1 + w2);
+      }
+      ctx.closePath();
+
+      const grad = ctx.createLinearGradient(0, 0, 0, yMid + H * b.amp);
+      grad.addColorStop(0.00, `rgba(${b.r},${b.g},${b.b},0)`);
+      grad.addColorStop(0.25, `rgba(${b.r},${b.g},${b.b},${b.a * 0.55})`);
+      grad.addColorStop(0.70, `rgba(${b.r},${b.g},${b.b},${b.a})`);
+      grad.addColorStop(1.00, `rgba(${b.r},${b.g},${b.b},0)`);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  /* ── Resize ── */
+  function resize() {
+    W = cv.width  = innerWidth;
+    H = cv.height = innerHeight;
+    buildStars();
+  }
+
+  /* ── Loop ── */
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    drawAurora();
+    drawStars();
+    t++;
+    requestAnimationFrame(loop);
+  }
+
+  resize();
+  loop();
+  window.addEventListener('resize', resize);
+})();
+</script>
+</body>
+</html>
