@@ -163,7 +163,7 @@ permalink: /projects/tech-layoffs/
       <span class="proj-skill">Seaborn</span>
     </div>
     <hr class="proj-divider">
-    <a href="https://tech-layoff-analytics-ncta.streamlit.app/" target="_blank" class="btn-action btn-live"><i class="fas fa-chart-line"></i> View Live App</a>
+    <a href="https://aansensei-tech-layoff-analytics.hf.space" target="_blank" class="btn-action btn-live"><i class="fas fa-chart-line"></i> View Live App</a>
     <a href="https://github.com/aansensei/Tech_Layoff_Project" target="_blank" class="btn-action btn-git"><i class="fab fa-github"></i> Source Code</a>
   </div>
 

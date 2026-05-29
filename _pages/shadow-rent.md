@@ -163,7 +163,7 @@ permalink: /projects/shadow-rent/
       <span class="proj-skill">Windows Task Scheduler</span>
     </div>
     <hr class="proj-divider">
-    <a href="https://shadow-rent-index-ncta.streamlit.app/" target="_blank" class="btn-action btn-live"><i class="fas fa-chart-line"></i> Live Dashboard</a>
+    <a href="https://aansensei-shadow-rent-index.hf.space" target="_blank" class="btn-action btn-live"><i class="fas fa-chart-line"></i> Live Dashboard</a>
     <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="btn-action btn-git"><i class="fab fa-github"></i> View Source Code</a>
   </div>
 
