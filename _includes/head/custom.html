@@ -996,16 +996,22 @@
     .page__inner-wrap,
     .sidebar {
       padding: 20px !important;
-      background: rgba(6, 4, 25, 0.35) !important;
-      -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
-      backdrop-filter: blur(12px) saturate(150%) !important;
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+      width: calc(100% - 20px) !important;
+      background: rgba(6, 4, 25, 0.18) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+      backdrop-filter: blur(16px) saturate(180%) !important;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
 
     body.an-day-mode .page__inner-wrap,
     body.an-day-mode .sidebar {
-      background: rgba(255, 255, 255, 0.65) !important;
+      background: rgba(255, 255, 255, 0.55) !important;
+      margin-left: 10px !important;
+      margin-right: 10px !important;
+      width: calc(100% - 20px) !important;
     }
 
     .author__avatar img {
@@ -1523,7 +1529,8 @@
     function drawCastle(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var bY = H * 0.82;
-      var s = Math.max(W / 1280, .4) * 1.1; // Tăng 10% kích thước tổng thể
+      var VW = W < 768 ? 900 : W;
+      var s = Math.max(VW / 1280, W < 768 ? 0.8 : .4) * 1.1;
       var nt = activeTime * 0.001;
       var isNight = t <= 0.5;
 
@@ -1533,6 +1540,7 @@
       am.addColorStop(0, 'rgba(65,40,140,.45)'); am.addColorStop(1, 'transparent');
       ctx.fillStyle = am; ctx.fillRect(0, H * .4, W, H * .6);
       ctx.globalAlpha = a;
+      ctx.translate((W - VW) / 2, 0);
 
       // Palette màu tường & mái
       var cWallBase = lerpC('#1d1542', '#f0f4f8', t);
@@ -1694,28 +1702,28 @@
       }
 
       // dựng tường
-      wall(0, W * .1, 36 * s); wall(W * .9, W * .1, 36 * s);
-      wall(W * .03, W * .14, 50 * s); wall(W * .83, W * .14, 50 * s);
-      wall(W * .17, W * .09, 72 * s); wall(W * .74, W * .09, 72 * s);
-      wall(W * .22, W * .56, 108 * s);
+      wall(0, VW * .1, 36 * s); wall(VW * .9, VW * .1, 36 * s);
+      wall(VW * .03, VW * .14, 50 * s); wall(VW * .83, VW * .14, 50 * s);
+      wall(VW * .17, VW * .09, 72 * s); wall(VW * .74, VW * .09, 72 * s);
+      wall(VW * .22, VW * .56, 108 * s);
 
       // dựng tháp
-      tower(W * .01, 14 * s, 72 * s, 30 * s, 'blue');
-      tower(W * .07, 18 * s, 99 * s, 40 * s, 'red');
-      tower(W * .13, 16 * s, 83 * s, 34 * s, 'blue');
-      tower(W * .19, 22 * s, 129 * s, 50 * s, 'red');
-      tower(W * .27, 20 * s, 115 * s, 45 * s, 'blue');
-      tower(W * .36, 18 * s, 144 * s, 56 * s, 'red');
-      tower(W * .50, 38 * s, 240 * s, 95 * s, 'vietnam'); // Tháp trung tâm
-      tower(W * .64, 18 * s, 144 * s, 56 * s, 'blue');
-      tower(W * .73, 20 * s, 115 * s, 45 * s, 'red');
-      tower(W * .81, 22 * s, 129 * s, 50 * s, 'blue');
-      tower(W * .87, 16 * s, 83 * s, 34 * s, 'red');
-      tower(W * .93, 18 * s, 99 * s, 40 * s, 'blue');
-      tower(W * .99, 14 * s, 72 * s, 30 * s, 'red');
+      tower(VW * .01, 14 * s, 72 * s, 30 * s, 'blue');
+      tower(VW * .07, 18 * s, 99 * s, 40 * s, 'red');
+      tower(VW * .13, 16 * s, 83 * s, 34 * s, 'blue');
+      tower(VW * .19, 22 * s, 129 * s, 50 * s, 'red');
+      tower(VW * .27, 20 * s, 115 * s, 45 * s, 'blue');
+      tower(VW * .36, 18 * s, 144 * s, 56 * s, 'red');
+      tower(VW * .50, 38 * s, 240 * s, 95 * s, 'vietnam');
+      tower(VW * .64, 18 * s, 144 * s, 56 * s, 'blue');
+      tower(VW * .73, 20 * s, 115 * s, 45 * s, 'red');
+      tower(VW * .81, 22 * s, 129 * s, 50 * s, 'blue');
+      tower(VW * .87, 16 * s, 83 * s, 34 * s, 'red');
+      tower(VW * .93, 18 * s, 99 * s, 40 * s, 'blue');
+      tower(VW * .99, 14 * s, 72 * s, 30 * s, 'red');
 
       // cổng gỗ
-      var gw = 68 * s, gh = 78 * s, gcx = W * .5;
+      var gw = 68 * s, gh = 78 * s, gcx = VW * .5;
 
       // Khối đế cổng
       ctx.fillStyle = 'rgb(' + cWallBase + ')';
@@ -1785,18 +1793,18 @@
       grassGrad.addColorStop(0, 'rgb(' + lerpC('#06080c', '#46a855', t) + ')');
       grassGrad.addColorStop(1, 'rgb(' + lerpC('#020406', '#1a6b2c', t) + ')');
       ctx.fillStyle = grassGrad;
-      ctx.fillRect(0, groundY, W, H - groundY);
+      ctx.fillRect(0, groundY, VW, H - groundY);
 
       // Đèn đóm ma thuật & Cột sáng chân tường
       var nt2 = Date.now() * .001;
       ctx.globalAlpha = a * (1 - t);
       [[.5, bY + 15 * s, 7], [.41, bY + 12 * s, 5], [.59, bY + 12 * s, 5], [.33, bY + 8 * s, 4.5], [.67, bY + 8 * s, 4.5], [.25, bY + 5 * s, 4], [.75, bY + 5 * s, 4], [.19, bY + 3 * s, 3.5], [.81, bY + 3 * s, 3.5]].forEach(function (w) {
-        var wx = w[0] * W, fl = .65 + .35 * Math.sin(nt2 * 1.8 + wx * .003);
+        var wx = w[0] * VW, fl = .65 + .35 * Math.sin(nt2 * 1.8 + wx * .003);
         var wg = ctx.createRadialGradient(wx, w[1], 0, wx, w[1], w[2] * 4); wg.addColorStop(0, 'rgba(255,210,80,' + .35 * fl + ')'); wg.addColorStop(1, 'transparent');
         ctx.fillStyle = wg; ctx.beginPath(); ctx.arc(wx, w[1], w[2] * 4, 0, Math.PI * 2); ctx.fill();
       });
       VL.forEach(function (vl) {
-        var vx = vl.px * W, vy = bY - 8 - Math.abs(vl.py);
+        var vx = vl.px * VW, vy = bY - 8 - Math.abs(vl.py);
         var br = .4 + .6 * Math.abs(Math.sin(nt2 * vl.sp + vl.ph));
         var vg = ctx.createRadialGradient(vx, vy, 0, vx, vy, vl.r * 4); vg.addColorStop(0, 'hsla(' + vl.hue + ',80%,70%,' + br * .7 + ')'); vg.addColorStop(1, 'transparent');
         ctx.fillStyle = vg; ctx.beginPath(); ctx.arc(vx, vy, vl.r * 4, 0, Math.PI * 2); ctx.fill();
