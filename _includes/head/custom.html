@@ -1000,8 +1000,8 @@
       margin-right: 10px !important;
       width: calc(100% - 20px) !important;
       background: rgba(6, 4, 25, 0.10) !important;
-      -webkit-backdrop-filter: blur(4px) !important;
-      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(2px) !important;
+      backdrop-filter: blur(2px) !important;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
@@ -1486,22 +1486,24 @@
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var mScale = W < 768 ? 0.82 : 1.0;
+      var MVW = W < 768 ? 900 : W;
+      ctx.translate((W - MVW) / 2, 0);
       var g1 = ctx.createLinearGradient(0, H * .33, 0, H * .78);
       g1.addColorStop(0, 'rgb(' + lerpC('#1a1540', '#9ab8d4', t) + ')'); g1.addColorStop(1, 'rgb(' + lerpC('#0a0820', '#b0c4de', t) + ')');
       ctx.fillStyle = g1; ctx.beginPath(); ctx.moveTo(0, H);
-      peaksData.forEach(function (p) { ctx.lineTo(p[0] * W, p[1] * H * mScale); }); ctx.lineTo(W, H); ctx.closePath(); ctx.fill();
+      peaksData.forEach(function (p) { ctx.lineTo(p[0] * MVW, p[1] * H * mScale); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
 
       var g2 = ctx.createLinearGradient(0, H * .50, 0, H * .86);
       g2.addColorStop(0, 'rgb(' + lerpC('#140f32', '#6a93b0', t) + ')'); g2.addColorStop(1, 'rgb(' + lerpC('#090618', '#8ca8c4', t) + ')');
       ctx.fillStyle = g2; ctx.beginPath(); ctx.moveTo(0, H);
-      peaksData2.forEach(function (p) { ctx.lineTo(p[0] * W, p[1] * H * mScale); }); ctx.lineTo(W, H); ctx.closePath(); ctx.fill();
+      peaksData2.forEach(function (p) { ctx.lineTo(p[0] * MVW, p[1] * H * mScale); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
 
       ctx.fillStyle = 'rgba(' + lerpC('#e6e1ff', '#ffffff', t) + ',.35)';
       var frontSnowPeaks = [{ i: 1, h: 0.02 }, { i: 3, h: 0.025 }, { i: 5, h: 0.03 }, { i: 7, h: 0.035 }, { i: 9, h: 0.04 }, { i: 11, h: 0.04 }, { i: 13, h: 0.035 }, { i: 15, h: 0.03 }, { i: 17, h: 0.025 }];
       frontSnowPeaks.forEach(function (sp) {
         var P = peaksData2[sp.i], L = peaksData2[sp.i - 1], R = peaksData2[sp.i + 1];
         if (!P || !L || !R) return;
-        var pX = P[0] * W, pY = P[1] * H * mScale, lX = L[0] * W, lY = L[1] * H * mScale, rX = R[0] * W, rY = R[1] * H * mScale;
+        var pX = P[0] * MVW, pY = P[1] * H * mScale, lX = L[0] * MVW, lY = L[1] * H * mScale, rX = R[0] * MVW, rY = R[1] * H * mScale;
         var capH = sp.h * H;
         if (lY - pY <= 0 || rY - pY <= 0) return;
         capH = Math.min(capH, (lY - pY) * 0.8, (rY - pY) * 0.8);
