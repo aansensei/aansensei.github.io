@@ -54,7 +54,8 @@ author_profile: true
 .music-note{position:absolute;pointer-events:none;animation:noteFloat 2s ease-out forwards;z-index:100;font-style:normal;}
 @keyframes noteFloat{0%{transform:translateY(0) scale(.5) rotate(0deg);opacity:0}20%{opacity:1;transform:translateY(-20px) scale(1.2) rotate(15deg)}100%{transform:translateY(-90px) scale(1) rotate(-15deg);opacity:0}}
 @media(max-width:520px){
-  .song-btn{min-width:0;font-size:.78rem;padding:9px 12px;}
+  .song-btn{min-width:0;font-size:.75rem;padding:9px 10px;white-space:nowrap;}
+  .song-btn-row{gap:8px;margin-top:12px;}
   .vinyl-container{width:62px!important;height:62px!important;}
   .vinyl-cover{width:26px;height:26px;}
   .vinyl-wrap{width:62px!important;height:62px!important;}
