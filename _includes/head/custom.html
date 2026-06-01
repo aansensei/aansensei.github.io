@@ -2412,6 +2412,7 @@
         ctx.fillStyle = 'rgba(230,245,255,' + Math.min(1, tw * 1.3) + ')'; ctx.beginPath(); ctx.arc(px * W, py * H, rr, 0, Math.PI * 2); ctx.fill();
       });
       ctx.restore();
+      if (W < 768) drawHolyCelestial(themeT, nt);
 
       if (starAlpha > 0) {
         (function () {
