@@ -2382,22 +2382,6 @@
       ctx.restore();
     }
 
-    function drawNebula(t, nt) {
-      if (t > 0.35) return;
-      var op = Math.max(0, 1 - t / 0.35) * 0.20;
-      ctx.save(); ctx.globalAlpha = op;
-      var g1 = ctx.createLinearGradient(W * 0.1, H * 0.02, W * 0.9, H * 0.45);
-      g1.addColorStop(0, 'transparent'); g1.addColorStop(0.3, 'rgba(90,40,170,0.4)');
-      g1.addColorStop(0.55, 'rgba(130,70,220,0.5)'); g1.addColorStop(0.75, 'rgba(55,110,195,0.35)');
-      g1.addColorStop(1, 'transparent');
-      ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H * 0.55);
-      var g2 = ctx.createRadialGradient(W * 0.6, H * 0.1, 0, W * 0.6, H * 0.1, W * 0.28);
-      g2.addColorStop(0, 'rgba(200,160,255,0.22)'); g2.addColorStop(0.5, 'rgba(120,70,210,0.1)');
-      g2.addColorStop(1, 'transparent');
-      ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H * 0.4);
-      ctx.restore();
-    }
-
     function render() {
       if (!isTabActive) return;
       var now = Date.now();
@@ -2418,7 +2402,6 @@
       sky.addColorStop(1, 'rgb(' + lerpC('#1e1858', '#ffcc66', themeT) + ')');
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
 
-      drawNebula(themeT, nt);
       drawHolyCelestial(themeT, nt);
 
       var starAlpha = Math.max(0, 1 - themeT * 1.5);
