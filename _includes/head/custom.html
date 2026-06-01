@@ -2396,6 +2396,12 @@
 
       ctx.save();
       ctx.globalAlpha = skyA * starAlpha;
+      if (W < 768) {
+        var mR = 50, mCx = W - mR * 1.4 - 15, mCy = 180;
+        var mPx = mCx + Math.cos(-Math.PI / 2 + themeT * Math.PI) * (mR * 1.5);
+        var mPy = mCy + Math.sin(-Math.PI / 2 + themeT * Math.PI) * (mR * 1.5);
+        ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(mPx, mPy, mR, 0, Math.PI * 2); ctx.clip('evenodd');
+      }
       var pisc = W < 768 ? 4.0 : 2.5;
       var pisr = W < 768 ? 1.5 : 1.0;
       ctx.strokeStyle = 'rgba(180,210,255,.45)'; ctx.lineWidth = W < 768 ? 2.5 : 1.8;
@@ -2412,7 +2418,6 @@
         ctx.fillStyle = 'rgba(230,245,255,' + Math.min(1, tw * 1.3) + ')'; ctx.beginPath(); ctx.arc(px * W, py * H, rr, 0, Math.PI * 2); ctx.fill();
       });
       ctx.restore();
-      if (W < 768) drawHolyCelestial(themeT, nt);
 
       if (starAlpha > 0) {
         (function () {
