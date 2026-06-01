@@ -2036,7 +2036,7 @@
         drawBranch(endX, endY, len * (0.7 + prand(seed + 6) * 0.1), angle + 0.4 + prand(seed + 7) * 0.2, depth - 1, seed * 1.2 + 2, shockValue);
       }
 
-      var scale = W < 768 ? H * 0.20 : Math.min(W, H) * 0.22;
+      var scale = Math.min(W, H) * 0.22;
       ctx.save(); ctx.translate(W * 0.05, H); ctx.rotate(-0.1); drawBranch(0, 0, scale, -Math.PI / 2 + 0.3, 6, 100, treeLeftShock); ctx.restore();
       ctx.save(); ctx.translate(W * 0.95, H); ctx.rotate(0.1); drawBranch(0, 0, scale, -Math.PI / 2 - 0.3, 6, 200, treeRightShock); ctx.restore();
       ctx.restore();
