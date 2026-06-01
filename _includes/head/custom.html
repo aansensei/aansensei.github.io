@@ -1150,6 +1150,33 @@
   body.an-day-mode .an-ring-mask {
     fill: transparent;
   }
+
+  #an-vignette {
+    position: fixed; inset: 0; pointer-events: none; z-index: 99996;
+    background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.52) 100%);
+    transition: background 1.5s ease;
+  }
+  body.an-day-mode #an-vignette {
+    background: radial-gradient(ellipse at 50% 40%, transparent 55%, rgba(0,0,0,0.18) 100%);
+  }
+
+  #an-grain {
+    position: fixed; inset: 0; pointer-events: none; z-index: 99997; opacity: 0.042;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+  body.an-day-mode #an-grain { opacity: 0.028; }
+
+  @keyframes twBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .author__bio-cursor {
+    display: inline-block;
+    color: #52c9b9;
+    animation: twBlink 0.7s step-end infinite;
+    font-style: normal;
+    margin-left: 1px;
+  }
+  body.an-day-mode .author__bio-cursor { color: #008080; }
 </style>
 
 <script>
@@ -2355,6 +2382,22 @@
       ctx.restore();
     }
 
+    function drawNebula(t, nt) {
+      if (t > 0.35) return;
+      var op = Math.max(0, 1 - t / 0.35) * 0.20;
+      ctx.save(); ctx.globalAlpha = op;
+      var g1 = ctx.createLinearGradient(W * 0.1, H * 0.02, W * 0.9, H * 0.45);
+      g1.addColorStop(0, 'transparent'); g1.addColorStop(0.3, 'rgba(90,40,170,0.4)');
+      g1.addColorStop(0.55, 'rgba(130,70,220,0.5)'); g1.addColorStop(0.75, 'rgba(55,110,195,0.35)');
+      g1.addColorStop(1, 'transparent');
+      ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H * 0.55);
+      var g2 = ctx.createRadialGradient(W * 0.6, H * 0.1, 0, W * 0.6, H * 0.1, W * 0.28);
+      g2.addColorStop(0, 'rgba(200,160,255,0.22)'); g2.addColorStop(0.5, 'rgba(120,70,210,0.1)');
+      g2.addColorStop(1, 'transparent');
+      ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H * 0.4);
+      ctx.restore();
+    }
+
     function render() {
       if (!isTabActive) return;
       var now = Date.now();
@@ -2375,6 +2418,7 @@
       sky.addColorStop(1, 'rgb(' + lerpC('#1e1858', '#ffcc66', themeT) + ')');
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
 
+      drawNebula(themeT, nt);
       drawHolyCelestial(themeT, nt);
 
       var starAlpha = Math.max(0, 1 - themeT * 1.5);
@@ -2631,5 +2675,34 @@
       }
       el.style.cursor = 'default';
     });
+  });
+
+  /* Vignette, film grain, typewriter tagline */
+  document.addEventListener('DOMContentLoaded', function () {
+    var vig = document.createElement('div'); vig.id = 'an-vignette'; document.body.appendChild(vig);
+    var grain = document.createElement('div'); grain.id = 'an-grain'; document.body.appendChild(grain);
+
+    var bio = document.querySelector('.author__bio');
+    if (bio) {
+      var original = bio.textContent.trim();
+      bio.textContent = '';
+      var cursor = document.createElement('span');
+      cursor.className = 'author__bio-cursor'; cursor.textContent = '|';
+      bio.appendChild(cursor);
+      var i = 0;
+      setTimeout(function () {
+        var timer = setInterval(function () {
+          if (i < original.length) {
+            bio.insertBefore(document.createTextNode(original[i]), cursor); i++;
+          } else {
+            clearInterval(timer);
+            setTimeout(function () {
+              cursor.style.transition = 'opacity 0.5s'; cursor.style.opacity = '0';
+              setTimeout(function () { cursor.remove(); }, 500);
+            }, 2500);
+          }
+        }, 52);
+      }, 1500);
+    }
   });
 </script>
