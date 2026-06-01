@@ -55,11 +55,11 @@ author_profile: true
 @keyframes noteFloat{0%{transform:translateY(0) scale(.5) rotate(0deg);opacity:0}20%{opacity:1;transform:translateY(-20px) scale(1.2) rotate(15deg)}100%{transform:translateY(-90px) scale(1) rotate(-15deg);opacity:0}}
 @media(max-width:520px){
   .song-btn{min-width:0;font-size:.78rem;padding:9px 12px;}
-  .vinyl-container{width:62px;height:62px;}
+  .vinyl-container{width:62px!important;height:62px!important;}
   .vinyl-cover{width:26px;height:26px;}
   .vinyl-wrap{width:62px!important;height:62px!important;}
   .vinyl-wrap svg{display:none;}
-  .vinyl-wrap img{width:28px!important;height:28px!important;}
+  .vinyl-wrap img{width:28px!important;height:28px!important;border-radius:4px;border:1.5px solid rgba(255,255,255,0.15);}
 }
 </style>
 
@@ -89,7 +89,7 @@ author_profile: true
       <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1;">
         <!-- Vinyl -->
         <div class="vinyl-wrap" style="position:relative;flex-shrink:0;width:76px;height:76px;">
-          <div class="vinyl-container" style="width:76px;height:76px;"><div style="width:10px;height:10px;border-radius:50%;background:#111;border:1px solid #333;position:relative;z-index:1;"></div></div>
+          <div class="vinyl-container"><div style="width:10px;height:10px;border-radius:50%;background:#111;border:1px solid #333;position:relative;z-index:1;"></div></div>
           <img src="/assets/images/favorite-song.png" alt="SToRY" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;object-fit:cover;z-index:15;pointer-events:none;">
           <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;opacity:.9;filter:drop-shadow(0 0 3px #00d4ff);width:40px;height:40px;shape-rendering:crispEdges;" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="38" height="38" stroke="#00d4ff" stroke-width="1" stroke-dasharray="2 2"/><rect x="0" y="0" width="3" height="3" fill="#ff77ff"/><rect x="35" y="0" width="3" height="3" fill="#ff77ff"/><rect x="0" y="35" width="3" height="3" fill="#ff77ff"/><rect x="35" y="35" width="3" height="3" fill="#ff77ff"/></svg>
           <div class="vinyl-glow"></div>
