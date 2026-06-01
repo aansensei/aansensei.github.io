@@ -1000,8 +1000,8 @@
       margin-right: 10px !important;
       width: calc(100% - 20px) !important;
       background: rgba(6, 4, 25, 0.10) !important;
-      -webkit-backdrop-filter: blur(2px) !important;
-      backdrop-filter: blur(2px) !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
     }
@@ -1987,7 +1987,7 @@
       if (t < 0.01) return;
       ctx.save(); ctx.globalAlpha = a * t;
       var nt = activeTime * 0.001;
-      var s = Math.max(W / 1280, 0.4);
+      var s = W < 768 ? Math.max(W / 1280, 0.7) : Math.max(W / 1280, 0.4);
 
       treeLeftShock *= 0.92; treeRightShock *= 0.92;
 
@@ -2036,7 +2036,7 @@
         drawBranch(endX, endY, len * (0.7 + prand(seed + 6) * 0.1), angle + 0.4 + prand(seed + 7) * 0.2, depth - 1, seed * 1.2 + 2, shockValue);
       }
 
-      var scale = Math.min(W, H) * 0.22;
+      var scale = W < 768 ? H * 0.20 : Math.min(W, H) * 0.22;
       ctx.save(); ctx.translate(W * 0.05, H); ctx.rotate(-0.1); drawBranch(0, 0, scale, -Math.PI / 2 + 0.3, 6, 100, treeLeftShock); ctx.restore();
       ctx.save(); ctx.translate(W * 0.95, H); ctx.rotate(0.1); drawBranch(0, 0, scale, -Math.PI / 2 - 0.3, 6, 200, treeRightShock); ctx.restore();
       ctx.restore();
