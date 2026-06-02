@@ -106,6 +106,7 @@ author_profile: true
 .book-container:hover .cv-symbol{transform:scale(1.12);}
 .cv-title{font-family:'IM Fell English SC','Cinzel Decorative',serif!important;font-size:.90rem!important;font-weight:400!important;line-height:1.30!important;letter-spacing:.06em!important;text-align:center!important;color:#f5ece0!important;text-shadow:0 1px 0 rgba(255,255,255,.06),0 -1px 0 rgba(0,0,0,.45),0 0 18px rgba(255,255,255,.28)!important;margin:0 0 6px 0!important;padding:0!important;border:none!important;transition:text-shadow .35s;}
 .book-container:hover .cv-title{text-shadow:0 1px 0 rgba(255,255,255,.10),0 -1px 0 rgba(0,0,0,.45),0 0 26px rgba(255,255,255,.52)!important;}
+.cv-title-sm{font-size:.78rem!important;}
 .cv-sub-rule{width:52%;height:1px;border-top:1px dashed rgba(201,162,39,.30);margin:4px auto 7px!important;}
 .cv-sub{font-family:'Cormorant Garamond',serif!important;font-style:italic!important;font-size:.70rem!important;color:rgba(240,228,205,.40)!important;letter-spacing:.05em!important;line-height:1.38!important;padding:0 4px!important;margin:0!important;transition:color .35s;}
 .book-container:hover .cv-sub{color:rgba(240,228,205,.62)!important;}
@@ -134,7 +135,7 @@ author_profile: true
 @media(max-width:640px){
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
   .book-container{width:155px;height:260px;}
-  .book-container:hover{transform:translateX(62px) translateY(-12px) scale(1.03);}
+  .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
   .inside-pages{padding:10px 8px;overflow:hidden;}
   .inside-pages i{font-size:1.3rem!important;margin-bottom:4px;}
   .inside-pages h4{font-size:.82rem!important;margin:3px 0!important;}
@@ -142,6 +143,7 @@ author_profile: true
   .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
   .pub-badge{font-size:.78rem!important;}
   .cv-title{font-size:.72rem;}
+  .cv-title-sm{font-size:.64rem!important;}
   .cv-vol{font-size:.40rem;}
   .cv-med{width:62px;height:62px;}
   .cv-rule{margin:5px auto;}
@@ -277,7 +279,7 @@ author_profile: true
             <div class="cv-symbol"></div>
           </div>
           <div class="cv-rule"><span>✦</span></div>
-          <h3 class="cv-title">Semiconductor<br>HR Research</h3>
+          <h3 class="cv-title cv-title-sm">Semiconductor<br>HR Research</h3>
           <div class="cv-sub-rule"></div>
           <p class="cv-sub">Codex of Silicon Dreams</p>
         </div>
