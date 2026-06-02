@@ -159,17 +159,31 @@ author_profile: true
   .inside-pages p,.inside-pages small{font-size:.72rem!important;}
   .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
   .pub-badge{font-size:.78rem!important;}
-  .cv-title{font-size:.72rem;}
-  .cv-title-sm{font-size:.64rem!important;}
-  .cv-vol{font-size:.40rem;}
-  .cv-med{width:62px;height:62px;}
-  .cv-rule{margin:5px auto;}
+  .cover-content{padding:28px 6px 14px 20px!important;}
+  .cvf-a{top:7px;left:18px;right:5px;bottom:6px;}
+  .cvf-b{top:9px;left:20px;right:7px;bottom:8px;border-width:3px;}
+  .cvf-c{top:13px;left:24px;right:11px;bottom:12px;}
+  .cvf-tp{top:22px;left:34px;right:20px;height:3px;}
+  .cvf-bp{bottom:20px;left:34px;right:20px;height:3px;}
+  .cv-c{width:24px!important;height:24px!important;}
+  .cv-c-tl{top:5px;left:15px;}.cv-c-tr{top:5px;right:2px;}
+  .cv-c-bl{bottom:3px;left:15px;}.cv-c-br{bottom:3px;right:2px;}
+  .cv-title{font-size:.68rem;}
+  .cv-title-sm{font-size:.58rem!important;}
+  .cv-vol{font-size:.38rem;letter-spacing:.22em!important;margin-bottom:3px!important;}
+  .cv-med{width:55px;height:55px;}
+  .cv-rule{margin:4px auto;width:78%;}
+  .cv-sub{font-size:.58rem!important;}
+  .cv-sub-rule{margin:2px auto 4px!important;}
 }
 @media(max-width:400px){
   .bookshelf{gap:12px;border-width:4px!important;}
   .book-container{width:140px;height:228px;}
-  .cv-title{font-size:.65rem;}
-  .cv-med{width:54px;height:54px;}
+  .cover-content{padding:24px 5px 12px 18px!important;}
+  .cv-title{font-size:.60rem;}
+  .cv-title-sm{font-size:.52rem!important;}
+  .cv-med{width:46px;height:46px;}
+  .cv-vol{font-size:.34rem;}
 }
 
 /* ── BOOK-1: back of front cover shows graph + skills on hover ── */
