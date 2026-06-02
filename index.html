@@ -66,50 +66,122 @@ title: "Hello, I'm An Nguyen"
   }
 
   .home-project-card {
-    background: rgba(8, 12, 35, .6);
-    border: 1px solid rgba(201, 162, 39, .18);
-    border-left: 3px solid #2a9d8f;
-    border-radius: 0 10px 10px 0;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1.6rem;
-    transition: transform .3s, border-color .3s, box-shadow .3s;
+    background: linear-gradient(155deg, rgba(10,5,28,.97) 0%, rgba(16,9,38,.95) 45%, rgba(8,4,22,.97) 100%);
+    border: 1px solid rgba(201,162,39,.30);
+    border-left: none;
+    border-radius: 0 14px 14px 0;
+    padding: 22px 22px 22px 38px;
+    margin-bottom: 1.8rem;
+    transition: transform .45s cubic-bezier(.25,1,.5,1), box-shadow .45s ease;
     position: relative;
     overflow: hidden;
+    box-shadow:
+      -7px 3px 0 rgba(75,45,6,.60),
+      -11px 5px 0 rgba(45,25,3,.30),
+      0 10px 32px rgba(0,0,0,.55),
+      inset 0 1px 0 rgba(201,162,39,.08),
+      inset 0 0 50px rgba(0,0,0,.30);
   }
 
   .home-project-card::before {
-    content: '✦';
+    content: '';
     position: absolute;
-    top: .6rem;
-    right: .8rem;
-    color: #c9a227;
-    font-size: .65rem;
-    opacity: .3;
+    left: 0; top: 0; bottom: 0; width: 16px;
+    background: linear-gradient(180deg,
+      #3a2203 0%, #b8860b 10%, #f0c84a 20%, #d4a820 28%,
+      #7a4e08 38%, #8a5e10 46%, #c9a227 54%, #f0c84a 62%,
+      #c9a227 70%, #7a4e08 78%, #b8860b 88%, #3a2203 100%
+    );
+    border-radius: 3px 0 0 3px;
+    box-shadow: inset -3px 0 6px rgba(0,0,0,.50);
+  }
+
+  .home-project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 16px; right: 0; height: 1px;
+    background: linear-gradient(to right, rgba(201,162,39,.80), rgba(240,200,74,.28), transparent);
   }
 
   .home-project-card:hover {
-    transform: translateX(5px);
-    border-left-color: #f0c84a;
-    box-shadow: -2px 0 16px rgba(201, 162, 39, .2);
+    transform: translateY(-8px) perspective(900px) rotateY(-3deg);
+    box-shadow:
+      -9px 6px 0 rgba(75,45,6,.65),
+      -14px 8px 0 rgba(45,25,3,.38),
+      12px 28px 56px rgba(0,0,0,.72),
+      0 0 36px rgba(201,162,39,.08),
+      inset 0 1px 0 rgba(201,162,39,.12),
+      inset 0 0 50px rgba(0,0,0,.18);
   }
 
-  .home-project-card.card-rose {
-    border-left-color: #c94f7c;
+  .home-project-card.card-rose::before {
+    background: linear-gradient(180deg,
+      #3a0818 0%, #a03060 10%, #e87a9c 20%, #c94f7c 30%,
+      #7a1040 40%, #a03060 50%, #e87a9c 62%,
+      #c94f7c 70%, #7a1040 80%, #b8860b 90%, #3a2203 100%
+    );
   }
 
-  .home-project-card.card-rose:hover {
-    border-left-color: #e87a9c;
-    box-shadow: -2px 0 16px rgba(201, 79, 124, .2);
+  .home-project-card.card-crimson::before {
+    background: linear-gradient(180deg,
+      #2a0000 0%, #8b0000 10%, #c0392b 20%, #a00010 30%,
+      #5a0000 40%, #8b0000 50%, #c0392b 62%,
+      #8b0000 70%, #5a0000 80%, #b8860b 90%, #3a2203 100%
+    );
   }
 
-  .home-project-card.card-crimson {
-    border-left-color: #8b0000;
+  .grim-corner { position: absolute; width: 14px; height: 14px; }
+  .grim-corner.tl { top:10px;    left:22px;  border-top:    1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
+  .grim-corner.tr { top:10px;    right:10px; border-top:    1.5px solid rgba(201,162,39,.58); border-right: 1.5px solid rgba(201,162,39,.58); }
+  .grim-corner.bl { bottom:10px; left:22px;  border-bottom: 1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
+  .grim-corner.br { bottom:10px; right:10px; border-bottom: 1.5px solid rgba(201,162,39,.58); border-right: 1.5px solid rgba(201,162,39,.58); }
+
+  .grim-spine-vol {
+    position: absolute; left: 8px; top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(-90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .48rem; font-weight: 600; letter-spacing: .16em;
+    color: rgba(6,3,14,.78); white-space: nowrap; pointer-events: none; z-index: 2;
   }
 
-  .home-project-card.card-crimson:hover {
-    border-left-color: #c0392b;
-    box-shadow: -2px 0 16px rgba(139, 0, 0, .25);
+  .grim-shimmer {
+    position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.028), transparent);
+    transform: skewX(-20deg); pointer-events: none; transition: left 0s;
   }
+  .home-project-card:hover .grim-shimmer { left: 160%; transition: left .78s ease; }
+
+  .grim-vol {
+    position: absolute; top: 13px; right: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: .70rem; letter-spacing: .14em;
+    color: rgba(201,162,39,.46);
+  }
+
+  .grim-chapter {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: .72rem;
+    color: rgba(201,162,39,.44); letter-spacing: .25em; margin-bottom: 7px;
+  }
+  .grim-chapter::before { content: '— '; }
+  .grim-chapter::after  { content: ' —'; }
+
+  .home-project-title-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+
+  .grim-rune { font-size: 1rem; color: rgba(201,162,39,.33); flex-shrink: 0; line-height: 1.5; margin-top: 1px; }
+
+  .grim-footer-row { display: flex; align-items: center; justify-content: space-between; }
+
+  .grim-seal {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .85rem; color: rgba(240,200,74,.72);
+    border: 1.5px solid rgba(201,162,39,.36);
+    box-shadow: 0 0 8px rgba(100,0,0,.32), inset 0 0 6px rgba(0,0,0,.60);
+  }
+  .grim-seal.seal-teal    { background: radial-gradient(circle at 38% 32%, #0a4a3a, #022018 70%); }
+  .grim-seal.seal-rose    { background: radial-gradient(circle at 38% 32%, #7a1030, #3a0010 70%); }
+  .grim-seal.seal-crimson { background: radial-gradient(circle at 38% 32%, #8b0000, #4a0000 70%); }
 
   .home-project-title {
     font-family: 'Cormorant Garamond', serif;
@@ -250,43 +322,76 @@ title: "Hello, I'm An Nguyen"
 <div class="home-divider reveal-item"><span class="home-divider-text">🚀 Featured Projects</span></div>
 
 <div class="home-project-card reveal-item">
-  <a href="https://github.com/aansensei/Tech_Layoff_Project/blob/main/README.md" target="_blank"
-    class="home-project-title">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · I</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. I</div>
+  <p class="grim-chapter">Chapter the First</p>
+  <div class="home-project-title-row">
+    <span class="grim-rune">ᛞ</span>
+    <a href="https://github.com/aansensei/Tech_Layoff_Project/blob/main/README.md" target="_blank"
+      class="home-project-title">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
+  </div>
   <p class="home-project-desc">An end-to-end analysis using Random Forest to predict layoff trends vs. reality.</p>
   <div class="home-project-links">
     <a href="https://aansensei-tech-layoff-analytics.hf.space" target="_blank" class="home-link">View Dashboard</a>
     <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="home-link">View Code on GitHub</a>
   </div>
-  <a href="/projects/tech-layoffs/" class="btn-cta-project btn-blue"
-    onclick="anBookOpen('/projects/tech-layoffs/','linear-gradient(160deg,#0a1520,#1a3a55)','Tech Layoffs Analysis',event)">✦
-    Open the Tale</a>
+  <div class="grim-footer-row">
+    <a href="/projects/tech-layoffs/" class="btn-cta-project btn-blue"
+      onclick="anBookOpen('/projects/tech-layoffs/','linear-gradient(160deg,#0a1520,#1a3a55)','Tech Layoffs Analysis',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-teal">ᚠ</div>
+  </div>
 </div>
 
 <div class="home-project-card card-rose reveal-item">
-  <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-project-title">Reflection: Human
-    Resources in Vietnam's Semiconductor Industry</a>
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · II</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. II</div>
+  <p class="grim-chapter">Chapter the Second</p>
+  <div class="home-project-title-row">
+    <span class="grim-rune">ᚱ</span>
+    <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-project-title">Reflection: Human
+      Resources in Vietnam's Semiconductor Industry</a>
+  </div>
   <p class="home-project-desc">Current Situation of Human Resources in the Semiconductor Industry in Vietnam and
     Experiences From TSMC Taiwan.</p>
   <div class="home-project-links">
     <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-link">View Full Paper (IRJEMS)</a>
   </div>
-  <a href="/projects/semiconductor-hr/" class="btn-cta-project btn-neon"
-    onclick="anBookOpen('/projects/semiconductor-hr/','linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)','Semiconductor HR',event)">✦
-    Open the Tale</a>
+  <div class="grim-footer-row">
+    <a href="/projects/semiconductor-hr/" class="btn-cta-project btn-neon"
+      onclick="anBookOpen('/projects/semiconductor-hr/','linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)','Semiconductor HR',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-rose">ᚢ</div>
+  </div>
 </div>
 
 <div class="home-project-card card-crimson reveal-item">
-  <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-project-title">Shadow Rent Index
-    — Real-Time Housing Inflation Tracker</a>
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · III</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. III</div>
+  <p class="grim-chapter">Chapter the Third</p>
+  <div class="home-project-title-row">
+    <span class="grim-rune">ᛏ</span>
+    <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-project-title">Shadow Rent Index
+      — Real-Time Housing Inflation Tracker</a>
+  </div>
   <p class="home-project-desc">An automated ETL data pipeline tracking real-time housing inflation. Generates a zero-lag
     "Shadow Rent Index" as a leading macroeconomic indicator using Python, Selenium, and PostgreSQL.</p>
   <div class="home-project-links">
     <a href="https://aansensei-shadow-rent-index.hf.space" target="_blank" class="home-link">View Dashboard</a>
     <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-link">View Code on GitHub</a>
   </div>
-  <a href="/projects/shadow-rent/" class="btn-cta-project btn-crimson"
-    onclick="anBookOpen('/projects/shadow-rent/','linear-gradient(160deg,#1a0000,#4a0000,#8b0000)','Shadow Rent Index',event)">✦
-    Open the Tale</a>
+  <div class="grim-footer-row">
+    <a href="/projects/shadow-rent/" class="btn-cta-project btn-crimson"
+      onclick="anBookOpen('/projects/shadow-rent/','linear-gradient(160deg,#1a0000,#4a0000,#8b0000)','Shadow Rent Index',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-crimson">ᛞ</div>
+  </div>
 </div>
 
 <!-- phần sách mở + mini game space shooter -->
