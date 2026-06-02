@@ -99,7 +99,7 @@ author_profile: true
   transition: none;
 }
 
-.cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px 14px 24px;}
+.cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:38px 8px 22px 24px;}
 .cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
 .cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
 .cvf-c{position:absolute;top:20px;left:31px;right:15px;bottom:17px;border:1px solid rgba(201,162,39,.38);pointer-events:none;z-index:25;}
