@@ -20,7 +20,7 @@ author_profile: true
 .book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
-.front-cover{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:left center;transition:transform .85s cubic-bezier(.25,1,.5,1);z-index:20;border-radius:6px 16px 16px 6px;transform-style:preserve-3d;backface-visibility:visible;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 16px;border:1px solid rgba(255,255,255,.12);box-shadow:inset 6px 0 16px rgba(0,0,0,.45),4px 6px 18px rgba(0,0,0,.5);}
+.front-cover{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:left center;transition:transform .85s cubic-bezier(.25,1,.5,1);z-index:20;border-radius:6px 16px 16px 6px;transform-style:preserve-3d;backface-visibility:visible;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:inset 6px 0 16px rgba(0,0,0,.45),4px 6px 18px rgba(0,0,0,.5);}
 .front-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:linear-gradient(180deg,#3a2203 0%,#b8860b 10%,#f0c84a 20%,#d4a820 28%,#7a4e08 38%,#8a5e10 46%,#c9a227 54%,#f0c84a 62%,#c9a227 70%,#7a4e08 78%,#b8860b 88%,#3a2203 100%);border-radius:6px 0 0 6px;box-shadow:inset -3px 0 6px rgba(0,0,0,.50);z-index:21;}
 .book-container:hover .front-cover{transform:rotateY(-178deg);pointer-events:none;}
 
@@ -124,15 +124,25 @@ author_profile: true
 .coming-badge{display:inline-block;padding:5px 13px;margin-top:11px;background:rgba(201,162,39,.15);border:1px dashed rgba(201,162,39,.4);border-radius:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:#c9a227!important;pointer-events:none;}
 
 @media(max-width:640px){
-  .bookshelf{gap:28px;padding:32px 12px 42px;}
+  .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
   .book-container{width:155px;height:260px;}
-  .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03);}
+  .book-container:hover{transform:translateX(62px) translateY(-12px) scale(1.03);}
   .inside-pages{padding:10px 8px;overflow:hidden;}
   .inside-pages i{font-size:1.3rem!important;margin-bottom:4px;}
   .inside-pages h4{font-size:.82rem!important;margin:3px 0!important;}
   .inside-pages p,.inside-pages small{font-size:.72rem!important;}
   .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
   .pub-badge{font-size:.78rem!important;}
+  .cv-title{font-size:.72rem;}
+  .cv-vol{font-size:.40rem;}
+  .cv-med{width:62px;height:62px;}
+  .cv-rule{margin:5px auto;}
+}
+@media(max-width:400px){
+  .bookshelf{gap:12px;border-width:4px!important;}
+  .book-container{width:140px;height:228px;}
+  .cv-title{font-size:.65rem;}
+  .cv-med{width:54px;height:54px;}
 }
 
 /* ── BOOK-1: back of front cover shows graph + skills on hover ── */
