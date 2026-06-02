@@ -320,10 +320,10 @@ author_profile: true
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Literature Review</span>
-            <span class="cover-back-tag">Qualitative Analysis</span>
-            <span class="cover-back-tag">Policy Comparison</span>
-            <span class="cover-back-tag">LaTeX</span>
-            <span class="cover-back-tag">Academic Writing</span>
+            <span class="cover-back-tag">Quantitative Research</span>
+            <span class="cover-back-tag">Data-Driven Policy Analysis</span>
+            <span class="cover-back-tag">Cross-Country Benchmarking</span>
+            <span class="cover-back-tag">Academic Publishing</span>
           </div>
         </div>
       </div>
