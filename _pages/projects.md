@@ -305,14 +305,11 @@ author_profile: true
             <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=&quot;font-size:2.8rem;&quot;>📄</span>';">
           </div>
           <div class="cover-back-tags">
-            <span class="cover-back-tag">Research Paper</span>
-            <span class="cover-back-tag">IRJEMS</span>
-            <span class="cover-back-tag">TSMC</span>
-            <span class="cover-back-tag">Vietnam</span>
-            <span class="cover-back-tag">Semiconductor</span>
-            <span class="cover-back-tag">HR Analytics</span>
-            <span class="cover-back-tag">Workforce</span>
-            <span class="cover-back-tag">Policy Analysis</span>
+            <span class="cover-back-tag">Literature Review</span>
+            <span class="cover-back-tag">Qualitative Analysis</span>
+            <span class="cover-back-tag">Policy Comparison</span>
+            <span class="cover-back-tag">LaTeX</span>
+            <span class="cover-back-tag">Academic Writing</span>
           </div>
         </div>
       </div>
