@@ -29,6 +29,23 @@ author_profile: true
 .book-2 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(114,9,183,.22) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#13001e 0%,#270040 38%,#18004e 68%,#070018 100%);border:1.5px solid rgba(0,229,255,.18);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 .book-3 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(180,40,80,.16) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#16000f 0%,#36071e 38%,#500c2c 68%,#23000e 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 
+/* ── BOOK-2: cover-back with paper preview + skills on hover ── */
+.book-2 .front-cover { position: relative; }
+.book-2 .cover-back {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  background: #0a0014;
+  border-radius: 6px 14px 14px 6px;
+  overflow: hidden; transform: scaleX(-1);
+  opacity: 0; transition: none; pointer-events: none;
+}
+.book-2.book-container:hover .cover-back {
+  opacity: 1; transition: opacity 0.25s ease 0.35s;
+}
+.book-2.book-container:hover .cover-content {
+  opacity: 0; transition: none;
+}
+
 /* ── BOOK-3: back of front cover shows dashboard + skills on hover ── */
 .book-3 .front-cover { position: relative; }
 
@@ -282,6 +299,21 @@ author_profile: true
           <h3 class="cv-title cv-title-sm">Semiconductor<br>HR Research</h3>
           <div class="cv-sub-rule"></div>
           <p class="cv-sub">Codex of Silicon Dreams</p>
+        </div>
+        <div class="cover-back">
+          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#0a0014;">
+            <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=&quot;font-size:2.8rem;&quot;>📄</span>';">
+          </div>
+          <div class="cover-back-tags">
+            <span class="cover-back-tag">Research Paper</span>
+            <span class="cover-back-tag">IRJEMS</span>
+            <span class="cover-back-tag">TSMC</span>
+            <span class="cover-back-tag">Vietnam</span>
+            <span class="cover-back-tag">Semiconductor</span>
+            <span class="cover-back-tag">HR Analytics</span>
+            <span class="cover-back-tag">Workforce</span>
+            <span class="cover-back-tag">Policy Analysis</span>
+          </div>
         </div>
       </div>
       <div class="inside-pages">
