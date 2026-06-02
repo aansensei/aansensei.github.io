@@ -94,6 +94,7 @@ title: "Hello, I'm An Nguyen"
     );
     border-radius: 3px 0 0 3px;
     box-shadow: inset -3px 0 6px rgba(0,0,0,.50);
+    transition: filter .4s ease, box-shadow .4s ease;
   }
 
   .home-project-card::after {
@@ -101,17 +102,18 @@ title: "Hello, I'm An Nguyen"
     position: absolute;
     top: 0; left: 16px; right: 0; height: 1px;
     background: linear-gradient(to right, rgba(201,162,39,.80), rgba(240,200,74,.28), transparent);
+    transition: background .4s ease;
   }
 
-  .home-project-card:hover {
-    transform: translateY(-8px) perspective(900px) rotateY(-3deg);
+  .home-project-card.is-hovered {
     box-shadow:
-      -9px 6px 0 rgba(75,45,6,.65),
-      -14px 8px 0 rgba(45,25,3,.38),
-      12px 28px 56px rgba(0,0,0,.72),
-      0 0 36px rgba(201,162,39,.08),
-      inset 0 1px 0 rgba(201,162,39,.12),
-      inset 0 0 50px rgba(0,0,0,.18);
+      -14px  8px 0 rgba(80,50,8,.75),
+      -22px 14px 0 rgba(50,30,4,.48),
+      26px 48px 90px rgba(0,0,0,.88),
+      0 0 80px rgba(120,55,210,.16),
+      0 0 44px rgba(201,162,39,.22),
+      inset 0 1px 0 rgba(201,162,39,.25),
+      inset 0 0 60px rgba(15,8,45,.14);
   }
 
   .home-project-card.card-rose::before {
@@ -130,7 +132,7 @@ title: "Hello, I'm An Nguyen"
     );
   }
 
-  .grim-corner { position: absolute; width: 14px; height: 14px; }
+  .grim-corner { position: absolute; width: 14px; height: 14px; transition: width .35s ease, height .35s ease, border-color .35s ease, filter .35s ease; }
   .grim-corner.tl { top:10px;    left:22px;  border-top:    1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
   .grim-corner.tr { top:10px;    right:10px; border-top:    1.5px solid rgba(201,162,39,.58); border-right: 1.5px solid rgba(201,162,39,.58); }
   .grim-corner.bl { bottom:10px; left:22px;  border-bottom: 1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
@@ -149,26 +151,28 @@ title: "Hello, I'm An Nguyen"
     background: linear-gradient(90deg, transparent, rgba(255,255,255,.028), transparent);
     transform: skewX(-20deg); pointer-events: none; transition: left 0s;
   }
-  .home-project-card:hover .grim-shimmer { left: 160%; transition: left .78s ease; }
+  .home-project-card.is-hovered .grim-shimmer { left: 170%; transition: left .65s ease; }
 
   .grim-vol {
     position: absolute; top: 13px; right: 20px;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic; font-size: .70rem; letter-spacing: .14em;
     color: rgba(201,162,39,.46);
+    transition: color .35s ease;
   }
 
   .grim-chapter {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic; font-size: .72rem;
     color: rgba(201,162,39,.44); letter-spacing: .25em; margin-bottom: 7px;
+    transition: letter-spacing .5s ease, color .35s ease;
   }
   .grim-chapter::before { content: '— '; }
   .grim-chapter::after  { content: ' —'; }
 
   .home-project-title-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
 
-  .grim-rune { font-size: 1rem; color: rgba(201,162,39,.33); flex-shrink: 0; line-height: 1.5; margin-top: 1px; }
+  .grim-rune { font-size: 1rem; color: rgba(201,162,39,.33); flex-shrink: 0; line-height: 1.5; margin-top: 1px; transition: color .35s ease, text-shadow .35s ease; }
 
   .grim-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .grim-footer-row .btn-cta-project { margin-top: 0; margin-bottom: 0; }
@@ -179,6 +183,7 @@ title: "Hello, I'm An Nguyen"
     font-size: .85rem; color: rgba(240,200,74,.72);
     border: 1.5px solid rgba(201,162,39,.36);
     box-shadow: 0 0 8px rgba(100,0,0,.32), inset 0 0 6px rgba(0,0,0,.60);
+    transition: transform .55s cubic-bezier(.25,1,.5,1), box-shadow .45s ease;
   }
   .grim-seal.seal-teal    { background: radial-gradient(circle at 38% 32%, #0a4a3a, #022018 70%); }
   .grim-seal.seal-rose    { background: radial-gradient(circle at 38% 32%, #7a1030, #3a0010 70%); }
@@ -187,7 +192,7 @@ title: "Hello, I'm An Nguyen"
   .home-project-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #52c9b9 !important;
     text-decoration: none !important;
     border-bottom: 1px dashed rgba(82, 201, 185, .4);
@@ -309,9 +314,58 @@ title: "Hello, I'm An Nguyen"
     color: #52c9b9 !important;
   }
 
-  /* Disable book-lift hover on touch devices */
+  .home-project-card.is-hovered::before {
+    filter: brightness(1.55) saturate(1.25);
+    box-shadow: inset -2px 0 5px rgba(0,0,0,.40), 0 0 30px rgba(240,200,74,.55);
+  }
+
+  .home-project-card.is-hovered::after {
+    background: linear-gradient(to right, rgba(240,200,74,.98), rgba(201,162,39,.55), rgba(201,162,39,.15), transparent);
+  }
+
+  @keyframes cornerPulse {
+    0%,100% { border-color: rgba(240,200,74,.90); filter: drop-shadow(0 0 4px rgba(240,200,74,.55)); }
+    50%      { border-color: rgba(255,252,180,.98); filter: drop-shadow(0 0 9px rgba(255,250,150,.80)); }
+  }
+
+  .home-project-card.is-hovered .grim-corner {
+    width: 20px; height: 20px;
+    animation: cornerPulse 1.6s ease-in-out infinite;
+  }
+
+  .home-project-card.is-hovered .grim-vol { color: rgba(240,200,74,.80); }
+
+  .home-project-card.is-hovered .grim-chapter { letter-spacing: .34em; color: rgba(201,162,39,.70); }
+
+  .home-project-card.is-hovered .grim-rune {
+    color: rgba(240,200,74,.88);
+    text-shadow: 0 0 16px rgba(240,200,74,.65);
+  }
+
+  .home-project-card.is-hovered .grim-seal {
+    transform: rotate(28deg) scale(1.12);
+    box-shadow: 0 0 22px rgba(180,0,0,.55), inset 0 0 8px rgba(0,0,0,.65);
+  }
+
+  @keyframes runeFloat {
+    0%   { opacity: 0; transform: translateY(0) rotate(0deg) scale(.55); }
+    18%  { opacity: .92; transform: translateY(-22px) rotate(14deg) scale(1.1); }
+    70%  { opacity: .45; transform: translateY(-80px) rotate(-9deg) scale(.95); }
+    100% { opacity: 0;  transform: translateY(-115px) rotate(6deg) scale(.65); }
+  }
+
+  .grim-rune-particle {
+    position: fixed; pointer-events: none;
+    font-family: serif; font-size: .95rem;
+    color: rgba(240,200,74,.92);
+    text-shadow: 0 0 10px rgba(240,200,74,.70), 0 0 22px rgba(200,150,30,.40);
+    animation: runeFloat 1.55s ease-out forwards;
+    z-index: 99999; user-select: none;
+  }
+
+  /* Disable hover effects on touch devices */
   @media (hover: none), (pointer: coarse) {
-    .home-project-card:hover {
+    .home-project-card.is-hovered {
       transform: none;
       box-shadow:
         -7px 3px 0 rgba(75,45,6,.60),
@@ -320,7 +374,7 @@ title: "Hello, I'm An Nguyen"
         inset 0 1px 0 rgba(201,162,39,.08),
         inset 0 0 50px rgba(0,0,0,.30);
     }
-    .home-project-card:hover .grim-shimmer { left: -80%; transition: none; }
+    .home-project-card.is-hovered .grim-shimmer { left: -80%; transition: none; }
   }
 
   /* Mobile grimoire card adjustments */
@@ -420,6 +474,62 @@ title: "Hello, I'm An Nguyen"
     <div class="grim-seal seal-crimson">ᛞ</div>
   </div>
 </div>
+
+<script>
+(function () {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+  var RUNES = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
+
+  document.querySelectorAll('.home-project-card').forEach(function (card) {
+    var shimmer = card.querySelector('.grim-shimmer');
+    var particleInterval = null;
+    var isHovered = false;
+
+    card.addEventListener('mousemove', function (e) {
+      if (!isHovered) return;
+      var r  = card.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
+      var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
+      card.style.transform = 'translateY(-16px) perspective(700px) rotateX(' + (-dy * 5) + 'deg) rotateY(' + (dx * 10) + 'deg)';
+    });
+
+    card.addEventListener('mouseenter', function () {
+      isHovered = true;
+      card.classList.add('is-hovered');
+      card.style.transition = 'box-shadow .5s ease';
+      if (shimmer) {
+        shimmer.style.transition = 'none';
+        shimmer.style.left = '-80%';
+        requestAnimationFrame(function () {
+          shimmer.style.transition = 'left .65s ease';
+          shimmer.style.left = '170%';
+        });
+      }
+      particleInterval = setInterval(spawnRune, 280);
+    });
+
+    card.addEventListener('mouseleave', function () {
+      isHovered = false;
+      card.classList.remove('is-hovered');
+      card.style.transition = 'transform .65s cubic-bezier(.25,1,.5,1), box-shadow .5s ease';
+      card.style.transform  = '';
+      clearInterval(particleInterval);
+      particleInterval = null;
+    });
+
+    function spawnRune() {
+      var rect = card.getBoundingClientRect();
+      var el   = document.createElement('span');
+      el.className   = 'grim-rune-particle';
+      el.textContent = RUNES[Math.floor(Math.random() * RUNES.length)];
+      el.style.left  = (rect.left + 20 + Math.random() * (rect.width  - 40)) + 'px';
+      el.style.top   = (rect.top  + 14 + Math.random() * (rect.height - 28)) + 'px';
+      document.body.appendChild(el);
+      setTimeout(function () { el.remove(); }, 1600);
+    }
+  });
+})();
+</script>
 
 <!-- phần sách mở + mini game space shooter -->
 <style>
