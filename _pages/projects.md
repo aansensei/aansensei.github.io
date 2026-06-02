@@ -9,6 +9,7 @@ author_profile: true
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
 .egg-rocket{float:right;margin-top:-65px;margin-right:10px;font-size:1.8rem;text-decoration:none!important;transition:all .3s cubic-bezier(.175,.885,.32,1.275);position:relative;z-index:50;}
 .egg-rocket:hover{transform:scale(1.3) translateY(-5px) rotate(15deg);filter:drop-shadow(0 0 14px rgba(201,162,39,.9));}
@@ -95,7 +96,7 @@ author_profile: true
 .book-container:hover .cvf-a{border-color:rgba(240,200,74,.80);transition:border-color .35s;}
 .book-container:hover .cvf-c{border-color:rgba(240,200,74,.55);transition:border-color .35s;}
 .cv-spine{position:absolute;left:8px;top:50%;transform:translateX(-50%) translateY(-50%) rotate(-90deg);font-family:'Cormorant Garamond',serif;font-size:.38rem;font-weight:600;letter-spacing:.20em;color:rgba(6,3,14,.70);white-space:nowrap;pointer-events:none;z-index:22;}
-.cv-vol{font-family:'IM Fell English SC',serif;font-size:.55rem;letter-spacing:.32em;color:rgba(201,162,39,.55);text-transform:uppercase;margin-bottom:6px;transition:color .35s;}
+.cv-vol{font-family:'IM Fell English SC',serif!important;font-size:.55rem!important;font-weight:400!important;letter-spacing:.32em!important;color:rgba(201,162,39,.55)!important;text-transform:uppercase!important;margin:0 0 6px 0!important;padding:0!important;border:none!important;transition:color .35s;}
 .book-container:hover .cv-vol{color:rgba(240,200,74,.82);}
 .cv-rule{display:flex;align-items:center;gap:5px;width:82%;margin:7px auto;}
 .cv-rule::before,.cv-rule::after{content:'';flex:1;height:6px;border-top:1px solid rgba(201,162,39,.32);border-bottom:1px solid rgba(201,162,39,.18);}
@@ -104,11 +105,11 @@ author_profile: true
 .cv-med svg.cv-rings{position:absolute;inset:0;width:100%;height:100%;}
 .cv-symbol{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .45s cubic-bezier(.25,1,.5,1);}
 .book-container:hover .cv-symbol{transform:scale(1.12);}
-.cv-title{font-family:'IM Fell English SC','Cinzel Decorative',serif;font-size:.90rem;font-weight:400;line-height:1.30;letter-spacing:.06em;text-align:center;color:#f5ece0;text-shadow:0 1px 0 rgba(255,255,255,.06),0 -1px 0 rgba(0,0,0,.45),0 0 18px rgba(255,255,255,.28);margin-bottom:6px;transition:text-shadow .35s;}
-.book-container:hover .cv-title{text-shadow:0 1px 0 rgba(255,255,255,.10),0 -1px 0 rgba(0,0,0,.45),0 0 26px rgba(255,255,255,.52);}
-.cv-sub-rule{width:52%;height:1px;border-top:1px dashed rgba(201,162,39,.30);margin:4px auto 7px;}
-.cv-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.70rem;color:rgba(240,228,205,.40);letter-spacing:.05em;line-height:1.38;padding:0 4px;transition:color .35s;}
-.book-container:hover .cv-sub{color:rgba(240,228,205,.62);}
+.cv-title{font-family:'IM Fell English SC','Cinzel Decorative',serif!important;font-size:.90rem!important;font-weight:400!important;line-height:1.30!important;letter-spacing:.06em!important;text-align:center!important;color:#f5ece0!important;text-shadow:0 1px 0 rgba(255,255,255,.06),0 -1px 0 rgba(0,0,0,.45),0 0 18px rgba(255,255,255,.28)!important;margin:0 0 6px 0!important;padding:0!important;border:none!important;transition:text-shadow .35s;}
+.book-container:hover .cv-title{text-shadow:0 1px 0 rgba(255,255,255,.10),0 -1px 0 rgba(0,0,0,.45),0 0 26px rgba(255,255,255,.52)!important;}
+.cv-sub-rule{width:52%;height:1px;border-top:1px dashed rgba(201,162,39,.30);margin:4px auto 7px!important;}
+.cv-sub{font-family:'Cormorant Garamond',serif!important;font-style:italic!important;font-size:.70rem!important;color:rgba(240,228,205,.40)!important;letter-spacing:.05em!important;line-height:1.38!important;padding:0 4px!important;margin:0!important;transition:color .35s;}
+.book-container:hover .cv-sub{color:rgba(240,228,205,.62)!important;}
 
 .inside-pages{position:absolute;top:0;left:0;width:98%;height:98%;background:linear-gradient(to right,#ddd5c0,#f7f2ea)!important;z-index:10;border-radius:4px 14px 14px 4px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:16px;text-align:center;border:1px solid #c8bfa8;box-shadow:inset 10px 0 22px rgba(0,0,0,.12);}
 .inside-pages i{font-size:2rem!important;margin-bottom:10px;}
