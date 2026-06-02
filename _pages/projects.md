@@ -6,6 +6,7 @@ author_profile: true
 ---
 
 <a href="https://aansensei.github.io/space-shooter/" target="_blank" class="egg-rocket" title="Secret Area">🚀</a>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 
 <style>
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
@@ -20,12 +21,13 @@ author_profile: true
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
 .front-cover{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:left center;transition:transform .85s cubic-bezier(.25,1,.5,1);z-index:20;border-radius:6px 16px 16px 6px;transform-style:preserve-3d;backface-visibility:visible;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 16px;border:1px solid rgba(255,255,255,.12);box-shadow:inset 6px 0 16px rgba(0,0,0,.45),4px 6px 18px rgba(0,0,0,.5);}
-.front-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:linear-gradient(to right,rgba(0,0,0,.55),rgba(0,0,0,.15));border-radius:6px 0 0 6px;z-index:21;}
+.front-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:linear-gradient(180deg,#3a2203 0%,#b8860b 10%,#f0c84a 20%,#d4a820 28%,#7a4e08 38%,#8a5e10 46%,#c9a227 54%,#f0c84a 62%,#c9a227 70%,#7a4e08 78%,#b8860b 88%,#3a2203 100%);border-radius:6px 0 0 6px;box-shadow:inset -3px 0 6px rgba(0,0,0,.50);z-index:21;}
 .book-container:hover .front-cover{transform:rotateY(-178deg);pointer-events:none;}
 
-.book-1 .front-cover{background:linear-gradient(160deg,#0a1520,#112840,#1a3a55);}
-.book-2 .front-cover{background:linear-gradient(145deg,#2d0035,#6a0080,#00b4cc);border:1.5px solid #00e5ff;box-shadow:4px 6px 20px rgba(114,9,183,.7),0 0 18px rgba(0,229,255,.3),inset 6px 0 16px rgba(0,0,0,.5);}
-.book-3 .front-cover{background:linear-gradient(160deg,#1a0010,#7b1040,#c9477a);}
+.book-1 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(42,157,143,.15) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#040d17 0%,#081b2c 38%,#0c2238 68%,#030e1c 100%);}
+.book-2 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(114,9,183,.22) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#13001e 0%,#270040 38%,#18004e 68%,#070018 100%);border:1.5px solid rgba(0,229,255,.18);box-shadow:4px 6px 22px rgba(114,9,183,.72),0 0 20px rgba(0,229,255,.20),inset 6px 0 16px rgba(0,0,0,.50);animation:neonHum 3.5s ease-in-out infinite;}
+@keyframes neonHum{0%,100%{box-shadow:4px 6px 22px rgba(114,9,183,.72),0 0 20px rgba(0,229,255,.20),inset 6px 0 16px rgba(0,0,0,.50);}50%{box-shadow:4px 6px 30px rgba(114,9,183,.92),0 0 32px rgba(0,229,255,.32),inset 6px 0 16px rgba(0,0,0,.50);}}
+.book-3 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(180,40,80,.16) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#16000f 0%,#36071e 38%,#500c2c 68%,#23000e 100%);}
 
 /* ── BOOK-3: back of front cover shows dashboard + skills on hover ── */
 .book-3 .front-cover { position: relative; }
@@ -53,8 +55,7 @@ author_profile: true
 }
 
 .btn-story-rose{background:linear-gradient(135deg,#c9477a,#7b1040);box-shadow:0 0 12px rgba(201,71,122,.55);}
-.book-4 .front-cover{background:linear-gradient(160deg,#0e0e0e,#252525,#3a3a3a);}
-.book-4 .cover-content h3{font-size:.78rem!important;}
+.book-4 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(201,162,39,.10) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#0d0b07 0%,#19150a 38%,#12100a 68%,#070604 100%);}
 
 /* ── BOOK-4: cover-back with skills on hover ── */
 .book-4 .front-cover { position: relative; }
@@ -81,10 +82,33 @@ author_profile: true
   transition: none;
 }
 
-.cover-content{backface-visibility:hidden;width:100%;}
-.cover-content::before{content:'✦';display:block;color:rgba(201,162,39,.55);font-size:.68rem;margin-bottom:10px;letter-spacing:.3em;}
-.cover-content h3{font-family:'Cinzel Decorative',serif!important;font-size:.98rem!important;font-weight:700!important;color:#fff!important;text-shadow:0 0 12px rgba(255,255,255,.7)!important;margin-bottom:10px!important;border-bottom:1px solid rgba(255,255,255,.25)!important;padding-bottom:8px!important;line-height:1.25!important;pointer-events:none!important;word-break:break-word!important;}
-.cover-content p{font-family:'Cormorant Garamond',serif!important;font-style:italic!important;font-size:.9rem!important;color:rgba(255,255,255,.8)!important;line-height:1.45!important;margin:0!important;text-shadow:none!important;}
+.cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px 14px 24px;}
+.cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
+.cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
+.cvf-c{position:absolute;top:20px;left:31px;right:15px;bottom:17px;border:1px solid rgba(201,162,39,.38);pointer-events:none;z-index:25;}
+.cvf-tp,.cvf-bp{position:absolute;left:44px;right:28px;height:5px;background:linear-gradient(to right,transparent,rgba(201,162,39,.20) 25%,rgba(201,162,39,.20) 75%,transparent);border-top:1px solid rgba(201,162,39,.18);border-bottom:1px solid rgba(201,162,39,.18);pointer-events:none;z-index:25;}
+.cvf-tp{top:31px;}.cvf-bp{bottom:28px;}
+.cv-c{position:absolute;pointer-events:none;z-index:26;overflow:visible;}
+.cv-c-tl{top:8px;left:19px;}.cv-c-tr{top:8px;right:3px;}.cv-c-bl{bottom:5px;left:19px;}.cv-c-br{bottom:5px;right:3px;}
+@keyframes cvCornerPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(240,200,74,.48));}50%{filter:drop-shadow(0 0 9px rgba(255,250,150,.80));}}
+.book-container:hover .cv-c{animation:cvCornerPulse 1.6s ease-in-out infinite;}
+.book-container:hover .cvf-a{border-color:rgba(240,200,74,.80);transition:border-color .35s;}
+.book-container:hover .cvf-c{border-color:rgba(240,200,74,.55);transition:border-color .35s;}
+.cv-spine{position:absolute;left:8px;top:50%;transform:translateX(-50%) translateY(-50%) rotate(-90deg);font-family:'Cormorant Garamond',serif;font-size:.38rem;font-weight:600;letter-spacing:.20em;color:rgba(6,3,14,.70);white-space:nowrap;pointer-events:none;z-index:22;}
+.cv-vol{font-family:'IM Fell English SC',serif;font-size:.55rem;letter-spacing:.32em;color:rgba(201,162,39,.55);text-transform:uppercase;margin-bottom:6px;transition:color .35s;}
+.book-container:hover .cv-vol{color:rgba(240,200,74,.82);}
+.cv-rule{display:flex;align-items:center;gap:5px;width:82%;margin:7px auto;}
+.cv-rule::before,.cv-rule::after{content:'';flex:1;height:6px;border-top:1px solid rgba(201,162,39,.32);border-bottom:1px solid rgba(201,162,39,.18);}
+.cv-rule span{font-size:.52rem;color:rgba(201,162,39,.62);flex-shrink:0;}
+.cv-med{position:relative;width:80px;height:80px;flex-shrink:0;margin:0 auto;}
+.cv-med svg.cv-rings{position:absolute;inset:0;width:100%;height:100%;}
+.cv-symbol{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .45s cubic-bezier(.25,1,.5,1);}
+.book-container:hover .cv-symbol{transform:scale(1.12);}
+.cv-title{font-family:'IM Fell English SC','Cinzel Decorative',serif;font-size:.90rem;font-weight:400;line-height:1.30;letter-spacing:.06em;text-align:center;color:#f5ece0;text-shadow:0 1px 0 rgba(255,255,255,.06),0 -1px 0 rgba(0,0,0,.45),0 0 18px rgba(255,255,255,.28);margin-bottom:6px;transition:text-shadow .35s;}
+.book-container:hover .cv-title{text-shadow:0 1px 0 rgba(255,255,255,.10),0 -1px 0 rgba(0,0,0,.45),0 0 26px rgba(255,255,255,.52);}
+.cv-sub-rule{width:52%;height:1px;border-top:1px dashed rgba(201,162,39,.30);margin:4px auto 7px;}
+.cv-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.70rem;color:rgba(240,228,205,.40);letter-spacing:.05em;line-height:1.38;padding:0 4px;transition:color .35s;}
+.book-container:hover .cv-sub{color:rgba(240,228,205,.62);}
 
 .inside-pages{position:absolute;top:0;left:0;width:98%;height:98%;background:linear-gradient(to right,#ddd5c0,#f7f2ea)!important;z-index:10;border-radius:4px 14px 14px 4px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:16px;text-align:center;border:1px solid #c8bfa8;box-shadow:inset 10px 0 22px rgba(0,0,0,.12);}
 .inside-pages i{font-size:2rem!important;margin-bottom:10px;}
@@ -172,7 +196,25 @@ author_profile: true
   <div class="book-container book-1 reveal-item" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
     <div class="book">
       <div class="front-cover">
-        <div class="cover-content"><h3>Tech Layoffs Analysis</h3><p>How macro-economic indicators shape global tech layoff waves</p></div>
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · I</span>
+          <div class="cv-vol">Volumen · I</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><polyline points="35,52 39,46 43,49 48,40 53,35" fill="none" stroke="#52c9b9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="53" cy="35" r="2.2" fill="#52c9b9"/><circle cx="35" cy="52" r="1.4" fill="rgba(82,201,185,.55)"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title">Tech Layoffs<br>Analysis</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">Chronicles of Economic Storms</p>
+        </div>
         <div class="cover-back">
           <div class="cover-back-graph">
             <img src="/assets/images/dashboard_preview.png" alt="Dashboard">
@@ -201,7 +243,27 @@ author_profile: true
 
   <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
     <div class="book">
-      <div class="front-cover"><div class="cover-content"><h3>Semiconductor HR Research</h3><p>Vietnam's workforce crisis &amp; lessons from TSMC Taiwan</p></div></div>
+      <div class="front-cover">
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · II</span>
+          <div class="cv-vol">Volumen · II</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><polygon points="45,31 55,37 55,53 45,59 35,53 35,37" fill="none" stroke="#00e5ff" stroke-width="1.6"/><circle cx="45" cy="45" r="5" fill="none" stroke="#00e5ff" stroke-width="1.2"/><line x1="40" y1="45" x2="35" y2="45" stroke="#00e5ff" stroke-width="1" opacity=".6"/><line x1="50" y1="45" x2="55" y2="45" stroke="#00e5ff" stroke-width="1" opacity=".6"/><line x1="45" y1="40" x2="45" y2="31" stroke="#00e5ff" stroke-width="1" opacity=".6"/><line x1="45" y1="50" x2="45" y2="59" stroke="#00e5ff" stroke-width="1" opacity=".6"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title">Semiconductor<br>HR Research</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">Codex of Silicon Dreams</p>
+        </div>
+      </div>
       <div class="inside-pages">
         <span class="pub-badge">IRJEMS</span>
         <i class="fas fa-microchip" style="color:#7209b7;margin-bottom:8px;"></i>
@@ -215,7 +277,25 @@ author_profile: true
   <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
     <div class="book">
       <div class="front-cover">
-        <div class="cover-content"><h3>Shadow Rent Index</h3><p>Real-time housing inflation oracle for the rental market</p></div>
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · III</span>
+          <div class="cv-vol">Volumen · III</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><path d="M29,45 Q37,33 45,33 Q53,33 61,45 Q53,57 45,57 Q37,57 29,45 Z" fill="none" stroke="#e87a9c" stroke-width="1.6"/><circle cx="45" cy="45" r="6.5" fill="none" stroke="#e87a9c" stroke-width="1.2"/><circle cx="45" cy="45" r="3" fill="#e87a9c"/><circle cx="47" cy="43" r="1" fill="rgba(255,255,255,.55)"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title">Shadow Rent<br>Index</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">The Oracle of Hidden Rents</p>
+        </div>
         <div class="cover-back">
           <div class="cover-back-graph">
             <img src="/assets/images/shadow-dashboard.png" alt="Dashboard">
@@ -245,7 +325,25 @@ author_profile: true
   <div class="book-container book-4 reveal-item">
     <div class="book">
       <div class="front-cover">
-        <div class="cover-content"><h3>Shrinkflation Detective</h3><p>Uncovering the hidden inflation that CPI never reports</p></div>
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · IV</span>
+          <div class="cv-vol">Volumen · IV</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><circle cx="41" cy="41" r="9" fill="none" stroke="#c9a227" stroke-width="1.8"/><circle cx="41" cy="41" r="5" fill="none" stroke="#c9a227" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6"/><line x1="47.4" y1="47.4" x2="55" y2="55" stroke="#c9a227" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title">Shrinkflation<br>Detective</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">The Hidden Ledger of Prices</p>
+        </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#111111;">
             <span style="font-size:2.8rem;">🔍</span>
