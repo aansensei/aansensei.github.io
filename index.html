@@ -170,7 +170,8 @@ title: "Hello, I'm An Nguyen"
 
   .grim-rune { font-size: 1rem; color: rgba(201,162,39,.33); flex-shrink: 0; line-height: 1.5; margin-top: 1px; }
 
-  .grim-footer-row { display: flex; align-items: center; justify-content: space-between; }
+  .grim-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .grim-footer-row .btn-cta-project { margin-top: 0; margin-bottom: 0; }
 
   .grim-seal {
     width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
@@ -306,6 +307,32 @@ title: "Hello, I'm An Nguyen"
     border: 1px solid rgba(42, 157, 143, .25);
     border-radius: 12px;
     color: #52c9b9 !important;
+  }
+
+  /* Disable book-lift hover on touch devices */
+  @media (hover: none), (pointer: coarse) {
+    .home-project-card:hover {
+      transform: none;
+      box-shadow:
+        -7px 3px 0 rgba(75,45,6,.60),
+        -11px 5px 0 rgba(45,25,3,.30),
+        0 10px 32px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(201,162,39,.08),
+        inset 0 0 50px rgba(0,0,0,.30);
+    }
+    .home-project-card:hover .grim-shimmer { left: -80%; transition: none; }
+  }
+
+  /* Mobile grimoire card adjustments */
+  @media (max-width: 600px) {
+    .home-project-card {
+      padding: 18px 16px 18px 32px;
+    }
+    .grim-chapter { letter-spacing: .16em; font-size: .68rem; }
+    .grim-vol     { font-size: .62rem; right: 14px; top: 11px; }
+    .grim-corner.tl, .grim-corner.bl { left: 18px; }
+    .grim-footer-row { flex-wrap: wrap; }
+    .grim-footer-row .btn-cta-project { font-size: .88rem; padding: 9px 18px; }
   }
 </style>
 
