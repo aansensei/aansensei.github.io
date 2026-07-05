@@ -187,6 +187,15 @@
     --gbord: rgba(184, 134, 11, .3);
   }
 
+  html {
+    background: #03010a;
+  }
+
+  body.an-day-mode ~ html,
+  html:has(body.an-day-mode) {
+    background: #f0f8ff;
+  }
+
   html,
   body {
     overflow-x: hidden !important;
@@ -195,6 +204,7 @@
 
   body {
     background: #03010a;
+    overscroll-behavior-y: none;
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--parch);
     cursor: none;
