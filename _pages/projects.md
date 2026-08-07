@@ -11,11 +11,17 @@ author_profile: true
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
 
-.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(201,162,39,0.22)' stroke-width='1'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='120'%3E%3Cpath d='M35 110 V60 A40 40 0 0 1 115 60 V110' fill='none' stroke='rgba(201,162,39,0.12)' stroke-width='1.4'/%3E%3Cpath d='M25 110 V60 A50 50 0 0 1 125 60 V110' fill='none' stroke='rgba(201,162,39,0.06)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0px,rgba(0,0,0,.16) 1px,transparent 1px,transparent 56px),repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.4) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;background-size:60px 50px,150px 120px,auto 56px,auto,auto,auto!important;background-position:0 0,25px 10px,0 0,0 0,0 0,0 0!important;border-style:solid!important;border-width:12px 12px 0 12px!important;border-image:repeating-linear-gradient(45deg,#3a2705 0px,#8a6216 6px,#f0c84a 12px,#caa24a 18px,#8a6216 24px) 1!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
+.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(201,162,39,0.22)' stroke-width='1'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='120'%3E%3Cpath d='M35 110 V60 A40 40 0 0 1 115 60 V110' fill='none' stroke='rgba(201,162,39,0.12)' stroke-width='1.4'/%3E%3Cpath d='M25 110 V60 A50 50 0 0 1 125 60 V110' fill='none' stroke='rgba(201,162,39,0.06)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0px,rgba(0,0,0,.16) 1px,transparent 1px,transparent 56px),repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.4) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;background-size:60px 50px,150px 120px,auto 56px,auto,auto,auto!important;background-position:0 0,25px 10px,0 0,0 0,0 0,0 0!important;border-style:solid!important;border-width:12px 12px 0 12px!important;border-image:linear-gradient(180deg,#f0c84a 0%,#caa24a 15%,#8a6216 45%,#4a3308 75%,#2a1c05 100%) 1!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.24) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(0,0,0,.62) 0%,transparent 58%),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.18) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.18) 86%,rgba(0,0,0,.78) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
 .shelf-inscription{position:absolute;left:0;right:0;bottom:-27px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
 body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 rgba(255,250,235,.55);}
+.shelf-corner{position:absolute;width:46px;height:46px;pointer-events:none;z-index:5;}
+.shelf-corner-tl{top:-3px;left:-3px;}
+.shelf-corner-tr{top:-3px;right:-3px;}
+.shelf-corner-bl{bottom:-3px;left:-3px;}
+.shelf-corner-br{bottom:-3px;right:-3px;}
+.shelf-corner svg{width:100%;height:100%;display:block;}
 
 /* ── Flanking fluted pilasters on the outer frame, echoing the Celsus facade's column bays ── */
 .shelf-column{position:absolute;top:6px;bottom:6px;width:15px;z-index:1;pointer-events:none;opacity:.85;}
@@ -24,13 +30,13 @@ body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 
 .shelf-column svg{width:100%;height:100%;display:block;}
 
 /* ── Day mode: cosmic cabinet becomes a sunlit honey-oak bookshelf ── */
-body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(90,50,10,0.24)' stroke-width='1'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='120'%3E%3Cpath d='M35 110 V60 A40 40 0 0 1 115 60 V110' fill='none' stroke='rgba(90,50,10,0.14)' stroke-width='1.4'/%3E%3Cpath d='M25 110 V60 A50 50 0 0 1 125 60 V110' fill='none' stroke='rgba(90,50,10,0.07)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,rgba(60,35,10,.14) 0px,rgba(60,35,10,.14) 1px,transparent 1px,transparent 56px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;background-size:60px 50px,150px 120px,auto 56px,auto,auto,auto,auto!important;background-position:0 0,25px 10px,0 0,0 0,0 0,0 0,0 0!important;border-image:repeating-linear-gradient(45deg,#5c3d05 0px,#b8860b 6px,#f0d9a8 12px,#d4a35c 18px,#b8860b 24px) 1!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
+body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(90,50,10,0.24)' stroke-width='1'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='120'%3E%3Cpath d='M35 110 V60 A40 40 0 0 1 115 60 V110' fill='none' stroke='rgba(90,50,10,0.14)' stroke-width='1.4'/%3E%3Cpath d='M25 110 V60 A50 50 0 0 1 125 60 V110' fill='none' stroke='rgba(90,50,10,0.07)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(0deg,rgba(60,35,10,.14) 0px,rgba(60,35,10,.14) 1px,transparent 1px,transparent 56px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;background-size:60px 50px,150px 120px,auto 56px,auto,auto,auto,auto!important;background-position:0 0,25px 10px,0 0,0 0,0 0,0 0,0 0!important;border-image:linear-gradient(180deg,#f0d9a8 0%,#d4a35c 15%,#a97a3a 45%,#7a5424 75%,#4a3312 100%) 1!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
 body.an-day-mode .bookshelf::before{background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,250,235,.55) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(60,35,10,.32) 0%,transparent 58%),linear-gradient(90deg,rgba(60,35,10,.4) 0%,rgba(60,35,10,.1) 14%,transparent 26%,transparent 74%,rgba(60,35,10,.1) 86%,rgba(60,35,10,.4) 100%);}
 body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,#d4a35c 8%,#a97a3a 22%,#7a5424 55%,#4a3312 100%);box-shadow:inset 0 2px 0 rgba(255,250,235,.7),inset 0 -3px 8px rgba(60,35,10,.4),0 14px 20px rgba(60,35,10,.3);}
 
-.book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
+.book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transform:translateY(-4px);filter:drop-shadow(0 16px 14px rgba(0,0,0,.5));transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
 
-.book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
+.book-container:hover{z-index:50;transform:translateY(-16px) scale(1.03);filter:drop-shadow(0 24px 26px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
 .front-cover{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:left center;transition:transform .85s cubic-bezier(.25,1,.5,1);z-index:20;border-radius:6px 16px 16px 6px;transform-style:preserve-3d;backface-visibility:visible;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:inset 6px 0 16px rgba(0,0,0,.45),4px 6px 18px rgba(0,0,0,.5);}
@@ -327,6 +333,39 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 <div class="bookshelf">
 
 <div class="shelf-inscription">✦ Bibliotheca Arcana ✦</div>
+
+<div class="shelf-corner shelf-corner-tl">
+  <svg viewBox="0 0 46 46" fill="none">
+    <path d="M4 43 V4 H43" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M10 37 V10 H37" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <circle cx="4" cy="4" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
+    <circle cx="4" cy="4" r="2" fill="rgba(240,200,74,.8)"/>
+  </svg>
+</div>
+<div class="shelf-corner shelf-corner-tr">
+  <svg viewBox="0 0 46 46" fill="none">
+    <path d="M42 43 V4 H3" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M36 37 V10 H9" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <circle cx="42" cy="4" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
+    <circle cx="42" cy="4" r="2" fill="rgba(240,200,74,.8)"/>
+  </svg>
+</div>
+<div class="shelf-corner shelf-corner-bl">
+  <svg viewBox="0 0 46 46" fill="none">
+    <path d="M4 3 V42 H43" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M10 9 V36 H37" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <circle cx="4" cy="42" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
+    <circle cx="4" cy="42" r="2" fill="rgba(240,200,74,.8)"/>
+  </svg>
+</div>
+<div class="shelf-corner shelf-corner-br">
+  <svg viewBox="0 0 46 46" fill="none">
+    <path d="M42 3 V42 H3" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M36 9 V36 H9" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <circle cx="42" cy="42" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
+    <circle cx="42" cy="42" r="2" fill="rgba(240,200,74,.8)"/>
+  </svg>
+</div>
 
 <div class="shelf-column shelf-column-l">
   <svg viewBox="0 0 24 300" preserveAspectRatio="none" fill="none">
