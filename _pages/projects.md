@@ -160,7 +160,7 @@ author_profile: true
      narrowed column here never has more than ~900px, so packing both in
      never fits and produces a broken zig-zag wrap. Hide the ornaments and
      let the books alone wrap cleanly into a 2-column grid instead. */
-  .shelf-ornament{display:none;}
+  .shelf-ornament{display:none!important;}
   .bookshelf{gap:24px;padding:40px 14px 46px;}
   .book-container{width:178px;height:305px;}
   .inside-pages{padding:14px 10px;overflow:hidden;}
@@ -187,7 +187,7 @@ author_profile: true
   .cv-sub-rule{margin:3px auto 5px!important;}
 }
 @media(max-width:640px){
-  .shelf-ornament{display:none;}
+  .shelf-ornament{display:none!important;}
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
   .book-container{width:155px;height:260px;}
   .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
