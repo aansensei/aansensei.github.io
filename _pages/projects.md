@@ -314,7 +314,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
-  .shelf-ornament{width:36px;right:-16px;bottom:-30px;}
+  .shelf-ornament{width:34px;right:-27px;bottom:-30px;}
 }
 @media(max-width:640px){
   .shelf-ornament{width:30px;right:6px;bottom:-18px;}
