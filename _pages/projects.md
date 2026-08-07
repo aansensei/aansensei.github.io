@@ -15,6 +15,11 @@ author_profile: true
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.24) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(0,0,0,.62) 0%,transparent 58%),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.18) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.18) 86%,rgba(0,0,0,.78) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
 
+/* ── Day mode: cosmic cabinet becomes a sunlit honey-oak bookshelf ── */
+body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:repeating-linear-gradient(45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(-45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;border-color:rgba(184,134,11,.4)!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
+body.an-day-mode .bookshelf::before{background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,250,235,.55) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(60,35,10,.32) 0%,transparent 58%),linear-gradient(90deg,rgba(60,35,10,.4) 0%,rgba(60,35,10,.1) 14%,transparent 26%,transparent 74%,rgba(60,35,10,.1) 86%,rgba(60,35,10,.4) 100%);}
+body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,#d4a35c 8%,#a97a3a 22%,#7a5424 55%,#4a3312 100%);box-shadow:inset 0 2px 0 rgba(255,250,235,.7),inset 0 -3px 8px rgba(60,35,10,.4),0 14px 20px rgba(60,35,10,.3);}
+
 .book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
 .book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
@@ -256,13 +261,19 @@ author_profile: true
 .cover-back-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 3px;
+  align-content: flex-start;
+  gap: 4px;
   padding: 5px 8px 8px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 .cover-back-tag {
   font-family: 'Cormorant Garamond', serif;
-  font-size: .58rem;
-  padding: 1px 5px;
+  font-size: .5rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  padding: 1px 6px;
   background: rgba(255,255,255,.1);
   border: 1px solid rgba(255,255,255,.18);
   border-radius: 8px;
@@ -418,7 +429,8 @@ author_profile: true
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#0a0014;">
-            <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=&quot;font-size:2.8rem;&quot;>📄</span>';">
+            <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <span style="display:none;font-size:2.8rem;">📄</span>
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Literature Review</span>
