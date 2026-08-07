@@ -40,8 +40,6 @@
   body.an-bg-only .masthead,
   body.an-bg-only .initial-content,
   body.an-bg-only .page__footer,
-  body.an-bg-only #an-moon,
-  body.an-bg-only #an-ring,
   body.an-bg-only #an-top {
     visibility: hidden !important;
   }
@@ -56,13 +54,21 @@
   (function () {
     var btn = document.getElementById('an-bg-peek');
     if (!btn) return;
+    /* .author__urls-wrapper elements get an inline visibility:visible!important
+       set by another script; inline !important beats any stylesheet rule
+       (even !important ones), so it must be overridden inline too. */
+    function forcedVisibleEls() {
+      return document.querySelectorAll('.author__urls-wrapper, .author__urls-wrapper nav, .author__urls-wrapper .author__urls');
+    }
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       document.body.classList.add('an-bg-only');
+      forcedVisibleEls().forEach(function (el) { el.style.setProperty('visibility', 'hidden', 'important'); });
     });
     document.addEventListener('click', function () {
       if (document.body.classList.contains('an-bg-only')) {
         document.body.classList.remove('an-bg-only');
+        forcedVisibleEls().forEach(function (el) { el.style.setProperty('visibility', 'visible', 'important'); });
       }
     });
   })();
