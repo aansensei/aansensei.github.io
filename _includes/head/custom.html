@@ -36,12 +36,18 @@
   }
   #an-bg-peek svg path, #an-bg-peek svg circle { stroke: #f0c84a !important; }
   #an-bg-peek:hover { opacity: 1; transform: scale(1.1); }
+  #an-bg-peek, .masthead, .initial-content, .page__footer, #an-top {
+    transition: opacity .45s ease, visibility 0s linear 0s;
+  }
   body.an-bg-only #an-bg-peek,
   body.an-bg-only .masthead,
   body.an-bg-only .initial-content,
   body.an-bg-only .page__footer,
   body.an-bg-only #an-top {
+    opacity: 0 !important;
     visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity .45s ease, visibility 0s linear .45s !important;
   }
 </style>
 <button id="an-bg-peek" type="button" title="Peek at the background" aria-label="Hide page content, show only the background">
@@ -63,7 +69,11 @@
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       document.body.classList.add('an-bg-only');
-      forcedVisibleEls().forEach(function (el) { el.style.setProperty('visibility', 'hidden', 'important'); });
+      /* delay to match the .45s fade-out on everything else, so this
+         doesn't pop hidden before the rest finishes fading */
+      setTimeout(function () {
+        forcedVisibleEls().forEach(function (el) { el.style.setProperty('visibility', 'hidden', 'important'); });
+      }, 450);
     });
     document.addEventListener('click', function () {
       if (document.body.classList.contains('an-bg-only')) {
