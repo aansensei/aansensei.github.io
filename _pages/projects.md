@@ -14,6 +14,14 @@ author_profile: true
 .bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:repeating-linear-gradient(45deg,rgba(201,162,39,.025) 0px,rgba(201,162,39,.025) 1px,transparent 1px,transparent 34px),repeating-linear-gradient(-45deg,rgba(201,162,39,.025) 0px,rgba(201,162,39,.025) 1px,transparent 1px,transparent 34px),repeating-linear-gradient(90deg,rgba(255,255,255,.016) 0px,rgba(255,255,255,.016) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.36) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.24) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(0,0,0,.62) 0%,transparent 58%),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.18) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.18) 86%,rgba(0,0,0,.78) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
+.shelf-inscription{position:absolute;left:0;right:0;bottom:-19px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
+body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 rgba(255,250,235,.55);}
+
+/* ── Flanking fluted pilasters on the outer frame, echoing the Celsus facade's column bays ── */
+.shelf-column{position:absolute;top:6px;bottom:6px;width:15px;z-index:1;pointer-events:none;opacity:.85;}
+.shelf-column-l{left:6px;}
+.shelf-column-r{right:6px;}
+.shelf-column svg{width:100%;height:100%;display:block;}
 
 /* ── Day mode: cosmic cabinet becomes a sunlit honey-oak bookshelf ── */
 body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:repeating-linear-gradient(45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(-45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;border-color:rgba(184,134,11,.4)!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
@@ -21,6 +29,10 @@ body.an-day-mode .bookshelf::before{background:radial-gradient(ellipse 50% 32% a
 body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,#d4a35c 8%,#a97a3a 22%,#7a5424 55%,#4a3312 100%);box-shadow:inset 0 2px 0 rgba(255,250,235,.7),inset 0 -3px 8px rgba(60,35,10,.4),0 14px 20px rgba(60,35,10,.3);}
 
 .book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
+
+/* ── Celsus-style aedicula crest: fluted pilasters + alternating triangular/segmental pediment above each book, echoing the Library of Celsus facade ── */
+.book-crest{position:absolute;left:0;right:0;top:-30px;height:34px;pointer-events:none;z-index:2;}
+.book-crest svg{width:100%;height:100%;overflow:visible;}
 .book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
@@ -159,6 +171,8 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 @container (max-width: 900px) {
   .bookshelf{gap:24px;padding:40px 10px 46px;}
   .book-container{width:178px;height:305px;}
+  .book-crest{top:-24px;height:26px;}
+  .shelf-column{display:none;}
   .inside-pages{padding:14px 10px;overflow:hidden;}
   .inside-pages i{font-size:1.6rem!important;margin-bottom:6px;}
   .inside-pages h4{font-size:.94rem!important;margin:4px 0!important;}
@@ -184,6 +198,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 }
 @media(max-width:640px){
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
+  .book-crest{top:-18px;height:20px;}
   .book-container{width:155px;height:260px;}
   .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
   .inside-pages{padding:10px 8px;overflow:hidden;}
@@ -212,6 +227,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 @media(max-width:400px){
   .bookshelf{gap:12px;border-width:4px!important;}
   .book-container{width:140px;height:228px;}
+  .book-crest{display:none;}
   .cover-content{padding:29px 5px 12px 18px!important;}
   .cv-title{font-size:.60rem;}
   .cv-title-sm{font-size:.52rem!important;}
@@ -312,6 +328,35 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 
 <div class="bookshelf">
 
+<div class="shelf-inscription">✦ Bibliotheca Arcana ✦</div>
+
+<div class="shelf-column shelf-column-l">
+  <svg viewBox="0 0 24 300" preserveAspectRatio="none" fill="none">
+    <rect x="2" y="0" width="20" height="10" rx="2" stroke="rgba(201,162,39,.5)" stroke-width="1.5"/>
+    <circle cx="6" cy="5" r="2" fill="rgba(201,162,39,.4)"/>
+    <circle cx="18" cy="5" r="2" fill="rgba(201,162,39,.4)"/>
+    <rect x="1" y="12" width="22" height="276" stroke="rgba(201,162,39,.42)" stroke-width="1.5"/>
+    <line x1="4" y1="14" x2="4" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="9" y1="14" x2="9" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="15" y1="14" x2="15" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="20" y1="14" x2="20" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <rect x="0" y="288" width="24" height="12" rx="2" stroke="rgba(201,162,39,.5)" stroke-width="1.5"/>
+  </svg>
+</div>
+<div class="shelf-column shelf-column-r">
+  <svg viewBox="0 0 24 300" preserveAspectRatio="none" fill="none">
+    <rect x="2" y="0" width="20" height="10" rx="2" stroke="rgba(201,162,39,.5)" stroke-width="1.5"/>
+    <circle cx="6" cy="5" r="2" fill="rgba(201,162,39,.4)"/>
+    <circle cx="18" cy="5" r="2" fill="rgba(201,162,39,.4)"/>
+    <rect x="1" y="12" width="22" height="276" stroke="rgba(201,162,39,.42)" stroke-width="1.5"/>
+    <line x1="4" y1="14" x2="4" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="9" y1="14" x2="9" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="15" y1="14" x2="15" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <line x1="20" y1="14" x2="20" y2="286" stroke="rgba(201,162,39,.30)" stroke-width="1"/>
+    <rect x="0" y="288" width="24" height="12" rx="2" stroke="rgba(201,162,39,.5)" stroke-width="1.5"/>
+  </svg>
+</div>
+
 <svg width="0" height="0" style="position:absolute">
   <defs>
     <radialGradient id="orn-brass" cx="38%" cy="32%" r="75%">
@@ -339,6 +384,16 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 </svg>
 
   <div class="book-container book-1 reveal-item" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
+    <div class="book-crest">
+      <svg viewBox="0 0 100 34" fill="none">
+        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <path d="M6 13 L50 2 L94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <circle cx="50" cy="2" r="2.2" fill="rgba(240,200,74,.85)"/>
+      </svg>
+    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -406,6 +461,16 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
+    <div class="book-crest">
+      <svg viewBox="0 0 100 34" fill="none">
+        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <path d="M6 13 Q50 -6 94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none"/>
+        <circle cx="50" cy="0" r="2.2" fill="rgba(240,200,74,.85)"/>
+      </svg>
+    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -474,6 +539,16 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
+    <div class="book-crest">
+      <svg viewBox="0 0 100 34" fill="none">
+        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <path d="M6 13 L50 2 L94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+        <circle cx="50" cy="2" r="2.2" fill="rgba(240,200,74,.85)"/>
+      </svg>
+    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -544,6 +619,16 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-4 reveal-item">
+    <div class="book-crest">
+      <svg viewBox="0 0 100 34" fill="none">
+        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
+        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
+        <path d="M6 13 Q50 -6 94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none"/>
+        <circle cx="50" cy="0" r="2.2" fill="rgba(240,200,74,.85)"/>
+      </svg>
+    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
