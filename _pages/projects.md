@@ -14,7 +14,7 @@ author_profile: true
 .bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(201,162,39,0.15)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,rgba(255,255,255,.016) 0px,rgba(255,255,255,.016) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.36) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;background-size:60px 50px,auto,auto,auto!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.24) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(0,0,0,.62) 0%,transparent 58%),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.18) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.18) 86%,rgba(0,0,0,.78) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
-.shelf-inscription{position:absolute;left:0;right:0;bottom:-23px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
+.shelf-inscription{position:absolute;left:0;right:0;bottom:-27px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
 body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 rgba(255,250,235,.55);}
 
 /* ── Flanking fluted pilasters on the outer frame, echoing the Celsus facade's column bays ── */
@@ -166,8 +166,8 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
    still only leaves ~600-900px for the bookshelf. Viewport-width media
    queries can't see this; container queries measure the actual column. */
 @container (max-width: 900px) {
-  .bookshelf{gap:24px;padding:40px 10px 46px;}
-  .book-container{width:178px;height:305px;}
+  .bookshelf{gap:28px;padding:46px 12px 50px;}
+  .book-container{width:185px;height:317px;}
   .shelf-column{display:none;}
   .inside-pages{padding:14px 10px;overflow:hidden;}
   .inside-pages i{font-size:1.6rem!important;margin-bottom:6px;}
@@ -310,7 +310,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
-  .shelf-ornament{width:38px;right:8px;bottom:-26px;}
+  .shelf-ornament{width:36px;right:-16px;bottom:-30px;}
 }
 @media(max-width:640px){
   .shelf-ornament{width:30px;right:6px;bottom:-18px;}
