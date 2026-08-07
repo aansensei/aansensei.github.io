@@ -8,7 +8,7 @@ author_profile: true
 <style>
 .about-content{background:rgba(6,4,22,.6);backdrop-filter:blur(20px);border:1px solid rgba(201,162,39,.2);border-radius:16px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,162,39,.08);color:#f8f4ec;line-height:1.8;font-size:1.05rem;position:relative;}
 .about-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
-.about-cover-img{width:100%;height:300px;object-fit:cover;border-radius:12px;margin-bottom:28px;box-shadow:0 10px 25px rgba(0,0,0,.5);border:1px solid rgba(201,162,39,.15);}
+.about-cover-img{width:100%;height:300px;object-fit:cover;object-position:center 15%;border-radius:12px;margin-bottom:28px;box-shadow:0 10px 25px rgba(0,0,0,.5);border:1px solid rgba(201,162,39,.15);}
 .about-content h2{color:#f0c84a!important;font-family:'Cinzel Decorative',serif!important;margin-top:30px;border-bottom:1px solid rgba(201,162,39,.2);padding-bottom:10px;text-shadow:0 0 16px rgba(201,162,39,.35)!important;}
 .highlight-quote{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#c94f7c;text-align:center;margin:28px 0;font-style:italic;}
 .spotify-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:22px;}
@@ -183,6 +183,11 @@ author_profile: true
       <img src="/assets/images/artist-kenshi.jpg" alt="Kenshi Yonezu" class="artist-img">
       <div class="artist-name">Kenshi Yonezu</div>
       <a href="https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
+    </div>
+    <div class="artist-card reveal-item">
+      <img src="/assets/images/artist-tsukuyomi.jpg" alt="Tsukuyomi" class="artist-img">
+      <div class="artist-name">Tsukuyomi</div>
+      <a href="https://open.spotify.com/artist/2mcj8ajoE1eFlNkAihw5Cg" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
   </div>
 </div>

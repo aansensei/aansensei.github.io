@@ -462,9 +462,6 @@
     position: sticky;
     top: 0;
     z-index: 1000;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
   }
 
   .masthead::before {
@@ -476,6 +473,16 @@
     height: 100px;
     background: inherit;
     pointer-events: none;
+  }
+
+  /* GPU-layer hints only for the iOS Safari fast-scroll overscroll gap;
+     unnecessary on desktop and can interfere with wheel/trackpad hit-testing there */
+  @media (hover: none), (pointer: coarse) {
+    .masthead {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: transform;
+    }
   }
 
   html,
@@ -699,7 +706,7 @@
   }
 
   .page__footer::after {
-    content: "✦  © 2026 Cao Thien An Nguyen  ✦  Where Data Whispers Untold Stories  ✦";
+    content: "✦  © 2026 Cao Thien An Nguyen  ✦";
     display: block;
     text-align: center;
     background: linear-gradient(to right, transparent, rgba(201, 162, 39, .5), rgba(240, 200, 74, .8), rgba(201, 162, 39, .5), transparent);
