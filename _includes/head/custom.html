@@ -202,9 +202,12 @@
     max-width: 100vw;
   }
 
+  html {
+    overscroll-behavior-y: none;
+  }
+
   body {
     background: #03010a;
-    overscroll-behavior-y: none;
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--parch);
     cursor: none;
@@ -345,15 +348,18 @@
     scrollbar-color: #c9a227 rgba(2, 1, 8, .98)
   }
 
-  body.an-day-mode ::-webkit-scrollbar-track {
+  body.an-day-mode ::-webkit-scrollbar-track,
+  html:has(body.an-day-mode)::-webkit-scrollbar-track {
     background: rgba(240, 248, 255, .98)
   }
 
-  body.an-day-mode ::-webkit-scrollbar-thumb {
+  body.an-day-mode ::-webkit-scrollbar-thumb,
+  html:has(body.an-day-mode)::-webkit-scrollbar-thumb {
     background: linear-gradient(#8b4513, #b8860b, #d2691e, #b8860b, #8b4513);
   }
 
-  body.an-day-mode * {
+  body.an-day-mode *,
+  html:has(body.an-day-mode) {
     scrollbar-color: #b8860b rgba(240, 248, 255, .98)
   }
 
