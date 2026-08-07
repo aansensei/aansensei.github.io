@@ -300,13 +300,13 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
-  .shelf-ornament{width:38px;right:8px;bottom:-38px;}
+  .shelf-ornament{width:38px;right:8px;bottom:-26px;}
 }
 @media(max-width:640px){
-  .shelf-ornament{width:30px;right:6px;bottom:-28px;}
+  .shelf-ornament{width:30px;right:6px;bottom:-18px;}
 }
 @media(max-width:400px){
-  .shelf-ornament{width:26px;right:5px;bottom:-24px;}
+  .shelf-ornament{width:26px;right:5px;bottom:-16px;}
 }
 </style>
 
