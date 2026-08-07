@@ -11,8 +11,13 @@ author_profile: true
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
 
-.bookshelf{display:flex;flex-wrap:wrap;gap:48px;justify-content:center;padding:52px 22px 62px;perspective:2500px;background-color:#0e0b26!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 40px),linear-gradient(160deg,#160f34 0%,#0c0820 50%,#1a1240 100%)!important;border:12px solid rgba(201,162,39,.2)!important;border-bottom:20px solid rgba(4,2,14,.96)!important;border-radius:8px;box-shadow:inset 0 0 80px rgba(0,0,0,.65),inset 0 -4px 20px rgba(201,162,39,.04),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;position:relative;}
-.bookshelf::after{content:'';position:absolute;bottom:-20px;left:-12px;right:-12px;height:8px;background:linear-gradient(to bottom,rgba(4,2,14,.96),rgba(2,1,10,1));border-radius:0 0 6px 6px;}
+.shelf-header{text-align:center;margin-bottom:36px;position:relative;z-index:1;}
+.shelf-pre{font-family:'Cinzel Decorative',serif;font-size:.58rem;letter-spacing:.52em;color:rgba(201,162,39,.50);text-transform:uppercase;margin-bottom:12px;}
+.shelf-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.86rem;color:rgba(196,196,224,.44);margin-top:10px;}
+
+.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:48px;justify-content:center;padding:68px 30px 46px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(0,0,0,.30) 0px,rgba(0,0,0,.30) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.42) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 120px rgba(0,0,0,.78),inset 0 40px 60px -20px rgba(0,0,0,.55),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
+.bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.22) 0%,transparent 60%),radial-gradient(ellipse 130% 60% at 50% 120%,rgba(0,0,0,.55) 0%,transparent 55%),linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.15) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.15) 86%,rgba(0,0,0,.72) 100%);}
+.bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
 
 .book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
 .book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
@@ -267,9 +272,77 @@ author_profile: true
   border-radius: 8px;
   color: #c9a227 !important;
 }
+
+/* ── Shelf ornaments — gold-line SVG, isometric shading, Live2D-style idle motion ── */
+.shelf-ornament{width:96px;flex-shrink:0;align-self:flex-end;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;padding-bottom:8px;}
+@keyframes ornFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.ornament-float{animation:ornFloat 3.6s ease-in-out infinite;}
+.shelf-ornament:nth-of-type(4) .ornament-float{animation-duration:4.1s;animation-delay:-1.3s;}
+.shelf-ornament:nth-of-type(6) .ornament-float{animation-duration:3.8s;animation-delay:-2.4s;}
+.ornament-icon{width:78px;height:108px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));transition:filter .5s ease,transform .5s ease;}
+.shelf-ornament:hover .ornament-icon{filter:drop-shadow(0 4px 14px rgba(240,200,74,.45));transform:translateY(-3px);}
+.ornament-label{font-family:'IM Fell English SC',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,162,39,.42);margin-top:6px;opacity:0;transform:translateY(4px);transition:opacity .4s ease,transform .4s ease;}
+.shelf-ornament:hover .ornament-label{opacity:1;transform:translateY(0);}
+@keyframes ornamentGlow{0%,100%{opacity:.30;transform:scaleX(.80);}50%{opacity:.55;transform:scaleX(1);}}
+.ornament-glow{position:absolute;bottom:0;left:18%;right:18%;height:12px;background:rgba(201,162,39,1);filter:blur(11px);border-radius:50%;animation:ornamentGlow 4s ease-in-out infinite;pointer-events:none;}
+@keyframes ornGlint{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.35);}}
+.orn-glint{transform-origin:center;transform-box:fill-box;animation:ornGlint 2.6s ease-in-out infinite;}
+@keyframes ornGlobeSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.orn-globe-spin{transform-origin:45px 55px;animation:ornGlobeSpin 24s linear infinite;}
+@keyframes ornQuillSway{0%,100%{transform:rotate(-2.2deg);}50%{transform:rotate(2.2deg);}}
+.orn-quill-sway{animation:ornQuillSway 4.2s ease-in-out infinite;}
+@keyframes ornInkShimmer{0%,100%{opacity:.70;}50%{opacity:.95;}}
+.orn-ink-shimmer{animation:ornInkShimmer 3.4s ease-in-out infinite;}
+@media (prefers-reduced-motion: reduce) {
+  .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
+}
+@container (max-width: 900px) {
+  .shelf-ornament{width:80px;}
+  .ornament-icon{width:64px;height:90px;}
+}
+@media(max-width:640px){
+  .shelf-ornament{width:62px;}
+  .ornament-icon{width:52px;height:72px;}
+  .ornament-label{font-size:.4rem;}
+}
+@media(max-width:400px){
+  .shelf-ornament{width:50px;}
+  .ornament-icon{width:42px;height:58px;}
+}
 </style>
 
+<div class="shelf-header">
+  <p class="shelf-pre">✦ Arcanum Operum ✦</p>
+  <p class="shelf-desc">Each volume — a story told through data</p>
+</div>
+
 <div class="bookshelf">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <radialGradient id="orn-brass" cx="38%" cy="32%" r="75%">
+      <stop offset="0%" stop-color="#fff2b8"/>
+      <stop offset="35%" stop-color="#f0c84a"/>
+      <stop offset="70%" stop-color="#b8860b"/>
+      <stop offset="100%" stop-color="#5c3d05"/>
+    </radialGradient>
+    <radialGradient id="orn-glass" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#dff3ff" stop-opacity=".9"/>
+      <stop offset="45%" stop-color="#7fd4e8" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#0a3a44" stop-opacity=".6"/>
+    </radialGradient>
+    <radialGradient id="orn-globe" cx="36%" cy="30%" r="78%">
+      <stop offset="0%" stop-color="#9fd8c9"/>
+      <stop offset="40%" stop-color="#2a9d8f"/>
+      <stop offset="75%" stop-color="#0e4f4a"/>
+      <stop offset="100%" stop-color="#04201d"/>
+    </radialGradient>
+    <linearGradient id="orn-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3a1050"/>
+      <stop offset="100%" stop-color="#0a0014"/>
+    </linearGradient>
+  </defs>
+</svg>
 
   <div class="book-container book-1 reveal-item" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
     <div class="book">
@@ -319,6 +392,27 @@ author_profile: true
     </div>
   </div>
 
+  <div class="shelf-ornament">
+    <div class="ornament-float">
+      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+        <g stroke="rgba(201,162,39,.30)" stroke-width="1">
+          <path d="M22 118 L45 78 M68 118 L45 78 M45 78 L45 122"/>
+        </g>
+        <circle cx="45" cy="78" r="3.2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+        <g transform="rotate(-32 45 78)">
+          <rect x="18" y="72" width="56" height="12" rx="4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.3"/>
+          <rect x="60" y="70" width="16" height="16" rx="3" fill="url(#orn-brass)" stroke="rgba(201,162,39,.75)" stroke-width="1.3"/>
+          <circle cx="72" cy="78" r="6.5" fill="url(#orn-glass)" stroke="rgba(240,200,74,.85)" stroke-width="1.3"/>
+          <circle class="orn-glint" cx="70" cy="76" r="1.6" fill="#fff" opacity=".8"/>
+          <rect x="14" y="74.5" width="7" height="7" rx="1.5" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1"/>
+        </g>
+        <ellipse cx="45" cy="123" rx="26" ry="3.5" fill="rgba(0,0,0,.35)"/>
+      </svg>
+    </div>
+    <div class="ornament-glow"></div>
+    <span class="ornament-label">Spyglass</span>
+  </div>
+
   <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
     <div class="book">
       <div class="front-cover">
@@ -362,6 +456,31 @@ author_profile: true
         <button class="btn-view-story btn-story-neon" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
+  </div>
+
+  <div class="shelf-ornament">
+    <div class="ornament-float">
+      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+        <path d="M28 118 L45 100 L62 118 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
+        <rect x="41" y="80" width="8" height="22" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+        <path d="M20 92 Q45 80 70 92" stroke="rgba(201,162,39,.55)" stroke-width="1.3" fill="none"/>
+        <g transform="rotate(-8 45 55)">
+          <circle cx="45" cy="55" r="30" fill="url(#orn-globe)" stroke="rgba(201,162,39,.75)" stroke-width="1.4"/>
+          <g class="orn-globe-spin">
+            <ellipse cx="45" cy="55" rx="30" ry="9" fill="none" stroke="rgba(201,162,39,.35)" stroke-width=".8"/>
+            <ellipse cx="45" cy="55" rx="30" ry="20" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+            <ellipse cx="45" cy="55" rx="10" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+            <ellipse cx="45" cy="55" rx="20" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+            <line x1="45" y1="25" x2="45" y2="85" stroke="rgba(201,162,39,.5)" stroke-width="1"/>
+            <circle cx="45" cy="25" r="1.8" fill="rgba(240,200,74,.8)"/>
+            <circle cx="45" cy="85" r="1.8" fill="rgba(240,200,74,.8)"/>
+          </g>
+          <circle class="orn-glint" cx="36" cy="46" r="2.4" fill="rgba(255,255,255,.55)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="ornament-glow"></div>
+    <span class="ornament-label">Sphaera</span>
   </div>
 
   <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
@@ -410,6 +529,30 @@ author_profile: true
         <button class="btn-view-story btn-story-rose" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
+  </div>
+
+  <div class="shelf-ornament">
+    <div class="ornament-float">
+      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+        <ellipse cx="38" cy="120" rx="24" ry="4" fill="rgba(0,0,0,.35)"/>
+        <path d="M20 110 Q18 92 26 84 Q38 76 50 84 Q58 92 56 110 Q56 116 38 116 Q20 116 20 110 Z"
+              fill="url(#orn-ink)" stroke="rgba(201,162,39,.65)" stroke-width="1.3"/>
+        <ellipse cx="38" cy="86" rx="12" ry="4" fill="#1a0028" stroke="rgba(201,162,39,.55)" stroke-width="1"/>
+        <ellipse class="orn-ink-shimmer" cx="38" cy="85.5" rx="9" ry="2.6" fill="#3a0060" opacity=".85"/>
+        <g transform="rotate(18 44 40)">
+          <g class="orn-quill-sway" style="transform-origin:44px 80px;">
+            <path d="M44 20 C 30 34, 26 58, 40 82 C 42 70, 40 55, 48 42 C 44 55, 46 66, 42 76 C 52 60, 56 34, 44 20 Z"
+                  fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.1"/>
+            <path d="M44 24 C 36 40, 34 58, 41 78" stroke="rgba(90,55,5,.55)" stroke-width=".8" fill="none"/>
+            <rect x="41.5" y="76" width="3.5" height="14" rx="1.5" fill="#e8d9a0" stroke="rgba(201,162,39,.6)" stroke-width=".8"/>
+          </g>
+        </g>
+        <circle cx="30" cy="80" r="1.4" fill="rgba(240,200,74,.7)"/>
+        <circle cx="52" cy="76" r="1" fill="rgba(240,200,74,.5)"/>
+      </svg>
+    </div>
+    <div class="ornament-glow"></div>
+    <span class="ornament-label">Scriptorium</span>
   </div>
 
   <div class="book-container book-4 reveal-item">
