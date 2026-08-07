@@ -85,6 +85,8 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 
 .btn-story-rose{background:linear-gradient(135deg,#c9477a,#7b1040);box-shadow:0 0 12px rgba(201,71,122,.55);}
 .book-4 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(201,162,39,.10) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#0d0b07 0%,#19150a 38%,#12100a 68%,#070604 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
+.book-5 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(120,80,220,.14) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#031f14 0%,#0a3524 38%,#0e4530 68%,#02160e 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
+.book-6 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(255,80,40,.14) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#1a0505 0%,#3d0a0a 38%,#4d0f0f 68%,#100202 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 
 /* ── BOOK-4: cover-back with skills on hover ── */
 .book-4 .front-cover { position: relative; }
@@ -159,6 +161,8 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 .book-2.book-container::after{background:rgba(90,20,180,1);animation-duration:3.8s;animation-delay:-1.4s;}
 .book-3.book-container::after{background:rgba(180,40,80,1);animation-duration:4.1s;animation-delay:-0.7s;}
 .book-4.book-container::after{background:rgba(180,145,20,1);animation-duration:3.5s;animation-delay:-2.1s;}
+.book-5.book-container::after{background:rgba(30,160,110,1);animation-duration:3.9s;animation-delay:-1.8s;}
+.book-6.book-container::after{background:rgba(200,60,30,1);animation-duration:3.6s;animation-delay:-0.4s;}
 .book-container:hover::after{opacity:.30;filter:blur(20px);transform:scaleX(.70);}
 
 /* container query: fires whenever the CONTENT COLUMN (not the viewport) is
@@ -641,6 +645,93 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
         </svg>
       </div>
       <span class="ornament-label">Loupe</span>
+    </div>
+  </div>
+
+  <div class="book-container book-5 reveal-item">
+    <div class="book">
+      <div class="front-cover">
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · V</span>
+          <div class="cv-vol">Volumen · V</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><circle cx="45" cy="45" r="9" fill="none" stroke="#a78bfa" stroke-width="1.8"/><path d="M38 40 Q45 34 52 40" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.6"/><circle cx="41" cy="41" r="1.3" fill="#a78bfa"/><circle cx="45" cy="45" r="4" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title cv-title-sm">Untold<br>Legends</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">Myths Yet Unwritten</p>
+        </div>
+      </div>
+      <div class="inside-pages">
+        <i class="fas fa-hat-wizard" style="color:#7c5cbf;"></i>
+        <h4>Untold Legends</h4>
+        <p>A new tale is still gathering its data — check back soon for the next chapter</p>
+        <span class="coming-badge">— Coming Soon —</span>
+      </div>
+    </div>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <ellipse cx="45" cy="118" rx="22" ry="3.5" fill="rgba(0,0,0,.35)"/>
+          <path d="M30 112 L45 96 L60 112 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
+          <circle cx="45" cy="60" r="28" fill="url(#orn-glass)" stroke="rgba(201,162,39,.7)" stroke-width="1.4"/>
+          <path class="orn-glint" d="M32 48 Q40 40 50 44" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6"/>
+          <circle cx="45" cy="60" r="20" fill="none" stroke="rgba(201,162,39,.2)" stroke-dasharray="2 3" stroke-width=".8"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Scrying Orb</span>
+    </div>
+  </div>
+
+  <div class="book-container book-6 reveal-item">
+    <div class="book">
+      <div class="front-cover">
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(201,162,39,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(201,162,39,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(201,162,39,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(201,162,39,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(201,162,39,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(201,162,39,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · VI</span>
+          <div class="cv-vol">Volumen · VI</div>
+          <div class="cv-rule"><span>✦</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><path d="M45 33 Q38 42 40 50 Q41 56 45 57 Q49 56 50 50 Q52 42 45 33 Z" fill="none" stroke="#ff6b4a" stroke-width="1.8"/><path d="M45 40 Q42 45 44 50" stroke="#ff6b4a" stroke-width="1" fill="none" opacity="0.6"/></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span>✦</span></div>
+          <h3 class="cv-title cv-title-sm">Supreme<br>Sorcery</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">Spells Beyond Reckoning</p>
+        </div>
+      </div>
+      <div class="inside-pages">
+        <i class="fas fa-fire" style="color:#e8552f;"></i>
+        <h4>Supreme Sorcery</h4>
+        <p>A new tale is still gathering its data — check back soon for the next chapter</p>
+        <span class="coming-badge">— Coming Soon —</span>
+      </div>
+    </div>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <ellipse cx="45" cy="120" rx="20" ry="3.5" fill="rgba(0,0,0,.35)"/>
+          <rect x="36" y="70" width="18" height="48" rx="2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
+          <ellipse cx="45" cy="70" rx="9" ry="3" fill="rgba(240,200,74,.4)"/>
+          <path class="orn-glint" d="M45 68 Q40 58 45 48 Q50 58 45 68 Z" fill="#ff6b4a" opacity=".85"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Candle</span>
     </div>
   </div>
 
