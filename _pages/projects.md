@@ -5,14 +5,11 @@ permalink: /projects/
 author_profile: true
 ---
 
-<a href="https://aansensei.github.io/space-shooter/" target="_blank" class="egg-rocket" title="Secret Area">🚀</a>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
-.egg-rocket{float:right;margin-top:-65px;margin-right:10px;font-size:1.8rem;text-decoration:none!important;transition:all .3s cubic-bezier(.175,.885,.32,1.275);position:relative;z-index:50;}
-.egg-rocket:hover{transform:scale(1.3) translateY(-5px) rotate(15deg);filter:drop-shadow(0 0 14px rgba(201,162,39,.9));}
 
 .bookshelf{display:flex;flex-wrap:wrap;gap:48px;justify-content:center;padding:52px 22px 62px;perspective:2500px;background-color:#0e0b26!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.015) 0px,rgba(255,255,255,.015) 1px,transparent 1px,transparent 40px),linear-gradient(160deg,#160f34 0%,#0c0820 50%,#1a1240 100%)!important;border:12px solid rgba(201,162,39,.2)!important;border-bottom:20px solid rgba(4,2,14,.96)!important;border-radius:8px;box-shadow:inset 0 0 80px rgba(0,0,0,.65),inset 0 -4px 20px rgba(201,162,39,.04),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;position:relative;}
 .bookshelf::after{content:'';position:absolute;bottom:-20px;left:-12px;right:-12px;height:8px;background:linear-gradient(to bottom,rgba(4,2,14,.96),rgba(2,1,10,1));border-radius:0 0 6px 6px;}
@@ -154,31 +151,30 @@ author_profile: true
    still only leaves ~600-900px for the bookshelf. Viewport-width media
    queries can't see this; container queries measure the actual column. */
 @container (max-width: 900px) {
-  .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
-  .book-container{width:155px;height:260px;}
-  .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
-  .inside-pages{padding:10px 8px;overflow:hidden;}
-  .inside-pages i{font-size:1.3rem!important;margin-bottom:4px;}
-  .inside-pages h4{font-size:.82rem!important;margin:3px 0!important;}
-  .inside-pages p,.inside-pages small{font-size:.72rem!important;}
-  .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
-  .pub-badge{font-size:.78rem!important;}
-  .cover-content{padding:28px 6px 14px 20px!important;}
-  .cvf-a{top:7px;left:18px;right:5px;bottom:6px;}
-  .cvf-b{top:9px;left:20px;right:7px;bottom:8px;border-width:3px;}
-  .cvf-c{top:13px;left:24px;right:11px;bottom:12px;}
-  .cvf-tp{top:22px;left:34px;right:20px;height:3px;}
-  .cvf-bp{bottom:20px;left:34px;right:20px;height:3px;}
-  .cv-c{width:24px!important;height:24px!important;}
-  .cv-c-tl{top:5px;left:15px;}.cv-c-tr{top:5px;right:2px;}
-  .cv-c-bl{bottom:3px;left:15px;}.cv-c-br{bottom:3px;right:2px;}
-  .cv-title{font-size:.68rem;}
-  .cv-title-sm{font-size:.58rem!important;}
-  .cv-vol{font-size:.38rem;letter-spacing:.22em!important;margin-bottom:3px!important;}
-  .cv-med{width:55px;height:55px;}
-  .cv-rule{margin:4px auto;width:78%;}
-  .cv-sub{font-size:.58rem!important;}
-  .cv-sub-rule{margin:2px auto 4px!important;}
+  .bookshelf{gap:24px;padding:40px 14px 46px;}
+  .book-container{width:178px;height:305px;}
+  .inside-pages{padding:14px 10px;overflow:hidden;}
+  .inside-pages i{font-size:1.6rem!important;margin-bottom:6px;}
+  .inside-pages h4{font-size:.94rem!important;margin:4px 0!important;}
+  .inside-pages p,.inside-pages small{font-size:.78rem!important;}
+  .btn-view-story{font-size:.82rem;padding:7px 16px;margin-top:9px;}
+  .pub-badge{font-size:.84rem!important;}
+  .cover-content{padding:32px 7px 16px 22px!important;}
+  .cvf-a{top:9px;left:20px;right:5px;bottom:7px;}
+  .cvf-b{top:11px;left:22px;right:8px;bottom:9px;border-width:4px;}
+  .cvf-c{top:16px;left:27px;right:12px;bottom:14px;}
+  .cvf-tp{top:25px;left:38px;right:23px;height:4px;}
+  .cvf-bp{bottom:23px;left:38px;right:23px;height:4px;}
+  .cv-c{width:28px!important;height:28px!important;}
+  .cv-c-tl{top:6px;left:16px;}.cv-c-tr{top:6px;right:2px;}
+  .cv-c-bl{bottom:4px;left:16px;}.cv-c-br{bottom:4px;right:2px;}
+  .cv-title{font-size:.78rem;}
+  .cv-title-sm{font-size:.68rem!important;}
+  .cv-vol{font-size:.44rem;letter-spacing:.26em!important;margin-bottom:4px!important;}
+  .cv-med{width:64px;height:64px;}
+  .cv-rule{margin:5px auto;width:80%;}
+  .cv-sub{font-size:.64rem!important;}
+  .cv-sub-rule{margin:3px auto 5px!important;}
 }
 @media(max-width:640px){
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
@@ -434,7 +430,7 @@ author_profile: true
             <div class="cv-symbol"></div>
           </div>
           <div class="cv-rule"><span>✦</span></div>
-          <h3 class="cv-title">Shrinkflation<br>Detective</h3>
+          <h3 class="cv-title cv-title-sm">Shrinkflation<br>Detective</h3>
           <div class="cv-sub-rule"></div>
           <p class="cv-sub">The Hidden Ledger of Prices</p>
         </div>
