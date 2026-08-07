@@ -11,11 +11,7 @@ author_profile: true
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
 
-.shelf-header{text-align:center;margin-bottom:36px;position:relative;z-index:1;}
-.shelf-pre{font-family:'Cinzel Decorative',serif;font-size:.58rem;letter-spacing:.52em;color:rgba(201,162,39,.50);text-transform:uppercase;margin-bottom:12px;}
-.shelf-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.86rem;color:rgba(196,196,224,.44);margin-top:10px;}
-
-.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:48px;justify-content:center;padding:68px 30px 46px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(0,0,0,.30) 0px,rgba(0,0,0,.30) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.42) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 120px rgba(0,0,0,.78),inset 0 40px 60px -20px rgba(0,0,0,.55),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
+.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:48px;justify-content:center;padding:68px 16px 46px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.022) 0px,rgba(255,255,255,.022) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(0,0,0,.30) 0px,rgba(0,0,0,.30) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.42) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 120px rgba(0,0,0,.78),inset 0 40px 60px -20px rgba(0,0,0,.55),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.22) 0%,transparent 60%),radial-gradient(ellipse 130% 60% at 50% 120%,rgba(0,0,0,.55) 0%,transparent 55%),linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.15) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.15) 86%,rgba(0,0,0,.72) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
 
@@ -156,12 +152,7 @@ author_profile: true
    still only leaves ~600-900px for the bookshelf. Viewport-width media
    queries can't see this; container queries measure the actual column. */
 @container (max-width: 900px) {
-  /* 4 books + 3 ornaments need ~1096px to sit on one row; the sidebar-
-     narrowed column here never has more than ~900px, so packing both in
-     never fits and produces a broken zig-zag wrap. Hide the ornaments and
-     let the books alone wrap cleanly into a 2-column grid instead. */
-  .shelf-ornament{display:none!important;}
-  .bookshelf{gap:24px;padding:40px 14px 46px;}
+  .bookshelf{gap:24px;padding:40px 10px 46px;}
   .book-container{width:178px;height:305px;}
   .inside-pages{padding:14px 10px;overflow:hidden;}
   .inside-pages i{font-size:1.6rem!important;margin-bottom:6px;}
@@ -187,7 +178,6 @@ author_profile: true
   .cv-sub-rule{margin:3px auto 5px!important;}
 }
 @media(max-width:640px){
-  .shelf-ornament{display:none!important;}
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
   .book-container{width:155px;height:260px;}
   .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
@@ -279,18 +269,14 @@ author_profile: true
   color: #c9a227 !important;
 }
 
-/* ── Shelf ornaments — gold-line SVG, isometric shading, Live2D-style idle motion ── */
-.shelf-ornament{width:96px;flex-shrink:0;align-self:flex-end;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;padding-bottom:8px;}
-@keyframes ornFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+/* ── Per-book ornament charm — docked to each book's corner, gold-line SVG, Live2D-style idle motion ── */
+.shelf-ornament{position:absolute;bottom:-8px;right:-20px;width:46px;z-index:6;pointer-events:none;}
+@keyframes ornFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
 .ornament-float{animation:ornFloat 3.6s ease-in-out infinite;}
-.shelf-ornament:nth-of-type(4) .ornament-float{animation-duration:4.1s;animation-delay:-1.3s;}
-.shelf-ornament:nth-of-type(6) .ornament-float{animation-duration:3.8s;animation-delay:-2.4s;}
-.ornament-icon{width:78px;height:108px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));transition:filter .5s ease,transform .5s ease;}
-.shelf-ornament:hover .ornament-icon{filter:drop-shadow(0 4px 14px rgba(240,200,74,.45));transform:translateY(-3px);}
-.ornament-label{font-family:'IM Fell English SC',serif;font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,162,39,.42);margin-top:6px;opacity:0;transform:translateY(4px);transition:opacity .4s ease,transform .4s ease;}
-.shelf-ornament:hover .ornament-label{opacity:1;transform:translateY(0);}
-@keyframes ornamentGlow{0%,100%{opacity:.30;transform:scaleX(.80);}50%{opacity:.55;transform:scaleX(1);}}
-.ornament-glow{position:absolute;bottom:0;left:18%;right:18%;height:12px;background:rgba(201,162,39,1);filter:blur(11px);border-radius:50%;animation:ornamentGlow 4s ease-in-out infinite;pointer-events:none;}
+.book-2 .ornament-float{animation-duration:4.1s;animation-delay:-1.3s;}
+.book-4 .ornament-float{animation-duration:3.8s;animation-delay:-2.4s;}
+.ornament-icon{width:100%;height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.55));}
+.ornament-label{display:none;}
 @keyframes ornGlint{0%,100%{opacity:.55;transform:scale(1);}50%{opacity:1;transform:scale(1.35);}}
 .orn-glint{transform-origin:center;transform-box:fill-box;animation:ornGlint 2.6s ease-in-out infinite;}
 @keyframes ornGlobeSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
@@ -303,24 +289,15 @@ author_profile: true
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
-  .shelf-ornament{width:80px;}
-  .ornament-icon{width:64px;height:90px;}
+  .shelf-ornament{width:40px;right:-16px;}
 }
 @media(max-width:640px){
-  .shelf-ornament{width:62px;}
-  .ornament-icon{width:52px;height:72px;}
-  .ornament-label{font-size:.4rem;}
+  .shelf-ornament{width:34px;right:-13px;bottom:-6px;}
 }
 @media(max-width:400px){
-  .shelf-ornament{width:50px;}
-  .ornament-icon{width:42px;height:58px;}
+  .shelf-ornament{width:30px;right:-11px;}
 }
 </style>
-
-<div class="shelf-header">
-  <p class="shelf-pre">✦ Arcanum Operum ✦</p>
-  <p class="shelf-desc">Each volume — a story told through data</p>
-</div>
 
 <div class="bookshelf">
 
@@ -396,27 +373,25 @@ author_profile: true
         <button class="btn-view-story btn-story-blue" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
-  </div>
-
-  <div class="shelf-ornament">
-    <div class="ornament-float">
-      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
-        <g stroke="rgba(201,162,39,.30)" stroke-width="1">
-          <path d="M22 118 L45 78 M68 118 L45 78 M45 78 L45 122"/>
-        </g>
-        <circle cx="45" cy="78" r="3.2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
-        <g transform="rotate(-32 45 78)">
-          <rect x="18" y="72" width="56" height="12" rx="4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.3"/>
-          <rect x="60" y="70" width="16" height="16" rx="3" fill="url(#orn-brass)" stroke="rgba(201,162,39,.75)" stroke-width="1.3"/>
-          <circle cx="72" cy="78" r="6.5" fill="url(#orn-glass)" stroke="rgba(240,200,74,.85)" stroke-width="1.3"/>
-          <circle class="orn-glint" cx="70" cy="76" r="1.6" fill="#fff" opacity=".8"/>
-          <rect x="14" y="74.5" width="7" height="7" rx="1.5" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1"/>
-        </g>
-        <ellipse cx="45" cy="123" rx="26" ry="3.5" fill="rgba(0,0,0,.35)"/>
-      </svg>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <g stroke="rgba(201,162,39,.30)" stroke-width="1">
+            <path d="M22 118 L45 78 M68 118 L45 78 M45 78 L45 122"/>
+          </g>
+          <circle cx="45" cy="78" r="3.2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+          <g transform="rotate(-32 45 78)">
+            <rect x="18" y="72" width="56" height="12" rx="4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.3"/>
+            <rect x="60" y="70" width="16" height="16" rx="3" fill="url(#orn-brass)" stroke="rgba(201,162,39,.75)" stroke-width="1.3"/>
+            <circle cx="72" cy="78" r="6.5" fill="url(#orn-glass)" stroke="rgba(240,200,74,.85)" stroke-width="1.3"/>
+            <circle class="orn-glint" cx="70" cy="76" r="1.6" fill="#fff" opacity=".8"/>
+            <rect x="14" y="74.5" width="7" height="7" rx="1.5" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1"/>
+          </g>
+          <ellipse cx="45" cy="123" rx="26" ry="3.5" fill="rgba(0,0,0,.35)"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Spyglass</span>
     </div>
-    <div class="ornament-glow"></div>
-    <span class="ornament-label">Spyglass</span>
   </div>
 
   <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
@@ -462,31 +437,29 @@ author_profile: true
         <button class="btn-view-story btn-story-neon" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
-  </div>
-
-  <div class="shelf-ornament">
-    <div class="ornament-float">
-      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
-        <path d="M28 118 L45 100 L62 118 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
-        <rect x="41" y="80" width="8" height="22" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
-        <path d="M20 92 Q45 80 70 92" stroke="rgba(201,162,39,.55)" stroke-width="1.3" fill="none"/>
-        <g transform="rotate(-8 45 55)">
-          <circle cx="45" cy="55" r="30" fill="url(#orn-globe)" stroke="rgba(201,162,39,.75)" stroke-width="1.4"/>
-          <g class="orn-globe-spin">
-            <ellipse cx="45" cy="55" rx="30" ry="9" fill="none" stroke="rgba(201,162,39,.35)" stroke-width=".8"/>
-            <ellipse cx="45" cy="55" rx="30" ry="20" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
-            <ellipse cx="45" cy="55" rx="10" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
-            <ellipse cx="45" cy="55" rx="20" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
-            <line x1="45" y1="25" x2="45" y2="85" stroke="rgba(201,162,39,.5)" stroke-width="1"/>
-            <circle cx="45" cy="25" r="1.8" fill="rgba(240,200,74,.8)"/>
-            <circle cx="45" cy="85" r="1.8" fill="rgba(240,200,74,.8)"/>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <path d="M28 118 L45 100 L62 118 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
+          <rect x="41" y="80" width="8" height="22" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+          <path d="M20 92 Q45 80 70 92" stroke="rgba(201,162,39,.55)" stroke-width="1.3" fill="none"/>
+          <g transform="rotate(-8 45 55)">
+            <circle cx="45" cy="55" r="30" fill="url(#orn-globe)" stroke="rgba(201,162,39,.75)" stroke-width="1.4"/>
+            <g class="orn-globe-spin">
+              <ellipse cx="45" cy="55" rx="30" ry="9" fill="none" stroke="rgba(201,162,39,.35)" stroke-width=".8"/>
+              <ellipse cx="45" cy="55" rx="30" ry="20" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+              <ellipse cx="45" cy="55" rx="10" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+              <ellipse cx="45" cy="55" rx="20" ry="30" fill="none" stroke="rgba(201,162,39,.30)" stroke-width=".8"/>
+              <line x1="45" y1="25" x2="45" y2="85" stroke="rgba(201,162,39,.5)" stroke-width="1"/>
+              <circle cx="45" cy="25" r="1.8" fill="rgba(240,200,74,.8)"/>
+              <circle cx="45" cy="85" r="1.8" fill="rgba(240,200,74,.8)"/>
+            </g>
+            <circle class="orn-glint" cx="36" cy="46" r="2.4" fill="rgba(255,255,255,.55)"/>
           </g>
-          <circle class="orn-glint" cx="36" cy="46" r="2.4" fill="rgba(255,255,255,.55)"/>
-        </g>
-      </svg>
+        </svg>
+      </div>
+      <span class="ornament-label">Sphaera</span>
     </div>
-    <div class="ornament-glow"></div>
-    <span class="ornament-label">Sphaera</span>
   </div>
 
   <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
@@ -535,30 +508,28 @@ author_profile: true
         <button class="btn-view-story btn-story-rose" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
-  </div>
-
-  <div class="shelf-ornament">
-    <div class="ornament-float">
-      <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
-        <ellipse cx="38" cy="120" rx="24" ry="4" fill="rgba(0,0,0,.35)"/>
-        <path d="M20 110 Q18 92 26 84 Q38 76 50 84 Q58 92 56 110 Q56 116 38 116 Q20 116 20 110 Z"
-              fill="url(#orn-ink)" stroke="rgba(201,162,39,.65)" stroke-width="1.3"/>
-        <ellipse cx="38" cy="86" rx="12" ry="4" fill="#1a0028" stroke="rgba(201,162,39,.55)" stroke-width="1"/>
-        <ellipse class="orn-ink-shimmer" cx="38" cy="85.5" rx="9" ry="2.6" fill="#3a0060" opacity=".85"/>
-        <g transform="rotate(18 44 40)">
-          <g class="orn-quill-sway" style="transform-origin:44px 80px;">
-            <path d="M44 20 C 30 34, 26 58, 40 82 C 42 70, 40 55, 48 42 C 44 55, 46 66, 42 76 C 52 60, 56 34, 44 20 Z"
-                  fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.1"/>
-            <path d="M44 24 C 36 40, 34 58, 41 78" stroke="rgba(90,55,5,.55)" stroke-width=".8" fill="none"/>
-            <rect x="41.5" y="76" width="3.5" height="14" rx="1.5" fill="#e8d9a0" stroke="rgba(201,162,39,.6)" stroke-width=".8"/>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <ellipse cx="38" cy="120" rx="24" ry="4" fill="rgba(0,0,0,.35)"/>
+          <path d="M20 110 Q18 92 26 84 Q38 76 50 84 Q58 92 56 110 Q56 116 38 116 Q20 116 20 110 Z"
+                fill="url(#orn-ink)" stroke="rgba(201,162,39,.65)" stroke-width="1.3"/>
+          <ellipse cx="38" cy="86" rx="12" ry="4" fill="#1a0028" stroke="rgba(201,162,39,.55)" stroke-width="1"/>
+          <ellipse class="orn-ink-shimmer" cx="38" cy="85.5" rx="9" ry="2.6" fill="#3a0060" opacity=".85"/>
+          <g transform="rotate(18 44 40)">
+            <g class="orn-quill-sway" style="transform-origin:44px 80px;">
+              <path d="M44 20 C 30 34, 26 58, 40 82 C 42 70, 40 55, 48 42 C 44 55, 46 66, 42 76 C 52 60, 56 34, 44 20 Z"
+                    fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.1"/>
+              <path d="M44 24 C 36 40, 34 58, 41 78" stroke="rgba(90,55,5,.55)" stroke-width=".8" fill="none"/>
+              <rect x="41.5" y="76" width="3.5" height="14" rx="1.5" fill="#e8d9a0" stroke="rgba(201,162,39,.6)" stroke-width=".8"/>
+            </g>
           </g>
-        </g>
-        <circle cx="30" cy="80" r="1.4" fill="rgba(240,200,74,.7)"/>
-        <circle cx="52" cy="76" r="1" fill="rgba(240,200,74,.5)"/>
-      </svg>
+          <circle cx="30" cy="80" r="1.4" fill="rgba(240,200,74,.7)"/>
+          <circle cx="52" cy="76" r="1" fill="rgba(240,200,74,.5)"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Scriptorium</span>
     </div>
-    <div class="ornament-glow"></div>
-    <span class="ornament-label">Scriptorium</span>
   </div>
 
   <div class="book-container book-4 reveal-item">
@@ -608,6 +579,18 @@ author_profile: true
         <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
         <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">✦ Read the Tale</button>
       </div>
+    </div>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <ellipse cx="42" cy="120" rx="24" ry="3.5" fill="rgba(0,0,0,.35)"/>
+          <circle cx="40" cy="42" r="20" fill="url(#orn-glass)" stroke="url(#orn-brass)" stroke-width="3.5"/>
+          <circle cx="40" cy="42" r="14" fill="none" stroke="rgba(201,162,39,.30)" stroke-width="1" stroke-dasharray="2 2"/>
+          <circle class="orn-glint" cx="33" cy="35" r="2.6" fill="#fff" opacity=".75"/>
+          <rect x="53" y="53" width="9" height="50" rx="4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.2" transform="rotate(42 57.5 58)"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Loupe</span>
     </div>
   </div>
 
