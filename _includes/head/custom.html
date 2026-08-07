@@ -10,12 +10,13 @@
      glyph, so missing images are obvious at a glance while browsing */
   document.addEventListener('error', function (e) {
     var img = e.target;
-    if (!img || img.tagName !== 'IMG' || img.dataset.anMissing) return;
+    if (!img || img.tagName !== 'IMG' || img.dataset.anMissing || img.src.indexOf('icon-missing-image.png') !== -1) return;
     img.dataset.anMissing = '1';
-    var box = document.createElement('span');
-    box.textContent = '🖼️';
+    var box = document.createElement('img');
+    box.src = '/assets/images/icon-missing-image.png';
+    box.alt = 'Missing image';
     box.title = 'Missing image: ' + img.getAttribute('src');
-    box.style.cssText = 'display:flex;align-items:center;justify-content:center;width:' + (img.offsetWidth || img.width || 100) + 'px;height:' + (img.offsetHeight || img.height || 100) + 'px;font-size:2rem;opacity:.45;background:rgba(0,0,0,.15);border-radius:6px;';
+    box.style.cssText = 'width:' + (img.offsetWidth || img.width || 100) + 'px;height:' + (img.offsetHeight || img.height || 100) + 'px;object-fit:contain;opacity:.6;padding:8%;box-sizing:border-box;';
     img.style.display = 'none';
     img.insertAdjacentElement('afterend', box);
   }, true);
