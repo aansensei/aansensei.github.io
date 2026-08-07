@@ -21,6 +21,50 @@
     img.insertAdjacentElement('afterend', box);
   }, true);
 </script>
+
+<!-- background-peek: tiny eye toggle, top-left. Click hides all UI chrome
+     (nav, sidebar, page content, footer, cursor) leaving only the ambient
+     background visible; click anywhere to bring it all back. -->
+<style>
+  #an-bg-peek {
+    position: fixed; top: 10px; left: 10px; z-index: 999998;
+    width: 22px; height: 22px; padding: 0; border: none;
+    background: rgba(0, 0, 0, .22); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; opacity: .32; transition: opacity .3s ease;
+  }
+  #an-bg-peek:hover { opacity: .85; }
+  body.an-bg-only #an-bg-peek,
+  body.an-bg-only .masthead,
+  body.an-bg-only .initial-content,
+  body.an-bg-only .page__footer,
+  body.an-bg-only #an-moon,
+  body.an-bg-only #an-ring,
+  body.an-bg-only #an-top {
+    visibility: hidden !important;
+  }
+</style>
+<button id="an-bg-peek" type="button" title="Peek at the background" aria-label="Hide page content, show only the background">
+  <svg viewBox="0 0 24 24" width="13" height="13" fill="none">
+    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" stroke="rgba(201,162,39,.75)" stroke-width="1.4" />
+    <circle cx="12" cy="12" r="3.1" stroke="rgba(201,162,39,.85)" stroke-width="1.4" />
+  </svg>
+</button>
+<script>
+  (function () {
+    var btn = document.getElementById('an-bg-peek');
+    if (!btn) return;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      document.body.classList.add('an-bg-only');
+    });
+    document.addEventListener('click', function () {
+      if (document.body.classList.contains('an-bg-only')) {
+        document.body.classList.remove('an-bg-only');
+      }
+    });
+  })();
+</script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var avatarImg = document.querySelector('.author__avatar img');

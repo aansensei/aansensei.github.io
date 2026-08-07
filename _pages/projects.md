@@ -11,10 +11,10 @@ author_profile: true
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 .page__title{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;}
 
-.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:repeating-linear-gradient(45deg,rgba(201,162,39,.025) 0px,rgba(201,162,39,.025) 1px,transparent 1px,transparent 34px),repeating-linear-gradient(-45deg,rgba(201,162,39,.025) 0px,rgba(201,162,39,.025) 1px,transparent 1px,transparent 34px),repeating-linear-gradient(90deg,rgba(255,255,255,.016) 0px,rgba(255,255,255,.016) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.36) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
+.bookshelf{display:flex;flex-wrap:wrap;align-items:flex-end;gap:60px;justify-content:center;padding:100px 16px 68px;perspective:2500px;position:relative;z-index:1;background-color:#0e0b26!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(201,162,39,0.15)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,rgba(255,255,255,.016) 0px,rgba(255,255,255,.016) 1px,transparent 1px,transparent 48px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(60,44,110,.36) 0%,transparent 70%),linear-gradient(160deg,#1c1440 0%,#0a0718 55%,#170f36 100%)!important;background-size:60px 50px,auto,auto,auto!important;border:12px solid rgba(201,162,39,.22)!important;border-bottom:none!important;border-radius:8px 8px 0 0;box-shadow:inset 0 0 130px rgba(0,0,0,.7),inset 0 40px 60px -20px rgba(0,0,0,.5),inset 0 -25px 40px -15px rgba(0,0,0,.45),0 18px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.07)!important;}
 .bookshelf::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,240,195,.24) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(0,0,0,.62) 0%,transparent 58%),linear-gradient(90deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.18) 14%,transparent 26%,transparent 74%,rgba(0,0,0,.18) 86%,rgba(0,0,0,.78) 100%);}
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
-.shelf-inscription{position:absolute;left:0;right:0;bottom:-19px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
+.shelf-inscription{position:absolute;left:0;right:0;bottom:-13px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
 body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 rgba(255,250,235,.55);}
 
 /* ── Flanking fluted pilasters on the outer frame, echoing the Celsus facade's column bays ── */
@@ -24,15 +24,12 @@ body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 
 .shelf-column svg{width:100%;height:100%;display:block;}
 
 /* ── Day mode: cosmic cabinet becomes a sunlit honey-oak bookshelf ── */
-body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:repeating-linear-gradient(45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(-45deg,rgba(90,50,10,.06) 0px,rgba(90,50,10,.06) 1px,transparent 1px,transparent 27px),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;border-color:rgba(184,134,11,.4)!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
+body.an-day-mode .bookshelf{background-color:#c9975a!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='50'%3E%3Cpath d='M14 46 V24 A16 16 0 0 1 46 24 V46' fill='none' stroke='rgba(90,50,10,0.16)' stroke-width='1'/%3E%3C/svg%3E"),repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0px,rgba(255,255,255,.05) 1px,transparent 1px,transparent 38px),repeating-linear-gradient(90deg,rgba(80,45,10,.22) 0px,rgba(80,45,10,.22) 3px,transparent 3px,transparent 152px),radial-gradient(ellipse 90% 70% at 50% 8%,rgba(255,235,190,.4) 0%,transparent 70%),linear-gradient(160deg,#d9a866 0%,#a97640 55%,#8a5a2e 100%)!important;background-size:60px 50px,auto,auto,auto,auto!important;border-color:rgba(184,134,11,.4)!important;box-shadow:inset 0 0 130px rgba(60,35,10,.5),inset 0 50px 70px -20px rgba(60,35,10,.4),inset 0 -30px 45px -15px rgba(40,22,6,.45),0 18px 40px rgba(60,35,10,.35),0 0 0 1px rgba(184,134,11,.15)!important;}
 body.an-day-mode .bookshelf::before{background:radial-gradient(ellipse 50% 32% at 50% 0%,rgba(255,250,235,.55) 0%,transparent 60%),radial-gradient(ellipse 130% 65% at 50% 122%,rgba(60,35,10,.32) 0%,transparent 58%),linear-gradient(90deg,rgba(60,35,10,.4) 0%,rgba(60,35,10,.1) 14%,transparent 26%,transparent 74%,rgba(60,35,10,.1) 86%,rgba(60,35,10,.4) 100%);}
 body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,#d4a35c 8%,#a97a3a 22%,#7a5424 55%,#4a3312 100%);box-shadow:inset 0 2px 0 rgba(255,250,235,.7),inset 0 -3px 8px rgba(60,35,10,.4),0 14px 20px rgba(60,35,10,.3);}
 
 .book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
 
-/* ── Celsus-style aedicula crest: fluted pilasters + alternating triangular/segmental pediment above each book, echoing the Library of Celsus facade ── */
-.book-crest{position:absolute;left:0;right:0;top:-30px;height:34px;pointer-events:none;z-index:2;}
-.book-crest svg{width:100%;height:100%;overflow:visible;}
 .book-container:hover{z-index:50;transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 20px 30px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
@@ -114,7 +111,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
 }
 
-.cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:46px 8px 22px 24px;}
+.cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:38px 8px 22px 24px;}
 .cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
 .cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
 .cvf-c{position:absolute;top:20px;left:31px;right:15px;bottom:17px;border:1px solid rgba(201,162,39,.38);pointer-events:none;z-index:25;}
@@ -171,7 +168,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 @container (max-width: 900px) {
   .bookshelf{gap:24px;padding:40px 10px 46px;}
   .book-container{width:178px;height:305px;}
-  .book-crest{top:-24px;height:26px;}
   .shelf-column{display:none;}
   .inside-pages{padding:14px 10px;overflow:hidden;}
   .inside-pages i{font-size:1.6rem!important;margin-bottom:6px;}
@@ -179,7 +175,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   .inside-pages p,.inside-pages small{font-size:.78rem!important;}
   .btn-view-story{font-size:.82rem;padding:7px 16px;margin-top:9px;}
   .pub-badge{font-size:.84rem!important;}
-  .cover-content{padding:38px 7px 16px 22px!important;}
+  .cover-content{padding:32px 7px 16px 22px!important;}
   .cvf-a{top:9px;left:20px;right:5px;bottom:7px;}
   .cvf-b{top:11px;left:22px;right:8px;bottom:9px;border-width:4px;}
   .cvf-c{top:16px;left:27px;right:12px;bottom:14px;}
@@ -198,7 +194,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 }
 @media(max-width:640px){
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
-  .book-crest{top:-18px;height:20px;}
   .book-container{width:155px;height:260px;}
   .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
   .inside-pages{padding:10px 8px;overflow:hidden;}
@@ -207,7 +202,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   .inside-pages p,.inside-pages small{font-size:.72rem!important;}
   .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
   .pub-badge{font-size:.78rem!important;}
-  .cover-content{padding:34px 6px 14px 20px!important;}
+  .cover-content{padding:28px 6px 14px 20px!important;}
   .cvf-a{top:7px;left:18px;right:5px;bottom:6px;}
   .cvf-b{top:9px;left:20px;right:7px;bottom:8px;border-width:3px;}
   .cvf-c{top:13px;left:24px;right:11px;bottom:12px;}
@@ -227,8 +222,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 @media(max-width:400px){
   .bookshelf{gap:12px;border-width:4px!important;}
   .book-container{width:140px;height:228px;}
-  .book-crest{display:none;}
-  .cover-content{padding:29px 5px 12px 18px!important;}
+  .cover-content{padding:24px 5px 12px 18px!important;}
   .cv-title{font-size:.60rem;}
   .cv-title-sm{font-size:.52rem!important;}
   .cv-med{width:46px;height:46px;}
@@ -384,16 +378,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 </svg>
 
   <div class="book-container book-1 reveal-item" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
-    <div class="book-crest">
-      <svg viewBox="0 0 100 34" fill="none">
-        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <path d="M6 13 L50 2 L94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none" stroke-linejoin="round"/>
-        <circle cx="50" cy="2" r="2.2" fill="rgba(240,200,74,.85)"/>
-      </svg>
-    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -461,16 +445,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
-    <div class="book-crest">
-      <svg viewBox="0 0 100 34" fill="none">
-        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <path d="M6 13 Q50 -6 94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none"/>
-        <circle cx="50" cy="0" r="2.2" fill="rgba(240,200,74,.85)"/>
-      </svg>
-    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -539,16 +513,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
-    <div class="book-crest">
-      <svg viewBox="0 0 100 34" fill="none">
-        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <path d="M6 13 L50 2 L94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none" stroke-linejoin="round"/>
-        <circle cx="50" cy="2" r="2.2" fill="rgba(240,200,74,.85)"/>
-      </svg>
-    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -619,16 +583,6 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   </div>
 
   <div class="book-container book-4 reveal-item">
-    <div class="book-crest">
-      <svg viewBox="0 0 100 34" fill="none">
-        <line x1="10" y1="34" x2="10" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <line x1="90" y1="34" x2="90" y2="13" stroke="rgba(201,162,39,.6)" stroke-width="2"/>
-        <circle cx="10" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <circle cx="90" cy="13" r="2.6" fill="rgba(201,162,39,.7)"/>
-        <path d="M6 13 Q50 -6 94 13" stroke="rgba(201,162,39,.65)" stroke-width="2" fill="none"/>
-        <circle cx="50" cy="0" r="2.2" fill="rgba(240,200,74,.85)"/>
-      </svg>
-    </div>
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
