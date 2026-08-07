@@ -5,6 +5,22 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
 <link rel="manifest" href="/assets/images/favicon/site.webmanifest">
 <script>
+  /* site-wide: any <img> that 404s (missing asset) shows a visible
+     placeholder icon in its place instead of the browser's broken-image
+     glyph, so missing images are obvious at a glance while browsing */
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG' || img.dataset.anMissing) return;
+    img.dataset.anMissing = '1';
+    var box = document.createElement('span');
+    box.textContent = '🖼️';
+    box.title = 'Missing image: ' + img.getAttribute('src');
+    box.style.cssText = 'display:flex;align-items:center;justify-content:center;width:' + (img.offsetWidth || img.width || 100) + 'px;height:' + (img.offsetHeight || img.height || 100) + 'px;font-size:2rem;opacity:.45;background:rgba(0,0,0,.15);border-radius:6px;';
+    img.style.display = 'none';
+    img.insertAdjacentElement('afterend', box);
+  }, true);
+</script>
+<script>
   document.addEventListener('DOMContentLoaded', function () {
     var avatarImg = document.querySelector('.author__avatar img');
     if (!avatarImg) return;

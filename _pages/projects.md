@@ -429,8 +429,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#0a0014;">
-            <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-            <span style="display:none;font-size:2.8rem;">📄</span>
+            <img src="/assets/images/irjems-preview.png" alt="IRJEMS Paper" style="width:100%;height:100%;object-fit:contain;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Literature Review</span>
