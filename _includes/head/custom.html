@@ -643,6 +643,12 @@
     width: 16px !important;
   }
 
+  /* the theme reserves space for a table-of-contents sidebar on every page;
+     nothing on this site uses page TOC, so reclaim that width */
+  .page {
+    padding-right: 0 !important;
+  }
+
   .page__inner-wrap {
     background: var(--glass) !important;
     -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
@@ -653,6 +659,7 @@
     margin-top: 20px !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(201, 162, 39, .07) !important;
     position: relative !important;
+    container-type: inline-size;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }

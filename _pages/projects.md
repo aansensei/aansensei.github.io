@@ -149,6 +149,37 @@ author_profile: true
 .book-4.book-container::after{background:rgba(180,145,20,1);animation-duration:3.5s;animation-delay:-2.1s;}
 .book-container:hover::after{opacity:.30;filter:blur(20px);transform:scaleX(.70);}
 
+/* container query: fires whenever the CONTENT COLUMN (not the viewport) is
+   narrow — e.g. a wide desktop monitor with the sidebar author-profile box
+   still only leaves ~600-900px for the bookshelf. Viewport-width media
+   queries can't see this; container queries measure the actual column. */
+@container (max-width: 900px) {
+  .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
+  .book-container{width:155px;height:260px;}
+  .book-container:hover{transform:translateX(72px) translateY(-12px) scale(1.03)!important;}
+  .inside-pages{padding:10px 8px;overflow:hidden;}
+  .inside-pages i{font-size:1.3rem!important;margin-bottom:4px;}
+  .inside-pages h4{font-size:.82rem!important;margin:3px 0!important;}
+  .inside-pages p,.inside-pages small{font-size:.72rem!important;}
+  .btn-view-story{font-size:.75rem;padding:5px 12px;margin-top:7px;}
+  .pub-badge{font-size:.78rem!important;}
+  .cover-content{padding:28px 6px 14px 20px!important;}
+  .cvf-a{top:7px;left:18px;right:5px;bottom:6px;}
+  .cvf-b{top:9px;left:20px;right:7px;bottom:8px;border-width:3px;}
+  .cvf-c{top:13px;left:24px;right:11px;bottom:12px;}
+  .cvf-tp{top:22px;left:34px;right:20px;height:3px;}
+  .cvf-bp{bottom:20px;left:34px;right:20px;height:3px;}
+  .cv-c{width:24px!important;height:24px!important;}
+  .cv-c-tl{top:5px;left:15px;}.cv-c-tr{top:5px;right:2px;}
+  .cv-c-bl{bottom:3px;left:15px;}.cv-c-br{bottom:3px;right:2px;}
+  .cv-title{font-size:.68rem;}
+  .cv-title-sm{font-size:.58rem!important;}
+  .cv-vol{font-size:.38rem;letter-spacing:.22em!important;margin-bottom:3px!important;}
+  .cv-med{width:55px;height:55px;}
+  .cv-rule{margin:4px auto;width:78%;}
+  .cv-sub{font-size:.58rem!important;}
+  .cv-sub-rule{margin:2px auto 4px!important;}
+}
 @media(max-width:640px){
   .bookshelf{gap:20px;padding:28px 8px 36px;border-width:6px!important;}
   .book-container{width:155px;height:260px;}
