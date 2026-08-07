@@ -270,7 +270,7 @@ author_profile: true
 }
 
 /* ── Per-book ornament charm — docked to each book's corner, gold-line SVG, Live2D-style idle motion ── */
-.shelf-ornament{position:absolute;bottom:-8px;right:-20px;width:46px;z-index:6;pointer-events:none;}
+.shelf-ornament{position:absolute;bottom:-40px;right:10px;width:44px;z-index:6;pointer-events:none;}
 @keyframes ornFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
 .ornament-float{animation:ornFloat 3.6s ease-in-out infinite;}
 .book-2 .ornament-float{animation-duration:4.1s;animation-delay:-1.3s;}
@@ -289,13 +289,13 @@ author_profile: true
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
-  .shelf-ornament{width:40px;right:-16px;}
+  .shelf-ornament{width:38px;right:8px;bottom:-38px;}
 }
 @media(max-width:640px){
-  .shelf-ornament{width:34px;right:-13px;bottom:-6px;}
+  .shelf-ornament{width:30px;right:6px;bottom:-28px;}
 }
 @media(max-width:400px){
-  .shelf-ornament{width:30px;right:-11px;}
+  .shelf-ornament{width:26px;right:5px;bottom:-24px;}
 }
 </style>
 
