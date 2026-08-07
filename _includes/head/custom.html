@@ -457,6 +457,27 @@
     pointer-events: none;
   }
 
+  .masthead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .masthead::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: inherit;
+    pointer-events: none;
+  }
+
   html,
   .initial-content,
   .page__content,
