@@ -118,8 +118,8 @@ author_profile: true
         <div class="song-expandable-inner">
           <div class="song-divider"></div>
           <div class="song-why-box">
-            <i class="fa-solid fa-quote-left" style="position:absolute;top:10px;left:10px;color:rgba(0,212,255,.15);font-size:1.8rem;"></i>
-            <h4 style="color:#67e8f9;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:6px;font-size:.92rem;"><i class="fa-solid fa-heart" style="color:#f472b6;"></i> Why I love this song?</h4>
+            <i class="fa-solid fa-quote-left" style="position:absolute;top:14px;right:16px;left:auto;color:rgba(0,212,255,.15);font-size:1.8rem;"></i>
+            <h4 style="color:#67e8f9;font-weight:700;margin:0 0 10px;display:flex;align-items:center;gap:6px;font-size:.92rem;position:relative;z-index:1;"><i class="fa-solid fa-heart" style="color:#f472b6;"></i> Why I love this song?</h4>
             <p style="font-size:.85rem;color:#cbd5e1;line-height:1.75;margin:0;padding-left:20px;position:relative;z-index:1;">
               My favorite song is SToRY by DECO*27 and kemu from the Project SEKAI movie. It is a commissioned song for Leo/need, a band of childhood friends who found their way back to each other through music. I really love this song because it feels like a warm hug whenever I feel stressed about school.<br><br>
               There is a beautiful part in the lyrics that goes:<br>
