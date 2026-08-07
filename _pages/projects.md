@@ -567,7 +567,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#111111;">
-            <span style="font-size:2.8rem;">🔍</span>
+            <img src="/assets/images/shrinkflation-preview.png" alt="Shrinkflation Detective Dashboard" style="width:100%;height:100%;object-fit:contain;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
