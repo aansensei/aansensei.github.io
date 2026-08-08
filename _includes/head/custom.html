@@ -2549,11 +2549,12 @@
 
       var horizonCyan = mtnA * themeT;
       if (horizonCyan > 0.01) {
-        var bandH = H * 0.3;
+        var bandH = H * 0.32;
         var cyanBand = ctx.createLinearGradient(0, 0, 0, bandH);
         cyanBand.addColorStop(0, 'rgba(75,163,227,0)');
-        cyanBand.addColorStop(0.55, 'rgba(94,207,224,' + (0.55 * horizonCyan) + ')');
-        cyanBand.addColorStop(1, 'rgba(143,224,230,' + (0.8 * horizonCyan) + ')');
+        cyanBand.addColorStop(0.4, 'rgba(94,207,224,' + (0.5 * horizonCyan) + ')');
+        cyanBand.addColorStop(0.75, 'rgba(143,224,230,' + (0.55 * horizonCyan) + ')');
+        cyanBand.addColorStop(1, 'rgba(180,235,235,0)');
         ctx.fillStyle = cyanBand; ctx.fillRect(0, 0, W, bandH);
       }
 
