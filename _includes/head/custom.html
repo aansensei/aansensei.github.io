@@ -1323,6 +1323,11 @@
     var r1 = hex2rgb(c1), r2 = hex2rgb(c2);
     return Math.round(r1[0] + (r2[0] - r1[0]) * t) + ',' + Math.round(r1[1] + (r2[1] - r1[1]) * t) + ',' + Math.round(r1[2] + (r2[2] - r1[2]) * t);
   }
+  function lerpC3(night, dayA, dayB, tTheme, tScroll) {
+    var n = hex2rgb(night), a = hex2rgb(dayA), b = hex2rgb(dayB);
+    var dr = a[0] + (b[0] - a[0]) * tScroll, dg = a[1] + (b[1] - a[1]) * tScroll, db = a[2] + (b[2] - a[2]) * tScroll;
+    return Math.round(n[0] + (dr - n[0]) * tTheme) + ',' + Math.round(n[1] + (dg - n[1]) * tTheme) + ',' + Math.round(n[2] + (db - n[2]) * tTheme);
+  }
 
   function prand(seed) { return Math.abs(Math.sin(seed * 12.9898) * 43758.5453) % 1; }
 
@@ -2525,11 +2530,11 @@
       themeT += ((isDayMode ? 1 : 0) - themeT) * 0.04;
 
       var sky = ctx.createLinearGradient(0, 0, 0, H);
-      sky.addColorStop(0, 'rgb(' + lerpC('#030110', '#2f7fd4', themeT) + ')');
-      sky.addColorStop(.35, 'rgb(' + lerpC('#060318', '#5aabdc', themeT) + ')');
-      sky.addColorStop(.65, 'rgb(' + lerpC('#0c082a', '#8ed3e0', themeT) + ')');
-      sky.addColorStop(.85, 'rgb(' + lerpC('#16103e', '#c7ecec', themeT) + ')');
-      sky.addColorStop(1, 'rgb(' + lerpC('#1e1858', '#e9f9f5', themeT) + ')');
+      sky.addColorStop(0, 'rgb(' + lerpC('#030110', '#4ba3e3', themeT) + ')');
+      sky.addColorStop(.35, 'rgb(' + lerpC('#060318', '#73b9eb', themeT) + ')');
+      sky.addColorStop(.65, 'rgb(' + lerpC3('#0c082a', '#b3d4f0', '#7cd6e0', themeT, mtnA) + ')');
+      sky.addColorStop(.85, 'rgb(' + lerpC3('#16103e', '#ffe299', '#c9f0ee', themeT, mtnA) + ')');
+      sky.addColorStop(1, 'rgb(' + lerpC3('#1e1858', '#ffcc66', '#eefcf9', themeT, mtnA) + ')');
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
 
       drawHolyCelestial(themeT, nt);
