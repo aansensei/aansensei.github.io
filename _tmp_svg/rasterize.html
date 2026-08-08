@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head>
+<body>
+<img id="src" src="drum.svg" style="display:none">
+<canvas id="cv" width="600" height="600"></canvas>
+<script>
+window.rasterDone = false;
+window.rasterResult = '';
+const img = document.getElementById('src');
+img.onload = function(){
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0,0,600,600);
+  ctx.drawImage(img, 0, 0, 600, 600);
+  window.rasterResult = cv.toDataURL('image/png');
+  window.rasterDone = true;
+};
+img.onerror = function(e){ window.rasterError = 'load error'; window.rasterDone = true; };
+</script>
+</body></html>
