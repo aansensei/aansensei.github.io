@@ -16,11 +16,11 @@ author_profile: true
 .bookshelf::after{content:'';position:absolute;left:-12px;right:-12px;bottom:-26px;height:26px;z-index:3;background:linear-gradient(180deg,#caa24a 0%,#8a6216 8%,#4a3308 22%,#2a1c05 55%,#170f02 100%);border-radius:0 0 6px 6px;box-shadow:inset 0 2px 0 rgba(255,240,190,.55),inset 0 -3px 8px rgba(0,0,0,.6),0 14px 22px rgba(0,0,0,.55);}
 .shelf-inscription{position:absolute;left:0;right:0;bottom:-21px;z-index:4;text-align:center;font-family:'Cinzel Decorative',serif;font-size:.5rem;letter-spacing:.42em;color:rgba(58,38,4,.75);text-shadow:0 1px 0 rgba(255,240,190,.4);pointer-events:none;}
 body.an-day-mode .shelf-inscription{color:rgba(74,51,18,.8);text-shadow:0 1px 0 rgba(255,250,235,.55);}
-.shelf-corner{position:absolute;width:46px;height:46px;pointer-events:none;z-index:5;}
-.shelf-corner-tl{top:-3px;left:-3px;}
-.shelf-corner-tr{top:-3px;right:-3px;}
-.shelf-corner-bl{bottom:-3px;left:-3px;}
-.shelf-corner-br{bottom:-3px;right:-3px;}
+.shelf-corner{position:absolute;width:58px;height:58px;pointer-events:none;z-index:5;}
+.shelf-corner-tl{top:-7px;left:-7px;}
+.shelf-corner-tr{top:-7px;right:-7px;}
+.shelf-corner-bl{bottom:-7px;left:-7px;}
+.shelf-corner-br{bottom:-7px;right:-7px;}
 .shelf-corner svg{width:100%;height:100%;display:block;}
 .shelf-glow-sweep{position:absolute;inset:12px 12px 0 12px;z-index:1;pointer-events:none;border-radius:6px 6px 0 0;overflow:hidden;}
 .shelf-glow-sweep::before{content:'';position:absolute;width:60%;height:60%;border-radius:50%;background:radial-gradient(circle,rgba(240,200,74,.5) 0%,rgba(240,200,74,.15) 45%,transparent 72%);filter:blur(6px);opacity:0;animation:shelfGlowSweep 15s ease-in-out infinite;}
@@ -351,6 +351,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   <svg viewBox="0 0 46 46" fill="none">
     <path d="M4 43 V4 H43" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
     <path d="M10 37 V10 H37" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <path d="M30 10 L10 10 L10 30 L24 30 L24 16 L16 16 L16 24" stroke="rgba(240,200,74,.9)" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
     <circle cx="4" cy="4" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
     <circle cx="4" cy="4" r="2" fill="rgba(240,200,74,.8)"/>
   </svg>
@@ -359,6 +360,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   <svg viewBox="0 0 46 46" fill="none">
     <path d="M42 43 V4 H3" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
     <path d="M36 37 V10 H9" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <path d="M16 10 L36 10 L36 30 L22 30 L22 16 L30 16 L30 24" stroke="rgba(240,200,74,.9)" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
     <circle cx="42" cy="4" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
     <circle cx="42" cy="4" r="2" fill="rgba(240,200,74,.8)"/>
   </svg>
@@ -367,6 +369,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   <svg viewBox="0 0 46 46" fill="none">
     <path d="M4 3 V42 H43" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
     <path d="M10 9 V36 H37" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <path d="M30 36 L10 36 L10 16 L24 16 L24 30 L16 30 L16 22" stroke="rgba(240,200,74,.9)" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
     <circle cx="4" cy="42" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
     <circle cx="4" cy="42" r="2" fill="rgba(240,200,74,.8)"/>
   </svg>
@@ -375,6 +378,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   <svg viewBox="0 0 46 46" fill="none">
     <path d="M42 3 V42 H3" stroke="rgba(240,200,74,.75)" stroke-width="2" stroke-linecap="round"/>
     <path d="M36 9 V36 H9" stroke="rgba(201,162,39,.35)" stroke-width="1.1"/>
+    <path d="M16 36 L36 36 L36 16 L22 16 L22 30 L30 30 L30 22" stroke="rgba(240,200,74,.9)" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
     <circle cx="42" cy="42" r="5" stroke="rgba(240,200,74,.7)" stroke-width="1.5"/>
     <circle cx="42" cy="42" r="2" fill="rgba(240,200,74,.8)"/>
   </svg>
