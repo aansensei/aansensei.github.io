@@ -2532,9 +2532,9 @@
       var sky = ctx.createLinearGradient(0, 0, 0, H);
       sky.addColorStop(0, 'rgb(' + lerpC('#030110', '#4ba3e3', themeT) + ')');
       sky.addColorStop(.08, 'rgb(' + lerpC('#060318', '#73b9eb', themeT) + ')');
-      sky.addColorStop(.15, 'rgb(' + lerpC3('#0c082a', '#b3d4f0', '#5ec9e8', themeT, mtnA) + ')');
-      sky.addColorStop(.2, 'rgb(' + lerpC3('#16103e', '#ffe299', '#a8e6ec', themeT, mtnA) + ')');
-      sky.addColorStop(.26, 'rgb(' + lerpC3('#1e1858', '#ffcc66', '#e0f7f4', themeT, mtnA) + ')');
+      sky.addColorStop(.15, 'rgb(' + lerpC3('#0c082a', '#b3d4f0', '#4fc3e0', themeT, mtnA) + ')');
+      sky.addColorStop(.2, 'rgb(' + lerpC3('#16103e', '#ffe299', '#5ecfe0', themeT, mtnA) + ')');
+      sky.addColorStop(.26, 'rgb(' + lerpC3('#1e1858', '#ffcc66', '#8fe0e6', themeT, mtnA) + ')');
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
 
       drawHolyCelestial(themeT, nt);
@@ -2631,16 +2631,6 @@
         drawMist(casA * 0.7, true, themeT);
         drawFireflies(casA, themeT);
         drawCherryBlossomTrees(casA, themeT);
-      }
-
-      if (themeT > 0) {
-        ctx.save(); ctx.globalCompositeOperation = 'overlay';
-        var lightG = ctx.createRadialGradient(W * 0.82, H * 0.12, 0, W * 0.82, H * 0.12, W * 0.75);
-        lightG.addColorStop(0, 'rgba(255,225,170,' + (0.4 * themeT) + ')');
-        lightG.addColorStop(0.6, 'rgba(255,225,170,' + (0.12 * themeT) + ')');
-        lightG.addColorStop(1, 'rgba(255,225,170,0)');
-        ctx.fillStyle = lightG; ctx.fillRect(0, 0, W, H);
-        ctx.restore();
       }
 
       for (var fi = FW.length - 1; fi >= 0; fi--) {
