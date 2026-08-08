@@ -1701,9 +1701,9 @@
 
       // Hào quang ma thuật sau lâu đài
       ctx.globalAlpha = a * (1 - t);
-      var am = ctx.createRadialGradient(W / 2, H * .82, 0, W / 2, H * .82, W * .48);
-      am.addColorStop(0, 'rgba(65,40,140,.45)'); am.addColorStop(1, 'transparent');
-      ctx.fillStyle = am; ctx.fillRect(0, H * .4, W, H * .6);
+      var am = ctx.createRadialGradient(W / 2, H * .82, 0, W / 2, H * .82, W * .22);
+      am.addColorStop(0, 'rgba(65,40,140,.18)'); am.addColorStop(1, 'transparent');
+      ctx.fillStyle = am; ctx.fillRect(0, H * .68, W, H * .32);
       ctx.globalAlpha = a;
       ctx.translate((W - VW) / 2, 0);
 
