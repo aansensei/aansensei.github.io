@@ -1754,8 +1754,9 @@
       }
 
       // vẽ tường gạch
+      var maxWallH = 108 * s;
       function wall(x, w, h) {
-        var wallGrad = ctx.createLinearGradient(x, bY - h, x, bY);
+        var wallGrad = ctx.createLinearGradient(x, bY - maxWallH, x, bY);
         wallGrad.addColorStop(0, 'rgb(' + cWallBase + ')');
         wallGrad.addColorStop(1, 'rgb(' + cWallDark + ')');
         ctx.fillStyle = wallGrad;
