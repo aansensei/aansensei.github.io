@@ -1648,7 +1648,7 @@
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var mScale = W < 768 ? 0.38 : 0.85;
-      var MVW = W < 768 ? 900 : W;
+      var MVW = W < 768 ? 1400 : W;
       ctx.translate((W - MVW) / 2, 0);
       var g1 = ctx.createLinearGradient(0, H * .33, 0, H * .78);
       g1.addColorStop(0, 'rgb(' + lerpC('#1a1436', '#6d889c', t) + ')'); g1.addColorStop(1, 'rgb(' + lerpC('#0e0b1c', '#4a6b82', t) + ')');
@@ -1706,7 +1706,6 @@
       ctx.fillStyle = am; ctx.fillRect(0, H * .65, W, H * .35);
       ctx.globalAlpha = a;
       ctx.translate((W - VW) / 2, 0);
-      if (isMobile) { ctx.translate(0, bY); ctx.scale(1, 1.45); ctx.translate(0, -bY); }
 
       // Hue Palette
       var cStoneBase = lerpC('#2f3338', '#b5b7b0', t);
