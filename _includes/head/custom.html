@@ -796,6 +796,7 @@
     text-align: center;
     background: linear-gradient(to right, transparent, rgba(201, 162, 39, .5), rgba(240, 200, 74, .8), rgba(201, 162, 39, .5), transparent);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -807,6 +808,7 @@
   body.an-day-mode .page__footer::after {
     background: linear-gradient(to right, transparent, rgba(184, 134, 11, .6), rgba(210, 105, 30, .9), rgba(184, 134, 11, .6), transparent);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
@@ -2452,7 +2454,7 @@
         mb1: new Path2D("M 180 240 C 190 280, 190 310, 175 325"),
         mb2: new Path2D("M 320 250 C 330 290, 330 330, 310 365"),
         mb3: new Path2D("M 480 245 C 490 270, 490 300, 470 330"),
-        cb1: new Path2D("M 140 235 L 160 160 L 450 160 L 480 235 Z"),
+        cb1: new Path2D("M 140 280 L 160 160 L 450 160 L 480 280 Z"),
         cr1: new Path2D("M 135 160 L 455 160 L 450 150 L 140 150 Z"),
         cb2: new Path2D("M 200 150 L 220 90 L 380 90 L 400 150 Z"),
         cr2: new Path2D("M 190 90 L 390 90 L 380 80 L 200 80 Z"),
@@ -2506,16 +2508,13 @@
         var sm = SHIP_SMOKE[i];
         sm.x += sm.vx; sm.y += sm.vy; sm.life -= 0.006; sm.size += 0.5;
         if (sm.life <= 0) { SHIP_SMOKE.splice(i, 1); continue; }
-
         var smAlpha = sm.life * (isDay ? 0.6 : 0.3) * a;
         var sg = ctx.createRadialGradient(sm.x, sm.y, 0, sm.x, sm.y, sm.size);
-
         if (isDay) {
           sg.addColorStop(0, 'rgba(255, 240, 245, ' + smAlpha + ')'); sg.addColorStop(0.4, 'rgba(255, 220, 230, ' + (smAlpha * 0.7) + ')'); sg.addColorStop(1, 'rgba(255, 220, 230, 0)');
         } else {
           sg.addColorStop(0, 'rgba(120, 125, 140, ' + smAlpha + ')'); sg.addColorStop(0.4, 'rgba(80, 85, 100, ' + (smAlpha * 0.7) + ')'); sg.addColorStop(1, 'rgba(80, 85, 100, 0)');
         }
-
         ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(sm.x, sm.y, sm.size, 0, Math.PI * 2); ctx.fill();
       }
 
@@ -2540,6 +2539,13 @@
 
       var gWood = ctx.createLinearGradient(0, 230, 0, 380);
       gWood.addColorStop(0, 'rgb(' + lerpC('#151225', '#D8C6AC', t) + ')'); gWood.addColorStop(0.5, 'rgb(' + lerpC('#0c0a18', '#CAB9A4', t) + ')'); gWood.addColorStop(1, 'rgb(' + lerpC('#06050d', '#C2AF94', t) + ')');
+      
+      var gCabin = ctx.createLinearGradient(0, 40, 0, 280);
+      gCabin.addColorStop(0, 'rgb(' + lerpC('#18122a', '#CDB59E', t) + ')'); gCabin.addColorStop(1, 'rgb(' + lerpC('#0a0815', '#A58B70', t) + ')');
+
+      var gRoof = ctx.createLinearGradient(0, 25, 0, 160);
+      gRoof.addColorStop(0, 'rgb(' + lerpC('#2a1111', '#B65D46', t) + ')'); gRoof.addColorStop(1, 'rgb(' + lerpC('#1a0808', '#863521', t) + ')');
+
       var gMetal = ctx.createLinearGradient(0, 0, 0, 400);
       gMetal.addColorStop(0, 'rgb(' + lerpC('#161822', '#8698a6', t) + ')'); gMetal.addColorStop(1, 'rgb(' + lerpC('#0a0b12', '#4b5b68', t) + ')');
       var gBrass = ctx.createLinearGradient(0, -50, 0, 100);
@@ -2570,48 +2576,73 @@
       ctx.fillStyle = gWood; ctx.fill(SPATH.rudder1); ctx.fill(SPATH.rudder2);
       ctx.strokeStyle = 'rgb(' + lerpC('#06050d', '#311d0e', t) + ')'; ctx.lineWidth = 2; ctx.stroke(SPATH.rudder2);
 
-      ctx.fillStyle = gMetal;
-      ctx.beginPath(); roundRectSafe(ctx, 250, 340, 80, 35, 15); ctx.fill();
-      ctx.beginPath(); roundRectSafe(ctx, 350, 325, 90, 40, 20); ctx.fill();
-      ctx.beginPath(); roundRectSafe(ctx, 460, 305, 60, 30, 15); ctx.fill();
-      ctx.fillStyle = '#050505';
-      ctx.fillRect(270, 340, 4, 35); ctx.fillRect(310, 340, 4, 35);
-      ctx.fillRect(375, 325, 5, 40); ctx.fillRect(415, 325, 5, 40);
+      // Cabins (drawn BEFORE hull)
+      ctx.lineWidth = 2; ctx.strokeStyle = 'rgb(' + lerpC('#050308', '#2a1a12', t) + ')';
+      [SPATH.cb1, SPATH.cb2, SPATH.cb3].forEach(function(p) {
+        ctx.fillStyle = gCabin; ctx.fill(p); ctx.stroke(p);
+      });
+      [SPATH.cr1, SPATH.cr2, SPATH.cr3].forEach(function(p) {
+        ctx.fillStyle = gRoof; ctx.fill(p); ctx.stroke(p);
+      });
 
+      // Vách gỗ (Wood panels) - add vertical lines to cabins
+      ctx.save();
+      ctx.strokeStyle = 'rgba(0,0,0,0.1)'; ctx.lineWidth = 1; ctx.setLineDash([6, 4]);
+      for(var vx=150; vx<460; vx+=25) { ctx.beginPath(); ctx.moveTo(vx, 160); ctx.lineTo(vx, 250); ctx.stroke(); }
+      for(var vx=210; vx<390; vx+=25) { ctx.beginPath(); ctx.moveTo(vx, 90); ctx.lineTo(vx, 150); ctx.stroke(); }
+      for(var vx=280; vx<340; vx+=20) { ctx.beginPath(); ctx.moveTo(vx, 40); ctx.lineTo(vx, 80); ctx.stroke(); }
+      ctx.restore();
+
+      // Cửa sổ: Căn chỉnh đều đặn, chia ô rõ ràng
+      var windows = [];
+      for(var wx = 180; wx <= 420; wx += 40) windows.push([wx, 185]);
+      for(var wx = 240; wx <= 360; wx += 40) windows.push([wx, 110]);
+      windows.forEach(function (w) {
+        var wW = 16, wH = 22;
+        ctx.fillStyle = isNight ? '#ffebb5' : 'rgb(' + lerpC('#080510', '#3e2723', t) + ')';
+        if (isNight) {
+          ctx.shadowBlur = 15; ctx.shadowColor = '#ffb300';
+        }
+        ctx.beginPath(); roundRectSafe(ctx, w[0], w[1], wW, wH, 2); ctx.fill();
+        ctx.shadowBlur = 0;
+        
+        // Chia ô (window frame crossbar)
+        ctx.strokeStyle = isNight ? '#3e2723' : '#1a100e'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(w[0] + wW/2, w[1]); ctx.lineTo(w[0] + wW/2, w[1] + wH); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(w[0], w[1] + wH/2); ctx.lineTo(w[0] + wW, w[1] + wH/2); ctx.stroke();
+      });
+
+      // Lồng đèn đỏ treo dưới mái hiên
+      var lf = isNight ? (0.8 + 0.2*Math.sin(nt*3)) : 1;
+      [[135, 160], [455, 160], [195, 90], [385, 90], [275, 40], [340, 40]].forEach(function(pos) {
+         var lx = pos[0], ly = pos[1];
+         ctx.fillStyle = 'rgb(' + lerpC('#881111', '#ff3333', t) + ')';
+         if(isNight) { ctx.shadowBlur = 12*lf; ctx.shadowColor = '#ff5500'; }
+         ctx.fillRect(lx - 4, ly, 8, 12);
+         ctx.shadowBlur = 0;
+         ctx.fillStyle = '#ffcc00'; ctx.fillRect(lx - 3, ly, 6, 2); ctx.fillRect(lx - 3, ly + 10, 6, 2);
+         ctx.strokeStyle = '#222'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(lx, ly-5); ctx.stroke();
+      });
+
+      // Hull (OVER bottom of cabins)
       ctx.fillStyle = gWood; ctx.strokeStyle = 'rgb(' + lerpC('#050308', '#2a1a12', t) + ')'; ctx.lineWidth = 3;
       ctx.fill(SPATH.hull); ctx.stroke(SPATH.hull);
 
-      ctx.save(); ctx.globalAlpha = 0.6; ctx.strokeStyle = 'rgb(' + lerpC('#080510', '#3b2518', t) + ')'; ctx.lineWidth = 2;
-      ctx.stroke(SPATH.wl1); ctx.stroke(SPATH.wl2); ctx.stroke(SPATH.wl3); ctx.stroke(SPATH.wl4); ctx.restore();
+      // Vách gỗ hull (Wood panels on hull)
+      ctx.save(); ctx.globalAlpha = 0.5; ctx.strokeStyle = 'rgb(' + lerpC('#080510', '#3b2518', t) + ')'; ctx.lineWidth = 2;
+      ctx.stroke(SPATH.wl1); ctx.stroke(SPATH.wl2); ctx.stroke(SPATH.wl3); ctx.stroke(SPATH.wl4);
+      // Vertical panels
+      ctx.lineWidth = 1; ctx.setLineDash([5, 5]);
+      for(var vx=120; vx<650; vx+=30) { ctx.beginPath(); ctx.moveTo(vx, 250); ctx.lineTo(vx, 350); ctx.stroke(); }
+      ctx.restore();
+
+      // Top railing of hull
+      ctx.strokeStyle = gBrass; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(80, 230); ctx.quadraticCurveTo(300, 280, 580, 260); ctx.stroke();
 
       ctx.strokeStyle = gMetal; ctx.lineWidth = 8; ctx.stroke(SPATH.mb1); ctx.stroke(SPATH.mb2); ctx.stroke(SPATH.mb3);
       ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = '#fff';
       [[184, 255], [187, 280], [184, 305], [325, 265], [327, 295], [324, 330], [316, 355]].forEach(function (p) { ctx.beginPath(); ctx.arc(p[0], p[1], 1.5, 0, Math.PI * 2); ctx.fill(); }); ctx.restore();
-
-      ctx.lineWidth = 2; ctx.strokeStyle = 'rgb(' + lerpC('#050308', '#2a150c', t) + ')';
-      ctx.fillStyle = 'rgb(' + lerpC('#0e0a18', '#B09070', t) + ')'; ctx.fill(SPATH.cb1); ctx.stroke(SPATH.cb1);
-      ctx.fillStyle = 'rgb(' + lerpC('#06040a', '#967656', t) + ')'; ctx.fill(SPATH.cr1);
-      ctx.fillStyle = 'rgb(' + lerpC('#120d1e', '#B89A7A', t) + ')'; ctx.fill(SPATH.cb2); ctx.stroke(SPATH.cb2);
-      ctx.fillStyle = 'rgb(' + lerpC('#06040a', '#967656', t) + ')'; ctx.fill(SPATH.cr2);
-      ctx.fillStyle = 'rgb(' + lerpC('#161025', '#C0A485', t) + ')'; ctx.fill(SPATH.cb3); ctx.stroke(SPATH.cb3);
-      ctx.fillStyle = 'rgb(' + lerpC('#06040a', '#866646', t) + ')'; ctx.fill(SPATH.cr3);
-
-      var windows = [[220, 250], [260, 255], [300, 260], [340, 262], [380, 260], [420, 255], [180, 180], [220, 180], [260, 180], [300, 180], [340, 180], [380, 180], [420, 180], [240, 110], [280, 110], [320, 110], [360, 110]];
-      windows.forEach(function (w) {
-        ctx.fillStyle = 'rgb(' + lerpC('#080510', '#3e2723', t) + ')';
-        ctx.beginPath(); roundRectSafe(ctx, w[0], w[1], 16, 20, 4); ctx.fill();
-        if (isNight) {
-          ctx.shadowBlur = 20; ctx.shadowColor = '#ffb300';
-          var gl = ctx.createRadialGradient(w[0] + 8, w[1] + 10, 0, w[0] + 8, w[1] + 10, 15);
-          gl.addColorStop(0, '#ffebb5'); gl.addColorStop(0.4, 'rgba(255, 179, 0, 0.9)'); gl.addColorStop(1, 'rgba(230, 92, 0, 0.4)');
-          ctx.fillStyle = gl;
-        } else { ctx.fillStyle = '#221815'; }
-        ctx.beginPath(); roundRectSafe(ctx, w[0] + 2, w[1] + 2, 12, 16, 2); ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = 'rgb(' + lerpC('#080510', '#3e2723', t) + ')'; ctx.lineWidth = 1.5;
-        ctx.beginPath(); ctx.moveTo(w[0] + 8, w[1] + 2); ctx.lineTo(w[0] + 8, w[1] + 18); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(w[0] + 2, w[1] + 10); ctx.lineTo(w[0] + 14, w[1] + 10); ctx.stroke();
-      });
 
       if (isNight) { ctx.shadowBlur = 25; ctx.shadowColor = '#ffb300'; ctx.fillStyle = '#ffebb5'; } else { ctx.fillStyle = '#1a1a1a'; }
       ctx.beginPath(); ctx.arc(310, 60, 10, 0, Math.PI * 2); ctx.fill();
@@ -2624,7 +2655,8 @@
       ctx.beginPath(); ctx.moveTo(310, -30); ctx.lineTo(170, 50); ctx.stroke(); ctx.beginPath(); ctx.moveTo(310, -10); ctx.lineTo(450, 160); ctx.stroke();
       ctx.beginPath(); ctx.moveTo(170, 0); ctx.lineTo(80, 230); ctx.stroke(); ctx.beginPath(); ctx.moveTo(170, 50); ctx.lineTo(220, 150); ctx.stroke();
 
-      var fx = 310, fy = -45, fw = 55, fh = 35;
+      // Flag (correct wind)
+      var fx = 310, fy = -45, fw = -55, fh = 35;
       var wave1 = Math.sin(nt * 8) * 8, wave2 = Math.sin(nt * 8 - 1) * 8;
       ctx.fillStyle = 'rgb(' + lerpC('#661111', '#da251d', t) + ')';
       ctx.beginPath(); ctx.moveTo(fx, fy); ctx.quadraticCurveTo(fx + fw * 0.5, fy + wave1, fx + fw, fy + wave2); ctx.lineTo(fx + fw, fy + fh + wave2); ctx.quadraticCurveTo(fx + fw * 0.5, fy + fh + wave1, fx, fy + fh); ctx.closePath(); ctx.fill();
@@ -2643,6 +2675,15 @@
 
       ctx.strokeStyle = gMetal; ctx.lineWidth = 5;
       ctx.beginPath(); ctx.moveTo(260, 260); ctx.lineTo(310, 180); ctx.stroke(); ctx.beginPath(); ctx.moveTo(400, 265); ctx.lineTo(380, 180); ctx.stroke(); ctx.beginPath(); ctx.moveTo(530, 260); ctx.lineTo(450, 180); ctx.stroke();
+      
+      ctx.fillStyle = gMetal;
+      ctx.beginPath(); roundRectSafe(ctx, 250, 340, 80, 35, 15); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); roundRectSafe(ctx, 350, 325, 90, 40, 20); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); roundRectSafe(ctx, 460, 305, 60, 30, 15); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#050505';
+      ctx.fillRect(270, 340, 4, 35); ctx.fillRect(310, 340, 4, 35);
+      ctx.fillRect(375, 325, 5, 40); ctx.fillRect(415, 325, 5, 40);
+
       ctx.fillStyle = gWing; ctx.strokeStyle = 'rgb(' + lerpC('#100e16', '#75625a', t) + ')'; ctx.lineWidth = 2;
       ctx.fill(SPATH.wf); ctx.stroke(SPATH.wf);
       ctx.strokeStyle = 'rgb(' + lerpC('#181620', '#a39891', t) + ')'; ctx.lineWidth = 2;
@@ -2662,6 +2703,19 @@
         ctx.shadowBlur = 0;
       }
 
+      function drawBird(bx, by, wingPhase) {
+         ctx.save(); ctx.translate(bx, by);
+         var flap = Math.sin(wingPhase) * 15;
+         ctx.fillStyle = gBrass; ctx.beginPath(); ctx.ellipse(0, 0, 12, 6, 0.2, 0, Math.PI*2); ctx.fill();
+         ctx.fillStyle = gWood; ctx.beginPath(); ctx.moveTo(0, -3); ctx.quadraticCurveTo(-10, -20 + flap, -25, -15 + flap); ctx.lineTo(0, 3); ctx.fill();
+         ctx.fillStyle = isNight ? 'rgba(0, 255, 255, 0.9)' : 'rgba(255, 200, 50, 0.9)';
+         if(isNight) { ctx.shadowBlur = 8; ctx.shadowColor = '#00ffff'; }
+         ctx.beginPath(); ctx.arc(7, -2, 2.5, 0, Math.PI*2); ctx.fill();
+         ctx.shadowBlur = 0; ctx.restore();
+      }
+      drawBird(800, 80, nt*12); drawBird(850, 110, nt*12 + 1);
+      drawBird(770, 150, nt*12 + 2); drawBird(900, 60, nt*12 + 3);
+
       if (!isNight) {
         ctx.strokeStyle = '#9e9e9e'; ctx.lineWidth = 1.5; ctx.fillStyle = '#fff';
         var bx = Math.sin(nt * 2) * 10, by = Math.sin(nt * 4) * 5;
@@ -2671,7 +2725,6 @@
       }
       ctx.restore();
     }
-
     function drawHolyCelestial(t, nt) {
       ctx.save();
       var R = Math.min(W, H) * 0.11; R = Math.max(65, Math.min(110, R));
