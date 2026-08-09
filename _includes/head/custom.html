@@ -2086,6 +2086,96 @@
       ctx.fillStyle = 'rgba(0,0,0,0.4)'; 
       for (var lx = gcx - baseW/2; lx < gcx + baseW/2; lx += 15*s) { ctx.fillRect(lx + 2*s, bY - baseH - 10*s, 11*s, 10*s); }
 
+      function drawSeal(cx, cy, r, text) {
+        var baseC = cStoneBase; // match the wall stone color
+        var shadowC = isNight ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.55)';
+        var highlightC = isNight ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.6)';
+        var darkCenter = isNight ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.2)';
+
+        // Base circle
+        ctx.fillStyle = 'rgb(' + baseC + ')';
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+
+        // 3D Bevel effect (carved) - Outer ring
+        ctx.lineWidth = 1.5 * s;
+        ctx.strokeStyle = shadowC;
+        ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI * 0.75, Math.PI * 1.75); ctx.stroke();
+        ctx.strokeStyle = highlightC;
+        ctx.beginPath(); ctx.arc(cx, cy, r, Math.PI * 1.75, Math.PI * 0.75); ctx.stroke();
+
+        // Middle ring
+        ctx.strokeStyle = highlightC;
+        ctx.beginPath(); ctx.arc(cx, cy, r * 0.82, Math.PI * 0.75, Math.PI * 1.75); ctx.stroke();
+        ctx.strokeStyle = shadowC;
+        ctx.beginPath(); ctx.arc(cx, cy, r * 0.82, Math.PI * 1.75, Math.PI * 0.75); ctx.stroke();
+
+        // Inner ring
+        ctx.strokeStyle = shadowC;
+        ctx.beginPath(); ctx.arc(cx, cy, r * 0.65, Math.PI * 0.75, Math.PI * 1.75); ctx.stroke();
+        ctx.strokeStyle = highlightC;
+        ctx.beginPath(); ctx.arc(cx, cy, r * 0.65, Math.PI * 1.75, Math.PI * 0.75); ctx.stroke();
+
+        // Very center slight darkening
+        ctx.fillStyle = darkCenter;
+        ctx.beginPath(); ctx.arc(cx, cy, r * 0.6, 0, Math.PI * 2); ctx.fill();
+
+        // Center Motif (stylized Thien An characters)
+        ctx.lineWidth = 1.0 * s;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        var cr = r * 0.5;
+
+        var drawMotif = function(offsetX, offsetY) {
+            if (text === '天') {
+                // Top bar
+                ctx.moveTo(cx - cr * 0.5 + offsetX, cy - cr * 0.5 + offsetY); ctx.lineTo(cx + cr * 0.5 + offsetX, cy - cr * 0.5 + offsetY);
+                // Bottom bar
+                ctx.moveTo(cx - cr * 0.7 + offsetX, cy - cr * 0.1 + offsetY); ctx.lineTo(cx + cr * 0.7 + offsetX, cy - cr * 0.1 + offsetY);
+                // Left sweep
+                ctx.moveTo(cx + offsetX, cy - cr * 0.5 + offsetY); 
+                ctx.lineTo(cx + offsetX, cy + cr * 0.1 + offsetY); 
+                ctx.lineTo(cx - cr * 0.6 + offsetX, cy + cr * 0.7 + offsetY);
+                // Right sweep
+                ctx.moveTo(cx + offsetX, cy + cr * 0.1 + offsetY); 
+                ctx.lineTo(cx + cr * 0.6 + offsetX, cy + cr * 0.7 + offsetY);
+            } else if (text === '恩') {
+                // Outer box of 因
+                ctx.moveTo(cx - cr * 0.6 + offsetX, cy - cr * 0.8 + offsetY); ctx.lineTo(cx + cr * 0.6 + offsetX, cy - cr * 0.8 + offsetY);
+                ctx.moveTo(cx - cr * 0.6 + offsetX, cy - cr * 0.8 + offsetY); ctx.lineTo(cx - cr * 0.6 + offsetX, cy + offsetY);
+                ctx.moveTo(cx + cr * 0.6 + offsetX, cy - cr * 0.8 + offsetY); ctx.lineTo(cx + cr * 0.6 + offsetX, cy + offsetY);
+                ctx.moveTo(cx - cr * 0.6 + offsetX, cy + offsetY); ctx.lineTo(cx + cr * 0.6 + offsetX, cy + offsetY);
+                // Inside '大'
+                ctx.moveTo(cx - cr * 0.3 + offsetX, cy - cr * 0.4 + offsetY); ctx.lineTo(cx + cr * 0.3 + offsetX, cy - cr * 0.4 + offsetY);
+                ctx.moveTo(cx + offsetX, cy - cr * 0.7 + offsetY); ctx.lineTo(cx + offsetX, cy - cr * 0.2 + offsetY);
+                ctx.moveTo(cx + offsetX, cy - cr * 0.2 + offsetY); ctx.lineTo(cx - cr * 0.3 + offsetX, cy - cr * 0.1 + offsetY);
+                ctx.moveTo(cx + offsetX, cy - cr * 0.2 + offsetY); ctx.lineTo(cx + cr * 0.3 + offsetX, cy - cr * 0.1 + offsetY);
+                // Bottom '心'
+                ctx.moveTo(cx - cr * 0.6 + offsetX, cy + cr * 0.3 + offsetY); ctx.lineTo(cx - cr * 0.4 + offsetX, cy + cr * 0.6 + offsetY); // Left dot
+                ctx.moveTo(cx - cr * 0.3 + offsetX, cy + cr * 0.4 + offsetY); ctx.lineTo(cx - cr * 0.1 + offsetX, cy + cr * 0.7 + offsetY); ctx.lineTo(cx + cr * 0.4 + offsetX, cy + cr * 0.7 + offsetY); ctx.lineTo(cx + cr * 0.6 + offsetX, cy + cr * 0.5 + offsetY); // Center swoop
+                ctx.moveTo(cx + cr * 0.1 + offsetX, cy + cr * 0.2 + offsetY); ctx.lineTo(cx + cr * 0.2 + offsetX, cy + cr * 0.4 + offsetY); // Middle dot
+                ctx.moveTo(cx + cr * 0.5 + offsetX, cy + cr * 0.2 + offsetY); ctx.lineTo(cx + cr * 0.7 + offsetX, cy + cr * 0.4 + offsetY); // Right dot
+            }
+        };
+
+        // Draw motif highlight
+        ctx.strokeStyle = highlightC;
+        ctx.beginPath();
+        drawMotif(0, 1.2 * s);
+        ctx.stroke();
+
+        // Draw motif shadow
+        ctx.strokeStyle = shadowC;
+        ctx.beginPath();
+        drawMotif(0, 0);
+        ctx.stroke();
+
+        ctx.lineCap = 'butt';
+        ctx.lineJoin = 'miter';
+      }
+
+      drawSeal(gcx - 240 * s, bY - 64 * s, 16 * s, '天');
+      drawSeal(gcx + 240 * s, bY - 64 * s, 16 * s, '恩');
+
       drawArch(gcx, bY, 52*s, 60*s, true); 
       drawArch(gcx - 75*s, bY, 40*s, 48*s, false); 
       drawArch(gcx + 75*s, bY, 40*s, 48*s, false); 
