@@ -1989,13 +1989,23 @@
           ctx.fillRect(cx - tw/2, cy - th, tw, th);
           ctx.fillStyle = 'rgb(' + cStoneBase + ')';
           ctx.fillRect(cx - tw/2 + 5*scale, cy - th, tw - 10*scale, th);
-          ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1;
-          for(var ty = cy - th + 5*scale; ty < cy; ty += 6*scale) {
+          ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.25) + ')'; ctx.lineWidth = 1;
+          var wtRow = 0;
+          for(var ty = cy - th; ty < cy; ty += 8*scale) {
              ctx.beginPath(); ctx.moveTo(cx - tw/2 + 5*scale, ty); ctx.lineTo(cx + tw/2 - 5*scale, ty); ctx.stroke();
+             var wOfst = (wtRow % 2 === 0) ? 0 : 10*scale;
+             for(var tx = cx - tw/2 + 5*scale + wOfst; tx < cx + tw/2 - 5*scale; tx += 20*scale) {
+                ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx, ty + 8*scale); ctx.stroke();
+             }
+             wtRow++;
           }
-          for(var tx = cx - tw/2 + 10*scale; tx < cx + tw/2 - 5*scale; tx += 12*scale) {
-             ctx.beginPath(); ctx.moveTo(tx, cy - th); ctx.lineTo(tx, cy); ctx.stroke();
-          }
+          /* Top and side edge highlight for 3D effect */
+          ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.05 : 0.15) + ')';
+          ctx.fillRect(cx - tw/2 + 5*scale, cy - th, tw - 10*scale, 2*scale);
+          ctx.fillRect(cx - tw/2 + 5*scale, cy - th, 2*scale, th);
+          /* Shadow on right edge */
+          ctx.fillStyle = 'rgba(0,0,0,' + (isNight ? 0.4 : 0.2) + ')';
+          ctx.fillRect(cx + tw/2 - 7*scale, cy - th, 2*scale, th);
           drawRailing(cx, cy - th, tw);
           drawPavilion(cx, cy - th, 100*scale, 40*scale, 3);
           drawHueRoof(cx, cy - th - 40*scale, 125*scale, 30*scale, cRoofGreen, cRoofGreenDk, 9*scale);
@@ -2016,14 +2026,27 @@
       // Extended background walls
       ctx.fillStyle = 'rgb(' + cStoneDark + ')';
       ctx.fillRect(gcx - extW / 2, bY - extH, extW, extH);
-      ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 1;
-      for (var ry = 10 * s; ry < extH; ry += 10 * s) { ctx.beginPath(); ctx.moveTo(gcx - extW/2, bY - extH + ry); ctx.lineTo(gcx + extW/2, bY - extH + ry); ctx.stroke(); }
-      for (var bx = gcx - extW/2; bx < gcx + extW/2; bx += 15*s) { ctx.beginPath(); ctx.moveTo(bx, bY - extH); ctx.lineTo(bx, bY); ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.25) + ')'; ctx.lineWidth = 1;
+      var eRow = 0;
+      for (var ry = 0; ry < extH; ry += 10 * s) { 
+        ctx.beginPath(); ctx.moveTo(gcx - extW/2, bY - extH + ry); ctx.lineTo(gcx + extW/2, bY - extH + ry); ctx.stroke(); 
+        var ofst = (eRow % 2 === 0) ? 0 : 12 * s;
+        for (var bx = gcx - extW/2 + ofst; bx < gcx + extW/2; bx += 24 * s) { 
+            ctx.beginPath(); ctx.moveTo(bx, bY - extH + ry); ctx.lineTo(bx, bY - extH + ry + 10 * s); ctx.stroke(); 
+        }
+        eRow++;
+      }
       
       // Battlements for extended wall
-      ctx.fillStyle = 'rgb(' + cStoneDark + ')';
       for(var bw = gcx - extW/2 + 5*s; bw < gcx + extW/2; bw += 25*s) {
+          ctx.fillStyle = 'rgb(' + cStoneDark + ')';
           ctx.fillRect(bw, bY - extH - 10*s, 15*s, 10*s);
+          /* Battlement 3D detail */
+          ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.05 : 0.15) + ')';
+          ctx.fillRect(bw, bY - extH - 10*s, 15*s, 1.5*s);
+          ctx.fillRect(bw, bY - extH - 10*s, 1.5*s, 10*s);
+          ctx.fillStyle = 'rgba(0,0,0,' + (isNight ? 0.4 : 0.2) + ')';
+          ctx.fillRect(bw + 13.5*s, bY - extH - 10*s, 1.5*s, 10*s);
       }
 
       // Watchtowers — bản mobile chỉ giữ cặp gần nhất, cắt bớt phần ngoài khung hình dọc
