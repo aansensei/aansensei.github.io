@@ -1692,8 +1692,9 @@
     function drawCastle(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var bY = H * 0.82;
-      var VW = W < 768 ? 900 : W;
-      var s = Math.max(VW / 1280, W < 768 ? 0.9 : .4) * 1.1;
+      var isMobile = W < 768;
+      var VW = isMobile ? 900 : W;
+      var s = Math.max(VW / 1280, isMobile ? 0.9 : .4) * 1.1 * (isMobile ? 1.25 : 1);
       var nt = activeTime * 0.001;
       var isNight = t <= 0.5;
 
@@ -1946,7 +1947,7 @@
       var gcx = VW * 0.5;
       var baseW = 720 * s;
       var baseH = 85 * s;
-      var extW = 2600 * s;
+      var extW = (isMobile ? 900 : 2600) * s;
       var extH = 65 * s;
       
       var gateStoneGrad = ctx.createLinearGradient(gcx - baseW / 2, 0, gcx + baseW / 2, 0);
@@ -1965,13 +1966,15 @@
           ctx.fillRect(bw, bY - extH - 10*s, 15*s, 10*s);
       }
 
-      // Watchtowers
+      // Watchtowers — bản mobile chỉ giữ cặp gần nhất, cắt bớt phần ngoài khung hình dọc
       drawWatchTower(gcx - 520*s, bY - extH, s);
       drawWatchTower(gcx + 520*s, bY - extH, s);
-      drawWatchTower(gcx - 780*s, bY - extH, s);
-      drawWatchTower(gcx + 780*s, bY - extH, s);
-      drawWatchTower(gcx - 1040*s, bY - extH, s);
-      drawWatchTower(gcx + 1040*s, bY - extH, s);
+      if (!isMobile) {
+        drawWatchTower(gcx - 780*s, bY - extH, s);
+        drawWatchTower(gcx + 780*s, bY - extH, s);
+        drawWatchTower(gcx - 1040*s, bY - extH, s);
+        drawWatchTower(gcx + 1040*s, bY - extH, s);
+      }
 
       // Main Stone Base
       ctx.fillStyle = gateStoneGrad;
