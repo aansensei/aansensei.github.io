@@ -1907,6 +1907,11 @@
         
         ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.lineWidth = 1 * s;
         var sTop = stringTopY !== undefined ? stringTopY : ly - 16*s;
+        ctx.save();
+        var swayAngle = Math.sin(nt * 1.5 + lx * 0.01) * 0.06;
+        ctx.translate(lx, sTop);
+        ctx.rotate(swayAngle);
+        ctx.translate(-lx, -sTop);
         ctx.beginPath(); ctx.moveTo(lx, sTop); ctx.lineTo(lx, ly - lh/2); ctx.stroke();
         
         var glowColor, grad0, grad50, grad100;
@@ -1982,6 +1987,7 @@
         ctx.fill();
         ctx.strokeStyle = 'rgb(' + cGold + ')'; ctx.lineWidth = 0.5*s;
         ctx.beginPath(); ctx.moveTo(lx, ly + lh/2 + 1*s); ctx.lineTo(lx, ly + lh/2 + 3*s); ctx.stroke();
+        ctx.restore();
       }
       
       function drawWatchTower(cx, cy, scale) {
@@ -2420,10 +2426,10 @@
         ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(endX, endY); ctx.stroke();
 
         if (depth <= 3) {
-          var blossoms = Math.floor(prand(seed) * 15) + 8;
+          var blossoms = Math.floor(prand(seed) * 25) + 18;
           for (var k = 0; k < blossoms; k++) {
             var bSeed = seed + k * 0.1;
-            var r = (prand(bSeed) * (4 - depth) * 4 + 3) * s, ox = (prand(bSeed + 1) - 0.5) * 40 * s, oy = (prand(bSeed + 2) - 0.5) * 40 * s;
+            var r = (prand(bSeed) * (4 - depth) * 4 + 3) * s, ox = (prand(bSeed + 1) - 0.5) * 45 * s, oy = (prand(bSeed + 2) * 0.9 - 0.2) * 55 * s;
             var cT = prand(bSeed + 3);
             ctx.fillStyle = cT > 0.6 ? 'rgba(255, 183, 197, ' + (t * 0.9) + ')' : cT > 0.3 ? 'rgba(255, 192, 203, ' + (t * 0.85) + ')' : 'rgba(255, 228, 225, ' + (t * 0.95) + ')';
             ctx.beginPath(); ctx.arc(endX + ox, endY + oy, r, 0, Math.PI * 2); ctx.fill();
