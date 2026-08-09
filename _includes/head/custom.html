@@ -1647,9 +1647,9 @@
 
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
-      var mScale = W < 768 ? 0.38 : 0.85;
+      var mScale = W < 768 ? 0.45 : 0.85;
       var MVW = W < 768 ? 900 : W;
-      var yOffset = W < 768 ? H * 0.4 : 0;
+      var yOffset = W < 768 ? H * 0.32 : 0;
       function peakY(p) { return p[1] * H * mScale + yOffset; }
       ctx.translate((W - MVW) / 2, 0);
       var g1 = ctx.createLinearGradient(0, H * .33, 0, H * .78);
