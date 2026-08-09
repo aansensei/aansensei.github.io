@@ -1745,11 +1745,17 @@
         ctx.closePath(); ctx.fill();
       }
 
-      function drawArch(cx, cy, w, h) {
+      function drawArch(cx, cy, w, h, isMainDoor) {
         var doorGrad = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
-        doorGrad.addColorStop(0, 'rgb(' + cWoodDark + ')');
-        doorGrad.addColorStop(0.5, 'rgb(' + cWoodBase + ')');
-        doorGrad.addColorStop(1, 'rgb(' + cWoodDark + ')');
+        if (isMainDoor) {
+            doorGrad.addColorStop(0, 'rgb(' + cRedDark + ')');
+            doorGrad.addColorStop(0.5, 'rgb(' + cRedBase + ')');
+            doorGrad.addColorStop(1, 'rgb(' + cRedDark + ')');
+        } else {
+            doorGrad.addColorStop(0, 'rgb(' + cWoodDark + ')');
+            doorGrad.addColorStop(0.5, 'rgb(' + cWoodBase + ')');
+            doorGrad.addColorStop(1, 'rgb(' + cWoodDark + ')');
+        }
         ctx.fillStyle = doorGrad;
         ctx.beginPath();
         ctx.moveTo(cx - w / 2, cy); ctx.lineTo(cx - w / 2, cy - h + w / 2);
@@ -1766,9 +1772,22 @@
             var dx = plankX - cx, r = w / 2, dy = Math.sqrt(Math.max(0, r * r - dx * dx));
             ctx.lineTo(plankX, cy - h + r - dy); ctx.stroke();
         }
-        ctx.fillStyle = 'rgb(' + cGold + ')';
+        /* Center split line for double doors */
+        ctx.strokeStyle = 'rgba(0,0,0,0.6)'; ctx.lineWidth = 1.2 * s;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - h + w/2); ctx.stroke();
+        
         for (var py = cy - 8*s; py > cy - h + 15*s; py -= 10*s) {
             for (var px = cx - w/2 + 5*s; px < cx + w/2; px += 10*s) {
+                if (isNight) {
+                    /* Glowing aura for door rivets */
+                    var flicker = 0.85 + 0.15 * Math.sin(nt * 2 + px);
+                    var halo = ctx.createRadialGradient(px, py, 0, px, py, 7 * s);
+                    halo.addColorStop(0, 'rgba(255, 190, 60, ' + (0.5 * flicker) + ')');
+                    halo.addColorStop(1, 'transparent');
+                    ctx.fillStyle = halo;
+                    ctx.beginPath(); ctx.arc(px, py, 7 * s, 0, Math.PI*2); ctx.fill();
+                }
+                ctx.fillStyle = 'rgb(' + cGold + ')';
                 ctx.beginPath(); ctx.arc(px, py, 1.2*s, 0, Math.PI*2); ctx.fill();
             }
         }
@@ -1853,9 +1872,13 @@
             if(i === cols-1) { pWidth -= pW/2; }
             ctx.fillRect(px1 + 2*s, cy - h + 10*s, pWidth - 4*s, h - 20*s);
             if(isNight) {
-              var blink = 0.5 + 0.5 * Math.abs(Math.sin(nt * 1.5 + cx * 0.02 + i));
-              ctx.fillStyle = 'rgba(255,180,60,' + (0.6 * blink) + ')';
+              /* Soft steady glow for windows with outer aura */
+              var glow = 0.85 + 0.15 * Math.sin(nt * 1.2 + cx * 0.02 + i);
+              ctx.shadowBlur = 15 * s;
+              ctx.shadowColor = 'rgba(255, 190, 80, ' + (0.8 * glow) + ')';
+              ctx.fillStyle = 'rgba(255,200,100,' + (0.75 * glow) + ')';
               ctx.fillRect(px1 + 2*s, cy - h + 10*s, pWidth - 4*s, h - 20*s);
+              ctx.shadowBlur = 0;
               ctx.fillStyle = 'rgba(0,0,0,0.6)'; 
             }
             ctx.strokeStyle = 'rgb(' + cGold + ')'; ctx.lineWidth = 0.8 * s;
@@ -1876,52 +1899,87 @@
           }
       }
 
-      function hueLantern(lx, ly, stringTopY) {
-        var lw = 10 * s, lh = 14 * s; 
+      function hueLantern(lx, ly, stringTopY, colorType) {
+        var lw = 10 * s, lh = 16 * s; 
         var flicker = isNight ? (0.8 + 0.2 * Math.sin(nt * 3 + lx)) : 1;
         
         ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.lineWidth = 1 * s;
         var sTop = stringTopY !== undefined ? stringTopY : ly - 16*s;
         ctx.beginPath(); ctx.moveTo(lx, sTop); ctx.lineTo(lx, ly - lh/2); ctx.stroke();
         
+        var glowColor, grad0, grad50, grad100;
+        if (colorType === 'teal') {
+            glowColor = 'rgba(50, 200, 180, 0.9)';
+            if (isNight) {
+                grad0 = 'rgb(10, 80, 70)'; grad50 = 'rgb(80, 255, 220)'; grad100 = 'rgb(10, 80, 70)';
+            } else {
+                grad0 = 'rgb(15, 100, 90)'; grad50 = 'rgb(40, 180, 160)'; grad100 = 'rgb(15, 100, 90)';
+            }
+        } else {
+            glowColor = 'rgba(255, 120, 50, 0.9)';
+            if (isNight) {
+                grad0 = 'rgb(180, 40, 20)'; grad50 = 'rgb(255, 160, 80)'; grad100 = 'rgb(180, 40, 20)';
+            } else {
+                grad0 = 'rgb(' + cRedDark + ')'; grad50 = 'rgb(' + cRedBase + ')'; grad100 = 'rgb(' + cRedDark + ')';
+            }
+        }
+
         if (isNight) { 
-            ctx.shadowBlur = 25 * flicker; 
-            ctx.shadowColor = 'rgba(255, 120, 50, 0.9)'; 
+            ctx.shadowBlur = 25 * flicker * s; 
+            ctx.shadowColor = glowColor; 
             var halo = ctx.createRadialGradient(lx, ly, 0, lx, ly, lw * 2.5);
-            halo.addColorStop(0, 'rgba(255, 150, 50, ' + (0.35 * flicker) + ')');
+            halo.addColorStop(0, glowColor.replace('0.9)', (0.35 * flicker) + ')'));
             halo.addColorStop(1, 'transparent');
             ctx.fillStyle = halo;
             ctx.beginPath(); ctx.arc(lx, ly, lw * 2.5, 0, Math.PI*2); ctx.fill();
         }
         
         var lg = ctx.createLinearGradient(lx - lw/2, 0, lx + lw/2, 0);
-        if (isNight) {
-            lg.addColorStop(0, 'rgb(180, 40, 20)'); 
-            lg.addColorStop(0.5, 'rgb(255, 160, 80)');
-            lg.addColorStop(1, 'rgb(180, 40, 20)');
-        } else {
-            lg.addColorStop(0, 'rgb(' + cRedDark + ')'); 
-            lg.addColorStop(0.5, 'rgb(' + cRedBase + ')'); 
-            lg.addColorStop(1, 'rgb(' + cRedDark + ')');
-        }
+        lg.addColorStop(0, grad0); lg.addColorStop(0.5, grad50); lg.addColorStop(1, grad100);
         
+        /* Lantern body (barrel shape) */
         ctx.fillStyle = lg;
-        ctx.beginPath(); ctx.ellipse(lx, ly, lw/2, lh/2, 0, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(lx - lw*0.35, ly - lh/2);
+        ctx.bezierCurveTo(lx - lw*0.6, ly - lh*0.2, lx - lw*0.6, ly + lh*0.2, lx - lw*0.35, ly + lh/2);
+        ctx.lineTo(lx + lw*0.35, ly + lh/2);
+        ctx.bezierCurveTo(lx + lw*0.6, ly + lh*0.2, lx + lw*0.6, ly - lh*0.2, lx + lw*0.35, ly - lh/2);
+        ctx.closePath();
+        ctx.fill();
         
-        ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 0.5 * s;
+        /* Lantern ribs */
+        ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.lineWidth = 0.5 * s;
         ctx.beginPath(); ctx.moveTo(lx, ly - lh/2); ctx.lineTo(lx, ly + lh/2); ctx.stroke();
-        ctx.beginPath(); ctx.ellipse(lx, ly, lw/4, lh/2, 0, 0, Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(lx - lw*0.2, ly - lh/2); ctx.quadraticCurveTo(lx - lw*0.35, ly, lx - lw*0.2, ly + lh/2); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(lx + lw*0.2, ly - lh/2); ctx.quadraticCurveTo(lx + lw*0.35, ly, lx + lw*0.2, ly + lh/2); ctx.stroke();
+        /* Gold bands */
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.7)'; ctx.lineWidth = 1 * s;
+        ctx.beginPath(); ctx.moveTo(lx - lw*0.48, ly - lh*0.15); ctx.lineTo(lx + lw*0.48, ly - lh*0.15); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(lx - lw*0.48, ly + lh*0.15); ctx.lineTo(lx + lw*0.48, ly + lh*0.15); ctx.stroke();
 
         ctx.shadowBlur = 0; 
         
+        /* Caps */
         ctx.fillStyle = 'rgb(' + cWoodDark + ')';
         ctx.fillRect(lx - lw*0.35, ly - lh/2 - 1.5*s, lw*0.7, 2.5*s);
         ctx.fillRect(lx - lw*0.35, ly + lh/2 - 0.5*s, lw*0.7, 2.5*s);
         ctx.fillStyle = 'rgb(' + cGold + ')';
-        ctx.fillRect(lx - lw*0.2, ly - lh/2 - 1*s, lw*0.4, 1.5*s);
+        ctx.fillRect(lx - lw*0.25, ly - lh/2 - 1*s, lw*0.5, 1.5*s);
+        ctx.fillRect(lx - lw*0.25, ly + lh/2 + 0.5*s, lw*0.5, 1*s);
         
-        ctx.fillStyle = 'rgb(' + cRedBase + ')';
-        ctx.beginPath(); ctx.moveTo(lx, ly + lh/2 + 2*s); ctx.lineTo(lx - 2*s, ly + lh/2 + 10*s); ctx.lineTo(lx + 2*s, ly + lh/2 + 10*s); ctx.fill();
+        /* Wavy Tassel */
+        ctx.fillStyle = grad0;
+        ctx.beginPath(); 
+        ctx.moveTo(lx, ly + lh/2 + 2*s); 
+        ctx.lineTo(lx - 2.5*s, ly + lh/2 + 12*s); 
+        ctx.lineTo(lx - 1*s, ly + lh/2 + 11*s);
+        ctx.lineTo(lx, ly + lh/2 + 13*s);
+        ctx.lineTo(lx + 1*s, ly + lh/2 + 11*s);
+        ctx.lineTo(lx + 2.5*s, ly + lh/2 + 12*s); 
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = 'rgb(' + cGold + ')'; ctx.lineWidth = 0.5*s;
+        ctx.beginPath(); ctx.moveTo(lx, ly + lh/2 + 1*s); ctx.lineTo(lx, ly + lh/2 + 3*s); ctx.stroke();
       }
       
       function drawWatchTower(cx, cy, scale) {
@@ -1981,23 +2039,27 @@
       // Main Stone Base
       ctx.fillStyle = gateStoneGrad;
       ctx.fillRect(gcx - baseW / 2, bY - baseH, baseW, baseH);
-      ctx.fillStyle = 'rgba(0,0,0,0.12)'; 
-      ctx.fillRect(gcx - baseW/2 + 130*s, bY - baseH, 12*s, baseH);
-      ctx.fillRect(gcx + baseW/2 - 142*s, bY - baseH, 12*s, baseH);
 
-      ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.2) + ')'; ctx.lineWidth = 1;
-      for (var ry = 10 * s; ry < baseH; ry += 10 * s) { ctx.beginPath(); ctx.moveTo(gcx - baseW/2, bY - baseH + ry); ctx.lineTo(gcx + baseW/2, bY - baseH + ry); ctx.stroke(); }
-      for (var bx = gcx - baseW/2 + 15*s; bx < gcx + baseW/2; bx += 20*s) { ctx.beginPath(); ctx.moveTo(bx, bY - baseH); ctx.lineTo(bx, bY); ctx.stroke(); }
+      ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.25) + ')'; ctx.lineWidth = 1;
+      var mRow = 0;
+      for (var ry = 0; ry < baseH; ry += 10 * s) { 
+        ctx.beginPath(); ctx.moveTo(gcx - baseW/2, bY - baseH + ry); ctx.lineTo(gcx + baseW/2, bY - baseH + ry); ctx.stroke(); 
+        var offset = (mRow % 2 === 0) ? 0 : 12 * s;
+        for (var bx = gcx - baseW/2 + offset; bx < gcx + baseW/2; bx += 24 * s) { 
+            ctx.beginPath(); ctx.moveTo(bx, bY - baseH + ry); ctx.lineTo(bx, bY - baseH + ry + 10 * s); ctx.stroke(); 
+        }
+        mRow++;
+      }
 
       ctx.fillStyle = 'rgb(' + cRidge + ')'; ctx.fillRect(gcx - baseW / 2 - 5*s, bY - baseH - 12*s, baseW + 10*s, 12*s);
       ctx.fillStyle = 'rgba(0,0,0,0.4)'; 
       for (var lx = gcx - baseW/2; lx < gcx + baseW/2; lx += 15*s) { ctx.fillRect(lx + 2*s, bY - baseH - 10*s, 11*s, 10*s); }
 
-      drawArch(gcx, bY, 52*s, 60*s); 
-      drawArch(gcx - 75*s, bY, 40*s, 48*s); 
-      drawArch(gcx + 75*s, bY, 40*s, 48*s); 
-      drawArch(gcx - 240*s, bY, 36*s, 42*s); 
-      drawArch(gcx + 240*s, bY, 36*s, 42*s); 
+      drawArch(gcx, bY, 52*s, 60*s, true); 
+      drawArch(gcx - 75*s, bY, 40*s, 48*s, false); 
+      drawArch(gcx + 75*s, bY, 40*s, 48*s, false); 
+      drawArch(gcx - 240*s, bY, 36*s, 42*s, false); 
+      drawArch(gcx + 240*s, bY, 36*s, 42*s, false); 
 
       var pav1Y = bY - baseH - 12*s;
       var wingW = 125 * s, wingH = 30 * s, wingCxL = gcx - 240 * s, wingCxR = gcx + 240 * s;
@@ -2041,15 +2103,65 @@
       hueLantern(gcx - 180*s, lY, eTop);
       hueLantern(gcx + 180*s, lY, eTop);
 
-      var kyDaiX = gcx + 220 * s;
+      var kyDaiX = gcx + 172.5 * s;
       var kyDaiY = bY + 25 * s;
-      ctx.fillStyle = gateStoneGrad;
-      ctx.fillRect(kyDaiX - 60*s, kyDaiY - 15*s, 120*s, 15*s);
-      ctx.fillRect(kyDaiX - 45*s, kyDaiY - 30*s, 90*s, 15*s);
-      ctx.fillRect(kyDaiX - 30*s, kyDaiY - 45*s, 60*s, 15*s);
-      ctx.fillStyle = 'rgb(' + cWoodDark + ')';
-      ctx.fillRect(kyDaiX - 3*s, kyDaiY - 240*s, 6*s, 195*s);
-      drawFlag(kyDaiX + 3*s, kyDaiY - 235*s, 'vietnam');
+      /* Ky Dai Base with dark grey color */
+      var cGray = lerpC('#252528', '#606065', t);
+      var cGrayDark = lerpC('#101012', '#303035', t);
+      var kyDaiGrad = ctx.createLinearGradient(kyDaiX - 45*s, 0, kyDaiX + 45*s, 0);
+      kyDaiGrad.addColorStop(0, 'rgb(' + cGrayDark + ')');
+      kyDaiGrad.addColorStop(0.5, 'rgb(' + cGray + ')');
+      kyDaiGrad.addColorStop(1, 'rgb(' + cGrayDark + ')');
+      
+      var tiers = [
+        { w: 90, h: 15, y: -15 },
+        { w: 70, h: 15, y: -30 },
+        { w: 50, h: 15, y: -45 }
+      ];
+      tiers.forEach(function(tr) {
+        /* Drop shadow for depth */
+        ctx.shadowColor = 'rgba(0,0,0,0.6)';
+        ctx.shadowBlur = 8 * s;
+        ctx.fillStyle = kyDaiGrad;
+        ctx.fillRect(kyDaiX - tr.w*s/2, kyDaiY + tr.y*s, tr.w*s, tr.h*s);
+        ctx.shadowBlur = 0; /* Reset shadow */
+        
+        ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.6 : 0.3) + ')'; 
+        ctx.lineWidth = 1.5 * s;
+        ctx.strokeRect(kyDaiX - tr.w*s/2, kyDaiY + tr.y*s, tr.w*s, tr.h*s);
+        
+        /* Brick details on Ky Dai base */
+        for(var bx = kyDaiX - tr.w*s/2 + 10*s; bx < kyDaiX + tr.w*s/2; bx += 10*s) {
+           ctx.beginPath(); ctx.moveTo(bx, kyDaiY + tr.y*s); ctx.lineTo(bx, kyDaiY + (tr.y + tr.h)*s); ctx.stroke();
+        }
+        
+        /* Top edge highlight for 3D effect */
+        ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.08 : 0.25) + ')';
+        ctx.fillRect(kyDaiX - tr.w*s/2, kyDaiY + tr.y*s, tr.w*s, 2*s);
+        /* Bottom edge shadow for 3D effect */
+        ctx.fillStyle = 'rgba(0,0,0,' + (isNight ? 0.4 : 0.2) + ')';
+        ctx.fillRect(kyDaiX - tr.w*s/2, kyDaiY + (tr.y + tr.h)*s - 2*s, tr.w*s, 2*s);
+      });
+      
+      /* Flagpole with details */
+      var poleH = 195 * s;
+      var poleY = kyDaiY - 240 * s;
+      var poleW = 6 * s;
+      var poleG = ctx.createLinearGradient(kyDaiX - poleW/2, 0, kyDaiX + poleW/2, 0);
+      poleG.addColorStop(0, 'rgb(' + cWoodDark + ')'); poleG.addColorStop(0.5, 'rgb(' + cWoodBase + ')'); poleG.addColorStop(1, 'rgb(' + cWoodDark + ')');
+      ctx.fillStyle = poleG;
+      ctx.fillRect(kyDaiX - poleW/2, poleY, poleW, poleH);
+      /* Pole rings/segments */
+      ctx.fillStyle = 'rgba(0,0,0,0.5)';
+      for(var py = poleY + 20*s; py < poleY + poleH; py += 30*s) {
+          ctx.fillRect(kyDaiX - poleW/2, py, poleW, 1.5*s);
+      }
+      /* Finial (Cap on top) */
+      ctx.fillStyle = 'rgb(' + cGold + ')';
+      ctx.beginPath(); ctx.arc(kyDaiX, poleY, 4*s, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(kyDaiX - 2*s, poleY); ctx.lineTo(kyDaiX + 2*s, poleY); ctx.lineTo(kyDaiX, poleY - 8*s); ctx.fill();
+      
+      drawFlag(kyDaiX + poleW/2, kyDaiY - 235*s, 'vietnam');
 
       var groundY = bY;
       var grassGrad = ctx.createLinearGradient(0, groundY, 0, H);
@@ -2061,9 +2173,12 @@
       var nt2 = Date.now() * .001;
       ctx.globalAlpha = a * (1 - t);
       [[.5, bY + 15 * s, 7], [.41, bY + 12 * s, 5], [.59, bY + 12 * s, 5], [.33, bY + 8 * s, 4.5], [.67, bY + 8 * s, 4.5], [.25, bY + 5 * s, 4], [.75, bY + 5 * s, 4], [.19, bY + 3 * s, 3.5], [.81, bY + 3 * s, 3.5]].forEach(function (w) {
-        var wx = w[0] * VW, fl = .65 + .35 * Math.sin(nt2 * 1.8 + wx * .003);
-        var wg = ctx.createRadialGradient(wx, w[1], 0, wx, w[1], w[2] * 4); wg.addColorStop(0, 'rgba(255,210,80,' + .35 * fl + ')'); wg.addColorStop(1, 'transparent');
-        ctx.fillStyle = wg; ctx.beginPath(); ctx.arc(wx, w[1], w[2] * 4, 0, Math.PI * 2); ctx.fill();
+        /* Warmer and softer ground light reflection */
+        var wx = w[0] * VW, fl = .85 + .15 * Math.sin(nt2 * 1.2 + wx * .003);
+        var wg = ctx.createRadialGradient(wx, w[1], 0, wx, w[1], w[2] * 5); 
+        wg.addColorStop(0, 'rgba(255,170,50,' + .2 * fl + ')'); 
+        wg.addColorStop(1, 'transparent');
+        ctx.fillStyle = wg; ctx.beginPath(); ctx.arc(wx, w[1], w[2] * 5, 0, Math.PI * 2); ctx.fill();
       });
       VL.forEach(function (vl) {
         var vx = vl.px * VW, vy = bY - 8 - Math.abs(vl.py);
