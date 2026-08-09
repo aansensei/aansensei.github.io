@@ -1,6 +1,8 @@
 test.html
+custom_test.html
 _tmp_svg/
 backups/
 _pages/backups/
+_includes/head/backups/
 .claude/
 

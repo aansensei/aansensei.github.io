@@ -1647,16 +1647,16 @@
 
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
-      var mScale = W < 768 ? 0.82 : 1.0;
+      var mScale = W < 768 ? 0.7 : 0.85;
       var MVW = W < 768 ? 900 : W;
       ctx.translate((W - MVW) / 2, 0);
       var g1 = ctx.createLinearGradient(0, H * .33, 0, H * .78);
-      g1.addColorStop(0, 'rgb(' + lerpC('#1a1540', '#9ab8d4', t) + ')'); g1.addColorStop(1, 'rgb(' + lerpC('#0a0820', '#b0c4de', t) + ')');
+      g1.addColorStop(0, 'rgb(' + lerpC('#1a1436', '#6d889c', t) + ')'); g1.addColorStop(1, 'rgb(' + lerpC('#0e0b1c', '#4a6b82', t) + ')');
       ctx.fillStyle = g1; ctx.beginPath(); ctx.moveTo(0, H);
       peaksData.forEach(function (p) { ctx.lineTo(p[0] * MVW, p[1] * H * mScale); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
 
       var g2 = ctx.createLinearGradient(0, H * .50, 0, H * .86);
-      g2.addColorStop(0, 'rgb(' + lerpC('#140f32', '#6a93b0', t) + ')'); g2.addColorStop(1, 'rgb(' + lerpC('#090618', '#8ca8c4', t) + ')');
+      g2.addColorStop(0, 'rgb(' + lerpC('#120a2e', '#55768a', t) + ')'); g2.addColorStop(1, 'rgb(' + lerpC('#0a0614', '#3d5c70', t) + ')');
       ctx.fillStyle = g2; ctx.beginPath(); ctx.moveTo(0, H);
       peaksData2.forEach(function (p) { ctx.lineTo(p[0] * MVW, p[1] * H * mScale); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
 
@@ -1688,9 +1688,7 @@
       ctx.restore();
     }
 
-    /* =========================================================================
-       🔥 BẢN NÂNG CẤP LÂU ĐÀI FANTASY (GỌN GÀNG GỐC, THÁP CAO, GẠCH 3D CHI TIẾT)
-       ========================================================================= */
+    /* Hue Imperial City Architecture - Ngo Mon Gate and Extended Citadel */
     function drawCastle(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var bY = H * 0.82;
@@ -1699,261 +1697,355 @@
       var nt = activeTime * 0.001;
       var isNight = t <= 0.5;
 
-      // Hào quang ma thuật sau lâu đài
+      // Aura
       ctx.globalAlpha = a * (1 - t);
-      var am = ctx.createRadialGradient(W / 2, H * .82, 0, W / 2, H * .82, W * .22);
-      am.addColorStop(0, 'rgba(65,40,140,.18)'); am.addColorStop(1, 'transparent');
-      ctx.fillStyle = am; ctx.fillRect(0, H * .68, W, H * .32);
+      var am = ctx.createRadialGradient(W / 2, H * .82, 0, W / 2, H * .82, W * .25);
+      am.addColorStop(0, 'rgba(180,140,50,.18)');
+      am.addColorStop(1, 'transparent');
+      ctx.fillStyle = am; ctx.fillRect(0, H * .65, W, H * .35);
       ctx.globalAlpha = a;
       ctx.translate((W - VW) / 2, 0);
 
-      // Palette màu tường & mái
-      var cWallBase = lerpC('#1d1542', '#f0f4f8', t);
-      var cWallDark = lerpC('#110b2b', '#d0d7e0', t);
-      var cWallLite = lerpC('#2a205a', '#ffffff', t);
-      var cRoofBase = lerpC('#100b29', '#3b5998', t);
-      var cRoofDark = lerpC('#0a071c', '#293e6a', t);
-      var cRoofLite = lerpC('#e6bd35', '#6b8ce6', t);
+      // Hue Palette
+      var cStoneBase = lerpC('#2f3338', '#b5b7b0', t);
+      var cStoneDark = lerpC('#16181c', '#606461', t);
+      var cRedBase = lerpC('#4d0c11', '#c91a1e', t);
+      var cRedDark = lerpC('#240205', '#800c11', t);
+      var cGold = lerpC('#8a620c', '#ffdd00', t);
+      var cRoofYellow = lerpC('#5e410b', '#f5b018', t);
+      var cRoofYellowDk = lerpC('#331f03', '#ab7003', t);
+      var cRoofGreen = lerpC('#092b18', '#26965d', t);
+      var cRoofGreenDk = lerpC('#03170a', '#125432', t);
+      var cWoodBase = lerpC('#26130b', '#613620', t);
+      var cWoodDark = lerpC('#120704', '#3d1b0c', t);
+      var cRidge = lerpC('#6c6863', '#fffcf5', t);
 
-      // vẽ cờ, đêm thì vàng
       function drawFlag(fx, fy, flagType) {
-        var wave = Math.sin(nt * 4 + fx * 0.01) * 4 * s;
-        var flagW = 16 * s, flagH = 10 * s;
-
-        var nightColor = '#e6bd35';
-        var cBase;
-        if (flagType === 'vietnam') {
-          cBase = lerpC(nightColor, '#da251d', t);
-        } else if (flagType === 'blue') {
-          cBase = lerpC(nightColor, '#3477eb', t);
-        } else {
-          cBase = lerpC(nightColor, '#d62d20', t);
-        }
-
+        var wave = Math.sin(nt * 5) * 5 * s;
+        var wave2 = Math.cos(nt * 5) * 4 * s;
+        var flagW = 32 * s, flagH = 20 * s;
+        var cBase = lerpC('#731416', '#da251d', t);
         ctx.fillStyle = 'rgb(' + cBase + ')';
         ctx.beginPath(); ctx.moveTo(fx, fy);
-        ctx.quadraticCurveTo(fx + flagW * 0.5, fy - wave, fx + flagW, fy - flagH * 0.4 + wave);
-        ctx.lineTo(fx + flagW, fy + flagH * 0.6 + wave);
-        ctx.quadraticCurveTo(fx + flagW * 0.5, fy + flagH + wave, fx, fy + flagH);
+        ctx.bezierCurveTo(fx + flagW * 0.3, fy - wave, fx + flagW * 0.7, fy + wave2, fx + flagW, fy - flagH * 0.2 + wave);
+        ctx.lineTo(fx + flagW, fy + flagH * 0.8 + wave);
+        ctx.bezierCurveTo(fx + flagW * 0.7, fy + flagH + wave2, fx + flagW * 0.3, fy + flagH - wave, fx, fy + flagH);
         ctx.closePath(); ctx.fill();
-
-        if (flagType === 'vietnam') {
-          var sx = fx + flagW * 0.45, sy = fy + flagH * 0.5 + wave * 0.5, sr1 = 3 * s, sr2 = 1.2 * s, rot = Math.PI / 2 * 3, step = Math.PI / 5;
-          var starColor = lerpC('#ffffff', '#ffff00', t);
-          ctx.fillStyle = 'rgb(' + starColor + ')';
-          ctx.beginPath();
-          for (var i = 0; i < 5; i++) {
-            ctx.lineTo(sx + Math.cos(rot) * sr1, sy + Math.sin(rot) * sr1); rot += step;
-            ctx.lineTo(sx + Math.cos(rot) * sr2, sy + Math.sin(rot) * sr2); rot += step;
-          }
-          ctx.closePath(); ctx.fill();
+        var sx = fx + flagW * 0.45, sy = fy + flagH * 0.5 + wave * 0.3, sr1 = 4.5 * s, sr2 = 1.8 * s, rot = Math.PI / 2 * 3, step = Math.PI / 5;
+        var starColor = lerpC('#e0cc67', '#ffff00', t);
+        ctx.fillStyle = 'rgb(' + starColor + ')';
+        ctx.beginPath();
+        for (var i = 0; i < 5; i++) {
+          ctx.lineTo(sx + Math.cos(rot) * sr1, sy + Math.sin(rot) * sr1); rot += step;
+          ctx.lineTo(sx + Math.cos(rot) * sr2, sy + Math.sin(rot) * sr2); rot += step;
         }
-
-        ctx.strokeStyle = 'rgba(255,255,255,0.4)'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(fx, fy + flagH + 2 * s); ctx.stroke();
+        ctx.closePath(); ctx.fill();
       }
 
-      // vẽ tường gạch
-      var maxWallH = 108 * s;
-      function wall(x, w, h) {
-        var wallGrad = ctx.createLinearGradient(x, bY - maxWallH, x, bY);
-        wallGrad.addColorStop(0, 'rgb(' + cWallBase + ')');
-        wallGrad.addColorStop(1, 'rgb(' + cWallDark + ')');
-        ctx.fillStyle = wallGrad;
-        ctx.fillRect(x, bY - h, w, h);
-
-        var rowH = 8 * s;
-        var brickW = 16 * s;
-        ctx.lineWidth = 1;
-        for (var ry = rowH; ry < h; ry += rowH) {
-          // Khe gạch ngang
-          ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.15) + ')';
-          ctx.beginPath(); ctx.moveTo(x, bY - h + ry); ctx.lineTo(x + w, bY - h + ry); ctx.stroke();
-          // highlight tạo cảm giác nổi
-          ctx.strokeStyle = 'rgba(255,255,255,' + (isNight ? 0.05 : 0.25) + ')';
-          ctx.beginPath(); ctx.moveTo(x, bY - h + ry + 1); ctx.lineTo(x + w, bY - h + ry + 1); ctx.stroke();
-
-          var absOff = (Math.round(ry / rowH) % 2 === 0) ? 0 : brickW / 2;
-          var firstCx = absOff + (Math.floor((x - absOff) / brickW) + 1) * brickW;
-          for (var cx = firstCx; cx < x + w; cx += brickW) {
-            // Khe gạch dọc
-            ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.15) + ')';
-            ctx.beginPath(); ctx.moveTo(cx, bY - h + ry - rowH); ctx.lineTo(cx, bY - h + ry); ctx.stroke();
-            // highlight dọc
-            ctx.strokeStyle = 'rgba(255,255,255,' + (isNight ? 0.05 : 0.25) + ')';
-            ctx.beginPath(); ctx.moveTo(cx + 1, bY - h + ry - rowH); ctx.lineTo(cx + 1, bY - h + ry); ctx.stroke();
-          }
+      function drawArch(cx, cy, w, h) {
+        var doorGrad = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
+        doorGrad.addColorStop(0, 'rgb(' + cWoodDark + ')');
+        doorGrad.addColorStop(0.5, 'rgb(' + cWoodBase + ')');
+        doorGrad.addColorStop(1, 'rgb(' + cWoodDark + ')');
+        ctx.fillStyle = doorGrad;
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2, cy); ctx.lineTo(cx - w / 2, cy - h + w / 2);
+        ctx.arc(cx, cy - h + w / 2, w / 2, Math.PI, 0);
+        ctx.lineTo(cx + w / 2, cy); ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.6)'; ctx.lineWidth = 2 * s;
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2, cy); ctx.lineTo(cx - w / 2, cy - h + w / 2);
+        ctx.arc(cx, cy - h + w / 2, w / 2, Math.PI, 0);
+        ctx.lineTo(cx + w / 2, cy); ctx.stroke();
+        ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.lineWidth = 1.5 * s;
+        for (var plankX = cx - w / 2 + 5 * s; plankX < cx + w / 2; plankX += 5 * s) {
+            ctx.beginPath(); ctx.moveTo(plankX, cy);
+            var dx = plankX - cx, r = w / 2, dy = Math.sqrt(Math.max(0, r * r - dx * dx));
+            ctx.lineTo(plankX, cy - h + r - dy); ctx.stroke();
         }
-
-        // răng cưa
-        var cw = 10 * s, ch = 7 * s;
-        ctx.fillStyle = 'rgb(' + cWallLite + ')';
-        for (var i = 0; i < w / cw; i++) {
-          if (i % 2 === 0) ctx.fillRect(x + i * cw, bY - h - ch, cw + 1, ch);
+        ctx.fillStyle = 'rgb(' + cGold + ')';
+        for (var py = cy - 8*s; py > cy - h + 15*s; py -= 10*s) {
+            for (var px = cx - w/2 + 5*s; px < cx + w/2; px += 10*s) {
+                ctx.beginPath(); ctx.arc(px, py, 1.2*s, 0, Math.PI*2); ctx.fill();
+            }
         }
-        ctx.fillStyle = 'rgba(0,0,0,0.4)'; ctx.fillRect(x, bY - h, w, 3 * s);
       }
 
-      // vẽ tháp
-      function tower(cx, w, h, spH, flagType) {
-        var towGrad = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
-        towGrad.addColorStop(0, 'rgb(' + cWallDark + ')');
-        towGrad.addColorStop(0.5, 'rgb(' + cWallLite + ')');
-        towGrad.addColorStop(1, 'rgb(' + cWallBase + ')');
-        ctx.fillStyle = towGrad;
-        ctx.fillRect(cx - w / 2, bY - h, w, h);
-
-        ctx.fillStyle = 'rgb(' + cWallDark + ')';
-        ctx.fillRect(cx - w * 0.55, bY - h, w * 1.1, 6 * s);
-
-        var cw = 6 * s, ch = 5 * s;
-        ctx.fillStyle = 'rgb(' + cWallLite + ')';
-        for (var i = 0; i < w / cw; i++) {
-          if (i % 2 === 0) ctx.fillRect(cx - w / 2 + i * cw, bY - h - ch, cw, ch);
+      function drawHueRoof(cx, cy, w, h, cBase, cDark, upturn) {
+        var rg = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
+        rg.addColorStop(0, 'rgb(' + cDark + ')'); rg.addColorStop(0.5, 'rgb(' + cBase + ')'); rg.addColorStop(1, 'rgb(' + cDark + ')');
+        ctx.fillStyle = rg;
+        
+        ctx.beginPath();
+        ctx.moveTo(cx - w / 2, cy - upturn);
+        ctx.quadraticCurveTo(cx - w * 0.42, cy - h * 0.4, cx - w * 0.32, cy - h);
+        ctx.lineTo(cx + w * 0.32, cy - h);
+        ctx.quadraticCurveTo(cx + w * 0.42, cy - h * 0.4, cx + w / 2, cy - upturn);
+        ctx.quadraticCurveTo(cx + w * 0.35, cy, cx, cy + 2*s);
+        ctx.quadraticCurveTo(cx - w * 0.35, cy, cx - w / 2, cy - upturn);
+        ctx.fill();
+        
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1 * s;
+        var cols = Math.floor(w / (4.5 * s));
+        for (var i = 1; i < cols; i++) {
+            var tx = cx - w/2 + (w/cols)*i;
+            var txc = tx + (cx - tx) * 0.35;
+            var pct = Math.abs(tx - cx) / (w/2);
+            var ty = cy + 2*s - Math.pow(pct, 1.5) * (upturn + 2*s);
+            ctx.beginPath(); ctx.moveTo(tx, ty); 
+            ctx.quadraticCurveTo(tx + (txc-tx)*0.2, cy - h * 0.5, txc, cy - h); 
+            ctx.stroke();
         }
 
-        var roofGrad = ctx.createLinearGradient(cx - w * 0.6, 0, cx + w * 0.6, 0);
-        roofGrad.addColorStop(0, 'rgb(' + cRoofDark + ')');
-        roofGrad.addColorStop(0.5, 'rgb(' + cRoofBase + ')');
-        roofGrad.addColorStop(1, 'rgb(' + cRoofDark + ')');
+        ctx.strokeStyle = 'rgb(' + cRidge + ')'; ctx.lineWidth = 3.5 * s;
+        ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.lineTo(cx + w * 0.34, cy - h); ctx.stroke();
+        
+        ctx.fillStyle = 'rgb(' + cGold + ')';
+        ctx.beginPath(); ctx.arc(cx, cy - h - 4.5*s, 4.5*s, 0, Math.PI*2); ctx.fill();
+        
+        ctx.lineWidth = 2 * s; ctx.strokeStyle = 'rgb(' + cGold + ')';
+        ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.quadraticCurveTo(cx - w * 0.42, cy - h - 6*s, cx - w * 0.38, cy - h - 10*s); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + w * 0.34, cy - h); ctx.quadraticCurveTo(cx + w * 0.42, cy - h - 6*s, cx + w * 0.38, cy - h - 10*s); ctx.stroke();
 
-        ctx.fillStyle = roofGrad;
+        ctx.strokeStyle = 'rgb(' + cRidge + ')'; ctx.lineWidth = 2.5 * s;
+        ctx.beginPath(); ctx.moveTo(cx - w / 2, cy - upturn); ctx.quadraticCurveTo(cx - w * 0.42, cy - h * 0.4, cx - w * 0.32, cy - h); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + w / 2, cy - upturn); ctx.quadraticCurveTo(cx + w * 0.42, cy - h * 0.4, cx + w * 0.32, cy - h); ctx.stroke();
+        
+        ctx.fillStyle = 'rgb(' + cGold + ')';
+        ctx.beginPath(); ctx.arc(cx - w / 2 - 1*s, cy - upturn - 2*s, 2.5*s, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(cx + w / 2 + 1*s, cy - upturn - 2*s, 2.5*s, 0, Math.PI*2); ctx.fill();
+        
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
         ctx.beginPath();
-        ctx.moveTo(cx - w * 0.65, bY - h);
-        ctx.quadraticCurveTo(cx, bY - h - spH * 0.6, cx, bY - h - spH);
-        ctx.quadraticCurveTo(cx, bY - h - spH * 0.6, cx + w * 0.65, bY - h);
-        ctx.closePath();
+        ctx.moveTo(cx - w/2 + 2*s, cy - upturn + 2*s);
+        ctx.quadraticCurveTo(cx - w * 0.35, cy + 2*s, cx, cy + 4*s);
+        ctx.quadraticCurveTo(cx + w * 0.35, cy + 2*s, cx + w/2 - 2*s, cy - upturn + 2*s);
+        ctx.quadraticCurveTo(cx + w * 0.35, cy, cx, cy + 2*s);
+        ctx.quadraticCurveTo(cx - w * 0.35, cy, cx - w/2 + 2*s, cy - upturn + 2*s);
         ctx.fill();
+      }
 
-        ctx.strokeStyle = 'rgba(' + cRoofLite + ', 0.7)'; ctx.lineWidth = 1.5 * s;
-        ctx.beginPath();
-        ctx.moveTo(cx - w * 0.65, bY - h);
-        ctx.quadraticCurveTo(cx, bY - h - spH * 0.6, cx, bY - h - spH);
-        ctx.quadraticCurveTo(cx, bY - h - spH * 0.6, cx + w * 0.65, bY - h);
-        ctx.stroke();
+      function drawPavilion(cx, cy, w, h, cols) {
+        var bodyGrad = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
+        bodyGrad.addColorStop(0, 'rgb(' + cRedDark + ')'); bodyGrad.addColorStop(0.5, 'rgb(' + cRedBase + ')'); bodyGrad.addColorStop(1, 'rgb(' + cRedDark + ')');
+        ctx.fillStyle = bodyGrad;
+        ctx.fillRect(cx - w / 2, cy - h, w, h);
+        var pW = 5 * s;
+        for (var i = 0; i <= cols; i++) {
+            var px = cx - w/2 + (w/cols)*i - pW/2;
+            if(i === 0) px += pW/2;
+            if(i === cols) px -= pW/2;
+            ctx.fillStyle = 'rgb(' + cRedDark + ')';
+            ctx.fillRect(px, cy - h, pW, h);
+            ctx.fillStyle = 'rgb(' + cStoneBase + ')';
+            ctx.fillRect(px - 1*s, cy - 5*s, pW + 2*s, 5*s);
+            ctx.fillStyle = 'rgb(' + cGold + ')';
+            ctx.fillRect(px - 0.5*s, cy - h, pW + 1*s, 4*s);
+        }
+        ctx.fillStyle = 'rgba(0,0,0,0.6)';
+        for (var i = 0; i < cols; i++) {
+            var px1 = cx - w/2 + (w/cols)*i + pW/2;
+            var pWidth = (w/cols) - pW;
+            if(i === 0) { px1 -= pW/2; pWidth -= pW/2; }
+            if(i === cols-1) { pWidth -= pW/2; }
+            ctx.fillRect(px1 + 2*s, cy - h + 10*s, pWidth - 4*s, h - 20*s);
+            if(isNight) {
+              var blink = 0.5 + 0.5 * Math.abs(Math.sin(nt * 1.5 + cx * 0.02 + i));
+              ctx.fillStyle = 'rgba(255,180,60,' + (0.6 * blink) + ')';
+              ctx.fillRect(px1 + 2*s, cy - h + 10*s, pWidth - 4*s, h - 20*s);
+              ctx.fillStyle = 'rgba(0,0,0,0.6)'; 
+            }
+            ctx.strokeStyle = 'rgb(' + cGold + ')'; ctx.lineWidth = 0.8 * s;
+            for(var gy = cy - h + 14*s; gy < cy - 14*s; gy += 4.5*s) {
+                ctx.beginPath(); ctx.moveTo(px1 + 2*s, gy); ctx.lineTo(px1 + pWidth - 2*s, gy); ctx.stroke();
+            }
+        }
+      }
+      
+      function drawRailing(cx, cy, w) {
+          ctx.fillStyle = 'rgb(' + cWoodDark + ')';
+          ctx.fillRect(cx - w/2, cy - 10*s, w, 10*s);
+          ctx.fillStyle = 'rgb(' + cRedBase + ')';
+          ctx.fillRect(cx - w/2, cy - 10*s, w, 2.5*s);
+          ctx.fillRect(cx - w/2, cy - 2.5*s, w, 2.5*s);
+          for(var rx = cx - w/2 + 3*s; rx < cx + w/2; rx += 7*s) {
+              ctx.fillRect(rx, cy - 10*s, 2*s, 10*s);
+          }
+      }
 
-        // trụ cờ
-        ctx.strokeStyle = 'rgba(' + cRoofLite + ',.9)'; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(cx, bY - h - spH); ctx.lineTo(cx, bY - h - spH - 20 * s); ctx.stroke();
-        drawFlag(cx, bY - h - spH - 20 * s, flagType);
-
-        var winW = w * 0.18;
-        var winH = 18 * s;
-        var winY = bY - h + h * 0.3;
-
-        ctx.fillStyle = 'rgb(' + cWallDark + ')';
-        ctx.beginPath();
-        ctx.moveTo(cx - winW, winY);
-        ctx.lineTo(cx - winW, winY - winH / 2);
-        ctx.arc(cx, winY - winH / 2, winW, Math.PI, 0);
-        ctx.lineTo(cx + winW, winY);
-        ctx.closePath();
-        ctx.fill();
-
+      function hueLantern(lx, ly, stringTopY) {
+        var lw = 10 * s, lh = 14 * s; 
+        var flicker = isNight ? (0.8 + 0.2 * Math.sin(nt * 3 + lx)) : 1;
+        
+        ctx.strokeStyle = 'rgba(0,0,0,0.8)'; ctx.lineWidth = 1 * s;
+        var sTop = stringTopY !== undefined ? stringTopY : ly - 16*s;
+        ctx.beginPath(); ctx.moveTo(lx, sTop); ctx.lineTo(lx, ly - lh/2); ctx.stroke();
+        
+        if (isNight) { 
+            ctx.shadowBlur = 25 * flicker; 
+            ctx.shadowColor = 'rgba(255, 120, 50, 0.9)'; 
+            var halo = ctx.createRadialGradient(lx, ly, 0, lx, ly, lw * 2.5);
+            halo.addColorStop(0, 'rgba(255, 150, 50, ' + (0.35 * flicker) + ')');
+            halo.addColorStop(1, 'transparent');
+            ctx.fillStyle = halo;
+            ctx.beginPath(); ctx.arc(lx, ly, lw * 2.5, 0, Math.PI*2); ctx.fill();
+        }
+        
+        var lg = ctx.createLinearGradient(lx - lw/2, 0, lx + lw/2, 0);
         if (isNight) {
-          var blink = 0.5 + 0.5 * Math.abs(Math.sin(nt * 1.5 + cx * 0.02));
-          ctx.shadowBlur = 15; ctx.shadowColor = 'rgba(255, 200, 50, 0.8)';
-          ctx.fillStyle = 'rgba(255, 220, 80, ' + (0.7 * blink) + ')';
+            lg.addColorStop(0, 'rgb(180, 40, 20)'); 
+            lg.addColorStop(0.5, 'rgb(255, 160, 80)');
+            lg.addColorStop(1, 'rgb(180, 40, 20)');
         } else {
-          ctx.fillStyle = 'rgba(150, 200, 255, 0.8)';
+            lg.addColorStop(0, 'rgb(' + cRedDark + ')'); 
+            lg.addColorStop(0.5, 'rgb(' + cRedBase + ')'); 
+            lg.addColorStop(1, 'rgb(' + cRedDark + ')');
         }
-        ctx.beginPath();
-        ctx.moveTo(cx - winW * 0.7, winY - 2 * s);
-        ctx.lineTo(cx - winW * 0.7, winY - winH / 2);
-        ctx.arc(cx, winY - winH / 2, winW * 0.7, Math.PI, 0);
-        ctx.lineTo(cx + winW * 0.7, winY - 2 * s);
-        ctx.closePath();
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        
+        ctx.fillStyle = lg;
+        ctx.beginPath(); ctx.ellipse(lx, ly, lw/2, lh/2, 0, 0, Math.PI*2); ctx.fill();
+        
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 0.5 * s;
+        ctx.beginPath(); ctx.moveTo(lx, ly - lh/2); ctx.lineTo(lx, ly + lh/2); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(lx, ly, lw/4, lh/2, 0, 0, Math.PI*2); ctx.stroke();
+
+        ctx.shadowBlur = 0; 
+        
+        ctx.fillStyle = 'rgb(' + cWoodDark + ')';
+        ctx.fillRect(lx - lw*0.35, ly - lh/2 - 1.5*s, lw*0.7, 2.5*s);
+        ctx.fillRect(lx - lw*0.35, ly + lh/2 - 0.5*s, lw*0.7, 2.5*s);
+        ctx.fillStyle = 'rgb(' + cGold + ')';
+        ctx.fillRect(lx - lw*0.2, ly - lh/2 - 1*s, lw*0.4, 1.5*s);
+        
+        ctx.fillStyle = 'rgb(' + cRedBase + ')';
+        ctx.beginPath(); ctx.moveTo(lx, ly + lh/2 + 2*s); ctx.lineTo(lx - 2*s, ly + lh/2 + 10*s); ctx.lineTo(lx + 2*s, ly + lh/2 + 10*s); ctx.fill();
+      }
+      
+      function drawWatchTower(cx, cy, scale) {
+          var tw = 130 * scale;
+          var th = 40 * scale;
+          ctx.fillStyle = 'rgb(' + cStoneDark + ')';
+          ctx.fillRect(cx - tw/2, cy - th, tw, th);
+          ctx.fillStyle = 'rgb(' + cStoneBase + ')';
+          ctx.fillRect(cx - tw/2 + 5*scale, cy - th, tw - 10*scale, th);
+          ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.lineWidth = 1;
+          for(var ty = cy - th + 5*scale; ty < cy; ty += 6*scale) {
+             ctx.beginPath(); ctx.moveTo(cx - tw/2 + 5*scale, ty); ctx.lineTo(cx + tw/2 - 5*scale, ty); ctx.stroke();
+          }
+          for(var tx = cx - tw/2 + 10*scale; tx < cx + tw/2 - 5*scale; tx += 12*scale) {
+             ctx.beginPath(); ctx.moveTo(tx, cy - th); ctx.lineTo(tx, cy); ctx.stroke();
+          }
+          drawRailing(cx, cy - th, tw);
+          drawPavilion(cx, cy - th, 100*scale, 40*scale, 3);
+          drawHueRoof(cx, cy - th - 40*scale, 125*scale, 30*scale, cRoofGreen, cRoofGreenDk, 9*scale);
+          var eaveY = cy - th - 35*scale;
+          hueLantern(cx - 45*scale, cy - th + 5*scale, eaveY);
+          hueLantern(cx + 45*scale, cy - th + 5*scale, eaveY);
       }
 
-      // dựng tường
-      wall(0, VW * .1, 36 * s); wall(VW * .9, VW * .1, 36 * s);
-      wall(VW * .03, VW * .14, 50 * s); wall(VW * .83, VW * .14, 50 * s);
-      wall(VW * .17, VW * .09, 72 * s); wall(VW * .74, VW * .09, 72 * s);
-      wall(VW * .22, VW * .56, 108 * s);
-
-      // dựng tháp
-      tower(VW * .01, 14 * s, 72 * s, 30 * s, 'blue');
-      tower(VW * .07, 18 * s, 99 * s, 40 * s, 'red');
-      tower(VW * .13, 16 * s, 83 * s, 34 * s, 'blue');
-      tower(VW * .19, 22 * s, 129 * s, 50 * s, 'red');
-      tower(VW * .27, 20 * s, 115 * s, 45 * s, 'blue');
-      tower(VW * .36, 18 * s, 144 * s, 56 * s, 'red');
-      tower(VW * .50, 38 * s, 240 * s, 95 * s, 'vietnam');
-      tower(VW * .64, 18 * s, 144 * s, 56 * s, 'blue');
-      tower(VW * .73, 20 * s, 115 * s, 45 * s, 'red');
-      tower(VW * .81, 22 * s, 129 * s, 50 * s, 'blue');
-      tower(VW * .87, 16 * s, 83 * s, 34 * s, 'red');
-      tower(VW * .93, 18 * s, 99 * s, 40 * s, 'blue');
-      tower(VW * .99, 14 * s, 72 * s, 30 * s, 'red');
-
-      // cổng gỗ
-      var gw = 68 * s, gh = 78 * s, gcx = VW * .5;
-
-      // Khối đế cổng
-      ctx.fillStyle = 'rgb(' + cWallBase + ')';
-      ctx.fillRect(gcx - gw / 2, bY - gh, gw, gh);
-
-      // mái vòm cổng
-      ctx.fillStyle = 'rgb(' + cRoofBase + ')';
-      ctx.beginPath(); ctx.arc(gcx, bY - gh, gw * 0.55, Math.PI, 0); ctx.fill();
-      ctx.strokeStyle = 'rgba(' + cRoofLite + ', 0.6)'; ctx.lineWidth = 3 * s;
-      ctx.beginPath(); ctx.arc(gcx, bY - gh, gw * 0.55, Math.PI, 0); ctx.stroke();
-
-      // cửa gỗ
-      var aw = 28 * s, ah = 44 * s;
-      var cWoodBase = lerpC('#2e1a10', '#5e381f', t);
-      var cWoodDark = lerpC('#140b06', '#3b2110', t);
-
-      var doorGrad = ctx.createLinearGradient(gcx - aw / 2, 0, gcx + aw / 2, 0);
-      doorGrad.addColorStop(0, 'rgb(' + cWoodDark + ')');
-      doorGrad.addColorStop(0.5, 'rgb(' + cWoodBase + ')');
-      doorGrad.addColorStop(1, 'rgb(' + cWoodDark + ')');
-      ctx.fillStyle = doorGrad;
-
-      ctx.beginPath();
-      ctx.moveTo(gcx - aw / 2, bY);
-      ctx.lineTo(gcx - aw / 2, bY - ah + aw / 2);
-      ctx.arc(gcx, bY - ah + aw / 2, aw / 2, Math.PI, 0);
-      ctx.lineTo(gcx + aw / 2, bY);
-      ctx.fill();
-
-      // Vẽ ván gỗ dọc
-      ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-      ctx.lineWidth = 1 * s;
-      for (var plankX = gcx - aw / 2 + 4 * s; plankX < gcx + aw / 2; plankX += 4 * s) {
-        ctx.beginPath();
-        ctx.moveTo(plankX, bY);
-        var dx = plankX - gcx;
-        var radius = aw / 2;
-        var dy = Math.sqrt(Math.max(0, radius * radius - dx * dx)); // Cắt theo vòm cửa
-        ctx.lineTo(plankX, bY - ah + radius - dy);
-        ctx.stroke();
+      var gcx = VW * 0.5;
+      var baseW = 720 * s;
+      var baseH = 85 * s;
+      var extW = 2600 * s;
+      var extH = 65 * s;
+      
+      var gateStoneGrad = ctx.createLinearGradient(gcx - baseW / 2, 0, gcx + baseW / 2, 0);
+      gateStoneGrad.addColorStop(0, 'rgb(' + cStoneDark + ')'); gateStoneGrad.addColorStop(0.1, 'rgb(' + cStoneBase + ')'); gateStoneGrad.addColorStop(0.5, 'rgb(' + lerpC('#484b52', '#d0cec4', t) + ')'); gateStoneGrad.addColorStop(0.9, 'rgb(' + cStoneBase + ')'); gateStoneGrad.addColorStop(1, 'rgb(' + cStoneDark + ')');
+      
+      // Extended background walls
+      ctx.fillStyle = 'rgb(' + cStoneDark + ')';
+      ctx.fillRect(gcx - extW / 2, bY - extH, extW, extH);
+      ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth = 1;
+      for (var ry = 10 * s; ry < extH; ry += 10 * s) { ctx.beginPath(); ctx.moveTo(gcx - extW/2, bY - extH + ry); ctx.lineTo(gcx + extW/2, bY - extH + ry); ctx.stroke(); }
+      for (var bx = gcx - extW/2; bx < gcx + extW/2; bx += 15*s) { ctx.beginPath(); ctx.moveTo(bx, bY - extH); ctx.lineTo(bx, bY); ctx.stroke(); }
+      
+      // Battlements for extended wall
+      ctx.fillStyle = 'rgb(' + cStoneDark + ')';
+      for(var bw = gcx - extW/2 + 5*s; bw < gcx + extW/2; bw += 25*s) {
+          ctx.fillRect(bw, bY - extH - 10*s, 15*s, 10*s);
       }
 
-      // Bản lề và nẹp kim loại ngang có đinh tán
-      ctx.strokeStyle = 'rgb(' + lerpC('#111', '#333', t) + ')';
-      ctx.lineWidth = 2.5 * s;
-      for (var by = bY - 8 * s; by > bY - ah + 15 * s; by -= 12 * s) {
-        ctx.beginPath(); ctx.moveTo(gcx - aw / 2, by); ctx.lineTo(gcx + aw / 2, by); ctx.stroke();
-        // Đinh tán
-        ctx.fillStyle = '#999';
-        for (var nx = gcx - aw / 2 + 3 * s; nx < gcx + aw / 2; nx += 6 * s) {
-          ctx.beginPath(); ctx.arc(nx, by, 1 * s, 0, Math.PI * 2); ctx.fill();
-        }
-      }
+      // Watchtowers
+      drawWatchTower(gcx - 520*s, bY - extH, s);
+      drawWatchTower(gcx + 520*s, bY - extH, s);
+      drawWatchTower(gcx - 780*s, bY - extH, s);
+      drawWatchTower(gcx + 780*s, bY - extH, s);
+      drawWatchTower(gcx - 1040*s, bY - extH, s);
+      drawWatchTower(gcx + 1040*s, bY - extH, s);
 
-      // Ký tự ma thuật (Runes) phát sáng quanh cổng ban đêm
-      if (isNight) {
-        ctx.shadowBlur = 10; ctx.shadowColor = '#00ffff';
-        ctx.fillStyle = 'rgba(0, 255, 255, ' + (0.6 + 0.4 * Math.sin(nt * 3)) + ')';
-        ctx.beginPath(); ctx.arc(gcx, bY - gh + 15 * s, 3.5 * s, 0, Math.PI * 2); ctx.fill();
-        ctx.beginPath(); ctx.moveTo(gcx - 7 * s, bY - gh + 10 * s); ctx.lineTo(gcx + 7 * s, bY - gh + 10 * s); ctx.lineTo(gcx, bY - gh + 22 * s); ctx.fill();
-        ctx.shadowBlur = 0;
-      }
+      // Main Stone Base
+      ctx.fillStyle = gateStoneGrad;
+      ctx.fillRect(gcx - baseW / 2, bY - baseH, baseW, baseH);
+      ctx.fillStyle = 'rgba(0,0,0,0.12)'; 
+      ctx.fillRect(gcx - baseW/2 + 130*s, bY - baseH, 12*s, baseH);
+      ctx.fillRect(gcx + baseW/2 - 142*s, bY - baseH, 12*s, baseH);
 
-      // Thảm cỏ chân lâu đài
+      ctx.strokeStyle = 'rgba(0,0,0,' + (isNight ? 0.35 : 0.2) + ')'; ctx.lineWidth = 1;
+      for (var ry = 10 * s; ry < baseH; ry += 10 * s) { ctx.beginPath(); ctx.moveTo(gcx - baseW/2, bY - baseH + ry); ctx.lineTo(gcx + baseW/2, bY - baseH + ry); ctx.stroke(); }
+      for (var bx = gcx - baseW/2 + 15*s; bx < gcx + baseW/2; bx += 20*s) { ctx.beginPath(); ctx.moveTo(bx, bY - baseH); ctx.lineTo(bx, bY); ctx.stroke(); }
+
+      ctx.fillStyle = 'rgb(' + cRidge + ')'; ctx.fillRect(gcx - baseW / 2 - 5*s, bY - baseH - 12*s, baseW + 10*s, 12*s);
+      ctx.fillStyle = 'rgba(0,0,0,0.4)'; 
+      for (var lx = gcx - baseW/2; lx < gcx + baseW/2; lx += 15*s) { ctx.fillRect(lx + 2*s, bY - baseH - 10*s, 11*s, 10*s); }
+
+      drawArch(gcx, bY, 52*s, 60*s); 
+      drawArch(gcx - 75*s, bY, 40*s, 48*s); 
+      drawArch(gcx + 75*s, bY, 40*s, 48*s); 
+      drawArch(gcx - 240*s, bY, 36*s, 42*s); 
+      drawArch(gcx + 240*s, bY, 36*s, 42*s); 
+
+      var pav1Y = bY - baseH - 12*s;
+      var wingW = 125 * s, wingH = 30 * s, wingCxL = gcx - 240 * s, wingCxR = gcx + 240 * s;
+      drawRailing(wingCxL, pav1Y, wingW + 10*s);
+      drawRailing(wingCxR, pav1Y, wingW + 10*s);
+      drawPavilion(wingCxL, pav1Y, wingW, wingH, 4);
+      drawPavilion(wingCxR, pav1Y, wingW, wingH, 4);
+      drawHueRoof(wingCxL, pav1Y - wingH, wingW * 1.25, 32*s, cRoofGreen, cRoofGreenDk, 6*s);
+      drawHueRoof(wingCxR, pav1Y - wingH, wingW * 1.25, 32*s, cRoofGreen, cRoofGreenDk, 6*s);
+
+      var galW = 115 * s, galH = 28 * s, galCxL = gcx - 110 * s, galCxR = gcx + 110 * s;
+      drawRailing(galCxL, pav1Y, galW + 10*s);
+      drawRailing(galCxR, pav1Y, galW + 10*s);
+      drawPavilion(galCxL, pav1Y, galW, galH, 3);
+      drawPavilion(galCxR, pav1Y, galW, galH, 3);
+      drawHueRoof(galCxL, pav1Y - galH, galW * 1.2, 30*s, cRoofGreen, cRoofGreenDk, 5*s);
+      drawHueRoof(galCxR, pav1Y - galH, galW * 1.2, 30*s, cRoofGreen, cRoofGreenDk, 5*s);
+
+      var cen1W = 160 * s, cen1H = 34 * s;
+      drawRailing(gcx, pav1Y, cen1W + 15*s);
+      drawPavilion(gcx, pav1Y, cen1W, cen1H, 5);
+      drawHueRoof(gcx, pav1Y - cen1H, cen1W * 1.25, 28*s, cRoofYellow, cRoofYellowDk, 7*s);
+
+      var pav2Y = pav1Y - cen1H - 10*s;
+      var cen2W = 115 * s, cen2H = 30 * s;
+      drawRailing(gcx, pav2Y, cen2W + 20*s);
+      drawPavilion(gcx, pav2Y, cen2W, cen2H, 3);
+      drawHueRoof(gcx, pav2Y - cen2H, cen2W * 1.45, 52*s, cRoofYellow, cRoofYellowDk, 14*s);
+
+      var topY = pav2Y - cen2H - 52*s;
+      ctx.fillStyle = 'rgb(' + cGold + ')';
+      ctx.beginPath(); ctx.arc(gcx, topY - 3*s, 6*s, 0, Math.PI*2); ctx.fill();
+      ctx.lineWidth = 3 * s; ctx.strokeStyle = 'rgb(' + cGold + ')'; 
+      ctx.beginPath(); ctx.moveTo(gcx - 8*s, topY); ctx.quadraticCurveTo(gcx - 22*s, topY - 18*s, gcx - 32*s, topY + 8*s); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(gcx + 8*s, topY); ctx.quadraticCurveTo(gcx + 22*s, topY - 18*s, gcx + 32*s, topY + 8*s); ctx.stroke();
+
+      var lY = bY - baseH + 5*s;
+      var eTop = bY - baseH - 25*s;
+      hueLantern(gcx - 40*s, lY, eTop);
+      hueLantern(gcx + 40*s, lY, eTop);
+      hueLantern(gcx - 180*s, lY, eTop);
+      hueLantern(gcx + 180*s, lY, eTop);
+
+      var kyDaiX = gcx + 220 * s;
+      var kyDaiY = bY + 25 * s;
+      ctx.fillStyle = gateStoneGrad;
+      ctx.fillRect(kyDaiX - 60*s, kyDaiY - 15*s, 120*s, 15*s);
+      ctx.fillRect(kyDaiX - 45*s, kyDaiY - 30*s, 90*s, 15*s);
+      ctx.fillRect(kyDaiX - 30*s, kyDaiY - 45*s, 60*s, 15*s);
+      ctx.fillStyle = 'rgb(' + cWoodDark + ')';
+      ctx.fillRect(kyDaiX - 3*s, kyDaiY - 240*s, 6*s, 195*s);
+      drawFlag(kyDaiX + 3*s, kyDaiY - 235*s, 'vietnam');
+
       var groundY = bY;
       var grassGrad = ctx.createLinearGradient(0, groundY, 0, H);
       grassGrad.addColorStop(0, 'rgb(' + lerpC('#06080c', '#46a855', t) + ')');
@@ -1961,7 +2053,6 @@
       ctx.fillStyle = grassGrad;
       ctx.fillRect(0, groundY, VW, H - groundY);
 
-      // Đèn đóm ma thuật & Cột sáng chân tường
       var nt2 = Date.now() * .001;
       ctx.globalAlpha = a * (1 - t);
       [[.5, bY + 15 * s, 7], [.41, bY + 12 * s, 5], [.59, bY + 12 * s, 5], [.33, bY + 8 * s, 4.5], [.67, bY + 8 * s, 4.5], [.25, bY + 5 * s, 4], [.75, bY + 5 * s, 4], [.19, bY + 3 * s, 3.5], [.81, bY + 3 * s, 3.5]].forEach(function (w) {
@@ -1978,7 +2069,6 @@
       });
       ctx.restore();
     }
-
     // đồng hoa — khởi tạo dữ liệu
     var FLOWERS = (function () {
       var types = ['poppy', 'lavender', 'cosmos', 'daisy', 'buttercup', 'bluebell'];
