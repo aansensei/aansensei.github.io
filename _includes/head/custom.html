@@ -2630,9 +2630,10 @@
           ctx.scale(1, -1);
           
           // Simulate blur with offset drawing to avoid severe lag from ctx.filter
-          var refA = riverA * (H > W ? 0.04 : 0.06); 
-          ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
-          ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
+          var isMob = H > W;
+          var refA = riverA * (isMob ? 0.012 : 0.06); 
+          ctx.save(); ctx.translate(swayX * (isMob ? 1.5 : 0.8), (isMob ? 3 : 1) * sc); drawCastle(refA, t, true); ctx.restore();
+          ctx.save(); ctx.translate(-swayX * (isMob ? 2.5 : 1.5), (isMob ? -2 : -0.5) * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
         } catch (err) {
         } finally {
@@ -2852,25 +2853,29 @@
                 ctx.globalAlpha = riverA * (0.85 + 0.15 * Math.sin(nt * 3 + la.phase));
               }
 
+              var h = la.hue || 340;
               // Ambient Glow
               if (!isRefl) {
                 var glow = ctx.createRadialGradient(0, -2.5*ls, 0, 0, -2.5*ls, Math.max(0.1, 40 * ls));
-                glow.addColorStop(0, 'rgba(255, 200, 80, 0.4)');
-                glow.addColorStop(0.3, 'rgba(255, 120, 40, 0.15)');
+                glow.addColorStop(0, 'hsla(' + h + ', 100%, 75%, 0.45)');
+                glow.addColorStop(0.3, 'hsla(' + (h + 15) + ', 100%, 65%, 0.15)');
                 glow.addColorStop(1, 'transparent');
                 ctx.fillStyle = glow;
                 ctx.globalCompositeOperation = 'lighter';
                 ctx.beginPath(); ctx.arc(0, -2.5*ls, Math.max(0.1, 40 * ls), 0, Math.PI * 2); ctx.fill();
                 ctx.globalCompositeOperation = 'source-over';
               } else {
-                var refGlow = ctx.createRadialGradient(0, -2.5*ls, 0, 0, -2.5*ls, Math.max(0.1, 55 * ls));
-                refGlow.addColorStop(0, 'rgba(255, 200, 80, 0.3)');
-                refGlow.addColorStop(0.3, 'rgba(255, 120, 40, 0.1)');
+                ctx.save();
+                ctx.scale(1.8, 0.5); // Spread reflection horizontally for water ripple effect
+                var refGlow = ctx.createRadialGradient(0, -2.5*ls/0.5, 0, 0, -2.5*ls/0.5, Math.max(0.1, 60 * ls));
+                refGlow.addColorStop(0, 'hsla(' + h + ', 100%, 75%, 0.35)');
+                refGlow.addColorStop(0.3, 'hsla(' + (h + 15) + ', 100%, 65%, 0.1)');
                 refGlow.addColorStop(1, 'transparent');
                 ctx.fillStyle = refGlow;
                 ctx.globalCompositeOperation = 'lighter';
-                ctx.beginPath(); ctx.arc(0, -2.5*ls, Math.max(0.1, 55 * ls), 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(0, -2.5*ls/0.5, Math.max(0.1, 60 * ls), 0, Math.PI * 2); ctx.fill();
                 ctx.globalCompositeOperation = 'source-over';
+                ctx.restore();
               }
 
               // Leaf Pad for lantern
@@ -2900,17 +2905,17 @@
                 ctx.restore();
               }
 
-              var hOuterBase = 'rgba(220, 60, 90, 0.9)'; // Dark pink/red
-              var hOuterTip = 'rgba(255, 130, 110, 0.95)'; // Salmon pink
+              var hOuterBase = 'hsla(' + h + ', 85%, 45%, 0.9)'; 
+              var hOuterTip = 'hsla(' + (h + 10) + ', 90%, 65%, 0.95)';
               
-              var hMidBase = 'rgba(240, 100, 60, 0.9)'; // Red-orange
-              var hMidTip = 'rgba(255, 170, 100, 0.95)'; // Peach
+              var hMidBase = 'hsla(' + (h + 15) + ', 85%, 50%, 0.9)'; 
+              var hMidTip = 'hsla(' + (h + 20) + ', 95%, 70%, 0.95)';
               
-              var hInnerBase = 'rgba(255, 160, 0, 0.95)'; // Bright orange
-              var hInnerTip = 'rgba(255, 220, 80, 0.95)'; // Light yellow
+              var hInnerBase = 'hsla(' + (h + 25) + ', 90%, 55%, 0.95)'; 
+              var hInnerTip = 'hsla(' + (h + 30) + ', 100%, 75%, 0.95)';
               
-              var hCenterBase = 'rgba(255, 200, 0, 0.98)'; // Golden
-              var hCenterTip = 'rgba(255, 255, 150, 0.98)'; // White-yellow
+              var hCenterBase = 'hsla(' + (h + 35) + ', 95%, 60%, 0.98)'; 
+              var hCenterTip = 'hsla(' + (h + 40) + ', 100%, 85%, 0.98)';
 
               // Outer layer (spread very flat like reference)
               drawLanternPetal(-1.3, 1.4*ls, 0.5*ls, 0.5*ls, hOuterBase, hOuterTip);
