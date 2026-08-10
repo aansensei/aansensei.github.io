@@ -2629,11 +2629,10 @@
           ctx.translate(0, 2 * bY);
           ctx.scale(1, -1);
           
-          // Double-draw with slight offset to create a horizontal blur (water ripple effect)
-          if (ctx.filter !== undefined) ctx.filter = 'blur(6px)';
-          ctx.save(); ctx.translate(swayX, 0); drawCastle(riverA * 0.15, t, true); ctx.restore();
-          ctx.save(); ctx.translate(-swayX * 1.5, 0); drawCastle(riverA * 0.08, t, true); ctx.restore();
-          if (ctx.filter !== undefined) ctx.filter = 'none';
+          // Simulate blur with offset drawing to avoid severe lag from ctx.filter
+          var refA = riverA * (H > W ? 0.04 : 0.06); 
+          ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
+          ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
         } catch (err) {
         } finally {
