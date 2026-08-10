@@ -2629,78 +2629,12 @@
           ctx.translate(0, 2 * bY);
           ctx.scale(1, -1);
           
-          // Simulate blur with offset drawing to avoid severe lag from ctx.filter
-          var isMob = H > W;
-          if (isMob) {
-            // Draw a very simplified, faint silhouette for mobile to avoid Safari rendering lag/bugs
-            var VW_m = 900;
-            var desiredScale = Math.max(VW_m / 1280, 0.9) * 1.1 * 1.25;
-            // Tổng chiều cao khối bóng (chưa scale): base wall + khoảng cách + 2 tầng + 3 mái nhô
-            var unscaledSilhouetteH = 120 + 35 + 45 + 55 + 45 + 40 + 60 + 70;
-            var waterAreaH = H - bY;
-            var fitScale = (waterAreaH * 0.85) / unscaledSilhouetteH;
-            var s_m = Math.min(desiredScale, fitScale);
-            var cx_m = VW_m / 2, cy_m = bY;
-            
-            ctx.save();
-            ctx.translate((W - VW_m) / 2, 0); 
-            ctx.globalAlpha = riverA;
-            
-            // Draw 2 passes for blur
-            for(var pass=0; pass<2; pass++) {
-              ctx.save();
-              ctx.translate((pass===0 ? swayX : -swayX*1.5), (pass===0 ? 1 : -0.5)*sc);
-              
-              var alphaC = (pass===0 ? 0.25 : 0.15);
-              var cWall = 'rgba(90, 25, 15, ' + alphaC + ')'; // Warm dim red for walls
-              var cRoof = 'rgba(120, 80, 20, ' + alphaC + ')'; // Warm dim gold for roofs
-              
-              // Base Wall
-              var w1 = 600 * s_m, h1 = 120 * s_m;
-              ctx.fillStyle = cWall;
-              ctx.fillRect(cx_m - w1/2, cy_m - h1, w1, h1);
-              
-              // Tier 1 Roof
-              var rw1 = 700 * s_m, rh1 = 40 * s_m, ry1 = cy_m - h1 - 5 * s_m;
-              ctx.fillStyle = cRoof; ctx.beginPath();
-              ctx.moveTo(cx_m - rw1/2, ry1); ctx.lineTo(cx_m + rw1/2, ry1);
-              ctx.lineTo(cx_m + (rw1/2 - 25*s_m), ry1 - rh1); ctx.lineTo(cx_m - (rw1/2 - 25*s_m), ry1 - rh1);
-              ctx.fill();
-              
-              // Tier 2 Wall
-              var floor2Y = cy_m - h1 - 35 * s_m;
-              var w2 = 480 * s_m, h2 = 45 * s_m;
-              ctx.fillStyle = cWall;
-              ctx.fillRect(cx_m - w2/2, floor2Y - h2, w2, h2);
-              
-              // Tier 2 Roof
-              var rw2 = 540 * s_m, rh2 = 60 * s_m, ry2 = floor2Y - h2 - 5 * s_m;
-              ctx.fillStyle = cRoof; ctx.beginPath();
-              ctx.moveTo(cx_m - rw2/2, ry2); ctx.lineTo(cx_m + rw2/2, ry2);
-              ctx.lineTo(cx_m + (rw2/2 - 45*s_m), ry2 - rh2); ctx.lineTo(cx_m - (rw2/2 - 45*s_m), ry2 - rh2);
-              ctx.fill();
-              
-              // Tier 3 Wall
-              var floor3Y = floor2Y - h2 - 55 * s_m;
-              var w3 = 280 * s_m, h3 = 45 * s_m;
-              ctx.fillStyle = cWall;
-              ctx.fillRect(cx_m - w3/2, floor3Y - h3, w3, h3);
-              
-              // Tier 3 Roof
-              var rw3 = 340 * s_m, rh3 = 70 * s_m, ry3 = floor3Y - h3 - 5 * s_m;
-              ctx.fillStyle = cRoof; ctx.beginPath();
-              ctx.moveTo(cx_m - rw3/2, ry3); ctx.lineTo(cx_m + rw3/2, ry3);
-              ctx.lineTo(cx_m + (rw3/2 - 55*s_m), ry3 - rh3); ctx.lineTo(cx_m - (rw3/2 - 55*s_m), ry3 - rh3);
-              ctx.fill();
-              
-              ctx.restore();
-            }
-            ctx.restore();
-          } else {
-            var refA = riverA * 0.1; 
-            ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
-            ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
-          }
+          // Dùng đúng hình dạng tòa thành thật cho phản chiếu (thay vì khối tự vẽ tay,
+          // vốn không giống thành thật) — isReflection=true đã tự bỏ bớt vài chi tiết nặng.
+          // 2 lần vẽ lệch để giả lập mờ mà không cần ctx.filter (đỡ lag trên Safari mobile).
+          var refA = riverA * 0.1;
+          ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
+          ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
         } catch (err) {
         } finally {
