@@ -3005,9 +3005,7 @@ window.onerror = function(msg, url, line, col, err) {
           }
         }
 
-        ctx.globalAlpha = riverA; // Reset opacity for Bubbles and Fishes
-
-        // Bubbles
+        // Branches
         ctx.strokeStyle = 'rgba(60, 35, 25, ' + (0.5 + depth * 0.1) + ')';
         ctx.lineWidth = depth * 2.5 * s; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(startX, startY); ctx.lineTo(endX, endY); ctx.stroke();
