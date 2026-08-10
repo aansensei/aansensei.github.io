@@ -2958,9 +2958,18 @@
                 ctx.restore();
               }
 
-              // Leaf Pad for lantern
-              ctx.fillStyle = '#1a4020';
-              ctx.beginPath(); ctx.ellipse(0, 0, Math.max(0.1, 15 * ls), Math.max(0.1, 4 * ls), 0, 0, Math.PI * 2); ctx.fill();
+              // Base leaf (green) matching the paper lantern
+              var leafGrad = ctx.createLinearGradient(0, -2*ls, 0, 4*ls);
+              leafGrad.addColorStop(0, '#668a47'); // lighter green tip
+              leafGrad.addColorStop(1, '#234219'); // dark green base
+              ctx.fillStyle = leafGrad;
+              ctx.beginPath();
+              ctx.moveTo(0, 2*ls);
+              ctx.quadraticCurveTo(-14 * ls, 4 * ls, -22 * ls, 0);
+              ctx.quadraticCurveTo(-14 * ls, -2 * ls, 0, 0);
+              ctx.quadraticCurveTo(14 * ls, -2 * ls, 22 * ls, 0);
+              ctx.quadraticCurveTo(14 * ls, 4 * ls, 0, 2*ls);
+              ctx.fill();
 
               function drawLanternPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
                 ctx.save();
@@ -2971,48 +2980,46 @@
                 pG.addColorStop(1, c2);
                 ctx.fillStyle = pG;
                 ctx.beginPath();
-                var w = 3.5 * scaleX, h = 10 * scaleY;
+                var w = 4.2 * scaleX, h = 10 * scaleY;
                 ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(w, -h * 0.4, w * 0.9, -h * 0.8, 0, -h);
-                ctx.bezierCurveTo(-w * 0.9, -h * 0.8, -w, -h * 0.4, 0, 0);
+                // Pointy petal (paper folded)
+                ctx.quadraticCurveTo(w, -h * 0.4, w * 0.3, -h * 0.8);
+                ctx.lineTo(0, -h);
+                ctx.lineTo(-w * 0.3, -h * 0.8);
+                ctx.quadraticCurveTo(-w, -h * 0.4, 0, 0);
                 ctx.fill();
                 
                 if (!isRefl) {
-                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)'; 
-                  ctx.lineWidth = 0.5 * sc; 
-                  ctx.stroke();
+                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)'; 
+                  ctx.lineWidth = 0.6 * sc; 
+                  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -h * 0.95); ctx.stroke(); // Center fold
                 }
                 ctx.restore();
               }
 
-              var hOuterBase = 'hsla(' + h + ', 85%, 45%, 0.9)'; 
-              var hOuterTip = 'hsla(' + (h + 10) + ', 90%, 65%, 0.95)';
-              
-              var hMidBase = 'hsla(' + (h + 15) + ', 85%, 50%, 0.9)'; 
-              var hMidTip = 'hsla(' + (h + 20) + ', 95%, 70%, 0.95)';
-              
-              var hInnerBase = 'hsla(' + (h + 25) + ', 90%, 55%, 0.95)'; 
-              var hInnerTip = 'hsla(' + (h + 30) + ', 100%, 75%, 0.95)';
-              
-              var hCenterBase = 'hsla(' + (h + 35) + ', 95%, 60%, 0.98)'; 
-              var hCenterTip = 'hsla(' + (h + 40) + ', 100%, 85%, 0.98)';
+              // Colors for paper lantern (matching image)
+              var cOutBase = 'rgba(235, 110, 80, 0.95)', cOutTip = 'rgba(245, 140, 90, 0.9)';
+              var cMidBase = 'rgba(245, 140, 60, 0.95)', cMidTip = 'rgba(255, 175, 75, 0.9)';
+              var cInBase = 'rgba(255, 190, 80, 0.98)', cInTip = 'rgba(255, 225, 120, 0.95)';
+              var cCenBase = 'rgba(255, 235, 150, 1)', cCenTip = 'rgba(255, 255, 210, 1)';
 
-              // Outer layer (spread very flat like reference)
-              drawLanternPetal(-1.3, 1.4*ls, 0.5*ls, 0.5*ls, hOuterBase, hOuterTip);
-              drawLanternPetal(1.3, 1.4*ls, 0.5*ls, 0.5*ls, hOuterBase, hOuterTip);
-              drawLanternPetal(-0.9, 1.3*ls, 0.7*ls, 0, hOuterBase, hOuterTip);
-              drawLanternPetal(0.9, 1.3*ls, 0.7*ls, 0, hOuterBase, hOuterTip);
+              // Draw layers (back to front)
+              // Outer back
+              drawLanternPetal(-1.2, 1.6*ls, 0.6*ls, 1*ls, cOutBase, cOutTip);
+              drawLanternPetal(1.2, 1.6*ls, 0.6*ls, 1*ls, cOutBase, cOutTip);
+              drawLanternPetal(-0.8, 1.4*ls, 0.8*ls, 0.5*ls, cOutBase, cOutTip);
+              drawLanternPetal(0.8, 1.4*ls, 0.8*ls, 0.5*ls, cOutBase, cOutTip);
 
-              // Middle layer (orange/peach)
-              drawLanternPetal(-0.5, 1.1*ls, 0.9*ls, -0.5*ls, hMidBase, hMidTip);
-              drawLanternPetal(0.5, 1.1*ls, 0.9*ls, -0.5*ls, hMidBase, hMidTip);
+              // Middle
+              drawLanternPetal(-0.5, 1.2*ls, 1.0*ls, 0, cMidBase, cMidTip);
+              drawLanternPetal(0.5, 1.2*ls, 1.0*ls, 0, cMidBase, cMidTip);
 
-              // Inner layer (yellow/orange)
-              drawLanternPetal(-0.25, 0.9*ls, 1.0*ls, -1*ls, hInnerBase, hInnerTip);
-              drawLanternPetal(0.25, 0.9*ls, 1.0*ls, -1*ls, hInnerBase, hInnerTip);
+              // Inner
+              drawLanternPetal(-0.25, 1.0*ls, 1.2*ls, -0.5*ls, cInBase, cInTip);
+              drawLanternPetal(0.25, 1.0*ls, 1.2*ls, -0.5*ls, cInBase, cInTip);
 
-              // Center glowing petal (brightest)
-              drawLanternPetal(0, 1.0*ls, 1.2*ls, -1.5*ls, hCenterBase, hCenterTip);
+              // Center
+              drawLanternPetal(0, 0.9*ls, 1.4*ls, -1.0*ls, cCenBase, cCenTip);
               
               if (!isRefl) {
                 // Candle core glow inside
@@ -3021,6 +3028,22 @@
                 core.addColorStop(1, 'transparent');
                 ctx.fillStyle = core;
                 ctx.beginPath(); ctx.arc(0, -2.5*ls, Math.max(0.1, 8*ls), 0, Math.PI*2); ctx.fill();
+
+                // Glowing particles flying up
+                ctx.fillStyle = 'rgba(255, 240, 180, 0.8)';
+                for (var k = 0; k < 3; k++) {
+                  var pT = (nt * 0.4 + la.phase * 10 + k * 3.3) % 1.0;
+                  if (pT > 0 && pT < 1) {
+                    var px = Math.sin(la.phase * 5 + k * 7 + pT * 6) * 20 * ls;
+                    var py = -3 * ls - pT * 50 * ls;
+                    var pr = (1 - pT) * 1.5 * ls;
+                    ctx.beginPath(); ctx.arc(px, py, Math.max(0.1, pr), 0, Math.PI*2);
+                    ctx.shadowBlur = 6 * ls;
+                    ctx.shadowColor = 'rgba(255,200,100,0.8)';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                  }
+                }
               }
 
             } finally {
