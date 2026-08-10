@@ -2631,7 +2631,7 @@
           
           // Simulate blur with offset drawing to avoid severe lag from ctx.filter
           var isMob = H > W;
-          var refA = riverA * (isMob ? 0.012 : 0.06); 
+          var refA = riverA * (isMob ? 0.012 : 0.1); 
           ctx.save(); ctx.translate(swayX * (isMob ? 1.5 : 0.8), (isMob ? 3 : 1) * sc); drawCastle(refA, t, true); ctx.restore();
           ctx.save(); ctx.translate(-swayX * (isMob ? 2.5 : 1.5), (isMob ? -2 : -0.5) * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
