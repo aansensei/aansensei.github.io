@@ -2958,71 +2958,97 @@
                 ctx.restore();
               }
 
-              // Base leaf (green) matching the paper lantern
-              var leafGrad = ctx.createLinearGradient(0, -2*ls, 0, 4*ls);
-              leafGrad.addColorStop(0, '#58803d'); 
-              leafGrad.addColorStop(1, '#1b3612'); 
+              // Base leaf (green) matching the user's HTML design
+              var leafGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 15*ls);
+              leafGrad.addColorStop(0, '#527540'); 
+              leafGrad.addColorStop(1, '#203315'); 
               ctx.fillStyle = leafGrad;
               ctx.beginPath();
-              // A single wide flat diamond-like leaf base
-              ctx.moveTo(0, 3*ls);
-              ctx.quadraticCurveTo(-12 * ls, 2 * ls, -26 * ls, -0.5 * ls);
-              ctx.quadraticCurveTo(-12 * ls, 0, 0, 1.5 * ls);
-              ctx.quadraticCurveTo(12 * ls, 0, 26 * ls, -0.5 * ls);
-              ctx.quadraticCurveTo(12 * ls, 2 * ls, 0, 3*ls);
+              ctx.ellipse(0, 3*ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI * 2);
               ctx.fill();
+              
+              if (!isRefl) {
+                // border-bottom solid
+                ctx.strokeStyle = '#0f1709';
+                ctx.lineWidth = 1 * sc;
+                ctx.beginPath();
+                ctx.ellipse(0, 3*ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI);
+                ctx.stroke();
+              }
 
-              function drawLanternPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
+              function drawLanternPetal(pRot, scaleX, scaleY, yOffset, cBase, cMid, cTip) {
                 ctx.save();
                 ctx.translate(0, yOffset);
                 ctx.rotate(pRot);
-                var pG = ctx.createLinearGradient(0, 0, 0, -10*scaleY);
-                pG.addColorStop(0, c1);
-                pG.addColorStop(1, c2);
+                // Create a radial gradient mimicking the CSS one (bottom-center to top-edge)
+                var pG = ctx.createRadialGradient(0, 2*scaleY, 0, 0, 0, 12*scaleY);
+                pG.addColorStop(0, cBase);
+                pG.addColorStop(0.6, cMid);
+                pG.addColorStop(1, cTip);
                 ctx.fillStyle = pG;
+                
                 ctx.beginPath();
-                var w = 5.5 * scaleX, h = 12 * scaleY;
-                ctx.moveTo(0, 0);
-                // Diamond shape with slightly curved bottom (broad paper petal)
-                ctx.quadraticCurveTo(w * 0.4, -h * 0.15, w, -h * 0.45);
-                ctx.lineTo(0, -h);
-                ctx.lineTo(-w, -h * 0.45);
-                ctx.quadraticCurveTo(-w * 0.4, -h * 0.15, 0, 0);
+                var w = 5.5 * scaleX, h = 10 * scaleY;
+                ctx.moveTo(0, -h); // Sharp top
+                // Right side bulge
+                ctx.bezierCurveTo(w * 1.3, -h * 0.2, w * 1.2, h * 0.4, 0, h * 0.4);
+                // Left side bulge
+                ctx.bezierCurveTo(-w * 1.2, h * 0.4, -w * 1.3, -h * 0.2, 0, -h);
                 ctx.fill();
                 
+                // Inner 3D glow / rim light mimicking box-shadow inset
                 if (!isRefl) {
-                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; 
-                  ctx.lineWidth = 0.5 * sc; 
-                  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -h * 0.95); ctx.stroke(); // Center fold
+                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                  ctx.lineWidth = 0.5 * sc;
+                  ctx.beginPath();
+                  ctx.moveTo(0, -h);
+                  ctx.bezierCurveTo(w * 1.1, -h * 0.1, w * 1.0, h * 0.3, 0, h * 0.3);
+                  ctx.stroke();
                 }
                 ctx.restore();
               }
 
               // Colors for paper lantern (matching image + dynamic hue)
-              var dh = la.hue || 340; // Restore dynamic hue variety!
-              var cOutBase = 'hsla(' + dh + ', 85%, 45%, 0.95)', cOutTip = 'hsla(' + (dh + 10) + ', 90%, 65%, 0.95)';
-              var cMidBase = 'hsla(' + (dh + 15) + ', 85%, 50%, 0.95)', cMidTip = 'hsla(' + (dh + 20) + ', 95%, 70%, 0.95)';
-              var cInBase = 'hsla(' + (dh + 25) + ', 90%, 55%, 0.98)', cInTip = 'hsla(' + (dh + 30) + ', 100%, 75%, 0.95)';
-              var cCenBase = 'hsla(' + (dh + 35) + ', 95%, 60%, 1)', cCenTip = 'hsla(' + (dh + 40) + ', 100%, 85%, 1)';
+              var dh = la.hue || 340; 
+              // Lớp ngoài cùng (tối nhất)
+              var cBackBase = 'hsla(' + dh + ', 100%, 15%, 0.95)';
+              var cBackMid  = 'hsla(' + (dh + 10) + ', 90%, 40%, 0.95)';
+              var cBackTip  = 'hsla(' + (dh + 20) + ', 80%, 55%, 0.95)';
 
-              // Draw layers (back to front) - carefully scaled to make it look wide and blooming
-              // Outer layer (spread very flat like reference)
-              drawLanternPetal(-1.3, 1.4*ls, 0.6*ls, 1.2*ls, cOutBase, cOutTip);
-              drawLanternPetal(1.3, 1.4*ls, 0.6*ls, 1.2*ls, cOutBase, cOutTip);
-              drawLanternPetal(-0.85, 1.3*ls, 0.8*ls, 0.8*ls, cOutBase, cOutTip);
-              drawLanternPetal(0.85, 1.3*ls, 0.8*ls, 0.8*ls, cOutBase, cOutTip);
+              // Lớp giữa sau
+              var cMidBaseL = 'hsla(' + (dh + 10) + ', 100%, 20%, 0.95)';
+              var cMidMidL  = 'hsla(' + (dh + 20) + ', 95%, 50%, 0.95)';
+              var cMidTipL  = 'hsla(' + (dh + 30) + ', 90%, 65%, 0.95)';
 
-              // Middle layer
-              drawLanternPetal(-0.55, 1.1*ls, 0.95*ls, 0.2*ls, cMidBase, cMidTip);
-              drawLanternPetal(0.55, 1.1*ls, 0.95*ls, 0.2*ls, cMidBase, cMidTip);
+              // Lớp giữa 2 bên
+              var cFrontBase = 'hsla(' + (dh + 20) + ', 100%, 25%, 0.95)';
+              var cFrontMid  = 'hsla(' + (dh + 30) + ', 100%, 60%, 0.95)';
+              var cFrontTip  = 'hsla(' + (dh + 40) + ', 100%, 75%, 0.95)';
 
-              // Inner layer
-              drawLanternPetal(-0.25, 0.95*ls, 1.1*ls, -0.3*ls, cInBase, cInTip);
-              drawLanternPetal(0.25, 0.95*ls, 1.1*ls, -0.3*ls, cInBase, cInTip);
+              // Center
+              var cCenterBase = 'hsla(' + (dh + 30) + ', 100%, 40%, 1)';
+              var cCenterMid  = 'hsla(' + (dh + 40) + ', 100%, 70%, 1)';
+              var cCenterTip  = 'hsla(60, 100%, 95%, 1)'; // Very bright white/yellow tip
 
-              // Center glowing petal (brightest)
-              drawLanternPetal(0, 0.9*ls, 1.3*ls, -0.8*ls, cCenBase, cCenTip);
+              // Draw layers (back to front) exactly mapping to user's CSS rotations
+              // 1. Lớp ngoài cùng phía sau (Tối nhất, thấp nhất) - rotate 70deg
+              drawLanternPetal(-1.2, 1.2*ls, 1.2*ls, 0.5*ls, cBackBase, cBackMid, cBackTip);
+              drawLanternPetal(1.2, 1.2*ls, 1.2*ls, 0.5*ls, cBackBase, cBackMid, cBackTip);
               
+              // 2. Lớp giữa phía sau - rotate 45deg
+              drawLanternPetal(-0.8, 1.1*ls, 1.1*ls, 0.2*ls, cMidBaseL, cMidMidL, cMidTipL);
+              drawLanternPetal(0.8, 1.1*ls, 1.1*ls, 0.2*ls, cMidBaseL, cMidMidL, cMidTipL);
+
+              // 3. Lớp giữa 2 bên - rotate 25deg
+              drawLanternPetal(-0.4, 1.1*ls, 1.1*ls, -0.1*ls, cFrontBase, cFrontMid, cFrontTip);
+              drawLanternPetal(0.4, 1.1*ls, 1.1*ls, -0.1*ls, cFrontBase, cFrontMid, cFrontTip);
+
+              // 4. Cánh hoa trung tâm
+              drawLanternPetal(0, 1.3*ls, 1.3*ls, -0.5*ls, cCenterBase, cCenterMid, cCenterTip);
+
+              // 5. Hai cánh nhỏ ôm phía trước
+              drawLanternPetal(-0.35, 0.8*ls, 0.8*ls, 0.8*ls, cFrontBase, cFrontMid, cFrontTip);
+              drawLanternPetal(0.35, 0.8*ls, 0.8*ls, 0.8*ls, cFrontBase, cFrontMid, cFrontTip);
               if (!isRefl) {
                 // Candle core glow inside
                 var core = ctx.createRadialGradient(0, -2.5*ls, 0, 0, -2.5*ls, Math.max(0.1, 8*ls));
