@@ -3030,20 +3030,24 @@
               drawFlamePetal(0.35, 0.7 * ls, -0.5 * ls, P.front);
 
               if (!isRefl) {
-                // Bright candle core: layered glow mimicking the reference's stacked box-shadow
+                // Bright candle core: layered glow, breathing dim/bright like the castle's paper lanterns
+                var coreFlicker = 0.72 + 0.28 * Math.sin(nt * 1.8 + la.phase * 4);
+                var baseAlpha = ctx.globalAlpha;
                 ctx.globalCompositeOperation = 'lighter';
-                var core3 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 22*ls));
-                core3.addColorStop(0, 'rgba(255,80,0,0.35)'); core3.addColorStop(1, 'transparent');
-                ctx.fillStyle = core3; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 22*ls), 0, Math.PI*2); ctx.fill();
+                ctx.globalAlpha = baseAlpha * coreFlicker;
+                var core3 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 20*ls));
+                core3.addColorStop(0, 'rgba(255,80,0,0.28)'); core3.addColorStop(1, 'transparent');
+                ctx.fillStyle = core3; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 20*ls), 0, Math.PI*2); ctx.fill();
 
-                var core2 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 12*ls));
-                core2.addColorStop(0, 'rgba(255,204,0,0.55)'); core2.addColorStop(1, 'transparent');
-                ctx.fillStyle = core2; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 12*ls), 0, Math.PI*2); ctx.fill();
+                var core2 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 11*ls));
+                core2.addColorStop(0, 'rgba(255,204,0,0.45)'); core2.addColorStop(1, 'transparent');
+                ctx.fillStyle = core2; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 11*ls), 0, Math.PI*2); ctx.fill();
 
-                var core1 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 5*ls));
-                core1.addColorStop(0, 'rgba(255,255,255,0.95)'); core1.addColorStop(1, 'rgba(255,255,255,0)');
-                ctx.fillStyle = core1; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 5*ls), 0, Math.PI*2); ctx.fill();
+                var core1 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 4.5*ls));
+                core1.addColorStop(0, 'rgba(255,255,255,0.8)'); core1.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = core1; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 4.5*ls), 0, Math.PI*2); ctx.fill();
                 ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = baseAlpha;
 
                 // Glowing particles flying up
                 ctx.fillStyle = 'rgba(255, 240, 180, 0.8)';
