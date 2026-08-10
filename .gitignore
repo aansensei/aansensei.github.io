@@ -6,3 +6,8 @@ _pages/backups/
 _includes/head/backups/
 .claude/
 
+
+miscellaneous/
+
+custom_test.html
+_includes/head/custom_backup.html
