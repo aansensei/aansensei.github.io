@@ -1554,7 +1554,7 @@
           if (!isDay) {
             if (ev.clientY > H * (H > W ? 0.65 : 0.82)) {
               if (window._river_fishes) {
-                var sc = Math.max(W / 1280, 0.4);
+                var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
                 window._river_fishes.push({
                   x: ev.clientX / W, y: ev.clientY, startY: ev.clientY,
                   vx: (Math.random() - 0.5) * 4 * sc, vy: -(5 + Math.random() * 4) * sc,
@@ -2418,7 +2418,7 @@
       if (t < 0.01) return;
       ctx.save();
       var bY = H * (H > W ? 0.65 : 0.82), mH = H - bY, nt = activeTime * 0.001;
-      var sc = Math.max(W / 1280, 0.4);
+      var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
 
       // ── 3 lớp đồi nhấp nhô, xa → gần ──
       ctx.globalAlpha = a * t;
@@ -2552,14 +2552,17 @@
       if (riverA < 0.01) return;
       var bY = H * (H > W ? 0.65 : 0.82);
       var nt = activeTime * 0.001;
-      var sc = Math.max(W / 1280, 0.4);
+      var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
 
       try {
         var baseTransform = ctx.getTransform ? ctx.getTransform() : null;
         ctx.save();
         ctx.globalAlpha = riverA;
-        if (!window._RIVER_INIT_V7 || !window._river_lanterns || window._river_lanterns.length !== 18) {
-          window._RIVER_INIT_V7 = true;
+        var isMobile = H > W;
+        var lotusCount = isMobile ? 3 : 7;
+        var lanternCount = isMobile ? 6 : 18;
+        if (!window._RIVER_INIT_V8 || !window._river_lanterns || window._river_lanterns.length !== lanternCount) {
+          window._RIVER_INIT_V8 = true;
           
           var allPos = [];
           function getValidPos(minD) {
@@ -2581,7 +2584,7 @@
           }
 
           window._river_lotuses = [];
-          for (var i = 0; i < 7; i++) { // 7 lotuses (larger objects)
+          for (var i = 0; i < lotusCount; i++) { // Adaptive lotus count
             var p = getValidPos(0.09);
             window._river_lotuses.push({
               x: p.x, y: p.y,
@@ -2592,7 +2595,7 @@
           }
 
           window._river_lanterns = [];
-          for (var i = 0; i < 18; i++) { // 18 lanterns (fewer for performance and elegance)
+          for (var i = 0; i < lanternCount; i++) { // Adaptive lantern count
             var p = getValidPos(0.06);
             window._river_lanterns.push({
               x: p.x, y: p.y,
