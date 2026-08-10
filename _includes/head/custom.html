@@ -1940,8 +1940,9 @@
           if (i === 0) { px1 -= pW / 2; pWidth -= pW / 2; }
           if (i === cols - 1) { pWidth -= pW / 2; }
           ctx.fillRect(px1 + 2 * s, cy - h + 10 * s, pWidth - 4 * s, h - 20 * s);
-          if (isNight) {
-            /* Soft steady glow for windows with outer aura */
+          if (isNight && !isReflection) {
+            /* Soft steady glow for windows with outer aura (skipped in reflection: iOS Safari's
+               shadowBlur doesn't respect globalAlpha, so this would render too bright/undimmed) */
             var glow = 0.85 + 0.15 * Math.sin(nt * 1.2 + cx * 0.02 + i);
             ctx.shadowBlur = 15 * s;
             ctx.shadowColor = 'rgba(255, 190, 80, ' + (0.8 * glow) + ')';
@@ -1998,7 +1999,8 @@
           }
         }
 
-        if (isNight) {
+        if (isNight && !isReflection) {
+          /* Skipped in reflection: iOS Safari's shadowBlur ignores globalAlpha, would look too bright */
           ctx.shadowBlur = 25 * flicker * s;
           ctx.shadowColor = glowColor;
           var halo = ctx.createRadialGradient(lx, ly, 0, lx, ly, lw * 2.5);
@@ -2307,9 +2309,11 @@
         { w: 50, h: 15, y: -45 }
       ];
       tiers.forEach(function (tr) {
-        /* Drop shadow for depth */
-        ctx.shadowColor = 'rgba(0,0,0,0.6)';
-        ctx.shadowBlur = 8 * s;
+        /* Drop shadow for depth (skipped in reflection: iOS Safari's shadowBlur ignores globalAlpha) */
+        if (!isReflection) {
+          ctx.shadowColor = 'rgba(0,0,0,0.6)';
+          ctx.shadowBlur = 8 * s;
+        }
         ctx.fillStyle = kyDaiGrad;
         ctx.fillRect(kyDaiX - tr.w * s / 2, kyDaiY + tr.y * s, tr.w * s, tr.h * s);
         ctx.shadowBlur = 0; /* Reset shadow */
