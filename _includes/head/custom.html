@@ -2612,7 +2612,20 @@
 
           window._river_lanterns = [];
           for (var i = 0; i < lanternCount; i++) { // Adaptive lantern count
-            var p = getValidPos(0.06);
+            var p;
+            if (isMobile) {
+              p = getValidPos(0.06); // Giữ nguyên logic cũ cho mobile dọc, không đụng vào
+            } else {
+              // Rải đều theo chiều ngang (stratified) để tránh tụ cụm, vẫn né lá sen gần đó
+              var nx, ny, sTries = 0;
+              do {
+                nx = (i + 0.5) / lanternCount + (Math.random() - 0.5) * (1 / lanternCount);
+                ny = Math.random();
+                sTries++;
+              } while (sTries < 20 && allPos.some(function (ap) { var dx = nx - ap.x, dy = (ny - ap.y) * 2.5; return dx * dx + dy * dy < 0.06 * 0.06; }));
+              allPos.push({ x: nx, y: ny });
+              p = { x: nx, y: ny };
+            }
             window._river_lanterns.push({
               x: p.x, y: p.y,
               speed: 0.004 + Math.random() * 0.004, // Noticeably faster drifting
