@@ -2960,15 +2960,16 @@
 
               // Base leaf (green) matching the paper lantern
               var leafGrad = ctx.createLinearGradient(0, -2*ls, 0, 4*ls);
-              leafGrad.addColorStop(0, '#668a47'); // lighter green tip
-              leafGrad.addColorStop(1, '#234219'); // dark green base
+              leafGrad.addColorStop(0, '#58803d'); 
+              leafGrad.addColorStop(1, '#1b3612'); 
               ctx.fillStyle = leafGrad;
               ctx.beginPath();
-              ctx.moveTo(0, 2*ls);
-              ctx.quadraticCurveTo(-14 * ls, 4 * ls, -22 * ls, 0);
-              ctx.quadraticCurveTo(-14 * ls, -2 * ls, 0, 0);
-              ctx.quadraticCurveTo(14 * ls, -2 * ls, 22 * ls, 0);
-              ctx.quadraticCurveTo(14 * ls, 4 * ls, 0, 2*ls);
+              // A single wide flat diamond-like leaf base
+              ctx.moveTo(0, 3*ls);
+              ctx.quadraticCurveTo(-12 * ls, 2 * ls, -26 * ls, -0.5 * ls);
+              ctx.quadraticCurveTo(-12 * ls, 0, 0, 1.5 * ls);
+              ctx.quadraticCurveTo(12 * ls, 0, 26 * ls, -0.5 * ls);
+              ctx.quadraticCurveTo(12 * ls, 2 * ls, 0, 3*ls);
               ctx.fill();
 
               function drawLanternPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
@@ -2980,46 +2981,47 @@
                 pG.addColorStop(1, c2);
                 ctx.fillStyle = pG;
                 ctx.beginPath();
-                var w = 4.2 * scaleX, h = 10 * scaleY;
+                var w = 5.5 * scaleX, h = 12 * scaleY;
                 ctx.moveTo(0, 0);
-                // Pointy petal (paper folded)
-                ctx.quadraticCurveTo(w, -h * 0.4, w * 0.3, -h * 0.8);
+                // Diamond shape with slightly curved bottom (broad paper petal)
+                ctx.quadraticCurveTo(w * 0.4, -h * 0.15, w, -h * 0.45);
                 ctx.lineTo(0, -h);
-                ctx.lineTo(-w * 0.3, -h * 0.8);
-                ctx.quadraticCurveTo(-w, -h * 0.4, 0, 0);
+                ctx.lineTo(-w, -h * 0.45);
+                ctx.quadraticCurveTo(-w * 0.4, -h * 0.15, 0, 0);
                 ctx.fill();
                 
                 if (!isRefl) {
-                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)'; 
-                  ctx.lineWidth = 0.6 * sc; 
+                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)'; 
+                  ctx.lineWidth = 0.5 * sc; 
                   ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -h * 0.95); ctx.stroke(); // Center fold
                 }
                 ctx.restore();
               }
 
-              // Colors for paper lantern (matching image)
-              var cOutBase = 'rgba(235, 110, 80, 0.95)', cOutTip = 'rgba(245, 140, 90, 0.9)';
-              var cMidBase = 'rgba(245, 140, 60, 0.95)', cMidTip = 'rgba(255, 175, 75, 0.9)';
-              var cInBase = 'rgba(255, 190, 80, 0.98)', cInTip = 'rgba(255, 225, 120, 0.95)';
-              var cCenBase = 'rgba(255, 235, 150, 1)', cCenTip = 'rgba(255, 255, 210, 1)';
+              // Colors for paper lantern (matching image + dynamic hue)
+              var dh = la.hue || 340; // Restore dynamic hue variety!
+              var cOutBase = 'hsla(' + dh + ', 85%, 45%, 0.95)', cOutTip = 'hsla(' + (dh + 10) + ', 90%, 65%, 0.95)';
+              var cMidBase = 'hsla(' + (dh + 15) + ', 85%, 50%, 0.95)', cMidTip = 'hsla(' + (dh + 20) + ', 95%, 70%, 0.95)';
+              var cInBase = 'hsla(' + (dh + 25) + ', 90%, 55%, 0.98)', cInTip = 'hsla(' + (dh + 30) + ', 100%, 75%, 0.95)';
+              var cCenBase = 'hsla(' + (dh + 35) + ', 95%, 60%, 1)', cCenTip = 'hsla(' + (dh + 40) + ', 100%, 85%, 1)';
 
-              // Draw layers (back to front)
-              // Outer back
-              drawLanternPetal(-1.2, 1.6*ls, 0.6*ls, 1*ls, cOutBase, cOutTip);
-              drawLanternPetal(1.2, 1.6*ls, 0.6*ls, 1*ls, cOutBase, cOutTip);
-              drawLanternPetal(-0.8, 1.4*ls, 0.8*ls, 0.5*ls, cOutBase, cOutTip);
-              drawLanternPetal(0.8, 1.4*ls, 0.8*ls, 0.5*ls, cOutBase, cOutTip);
+              // Draw layers (back to front) - carefully scaled to make it look wide and blooming
+              // Outer layer (spread very flat like reference)
+              drawLanternPetal(-1.3, 1.4*ls, 0.6*ls, 1.2*ls, cOutBase, cOutTip);
+              drawLanternPetal(1.3, 1.4*ls, 0.6*ls, 1.2*ls, cOutBase, cOutTip);
+              drawLanternPetal(-0.85, 1.3*ls, 0.8*ls, 0.8*ls, cOutBase, cOutTip);
+              drawLanternPetal(0.85, 1.3*ls, 0.8*ls, 0.8*ls, cOutBase, cOutTip);
 
-              // Middle
-              drawLanternPetal(-0.5, 1.2*ls, 1.0*ls, 0, cMidBase, cMidTip);
-              drawLanternPetal(0.5, 1.2*ls, 1.0*ls, 0, cMidBase, cMidTip);
+              // Middle layer
+              drawLanternPetal(-0.55, 1.1*ls, 0.95*ls, 0.2*ls, cMidBase, cMidTip);
+              drawLanternPetal(0.55, 1.1*ls, 0.95*ls, 0.2*ls, cMidBase, cMidTip);
 
-              // Inner
-              drawLanternPetal(-0.25, 1.0*ls, 1.2*ls, -0.5*ls, cInBase, cInTip);
-              drawLanternPetal(0.25, 1.0*ls, 1.2*ls, -0.5*ls, cInBase, cInTip);
+              // Inner layer
+              drawLanternPetal(-0.25, 0.95*ls, 1.1*ls, -0.3*ls, cInBase, cInTip);
+              drawLanternPetal(0.25, 0.95*ls, 1.1*ls, -0.3*ls, cInBase, cInTip);
 
-              // Center
-              drawLanternPetal(0, 0.9*ls, 1.4*ls, -1.0*ls, cCenBase, cCenTip);
+              // Center glowing petal (brightest)
+              drawLanternPetal(0, 0.9*ls, 1.3*ls, -0.8*ls, cCenBase, cCenTip);
               
               if (!isRefl) {
                 // Candle core glow inside
