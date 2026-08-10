@@ -3894,6 +3894,13 @@
       } else {
         isTabActive = true;
         lastTick = Date.now();
+        // Hủy phòng thủ trước khi tạo mới: đề phòng 'visible' bắn 2 lần liên tiếp (không có
+        // 'hidden' xen giữa, có thể xảy ra khi alt-tab/app background-foreground nhanh trên
+        // một số trình duyệt) sẽ tạo ra nhiều vòng render() và nhiều chuỗi hẹn giờ pháo hoa
+        // chạy song song mãi mãi, dẫn tới bắn dồn dập + lag kéo dài.
+        cancelAnimationFrame(mainRafId);
+        clearTimeout(fwTimeoutId);
+        clearTimeout(shootTimeoutId);
         render();
         if (!isTouch) cursorLoop();
         scheduleFW(); scheduleShoot();
