@@ -2630,10 +2630,10 @@
           ctx.scale(1, -1);
           
           // Double-draw with slight offset to create a horizontal blur (water ripple effect)
-          ctx.globalAlpha = riverA * 0.25;
-          ctx.save(); ctx.translate(swayX, 0); drawCastle(riverA * 0.35, t, true); ctx.restore();
-          ctx.globalAlpha = riverA * 0.15;
-          ctx.save(); ctx.translate(-swayX * 1.5, 0); drawCastle(riverA * 0.35, t, true); ctx.restore();
+          if (ctx.filter !== undefined) ctx.filter = 'blur(6px)';
+          ctx.save(); ctx.translate(swayX, 0); drawCastle(riverA * 0.15, t, true); ctx.restore();
+          ctx.save(); ctx.translate(-swayX * 1.5, 0); drawCastle(riverA * 0.08, t, true); ctx.restore();
+          if (ctx.filter !== undefined) ctx.filter = 'none';
           ctx.restore();
         } catch (err) {
         } finally {
