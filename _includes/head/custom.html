@@ -3763,15 +3763,13 @@
       if (mtnA > 0) drawMtns(mtnA, themeT);
       if (shipA > 0) drawAirship(shipA, themeT);
 
-      if (casA > 0) {
-        drawMist(casA * 0.5, false, themeT);
-        drawForest(casA, themeT);
-
-        // Pháo hoa vẽ giữa núi và thành: núi -> pháo hoa -> thành, để tòa thành che chân
-        // pháo hoa (như bắn từ trong thành) còn tia/nổ vẫn nổi lên trên nền núi.
-        // Bọc try/catch để lỡ có lỗi bất ngờ cũng không làm treo cả vòng lặp requestAnimationFrame.
-        try {
-          if (FW.length) {
+      // Pháo hoa vẽ độc lập với casA (không phụ thuộc đã cuộn tới cảnh tòa thành hay chưa) để
+      // click bắn được ở bất kỳ vị trí cuộn nào; vẽ ở đây (sau núi, trước khối thành) để khi
+      // tòa thành có mặt thì vẫn đè lên che chân pháo hoa (như bắn từ trong thành), còn khi
+      // chưa cuộn tới thì pháo hoa vẫn hiện trọn vẹn trên nền núi/trời.
+      // Bọc try/catch để lỡ có lỗi bất ngờ cũng không làm treo cả vòng lặp requestAnimationFrame.
+      try {
+        if (FW.length) {
             ctx.globalCompositeOperation = 'lighter';
             for (var fi = FW.length - 1; fi >= 0; fi--) {
               var fw = FW[fi];
@@ -3850,11 +3848,14 @@
             }
             ctx.globalCompositeOperation = 'source-over';
           }
-        } catch (fwErr) {
-          ctx.globalCompositeOperation = 'source-over';
-        }
+      } catch (fwErr) {
+        ctx.globalCompositeOperation = 'source-over';
+      }
 
-        drawCastle(casA, themeT, false);
+      if (casA > 0) {
+        drawMist(casA * 0.5, false, themeT);
+        drawForest(casA, themeT);
+        drawCastle(casA, themeT, false); // vẽ sau pháo hoa để che chân pháo hoa như bắn từ trong thành
         drawMeadow(casA, themeT);
         drawRiver(casA, themeT);
         drawMist(casA * 0.7, true, themeT);
