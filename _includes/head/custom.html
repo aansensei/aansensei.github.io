@@ -2634,7 +2634,12 @@
           if (isMob) {
             // Draw a very simplified, faint silhouette for mobile to avoid Safari rendering lag/bugs
             var VW_m = 900;
-            var s_m = Math.max(VW_m / 1280, 0.9) * 1.1 * 1.25;
+            var desiredScale = Math.max(VW_m / 1280, 0.9) * 1.1 * 1.25;
+            // Tổng chiều cao khối bóng (chưa scale): base wall + khoảng cách + 2 tầng + 3 mái nhô
+            var unscaledSilhouetteH = 120 + 35 + 45 + 55 + 45 + 40 + 60 + 70;
+            var waterAreaH = H - bY;
+            var fitScale = (waterAreaH * 0.85) / unscaledSilhouetteH;
+            var s_m = Math.min(desiredScale, fitScale);
             var cx_m = VW_m / 2, cy_m = bY;
             
             ctx.save();
