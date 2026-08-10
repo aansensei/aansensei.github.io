@@ -2554,6 +2554,15 @@
       ctx.restore();
     }
 
+    var LANTERN_PALETTES = [
+      { back2: ['#cc5500', '#8b2b1a', '#4a150b'], back1: ['#ff8c00', '#ba3811', '#661a05'], mid: ['#ffb700', '#e65c00', '#852205'], front: ['#ffe58f', '#ed6a00', '#8f2400'], center: ['#ffffff', '#ffdf6b', '#ff7b00', '#b32d00'] }, // mặc định
+      { back2: ['#990000', '#660000', '#330000'], back1: ['#cc0000', '#990000', '#4d0000'], mid: ['#ff2200', '#cc0000', '#660000'], front: ['#ff8f80', '#ff2200', '#7a0000'], center: ['#ffffff', '#ffcccc', '#ff2200', '#800000'] }, // đỏ
+      { back2: ['#c93264', '#8f2049', '#4a0f26'], back1: ['#e8528f', '#c93264', '#661a3a'], mid: ['#ff80af', '#e8528f', '#8f2049'], front: ['#ffc2dc', '#ff80af', '#a3336b'], center: ['#ffffff', '#ffe0ec', '#ff80af', '#b3336b'] }, // hồng
+      { back2: ['#e07000', '#a34e00', '#5c2c00'], back1: ['#ff9500', '#cc7600', '#804a00'], mid: ['#ffb84d', '#ff9500', '#a35e00'], front: ['#ffd699', '#ffab33', '#b36b00'], center: ['#ffffff', '#ffe8b3', '#ffab33', '#cc7a00'] }, // cam
+      { back2: ['#b38f00', '#806600', '#4d3d00'], back1: ['#e6b800', '#b38f00', '#665300'], mid: ['#ffcc00', '#e6b800', '#997800'], front: ['#fff2b3', '#ffdb4d', '#b38f00'], center: ['#ffffff', '#fff5cc', '#ffdb4d', '#cca300'] }, // vàng
+      { back2: ['#999999', '#666666', '#333333'], back1: ['#cccccc', '#999999', '#4d4d4d'], mid: ['#e6e6e6', '#cccccc', '#808080'], front: ['#ffffff', '#f0f0f0', '#b3b3b3'], center: ['#ffffff', '#ffffff', '#fff5d9', '#e6d9b3'] } // trắng
+    ];
+
     function drawRiver(a, t) {
       var riverA = a * (1 - t);
       if (riverA < 0.01) return;
@@ -2609,7 +2618,7 @@
               speed: 0.004 + Math.random() * 0.004, // Noticeably faster drifting
               scale: 0.7 + Math.random() * 0.6, // Matching scale logic
               phase: Math.random() * Math.PI * 2,
-              hue: [340, 350, 0, 10, 20, 30, 40, 45, 320, 330][Math.floor(Math.random() * 10)]
+              colorType: Math.floor(Math.random() * 6) // 0=default(cam lửa) 1=đỏ 2=hồng 3=cam 4=vàng 5=trắng
             });
           }
           
@@ -2933,15 +2942,8 @@
                 ctx.globalAlpha = riverA * (0.85 + 0.15 * Math.sin(nt * 3 + la.phase));
               }
 
-              var dh = la.hue || 340;
-              var colorType = Math.floor(dh) % 5;
-              var hGlow;
-              
-              if (colorType === 0) hGlow = 0; // Red
-              else if (colorType === 1) hGlow = 340; // Pink
-              else if (colorType === 2) hGlow = 30; // Orange
-              else if (colorType === 3) hGlow = 55; // Yellow
-              else hGlow = 45; // White -> warm glow
+              var colorType = la.colorType || 0; // 0=mặc định(cam lửa) 1=đỏ 2=hồng 3=cam 4=vàng 5=trắng
+              var hGlow = [30, 0, 340, 25, 50, 45][colorType];
               
               // Ambient Glow
               if (!isRefl) {
@@ -2985,75 +2987,63 @@
                 ctx.stroke();
               }
 
-              function drawLanternPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
+              // Plump, rounded "flame petal" (wide base tapering to a soft point) — deliberately a
+              // different silhouette from the lotus's thin almond petal so hoa đăng doesn't read as
+              // the same flower as hoa sen. Radial gradient lit from near the base, like the
+              // reference "circle at 100% 100%" petal design.
+              function drawFlamePetal(pRot, scale, yOffset, stops) {
                 ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
-                var pG = ctx.createLinearGradient(0, 0, 0, -10*scaleY);
-                pG.addColorStop(0, c1); pG.addColorStop(1, c2);
+                var w = 7 * scale, h = 13 * scale;
+                var pG = ctx.createRadialGradient(w * 0.25, -h * 0.15, 0, w * 0.25, -h * 0.15, h * 1.15);
+                for (var si = 0; si < stops.length; si++) { pG.addColorStop(si / (stops.length - 1), stops[si]); }
                 ctx.fillStyle = pG;
                 ctx.beginPath();
-                var w = 3.5 * scaleX, h = 10 * scaleY;
                 ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(w, -h * 0.4, w * 0.9, -h * 0.8, 0, -h);
-                ctx.bezierCurveTo(-w * 0.9, -h * 0.8, -w, -h * 0.4, 0, 0);
+                ctx.bezierCurveTo(w, -h * 0.08, w * 0.8, -h * 0.6, 0, -h);
+                ctx.bezierCurveTo(-w * 0.8, -h * 0.6, -w, -h * 0.08, 0, 0);
                 ctx.fill();
                 if (!isRefl) {
-                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)'; 
-                  ctx.lineWidth = 0.5 * sc; 
+                  ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                  ctx.lineWidth = 0.5 * sc;
                   ctx.stroke();
                 }
                 ctx.restore();
               }
 
-              // Colors (White, Red, Pink, Orange, Yellow)
-              var c1_out, c2_out, c1_mid, c2_mid, c1_in, c2_in, c1_cen, c2_cen;
-              if (colorType === 0) { // Red
-                c1_out = '#a30000'; c2_out = '#ff3333';
-                c1_mid = '#cc0000'; c2_mid = '#ff6666';
-                c1_in  = '#ff0000'; c2_in  = '#ff9999';
-                c1_cen = '#ff3333'; c2_cen = '#ffcccc';
-              } else if (colorType === 1) { // Pink
-                c1_out = '#c93264'; c2_out = '#ff80af';
-                c1_mid = '#e8528f'; c2_mid = '#ffb3d1';
-                c1_in  = '#f76a9a'; c2_in  = '#ffffff';
-                c1_cen = '#ff80af'; c2_cen = '#ffffff';
-              } else if (colorType === 2) { // Orange
-                c1_out = '#cc5500'; c2_out = '#ff8c00';
-                c1_mid = '#e65c00'; c2_mid = '#ffa333';
-                c1_in  = '#ff6600'; c2_in  = '#ffcc66';
-                c1_cen = '#ff8c00'; c2_cen = '#ffe699';
-              } else if (colorType === 3) { // Yellow
-                c1_out = '#b38f00'; c2_out = '#ffcc00';
-                c1_mid = '#cca300'; c2_mid = '#ffdb4d';
-                c1_in  = '#e6b800'; c2_in  = '#ffe680';
-                c1_cen = '#ffcc00'; c2_cen = '#fff2b3';
-              } else { // White
-                c1_out = '#cccccc'; c2_out = '#ffffff';
-                c1_mid = '#e6e6e6'; c2_mid = '#ffffff';
-                c1_in  = '#f2f2f2'; c2_in  = '#ffffff';
-                c1_cen = '#ffffff'; c2_cen = '#ffffff';
-              }
+              var P = LANTERN_PALETTES[colorType];
 
-              // Base layer petals (spread out completely)
-              drawLanternPetal(-1.3, 1.4*ls, 0.5*ls, 0.5*ls, c1_out, c2_out);
-              drawLanternPetal(1.3, 1.4*ls, 0.5*ls, 0.5*ls, c1_out, c2_out);
-              drawLanternPetal(-0.9, 1.3*ls, 0.7*ls, 0, c1_out, c2_out);
-              drawLanternPetal(0.9, 1.3*ls, 0.7*ls, 0, c1_out, c2_out);
-              
-              // Middle layer petals
-              drawLanternPetal(-0.5, 1.1*ls, 0.9*ls, -0.5*ls, c1_mid, c2_mid);
-              drawLanternPetal(0.5, 1.1*ls, 0.9*ls, -0.5*ls, c1_mid, c2_mid);
-              
-              // Inner layer petals
-              drawLanternPetal(-0.25, 0.9*ls, 1.0*ls, -1*ls, c1_in, c2_in);
-              drawLanternPetal(0.25, 0.9*ls, 1.0*ls, -1*ls, c1_in, c2_in);
-              drawLanternPetal(0, 1.0*ls, 1.2*ls, -1.5*ls, c1_cen, c2_cen); // Center petal
+              // Back layers (most occluded, spread wide, muted/dark)
+              drawFlamePetal(-1.22, 1.3 * ls, 0.4 * ls, P.back2);
+              drawFlamePetal(1.22, 1.3 * ls, 0.4 * ls, P.back2);
+              drawFlamePetal(-0.79, 1.2 * ls, 0.1 * ls, P.back1);
+              drawFlamePetal(0.79, 1.2 * ls, 0.1 * ls, P.back1);
+
+              // Mid layers
+              drawFlamePetal(-0.44, 1.0 * ls, -0.3 * ls, P.mid);
+              drawFlamePetal(0.44, 1.0 * ls, -0.3 * ls, P.mid);
+
+              // Center petal (tallest, brightest — drawn before the small front petals so they sit on top)
+              drawFlamePetal(0, 1.35 * ls, -0.8 * ls, P.center);
+
+              // Small front petals hugging the center, on top
+              drawFlamePetal(-0.35, 0.7 * ls, -0.5 * ls, P.front);
+              drawFlamePetal(0.35, 0.7 * ls, -0.5 * ls, P.front);
+
               if (!isRefl) {
-                // Candle core glow inside
-                var core = ctx.createRadialGradient(0, -2.5*ls, 0, 0, -2.5*ls, Math.max(0.1, 8*ls));
-                core.addColorStop(0, 'rgba(255,255,200,0.9)');
-                core.addColorStop(1, 'transparent');
-                ctx.fillStyle = core;
-                ctx.beginPath(); ctx.arc(0, -2.5*ls, Math.max(0.1, 8*ls), 0, Math.PI*2); ctx.fill();
+                // Bright candle core: layered glow mimicking the reference's stacked box-shadow
+                ctx.globalCompositeOperation = 'lighter';
+                var core3 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 22*ls));
+                core3.addColorStop(0, 'rgba(255,80,0,0.35)'); core3.addColorStop(1, 'transparent');
+                ctx.fillStyle = core3; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 22*ls), 0, Math.PI*2); ctx.fill();
+
+                var core2 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 12*ls));
+                core2.addColorStop(0, 'rgba(255,204,0,0.55)'); core2.addColorStop(1, 'transparent');
+                ctx.fillStyle = core2; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 12*ls), 0, Math.PI*2); ctx.fill();
+
+                var core1 = ctx.createRadialGradient(0, -2.2*ls, 0, 0, -2.2*ls, Math.max(0.1, 5*ls));
+                core1.addColorStop(0, 'rgba(255,255,255,0.95)'); core1.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = core1; ctx.beginPath(); ctx.arc(0, -2.2*ls, Math.max(0.1, 5*ls), 0, Math.PI*2); ctx.fill();
+                ctx.globalCompositeOperation = 'source-over';
 
                 // Glowing particles flying up
                 ctx.fillStyle = 'rgba(255, 240, 180, 0.8)';
