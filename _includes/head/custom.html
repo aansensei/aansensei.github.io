@@ -5,12 +5,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
 <link rel="manifest" href="/assets/images/favicon/site.webmanifest">
 <script>
-window.onerror = function(msg, url, line, col, err) {
-  var d = document.createElement("div");
-  d.style.cssText = "position:fixed;top:0;left:0;z-index:9999;background:red;color:white;padding:20px;font-size:20px;";
-  d.innerHTML = "ERROR: " + msg + " at " + line + ":" + col;
-  document.body.appendChild(d);
-};
+
   /* site-wide: any <img> that 404s (missing asset) shows a visible
      placeholder icon in its place instead of the browser's broken-image
      glyph, so missing images are obvious at a glance while browsing */
