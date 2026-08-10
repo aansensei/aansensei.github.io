@@ -1814,8 +1814,107 @@
       ctx.restore();
     }
 
-    var peaksData = [[0, .68], [.04, .47], [.09, .57], [.15, .36], [.22, .50], [.28, .33], [.34, .46], [.39, .30], [.45, .43], [.50, .28], [.56, .42], [.61, .32], [.67, .44], [.72, .30], [.78, .42], [.84, .33], [.90, .44], [.95, .36], [1, .48]].map(function (p) { return [p[0], 1 - (1 - p[1]) * 1.1]; });
-    var peaksData2 = [[0, .69], [.03, .51], [.07, .57], [.12, .41], [.17, .53], [.23, .37], [.30, .49], [.36, .35], [.42, .47], [.48, .33], [.53, .45], [.59, .33], [.65, .45], [.70, .35], [.75, .46], [.81, .36], [.86, .47], [.92, .37], [.97, .46], [1, .55]].map(function (p) { return [p[0], 1 - (1 - p[1]) * 1.1]; });
+    // Dãy núi Việt Nam "bản đặc sản": 4 lớp tạo bằng sóng sin/cos + nhiễu (thay cho toạ độ
+    // đỉnh núi cố định cũ), có viền sáng trên đỉnh, sương mù xen lớp, và 1 ngôi chùa cổ trên
+    // đỉnh của lớp 2. Toạ độ sinh ra ở dạng phân số [xFrac, yFrac] giống hệ cũ để tái dùng
+    // đúng pipeline scale mobile (mScale/MVW/yOffset/peakY) đã tinh chỉnh, không đụng bản mobile.
+    var MTN_COLORS = [
+      { nTop: '#161833', nBot: '#101224', dTop: '#8cbcd1', dBot: '#c6e8f5' },
+      { nTop: '#101429', nBot: '#0c0d1c', dTop: '#68a1b5', dBot: '#8cbcd1' },
+      { nTop: '#0a0d1f', nBot: '#070814', dTop: '#3c8574', dBot: '#5b9c8d' },
+      { nTop: '#04060d', nBot: '#020308', dTop: '#1c5e4a', dBot: '#2b7861' }
+    ];
+    var MTN_MIST_NIGHT = '#1e2242', MTN_MIST_DAY = '#dff2f7';
+    var MTN_LAYERS = null, MTN_MVW = 0;
+    var MTN_PAGODA = { xFrac: 0, yFrac: 0, exists: false };
+
+    function genMtnLayers(MVW) {
+      var configs = [
+        { baseY: 0.35, amp: 0.08, f1: 1.5, f2: 2.3, p: 0.0, detail: 0.15 },
+        { baseY: 0.48, amp: 0.11, f1: 2.1, f2: 3.7, p: 2.5, detail: 0.12 }, // Lớp 2: đặt chùa cổ
+        { baseY: 0.62, amp: 0.14, f1: 1.8, f2: 3.1, p: 4.2, detail: 0.10 },
+        { baseY: 0.78, amp: 0.16, f1: 1.2, f2: 2.5, p: 1.1, detail: 0.08 }
+      ];
+      var layers = [];
+      MTN_PAGODA.exists = false;
+      configs.forEach(function (cfg, index) {
+        var points = [];
+        var step = Math.max(5, MVW / 300);
+        for (var x = 0; x <= MVW + step; x += step) {
+          var nx = MVW > 0 ? x / MVW : 0;
+          var wave1 = Math.sin(nx * Math.PI * 2 * cfg.f1 + cfg.p);
+          var wave2 = Math.cos(nx * Math.PI * 2 * cfg.f2 + cfg.p * 1.5);
+          var noise1 = Math.sin(nx * Math.PI * 2 * cfg.f1 * 5) * cfg.detail;
+          var microNoise = Math.cos(nx * Math.PI * 2 * cfg.f1 * 18) * (cfg.detail * 0.3);
+          var yFrac = cfg.baseY - wave1 * cfg.amp - wave2 * (cfg.amp * 0.5) - noise1 * cfg.amp - microNoise * cfg.amp;
+          points.push([x / MVW, yFrac]);
+        }
+        layers.push(points);
+        if (index === 1) {
+          var targetX = 0.68, searchRange = 0.15, peakYFrac = 99, peakXFrac = 0;
+          points.forEach(function (pt) {
+            if (pt[0] > targetX - searchRange && pt[0] < targetX + searchRange && pt[1] < peakYFrac) {
+              peakYFrac = pt[1]; peakXFrac = pt[0];
+            }
+          });
+          if (peakYFrac !== 99) { MTN_PAGODA = { xFrac: peakXFrac, yFrac: peakYFrac, exists: true }; }
+        }
+      });
+      return layers;
+    }
+
+    function drawMtnPagoda(cx, cy, color, t, MVW) {
+      var ps = Math.max(MVW / 1280, 0.5) * 1.2;
+      ctx.shadowBlur = 15 * ps;
+      ctx.shadowColor = 'rgba(255,200,100,' + (0.4 * (1 - t)) + ')';
+      ctx.fillStyle = color;
+      ctx.fillRect(cx - 10 * ps, cy, 20 * ps, 3 * ps);
+      ctx.fillRect(cx - 7 * ps, cy - 8 * ps, 14 * ps, 8 * ps);
+      ctx.beginPath();
+      ctx.moveTo(cx - 14 * ps, cy - 8 * ps);
+      ctx.quadraticCurveTo(cx - 6 * ps, cy - 6 * ps, cx - 6 * ps, cy - 12 * ps);
+      ctx.lineTo(cx + 6 * ps, cy - 12 * ps);
+      ctx.quadraticCurveTo(cx + 6 * ps, cy - 6 * ps, cx + 14 * ps, cy - 8 * ps);
+      ctx.quadraticCurveTo(cx, cy - 15 * ps, cx - 14 * ps, cy - 8 * ps);
+      ctx.fill();
+      ctx.fillRect(cx - 4 * ps, cy - 18 * ps, 8 * ps, 6 * ps);
+      ctx.beginPath();
+      ctx.moveTo(cx - 10 * ps, cy - 18 * ps);
+      ctx.quadraticCurveTo(cx - 4 * ps, cy - 16 * ps, cx - 4 * ps, cy - 22 * ps);
+      ctx.lineTo(cx + 4 * ps, cy - 22 * ps);
+      ctx.quadraticCurveTo(cx + 4 * ps, cy - 16 * ps, cx + 10 * ps, cy - 18 * ps);
+      ctx.quadraticCurveTo(cx, cy - 25 * ps, cx - 10 * ps, cy - 18 * ps);
+      ctx.fill();
+      ctx.fillRect(cx - 1 * ps, cy - 30 * ps, 2 * ps, 8 * ps);
+      ctx.shadowBlur = 0;
+    }
+
+    function drawMtnMist(layerIndex, mScale, yOffset, MVW, t) {
+      var nt = activeTime * 0.001;
+      var mistColorRGB = lerpC(MTN_MIST_NIGHT, MTN_MIST_DAY, t);
+      var mistY = (0.45 + layerIndex * 0.14) * H * mScale + yOffset;
+      var mistAmp = H * 0.045 * mScale;
+      var mistSpeed = nt * (0.4 + layerIndex * 0.2);
+      var step = Math.max(8, MVW / 60);
+
+      ctx.beginPath(); ctx.moveTo(0, H);
+      for (var x = 0; x <= MVW; x += step) {
+        var nx = x / MVW;
+        var wave1 = Math.sin(nx * Math.PI * 2.5 + mistSpeed) * mistAmp;
+        var wave2 = Math.cos(nx * Math.PI * 4.5 - mistSpeed * 1.5) * (mistAmp * 0.4);
+        ctx.lineTo(x, mistY + wave1 + wave2);
+      }
+      ctx.lineTo(MVW, H); ctx.closePath();
+
+      var mistGrad = ctx.createLinearGradient(0, mistY - mistAmp * 2.5, 0, H);
+      mistGrad.addColorStop(0, 'rgba(' + mistColorRGB + ',0)');
+      mistGrad.addColorStop(0.4, 'rgba(' + mistColorRGB + ',0.25)');
+      mistGrad.addColorStop(1, 'rgba(' + mistColorRGB + ',0.65)');
+      ctx.fillStyle = mistGrad;
+      ctx.globalCompositeOperation = 'screen';
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+    }
 
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
@@ -1823,31 +1922,51 @@
       var mScale = isMobilePortrait ? 0.65 : (W < 768 ? 0.45 : 0.85);
       var MVW = W < 768 ? 900 : W;
       var yOffset = isMobilePortrait ? H * 0.12 : (W < 768 ? H * 0.32 : 0);
-      function peakY(p) { return p[1] * H * mScale + yOffset; }
+      var minPeakY = isMobilePortrait ? H * 0.20 : 0; // Kẹp cứng: đỉnh núi ko bao giờ vượt quá 20% chiều cao màn hình dọc, phòng công thức sóng/nhiễu mới lỡ tạo đỉnh cao bất thường
+      function peakY(p) { var y = p[1] * H * mScale + yOffset; return minPeakY ? Math.max(y, minPeakY) : y; }
+
+      if (!MTN_LAYERS || MTN_MVW !== MVW) { MTN_LAYERS = genMtnLayers(MVW); MTN_MVW = MVW; }
+
       ctx.translate((W - MVW) / 2, 0);
-      var g1 = ctx.createLinearGradient(0, H * .33, 0, H * .78);
-      g1.addColorStop(0, 'rgb(' + lerpC('#1a1436', '#6d889c', t) + ')'); g1.addColorStop(1, 'rgb(' + lerpC('#0e0b1c', '#4a6b82', t) + ')');
-      ctx.fillStyle = g1; ctx.beginPath(); ctx.moveTo(0, H);
-      peaksData.forEach(function (p) { ctx.lineTo(p[0] * MVW, peakY(p)); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
 
-      var g2 = ctx.createLinearGradient(0, H * .50, 0, H * .86);
-      g2.addColorStop(0, 'rgb(' + lerpC('#120a2e', '#55768a', t) + ')'); g2.addColorStop(1, 'rgb(' + lerpC('#0a0614', '#3d5c70', t) + ')');
-      ctx.fillStyle = g2; ctx.beginPath(); ctx.moveTo(0, H);
-      peaksData2.forEach(function (p) { ctx.lineTo(p[0] * MVW, peakY(p)); }); ctx.lineTo(MVW, H); ctx.closePath(); ctx.fill();
+      for (var i = 0; i < MTN_LAYERS.length; i++) {
+        var pts = MTN_LAYERS[i];
+        var c = MTN_COLORS[i];
+        var cTop = lerpC(c.nTop, c.dTop, t), cBot = lerpC(c.nBot, c.dBot, t);
 
-      ctx.fillStyle = 'rgba(' + lerpC('#e6e1ff', '#ffffff', t) + ',.35)';
-      var frontSnowPeaks = [{ i: 1, h: 0.02 }, { i: 3, h: 0.025 }, { i: 5, h: 0.03 }, { i: 7, h: 0.035 }, { i: 9, h: 0.04 }, { i: 11, h: 0.04 }, { i: 13, h: 0.035 }, { i: 15, h: 0.03 }, { i: 17, h: 0.025 }];
-      frontSnowPeaks.forEach(function (sp) {
-        var P = peaksData2[sp.i], L = peaksData2[sp.i - 1], R = peaksData2[sp.i + 1];
-        if (!P || !L || !R) return;
-        var pX = P[0] * MVW, pY = peakY(P), lX = L[0] * MVW, lY = peakY(L), rX = R[0] * MVW, rY = peakY(R);
-        var capH = sp.h * H;
-        if (lY - pY <= 0 || rY - pY <= 0) return;
-        capH = Math.min(capH, (lY - pY) * 0.8, (rY - pY) * 0.8);
-        var tL = capH / (lY - pY), slX = pX + tL * (lX - pX), slY = pY + capH;
-        var tR = capH / (rY - pY), srX = pX + tR * (rX - pX), srY = pY + capH;
-        ctx.beginPath(); ctx.moveTo(pX, pY); ctx.lineTo(slX, slY); ctx.lineTo(pX - (pX - slX) * 0.7, slY + capH * 0.15); ctx.lineTo(pX - (pX - slX) * 0.3, slY + capH * 0.35); ctx.lineTo(pX, slY + capH * 0.25); ctx.lineTo(pX + (srX - pX) * 0.4, slY + capH * 0.4); ctx.lineTo(pX + (srX - pX) * 0.7, slY + capH * 0.15); ctx.lineTo(srX, srY); ctx.closePath(); ctx.fill();
-      });
+        var minY = 1e9;
+        for (var k = 0; k < pts.length; k++) { var yy = peakY(pts[k]); if (yy < minY) minY = yy; }
+
+        var mGrad = ctx.createLinearGradient(0, minY, 0, H);
+        mGrad.addColorStop(0, 'rgb(' + cTop + ')'); mGrad.addColorStop(1, 'rgb(' + cBot + ')');
+        ctx.fillStyle = mGrad;
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0] * MVW, H);
+        ctx.lineTo(pts[0][0] * MVW, peakY(pts[0]));
+        for (var j = 1; j < pts.length; j++) {
+          var xc = (pts[j - 1][0] * MVW + pts[j][0] * MVW) / 2;
+          var yc = (peakY(pts[j - 1]) + peakY(pts[j])) / 2;
+          ctx.quadraticCurveTo(pts[j - 1][0] * MVW, peakY(pts[j - 1]), xc, yc);
+        }
+        ctx.lineTo(pts[pts.length - 1][0] * MVW, peakY(pts[pts.length - 1]));
+        ctx.lineTo(MVW, H);
+        ctx.closePath();
+        ctx.fill();
+
+        // Đặc sản 1: viền sáng trên đỉnh cho khối núi sắc nét hơn
+        ctx.strokeStyle = 'rgba(200,220,255,' + (0.1 + 0.15 * t) + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Đặc sản 2: chùa cổ trên đỉnh đẹp nhất của lớp 2
+        if (i === 1 && MTN_PAGODA.exists) {
+          drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), 'rgb(' + cTop + ')', t, MVW);
+        }
+
+        // Sương mù xen giữa các lớp núi
+        if (i < MTN_LAYERS.length - 1) { drawMtnMist(i, mScale, yOffset, MVW, t); }
+      }
+
       ctx.restore();
     }
 
