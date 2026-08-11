@@ -1,0 +1,198 @@
+    var FW = [];
+    // Bảng màu mô phỏng phong cách lễ hội cổ trang (Tống, Đường, Minh)
+    var FW_PALETTES = [
+      [{ h: 350, s: 100, l: 65 }, { h: 20, s: 100, l: 60 }, { h: 50, s: 100, l: 60 }],  // Hỏa (Đỏ tươi/Cam)
+      [{ h: 45, s: 100, l: 70 }, { h: 40, s: 100, l: 85 }, { h: 0, s: 0, l: 100 }],     // Hoàng Kim (Vàng/Trắng)
+      [{ h: 320, s: 100, l: 65 }, { h: 280, s: 100, l: 70 }, { h: 340, s: 100, l: 80 }], // Cẩm Tú (Tím/Hồng)
+      [{ h: 150, s: 100, l: 60 }, { h: 180, s: 100, l: 65 }, { h: 60, s: 100, l: 60 }],  // Bích Ngọc (Xanh ngọc/Lục)
+      [{ h: 15, s: 100, l: 60 }, { h: 55, s: 100, l: 60 }, { h: 0, s: 0, l: 100 }]       // Đế Vương (Đỏ đậm/Vàng ánh kim)
+    ];
+    // 5 kiểu pháo hoa: Thường, Liễu rủ, Liên Hoa (Hoa Sen), Hỏa Long (Rồng bay), Cẩm Tú (Lấp lánh)
+    var FW_TYPES = ['normal', 'willow', 'lotus', 'dragon', 'brocade'];
+
+    function makeFW(tx, ty) {
+      var startX = tx || W * (.2 + Math.random() * .6);
+      var targetY = ty || H * (.06 + Math.random() * .28);
+      var fw = {
+        x: startX, y: H * .88,
+        tx: startX, ty: targetY,
+        phase: 'launch', parts: [], trail: [],
+        type: FW_TYPES[Math.floor(Math.random() * FW_TYPES.length)] // Random 1 trong 5 kiểu
+      };
+      var frames = 22 + Math.random() * 8;
+      fw.vx = (fw.tx - fw.x) / frames;
+      fw.vy = -(fw.y - fw.ty) / frames;
+      if (fw.type === 'dragon') {
+        fw.vx += (Math.random() - 0.5) * 1.6;
+        fw.wobble = Math.random() * Math.PI;
+      } else {
+        fw.vx += (Math.random() - 0.5) * 0.7;
+      }
+      FW.push(fw);
+    }
+
+    function createParticle(x, y, angle, vel, decay, color, friction, gravity, strobe) {
+      return {
+        x: x, y: y,
+        vx: Math.cos(angle) * vel, vy: Math.sin(angle) * vel,
+        life: 1.0, decay: decay,
+        friction: friction, gravity: gravity,
+        hue: color.h, sat: color.s, lit: color.l,
+        size: strobe ? 1.5 + Math.random() * 2 : 2 + Math.random() * 1.5,
+        trail: [], strobe: strobe
+      };
+    }
+
+    function scheduleFW() {
+      if (!isTabActive) return;
+      fwTimeoutId = setTimeout(function () {
+        if (isTabActive && themeT < 0.5) makeFW();
+        scheduleFW();
+      }, 3000 + Math.random() * 4000);
+    }
+    setTimeout(scheduleFW, 2000); setTimeout(function () { makeFW(); }, 4000);
+
+    function explodeFW(fw) {
+      fw.phase = 'burst';
+      fw.flash = 1.0;
+      var palette = FW_PALETTES[Math.floor(Math.random() * FW_PALETTES.length)];
+
+      switch (fw.type) {
+        case 'lotus':
+          // Bông Sen (Liên Hoa): Nổ thành 2 lớp vòng tròn có trật tự
+          var petals = 24;
+          var pColor = palette[0];
+          var iColor = palette[1] || palette[0];
+          for (var i = 0; i < petals; i++) {
+            var angle = (Math.PI * 2 / petals) * i;
+            fw.parts.push(createParticle(fw.x, fw.y, angle, 6.5, 0.015, pColor, 0.92, 0.02, false));
+          }
+          for (var j = 0; j < petals; j++) {
+            var angle2 = (Math.PI * 2 / petals) * j + (Math.PI / petals);
+            fw.parts.push(createParticle(fw.x, fw.y, angle2, 3.5, 0.015, iColor, 0.92, 0.015, false));
+          }
+          break;
+
+        case 'brocade':
+          // Cẩm Tú: Bụi sao lấp lánh, rơi chậm, bay thướt tha
+          var numParts = 90 + Math.random() * 40;
+          for (var i = 0; i < numParts; i++) {
+            var angle = Math.random() * Math.PI * 2;
+            var vel = (Math.random() * 5.5) + 1;
+            var c = palette[Math.floor(Math.random() * palette.length)];
+            fw.parts.push(createParticle(fw.x, fw.y, angle, vel, 0.005 + Math.random() * 0.006, c, 0.97, 0.02, true));
+          }
+          break;
+
+        case 'dragon':
+          // Hỏa Long: Bùng nổ tàn lửa vàng kim cực mạnh, văng tung tóe
+          var numParts = 130 + Math.random() * 50;
+          var goldColor = FW_PALETTES[1][0];
+          for (var i = 0; i < numParts; i++) {
+            var angle = Math.random() * Math.PI * 2;
+            var vel = (Math.random() * 11) + 2;
+            fw.parts.push(createParticle(fw.x, fw.y, angle, vel, 0.012 + Math.random() * 0.01, goldColor, 0.88, 0.05, Math.random() > 0.6));
+          }
+          break;
+
+        default: // 'normal' & 'willow'
+          var isWillow = fw.type === 'willow';
+          var numParts2 = 100 + Math.floor(Math.random() * 60);
+          for (var i = 0; i < numParts2; i++) {
+            var color = palette[Math.floor(Math.random() * palette.length)];
+            var angle = Math.random() * Math.PI * 2;
+            var vel = (Math.random() * (isWillow ? 5 : 9)) + 1.5;
+            fw.parts.push(createParticle(
+              fw.x, fw.y, angle, vel,
+              isWillow ? (0.006 + Math.random() * 0.005) : (0.012 + Math.random() * 0.015),
+              color,
+              isWillow ? 0.95 : 0.91,
+              isWillow ? 0.06 : 0.035,
+              false
+            ));
+          }
+          break;
+      }
+    }
+
+    function renderFireworksLayer() {
+        if (FW.length) {
+          ctx.globalCompositeOperation = 'lighter';
+          for (var fi = FW.length - 1; fi >= 0; fi--) {
+            var fw = FW[fi];
+
+            if (fw.phase === 'launch') {
+              fw.trail.push({ x: fw.x, y: fw.y });
+              var maxTrail = fw.type === 'dragon' ? 22 : 10;
+              if (fw.trail.length > maxTrail) fw.trail.shift();
+
+              fw.x += fw.vx;
+              fw.y += fw.vy;
+              if (fw.type === 'dragon') { fw.x += Math.sin(fw.trail.length * 0.5 + fw.wobble) * 3.5; }
+
+              if (fw.trail.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(fw.trail[0].x, fw.trail[0].y);
+                for (var ti = 1; ti < fw.trail.length; ti++) { ctx.lineTo(fw.trail[ti].x, fw.trail[ti].y); }
+                if (fw.type === 'dragon') { ctx.strokeStyle = 'rgba(255, 170, 0, 0.9)'; ctx.lineWidth = 4; }
+                else { ctx.strokeStyle = 'rgba(255, 210, 100, 0.8)'; ctx.lineWidth = 2.5; }
+                ctx.lineCap = 'round'; ctx.stroke();
+              }
+
+              ctx.fillStyle = '#ffffff';
+              ctx.beginPath(); ctx.arc(fw.x, fw.y, fw.type === 'dragon' ? 3.5 : 2.5, 0, Math.PI * 2); ctx.fill();
+
+              if (fw.vy >= 0 || fw.y <= fw.ty) explodeFW(fw);
+            } else {
+              if (fw.flash > 0) {
+                var flashR = fw.flash * (fw.type === 'dragon' ? 220 : 180);
+                var flashGrad = ctx.createRadialGradient(fw.x, fw.y, 0, fw.x, fw.y, Math.max(0.1, flashR));
+                flashGrad.addColorStop(0, 'rgba(255, 255, 255, ' + (fw.flash * 0.7) + ')');
+                flashGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = flashGrad;
+                ctx.beginPath(); ctx.arc(fw.x, fw.y, Math.max(0.1, flashR), 0, Math.PI * 2); ctx.fill();
+                fw.flash -= 0.08;
+              }
+
+              var aliveParts = false;
+              fw.parts.forEach(function (p) {
+                if (p.life <= 0) return;
+                aliveParts = true;
+
+                p.trail.push({ x: p.x, y: p.y });
+                if (p.trail.length > 6) p.trail.shift();
+
+                p.x += p.vx; p.y += p.vy;
+                p.vy += p.gravity; p.vx *= p.friction; p.vy *= p.friction;
+                p.life -= p.decay;
+
+                if (p.trail.length > 1) {
+                  ctx.beginPath();
+                  ctx.moveTo(p.trail[0].x, p.trail[0].y);
+                  for (var pti = 1; pti < p.trail.length; pti++) { ctx.lineTo(p.trail[pti].x, p.trail[pti].y); }
+
+                  var alpha = Math.max(0, p.life);
+                  var currentLit = p.lit * Math.max(0.4, p.life);
+
+                  if (p.strobe && Math.random() < 0.2) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, ' + alpha + ')';
+                    ctx.lineWidth = p.size * 1.5;
+                  } else {
+                    ctx.strokeStyle = 'hsla(' + p.hue + ', ' + p.sat + '%, ' + currentLit + '%, ' + alpha + ')';
+                    ctx.lineWidth = p.size;
+                  }
+                  ctx.lineCap = 'round'; ctx.stroke();
+                }
+
+                if ((p.strobe || fw.type === 'dragon') && Math.random() < 0.15 && p.life > 0.3) {
+                  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                  ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 0.8, 0, Math.PI * 2); ctx.fill();
+                }
+              });
+
+              if (!aliveParts && fw.flash <= 0) { FW.splice(fi, 1); }
+            }
+          }
+          ctx.globalCompositeOperation = 'source-over';
+        }
+    }
