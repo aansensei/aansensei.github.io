@@ -1699,10 +1699,8 @@
       ctx.restore();
     }
 
-    // Dãy núi Việt Nam "bản đặc sản": 4 lớp tạo bằng sóng sin/cos + nhiễu (thay cho toạ độ
-    // đỉnh núi cố định cũ), có viền sáng trên đỉnh, sương mù xen lớp, và 1 ngôi chùa cổ trên
-    // đỉnh của lớp 2. Toạ độ sinh ra ở dạng phân số [xFrac, yFrac] giống hệ cũ để tái dùng
-    // đúng pipeline scale mobile (mScale/MVW/yOffset/peakY) đã tinh chỉnh, không đụng bản mobile.
+    // núi bản mới: 4 lớp sin/cos + nhiễu, viền sáng đỉnh + sương mù + chùa trên đỉnh lớp 2
+    // toạ độ vẫn kiểu [xFrac,yFrac] như cũ nên xài chung pipeline scale mobile, khỏi đụng
     var MTN_COLORS = [
       { nTop: '#161833', nBot: '#101224', dTop: '#8cbcd1', dBot: '#c6e8f5' },
       { nTop: '#101429', nBot: '#0c0d1c', dTop: '#68a1b5', dBot: '#8cbcd1' },
@@ -1838,17 +1836,17 @@
         ctx.closePath();
         ctx.fill();
 
-        // Đặc sản 1: viền sáng trên đỉnh cho khối núi sắc nét hơn
+        // viền sáng đỉnh cho nét hơn
         ctx.strokeStyle = 'rgba(200,220,255,' + (0.1 + 0.15 * t) + ')';
         ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Đặc sản 2: chùa cổ trên đỉnh đẹp nhất của lớp 2
+        // chùa cổ trên đỉnh đẹp nhất lớp 2
         if (i === 1 && MTN_PAGODA.exists) {
           drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), 'rgb(' + cTop + ')', t, MVW);
         }
 
-        // Sương mù xen giữa các lớp núi
+        // sương mù xen giữa các lớp
         if (i < MTN_LAYERS.length - 1) { drawMtnMist(i, mScale, yOffset, MVW, t); }
       }
 
@@ -2589,11 +2587,9 @@
       if (mtnA > 0) drawMtns(mtnA, themeT);
       if (shipA > 0) drawAirship(shipA, themeT);
 
-      // Pháo hoa vẽ độc lập với casA (không phụ thuộc đã cuộn tới cảnh tòa thành hay chưa) để
-      // click bắn được ở bất kỳ vị trí cuộn nào; vẽ ở đây (sau núi, trước khối thành) để khi
-      // tòa thành có mặt thì vẫn đè lên che chân pháo hoa (như bắn từ trong thành), còn khi
-      // chưa cuộn tới thì pháo hoa vẫn hiện trọn vẹn trên nền núi/trời.
-      // Bọc try/catch để lỡ có lỗi bất ngờ cũng không làm treo cả vòng lặp requestAnimationFrame.
+      // pháo hoa tách khỏi casA để click chỗ nào cũng bắn đc, khỏi cần cuộn tới thành
+      // đặt sau núi trước thành: có thành thì thành che chân pháo hoa (như bắn từ trong thành)
+      // try/catch phòng lỡ lỗi thì khỏi treo luôn cái rAF loop
       try {
         renderFireworksLayer();
       } catch (fwErr) {
@@ -2642,10 +2638,9 @@
       } else {
         isTabActive = true;
         lastTick = Date.now();
-        // Hủy phòng thủ trước khi tạo mới: đề phòng 'visible' bắn 2 lần liên tiếp (không có
-        // 'hidden' xen giữa, có thể xảy ra khi alt-tab/app background-foreground nhanh trên
-        // một số trình duyệt) sẽ tạo ra nhiều vòng render() và nhiều chuỗi hẹn giờ pháo hoa
-        // chạy song song mãi mãi, dẫn tới bắn dồn dập + lag kéo dài.
+        // cancel/clear trước khi tạo lại: phòng 'visible' bắn 2 lần liên tiếp (alt-tab nhanh
+        // kiểu gì đó, ko có 'hidden' xen giữa) sẽ đẻ ra 2 vòng render() + 2 chuỗi hẹn giờ
+        // chạy song song mãi, gây bắn dồn + lag dài dài
         cancelAnimationFrame(mainRafId);
         clearTimeout(fwTimeoutId);
         clearTimeout(shootTimeoutId);

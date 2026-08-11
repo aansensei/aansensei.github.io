@@ -60,7 +60,7 @@
             if (isMobile) {
               p = getValidPos(0.06); // Giữ nguyên logic cũ cho mobile dọc, không đụng vào
             } else {
-              // Rải đều theo chiều ngang (stratified) để tránh tụ cụm, vẫn né lá sen gần đó
+              // rải đều ngang cho khỏi tụ cụm 1 chỗ, vẫn né lá sen gần đó
               var nx, ny, sTries = 0;
               do {
                 nx = (i + 0.5) / lanternCount + (Math.random() - 0.5) * (1 / lanternCount);
@@ -102,9 +102,8 @@
           ctx.translate(0, 2 * bY);
           ctx.scale(1, -1);
 
-          // Dùng đúng hình dạng tòa thành thật cho phản chiếu (thay vì khối tự vẽ tay,
-          // vốn không giống thành thật) — isReflection=true đã tự bỏ bớt vài chi tiết nặng.
-          // 2 lần vẽ lệch để giả lập mờ mà không cần ctx.filter (đỡ lag trên Safari mobile).
+          // xài luôn hình thành thật để phản chiếu, khỏi vẽ tay (nhìn giả) — isReflection=true
+          // tự bớt vài chi tiết nặng rồi. vẽ 2 lần lệch nhau để giả mờ, khỏi cần ctx.filter (đỡ lag mobile)
           var refA = riverA * 0.1;
           ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
           ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
@@ -516,10 +515,8 @@
               ctx.stroke();
             }
 
-            // Plump, rounded "flame petal" (wide base tapering to a soft point) — deliberately a
-            // different silhouette from the lotus's thin almond petal so hoa đăng doesn't read as
-            // the same flower as hoa sen. Radial gradient lit from near the base, like the
-            // reference "circle at 100% 100%" petal design.
+            // cánh hoa đăng kiểu "giọt lửa" tròn phồng gốc thon đỉnh — cố tình khác cánh sen
+            // thon dài để khỏi lẫn với hoa sen. gradient tỏa từ gần gốc như file mockup gửi
             function drawFlamePetal(pRot, scale, yOffset, stops) {
               ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
               var w = 7 * scale, h = 13 * scale;
@@ -559,7 +556,7 @@
             drawFlamePetal(0.35, 0.7 * ls, -0.5 * ls, P.front);
 
             if (!isRefl) {
-              // Bright candle core: layered glow, breathing dim/bright like the castle's paper lanterns
+              // lõi sáng nến: nhiều lớp glow, nhấp nháy dim/sáng như lồng đèn thành
               var coreFlicker = 0.72 + 0.28 * Math.sin(nt * 1.8 + la.phase * 4);
               var baseAlpha = ctx.globalAlpha;
               ctx.globalCompositeOperation = 'lighter';
