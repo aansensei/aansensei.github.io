@@ -131,6 +131,31 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
 }
 
+/* ── BOOK-5: cover-back with skills on hover ── */
+.book-5 .front-cover { position: relative; }
+
+.book-5 .cover-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #050b18;
+  border-radius: 6px 14px 14px 6px;
+  overflow: hidden;
+  transform: scaleX(-1);
+  opacity: 0;
+  transition: none;
+  pointer-events: none;
+}
+.book-5.book-container:hover .cover-back {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.35s;
+}
+.book-5.book-container:hover .cover-content {
+  opacity: 0;
+  transition: none;
+}
+
 .cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:38px 8px 22px 24px;}
 .cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
 .cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
@@ -704,7 +729,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
     </div>
   </div>
 
-  <div class="book-container book-5 reveal-item">
+  <div class="book-container book-5 reveal-item" data-url="/projects/chatrag/" data-bg="linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)" data-title="ChatRAG — Ciel">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -718,20 +743,33 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
           <div class="cv-vol">Volumen · V</div>
           <div class="cv-rule"><span>✦</span></div>
           <div class="cv-med">
-            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><circle cx="45" cy="45" r="9" fill="none" stroke="#a78bfa" stroke-width="1.8"/><path d="M38 40 Q45 34 52 40" stroke="#a78bfa" stroke-width="1" fill="none" opacity="0.6"/><circle cx="41" cy="41" r="1.3" fill="#a78bfa"/><circle cx="45" cy="45" r="4" fill="none" stroke="#a78bfa" stroke-width="0.8" opacity="0.5"/></svg>
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(201,162,39,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(201,162,39,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(201,162,39,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(201,162,39,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(201,162,39,.45)" stroke-width="1.5"/><circle cx="45" cy="45" r="16" stroke="rgba(201,162,39,.20)" stroke-width="0.8" stroke-dasharray="2 2"/><rect x="39" y="35" width="12" height="16" rx="1" fill="none" stroke="#4d9fff" stroke-width="1.6"/><line x1="41.5" y1="39" x2="48.5" y2="39" stroke="#4d9fff" stroke-width="1"/><line x1="41.5" y1="43" x2="48.5" y2="43" stroke="#4d9fff" stroke-width="1"/><line x1="41.5" y1="47" x2="46" y2="47" stroke="#4d9fff" stroke-width="1"/><circle cx="30" cy="33" r="1.8" fill="#4d9fff"/><circle cx="60" cy="33" r="1.8" fill="#4d9fff"/><circle cx="30" cy="55" r="1.8" fill="#4d9fff"/><circle cx="58" cy="56" r="1.8" fill="#4d9fff"/><line x1="39" y1="38" x2="30" y2="33" stroke="#4d9fff" stroke-width="0.9" opacity=".6"/><line x1="51" y1="38" x2="60" y2="33" stroke="#4d9fff" stroke-width="0.9" opacity=".6"/><line x1="39" y1="47" x2="30" y2="55" stroke="#4d9fff" stroke-width="0.9" opacity=".6"/><line x1="51" y1="47" x2="58" y2="56" stroke="#4d9fff" stroke-width="0.9" opacity=".6"/></svg>
             <div class="cv-symbol"></div>
           </div>
           <div class="cv-rule"><span>✦</span></div>
-          <h3 class="cv-title cv-title-sm">Untold<br>Legends</h3>
+          <h3 class="cv-title cv-title-sm">ChatRAG ×<br>Ciel</h3>
           <div class="cv-sub-rule"></div>
-          <p class="cv-sub">Myths Yet Unwritten</p>
+          <p class="cv-sub">Codex of a Thousand Documents</p>
+        </div>
+        <div class="cover-back">
+          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#050b18;">
+            <img src="/assets/images/chatrag-preview.png" alt="ChatRAG Preview" style="width:100%;height:100%;object-fit:contain;">
+          </div>
+          <div class="cover-back-tags">
+            <span class="cover-back-tag">FastAPI</span>
+            <span class="cover-back-tag">React</span>
+            <span class="cover-back-tag">Supabase / pgvector</span>
+            <span class="cover-back-tag">Redis</span>
+            <span class="cover-back-tag">Ollama</span>
+            <span class="cover-back-tag">PaddleOCR</span>
+          </div>
         </div>
       </div>
       <div class="inside-pages">
-        <i class="fas fa-hat-wizard" style="color:#7c5cbf;"></i>
-        <h4>Untold Legends</h4>
-        <p>A new tale is still gathering its data — check back soon for the next chapter</p>
-        <span class="coming-badge">— Coming Soon —</span>
+        <i class="fas fa-robot" style="color:#4d9fff;"></i>
+        <h4>Internship @ SADEC Technology</h4>
+        <p>An enterprise RAG chatbot that reads a company's documents and answers with real citations.</p>
+        <button class="btn-view-story btn-story-dark" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
     <div class="shelf-ornament">
