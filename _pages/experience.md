@@ -94,7 +94,8 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-net-line.dim .exp-net-core{opacity:.35;}
 .exp-net-line.lit .exp-net-glow{opacity:.4;stroke-width:2.2;}
 .exp-net-line.lit .exp-net-core{stroke:var(--exp-gold);opacity:1;stroke-width:.6;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
-.exp-net-beam{stroke:var(--exp-star-core);stroke-width:.7;stroke-linecap:round;fill:none;filter:drop-shadow(0 0 4px var(--exp-gold));opacity:.85;animation-name:expBeamFlow;animation-timing-function:linear;animation-iteration-count:infinite;}
+.exp-net-beam{stroke:#fffbe8;stroke-width:1.8;stroke-linecap:round;fill:none;filter:drop-shadow(0 0 5px #fff2b8) drop-shadow(0 0 11px var(--exp-gold)) drop-shadow(0 0 18px var(--exp-gold));animation-name:expBeamFlow,expBeamFlare;animation-timing-function:linear,ease-in-out;animation-iteration-count:infinite,infinite;}
+@keyframes expBeamFlare{0%,100%{stroke-width:1.4;}50%{stroke-width:2.4;}}
 @keyframes expBeamFlow{to{stroke-dashoffset:var(--beam-end);}}
 @media(prefers-reduced-motion:reduce){
   .exp-lines-group{opacity:1;animation:none;}
@@ -352,7 +353,7 @@ var EXP_DATA = {
       });
       entry.beam.setAttribute("stroke-dasharray", (len * 0.22) + " " + (len * 0.78));
       entry.beam.style.setProperty("--beam-end", -len);
-      entry.beam.style.animationDuration = Math.max(0.9, len * 0.045) + "s";
+      entry.beam.style.animationDuration = Math.max(0.9, len * 0.045) + "s, 0.9s";
     });
   }
 
