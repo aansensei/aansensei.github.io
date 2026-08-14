@@ -88,14 +88,12 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-network-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 .exp-lines-group{opacity:0;animation:expLinesReveal .8s ease forwards;animation-delay:.5s;}
 @keyframes expLinesReveal{to{opacity:1;}}
-.exp-net-line{stroke:url(#expLineGrad);stroke-width:.35;fill:none;filter:drop-shadow(0 0 2px var(--exp-gold-glow));transition:stroke-width .25s ease,opacity .25s ease;}
-.exp-net-line.dim{opacity:.28;}
-.exp-net-line.lit{stroke:var(--exp-gold);stroke-width:.55;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
-.exp-net-spark{stroke:var(--exp-gold);stroke-width:.85;fill:none;stroke-linecap:round;stroke-dasharray:1.6 16;filter:drop-shadow(0 0 3px var(--exp-gold-glow));opacity:.8;}
-@media(prefers-reduced-motion:no-preference){
-  .exp-net-spark{animation:expSparkFlow 3s linear infinite;}
-}
-@keyframes expSparkFlow{to{stroke-dashoffset:-17.6;}}
+.exp-net-glow{stroke:var(--exp-gold);stroke-width:1.6;stroke-linecap:round;fill:none;opacity:.18;transition:opacity .25s ease,stroke-width .25s ease;}
+.exp-net-core{stroke:url(#expLineGrad);stroke-width:.4;stroke-linecap:round;fill:none;filter:drop-shadow(0 0 2px var(--exp-gold-glow));transition:stroke-width .25s ease,opacity .25s ease;opacity:.85;}
+.exp-net-line.dim .exp-net-glow{opacity:.08;}
+.exp-net-line.dim .exp-net-core{opacity:.35;}
+.exp-net-line.lit .exp-net-glow{opacity:.4;stroke-width:2.2;}
+.exp-net-line.lit .exp-net-core{stroke:var(--exp-gold);opacity:1;stroke-width:.6;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
 @media(prefers-reduced-motion:reduce){
   .exp-lines-group{opacity:1;animation:none;}
 }
@@ -214,7 +212,7 @@ var EXP_DATA = {
         "<strong>Event Support &amp; Coordination:</strong> Assisted senior members in planning and executing Tet in All Directions (2026), a large-scale cultural celebration with 500+ attendees, managing logistics, volunteer coordination, and on-site operations.",
         "<strong>Presentation &amp; Workshop Leadership:</strong> Led the planning and development of a comprehensive presentation for Cultural Workshop 2026, an educational event with 30+ participants, covering Vietnamese cultural traditions and student community resources."
       ]},
-      {x:44,y:10,logo:"/assets/images/sadec-logo-square.png",role:"AI Engineer Intern",org:"SADEC Technology JSC · Ho Chi Minh City, Vietnam",date:"June 2026 – August 2026",highlights:[
+      {x:44,y:10,logo:"/assets/images/sadec-logo-square.png",logoDay:"/assets/images/sadec-logo-square-dark.png",role:"AI Engineer Intern",org:"SADEC Technology JSC · Ho Chi Minh City, Vietnam",date:"June 2026 – August 2026",highlights:[
         "Built Ciel, an enterprise RAG chatbot that answers employee questions from company documents with inline citations, supporting Vietnamese, English, Japanese, and Chinese.",
         "Designed a hybrid retrieval pipeline (BM25, vector search, and cross-encoder reranking) so answers stay grounded in the actual source text instead of the model's memory."
       ]},
@@ -258,6 +256,7 @@ var EXP_DATA = {
   var dragStartClientX = 0;
   var dragStartClientY = 0;
   var justDragged = false;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function renderNetwork(){
     var set = EXP_DATA[current];
@@ -272,14 +271,17 @@ var EXP_DATA = {
 
     set.links.forEach(function(pair){
       var key = pair[0] + "-" + pair[1];
-      var line = document.createElementNS("http://www.w3.org/2000/svg","line");
-      line.setAttribute("class", "exp-net-line");
-      line.setAttribute("data-pair", key);
-      linesEl.appendChild(line);
-      var spark = document.createElementNS("http://www.w3.org/2000/svg","line");
-      spark.setAttribute("class", "exp-net-spark");
-      linesEl.appendChild(spark);
-      lineEls[key] = { line: line, spark: spark };
+      var g = document.createElementNS("http://www.w3.org/2000/svg","g");
+      g.setAttribute("class", "exp-net-line");
+      g.setAttribute("data-pair", key);
+      var glow = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+      glow.setAttribute("class", "exp-net-glow");
+      var core = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+      core.setAttribute("class", "exp-net-core");
+      g.appendChild(glow);
+      g.appendChild(core);
+      linesEl.appendChild(g);
+      lineEls[key] = { glow: glow, core: core };
     });
 
     set.nodes.forEach(function(item, i){
@@ -288,8 +290,10 @@ var EXP_DATA = {
       div.style.left = item._bx + "%";
       div.style.top = item._by + "%";
       div.style.setProperty("--i", i);
-      var starInner = item.logo
-        ? '<img src="' + item.logo + '" alt="">'
+      var isDayMode = document.body.classList.contains("an-day-mode");
+      var logoSrc = (isDayMode && item.logoDay) ? item.logoDay : item.logo;
+      var starInner = logoSrc
+        ? '<img src="' + logoSrc + '" alt="">'
         : '<i class="fas ' + item.icon + '"></i>';
       div.innerHTML =
         '<button type="button" class="exp-node-btn" data-index="' + i + '" aria-haspopup="dialog">' +
@@ -303,16 +307,33 @@ var EXP_DATA = {
     updateLines();
   }
 
+  function jitterPoints(x1, y1, x2, y2, amp){
+    var segs = 5;
+    var pts = [x1 + "," + y1];
+    for(var i = 1; i < segs; i++){
+      var t = i / segs;
+      var nx = x1 + (x2 - x1) * t;
+      var ny = y1 + (y2 - y1) * t;
+      var taper = 1 - Math.abs(t - 0.5) * 2;
+      nx += (Math.random() - 0.5) * amp * taper;
+      ny += (Math.random() - 0.5) * amp * taper;
+      pts.push(nx.toFixed(2) + "," + ny.toFixed(2));
+    }
+    pts.push(x2 + "," + y2);
+    return pts.join(" ");
+  }
+
   function updateLines(){
     var set = EXP_DATA[current];
     set.links.forEach(function(pair){
       var entry = lineEls[pair[0] + "-" + pair[1]];
       if(!entry) return;
       var a = set.nodes[pair[0]], b = set.nodes[pair[1]];
-      [entry.line, entry.spark].forEach(function(el){
-        el.setAttribute("x1", a._bx); el.setAttribute("y1", a._by);
-        el.setAttribute("x2", b._bx); el.setAttribute("y2", b._by);
-      });
+      var lit = entry.core.closest(".exp-net-line").classList.contains("lit");
+      var amp = reduceMotion ? 0 : (lit ? 3.2 : 1.6);
+      var pts = amp ? jitterPoints(a._bx, a._by, b._bx, b._by, amp) : (a._bx + "," + a._by + " " + b._bx + "," + b._by);
+      entry.glow.setAttribute("points", pts);
+      entry.core.setAttribute("points", pts);
     });
   }
 
@@ -323,6 +344,7 @@ var EXP_DATA = {
       line.classList.toggle("lit", touches);
       line.classList.toggle("dim", index !== null && !touches);
     });
+    updateLines();
   }
 
   function openModal(index){
@@ -417,5 +439,12 @@ var EXP_DATA = {
   });
 
   renderNetwork();
+
+  new MutationObserver(function(){ renderNetwork(); })
+    .observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+  if(!reduceMotion){
+    setInterval(function(){ if(dragIndex === null) updateLines(); }, 140);
+  }
 })();
 </script>
