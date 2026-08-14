@@ -94,10 +94,11 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-net-line.dim .exp-net-core{opacity:.35;}
 .exp-net-line.lit .exp-net-glow{opacity:.4;stroke-width:2.2;}
 .exp-net-line.lit .exp-net-core{stroke:var(--exp-gold);opacity:1;stroke-width:.6;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
-.exp-net-spark{fill:var(--exp-star-core);filter:drop-shadow(0 0 3px var(--exp-gold));opacity:.9;}
+.exp-net-beam{stroke:var(--exp-star-core);stroke-width:.7;stroke-linecap:round;fill:none;filter:drop-shadow(0 0 4px var(--exp-gold));opacity:.85;animation-name:expBeamFlow;animation-timing-function:linear;animation-iteration-count:infinite;}
+@keyframes expBeamFlow{to{stroke-dashoffset:var(--beam-end);}}
 @media(prefers-reduced-motion:reduce){
   .exp-lines-group{opacity:1;animation:none;}
-  .exp-net-spark{display:none;}
+  .exp-net-beam{display:none;}
 }
 
 .exp-node{position:absolute;transform:translate(-50%,-50%);opacity:0;animation:expNodeReveal .55s ease forwards;animation-delay:calc(var(--i,0) * 90ms + .1s);}
@@ -285,19 +286,14 @@ var EXP_DATA = {
       glow.setAttribute("class", "exp-net-glow");
       var core = document.createElementNS("http://www.w3.org/2000/svg","line");
       core.setAttribute("class", "exp-net-core");
-      var spark = document.createElementNS("http://www.w3.org/2000/svg","circle");
-      spark.setAttribute("class", "exp-net-spark");
-      spark.setAttribute("r", "1.3");
-      var motion = document.createElementNS("http://www.w3.org/2000/svg","animateMotion");
-      motion.setAttribute("dur", "1.4s");
-      motion.setAttribute("begin", (depth[pair[0]] * 0.4) + "s");
-      motion.setAttribute("repeatCount", "indefinite");
-      spark.appendChild(motion);
+      var beam = document.createElementNS("http://www.w3.org/2000/svg","line");
+      beam.setAttribute("class", "exp-net-beam");
+      beam.style.animationDelay = (depth[pair[0]] * 0.35) + "s";
       g.appendChild(glow);
       g.appendChild(core);
-      g.appendChild(spark);
+      g.appendChild(beam);
       linesEl.appendChild(g);
-      lineEls[key] = { glow: glow, core: core, motion: motion };
+      lineEls[key] = { glow: glow, core: core, beam: beam };
     });
 
     set.nodes.forEach(function(item, i){
@@ -349,11 +345,14 @@ var EXP_DATA = {
       var entry = lineEls[pair[0] + "-" + pair[1]];
       if(!entry) return;
       var a = set.nodes[pair[0]], b = set.nodes[pair[1]];
-      [entry.glow, entry.core].forEach(function(el){
+      var len = Math.hypot(b._bx - a._bx, b._by - a._by);
+      [entry.glow, entry.core, entry.beam].forEach(function(el){
         el.setAttribute("x1", a._bx); el.setAttribute("y1", a._by);
         el.setAttribute("x2", b._bx); el.setAttribute("y2", b._by);
       });
-      entry.motion.setAttribute("path", "M" + a._bx + "," + a._by + " L" + b._bx + "," + b._by);
+      entry.beam.setAttribute("stroke-dasharray", (len * 0.22) + " " + (len * 0.78));
+      entry.beam.style.setProperty("--beam-end", -len);
+      entry.beam.style.animationDuration = Math.max(0.9, len * 0.045) + "s";
     });
   }
 
