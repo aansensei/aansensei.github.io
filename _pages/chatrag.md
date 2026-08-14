@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: "ChatRAG — Ciel"
+title: "ChatRAG · Ciel"
 permalink: /projects/chatrag/
 ---
 
@@ -37,6 +37,8 @@ permalink: /projects/chatrag/
 .col-main p,.col-main ul,.col-main ol{margin-bottom:14px;}
 .col-main ul{padding-left:20px;}.col-main li{margin-bottom:8px;}
 .col-main strong{color:#faeab1!important;}.col-main em{color:#4d9fff!important;font-style:italic;}
+.intern-meta{font-family:'Cormorant Garamond',serif!important;font-style:italic;font-size:1rem!important;color:rgba(240,230,208,.55)!important;margin:-6px 0 18px 0!important;}
+.col-main code{background:rgba(77,159,255,.12)!important;color:#8ec2ff!important;padding:2px 7px!important;border-radius:5px!important;border:1px solid rgba(77,159,255,.25)!important;font-family:'Courier New',monospace!important;font-size:.88em!important;}
 
 .col-right{position:sticky;top:100px;text-align:center;}
 .cover-img{width:100%;border-radius:12px;margin-bottom:8px;box-shadow:0 0 22px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.12);}
@@ -58,81 +60,65 @@ permalink: /projects/chatrag/
     </div>
     <p class="toc-title">🌙 Contents</p>
     <ul class="toc-list">
-      <li><a href="#executive-summary">Executive Summary</a></li>
-      <li><a href="#1-the-problem">1. The Problem</a></li>
-      <li><a href="#2-architecture">2. Architecture &amp; Tech Choices</a></li>
-      <li><a href="#3-engineering-deep-dive">3. Engineering Deep-Dive</a></li>
-      <li><a href="#4-key-results">4. Key Results</a></li>
-      <li><a href="#5-conclusion">5. Conclusion</a></li>
-      <li><a href="#6-future-directions">6. Future Directions</a></li>
+      <li><a href="#context-goal">Context &amp; Goal</a></li>
+      <li><a href="#ideation">The Ideation Phase</a></li>
+      <li><a href="#build-journey">Building It &amp; What Went Wrong</a></li>
+      <li><a href="#mentor">The Person Who Guided Me</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#reflection">Looking Back &amp; Ahead</a></li>
     </ul>
   </div>
 
   <div class="glass-box col-main">
-    <h1>ChatRAG — Ciel: An Enterprise RAG Assistant</h1>
+    <h1>ChatRAG · Ciel: An Enterprise RAG Assistant</h1>
+    <p class="intern-meta">Internship at SADEC Technology JSC, June 2026 to August 2026</p>
 
-    <h3 id="executive-summary">Executive Summary: The Discovery Journey</h3>
-    <blockquote>"A chatbot that reads your documents is easy to demo. A chatbot that never lies about what it read — that's the actual job."</blockquote>
-    <p>Building Ciel during my internship at <strong>SADEC Technology JSC</strong> went through 3 stages I didn't expect:</p>
-    <ol>
-      <li><strong>The Assumption:</strong> I believed embedding search alone would find the right passages.<br>
-      <em>*Discovery:</em> Pure vector search missed exact filename and table lookups — I had to blend it with <strong>BM25 keyword search</strong> as a hybrid retriever.</li>
-      <li><strong>The Confusion:</strong> Follow-up questions in a conversation kept breaking retrieval — the second question alone didn't carry enough meaning to search well.<br>
-      <em>*The Pivot:</em> I added a <strong>query-rewriting step</strong> that folds the conversation history into the question before it ever gets embedded.</li>
-      <li><strong>The Realization:</strong> In an internal-tools setting, a confident wrong answer is worse than no answer.<br>
-      <em>*Result:</em> I made every answer <strong>context-strict with inline citations</strong>, so the model can only speak from what it actually retrieved.</li>
-    </ol>
-
-    <h3 id="1-the-problem">1. The Problem</h3>
-    <p>Employees at the company were losing time digging through shared drives and asking coworkers the same recurring questions about internal documents — policies, reports, spreadsheets, scanned paperwork. I was asked to build a chatbot, internally nicknamed <strong>"Ciel,"</strong> that could sit on top of those documents and answer in plain language, in <strong>Vietnamese, English, Japanese, or Chinese</strong>, without ever making an answer up.</p>
-    <p>The constraint that shaped everything else: this had to work for <strong>non-technical staff</strong>, respect <strong>department-scoped permissions</strong>, and be trustworthy enough that people would actually rely on it instead of double-checking the source file every time.</p>
+    <h3 id="context-goal">Context &amp; Goal</h3>
+    <p>SADEC Technology JSC's problem was simple to state and expensive to live with: employees were spending real work hours digging through shared drives and asking coworkers the same recurring questions. Where's the policy, what does this report say, which version of this file is current. The company's goal was an internal assistant, later nicknamed <strong>"Ciel,"</strong> that could sit on top of its documents and answer in plain language, in <strong>Vietnamese, English, Japanese, or Chinese</strong>, without ever making an answer up.</p>
+    <p>The non-negotiable part of the brief: it had to work for <strong>non-technical staff</strong>, respect <strong>department-scoped permissions</strong>, and be trustworthy enough that people would actually rely on it instead of double-checking the source file every time.</p>
 
     <img src="/assets/images/PLACEHOLDER-chatrag-chat-ui.png" alt="Ciel chat interface with a cited answer">
     <p><em>Figure 1: Ciel answering a question with clickable <code>[N]</code> citations pointing back to the exact source document.</em></p>
 
-    <h3 id="2-architecture">2. Architecture &amp; Tech Choices</h3>
-    <p>The stack is a <strong>FastAPI</strong> backend streaming answers over <strong>SSE</strong> to a <strong>React + Vite + TypeScript</strong> frontend. A few decisions mattered more than the others:</p>
+    <h3 id="ideation">The Ideation Phase</h3>
+    <p>Before any backend code, we weighed three ways to get an LLM to "know" the company's documents: fine-tune a model on internal data (expensive, and stale the moment a policy changes), give an LLM raw file access with no structure (fast to prototype, no way to guarantee it isn't making things up), or <strong>retrieval-augmented generation</strong>. RAG means indexing the documents, retrieving the relevant pieces at query time, and forcing the model to answer only from what it retrieved. RAG won because company documents change monthly, not yearly; an approach that needed retraining every time HR updated a policy was a non-starter.</p>
+    <p>Early on it was also clear that a single vector search wouldn't be enough. Early tests kept missing exact filename and table lookups that plain embedding similarity just isn't built for. That's what pushed the design toward a <strong>hybrid retriever</strong> (BM25 + vector + keyword fallback) from the start, instead of bolting it on later.</p>
+
+    <h3 id="build-journey">Building It &amp; What Went Wrong</h3>
+    <p>A few things broke before they worked:</p>
     <ul>
-      <li><strong>Supabase (Postgres + pgvector):</strong> I wanted structured metadata (departments, permissions, audit logs) and vector embeddings living in the <em>same</em> database instead of stitching together a separate vector store, to keep permission checks and retrieval consistent.</li>
-      <li><strong>Redis pub/sub:</strong> Document ingestion — parsing, OCR, chunking, embedding — takes real time. Redis lets the frontend show live progress instead of a spinner that lies.</li>
-      <li><strong>Local or cloud LLMs:</strong> Some documents are sensitive, so I made the model backend swappable — <strong>Ollama</strong> (default <code>gemma3:4b</code>) running fully on-prem, or a cloud provider (Groq, OpenAI, Gemini, Anthropic, Cerebras) when quality matters more than data locality.</li>
-      <li><strong>multilingual-e5-base embeddings:</strong> chosen specifically so retrieval quality doesn't fall apart across Vietnamese, English, Japanese, and Chinese queries against mixed-language documents.</li>
+      <li><strong>Multi-turn conversations kept breaking retrieval.</strong> A vague follow-up question, taken on its own, doesn't carry enough meaning to search well. Fixing this meant adding a <strong>query-rewriting step</strong> that folds the conversation history into the question before it ever gets embedded.</li>
+      <li><strong>Tables didn't survive being flattened into plain text.</strong> Spreadsheets and tables needed their own chunking and prompting strategy. Treating them like prose lost the exact thing that made them useful.</li>
+      <li><strong>Scanned paperwork was its own category of pain.</strong> A meaningful share of "documents" in a real company are photos and scans, not clean PDFs, which is why OCR (PaddleOCR) ended up load-bearing rather than a nice-to-have.</li>
+      <li><strong>A confident wrong answer is worse than no answer.</strong> In an internal-tools setting, that meant every response had to be context-strict with inline citations, so the model can only speak from what it actually retrieved. Reranking (BGE cross-encoder) made sure the passages that make it into the prompt are the actually relevant ones, not just the nearest by cosine distance.</li>
     </ul>
 
     <img src="/assets/images/PLACEHOLDER-chatrag-architecture.png" alt="ChatRAG system architecture diagram">
-    <p><em>Figure 2: High-level architecture — ingestion pipeline, hybrid retrieval, and the streaming answer path.</em></p>
+    <p><em>Figure 2: High-level architecture, covering the ingestion pipeline, hybrid retrieval, and the streaming answer path.</em></p>
 
-    <h3 id="3-engineering-deep-dive">3. Engineering Deep-Dive</h3>
-    <ul>
-      <li><strong>Hybrid, filename-aware search:</strong> BM25 + vector similarity + a keyword fallback, so asking for "the Q3 budget file" works even when the phrase never appears verbatim inside the document.</li>
-      <li><strong>Table-aware retrieval:</strong> spreadsheets and tables get chunked and prompted differently from prose, since flattening a table into plain text destroys the thing that makes it useful.</li>
-      <li><strong>BGE cross-encoder reranking:</strong> the first-pass retrieval casts a wide net; a reranker then re-scores the candidates so the passages that actually go into the prompt are the most relevant ones, not just the nearest by cosine distance.</li>
-      <li><strong>OCR via PaddleOCR:</strong> a meaningful share of "documents" in a real company are scans and photos of paperwork, not clean PDFs.</li>
-      <li><strong>JWT auth with department-scoped permissions:</strong> retrieval never surfaces a document a user isn't cleared to see, and every query and admin action is audit-logged.</li>
-    </ul>
+    <h3 id="mentor">The Person Who Guided Me</h3>
+    <p><strong>Anh Phi</strong> was the person I turned to whenever an idea looked good on paper but fell apart against real documents. He reviewed the retrieval design, pushed back on shortcuts that would've looked fine in a demo and broken in production, and was a big part of why this ended up as a system I'd trust with real company data rather than just a working prototype.</p>
 
-    <h3 id="4-key-results">4. Key Results</h3>
+    <h3 id="results">Results</h3>
     <ul>
-      <li><strong>Grounded answers:</strong> every response carries clickable <code>[N]</code> citations back to the source document — a hallucinated claim has nowhere to point to, which makes wrong answers easy to catch.</li>
-      <li><strong>Multi-turn that actually works:</strong> the query-rewriting step means a user can ask a vague follow-up ("what about last month?") and still get the right documents pulled in.</li>
+      <li><strong>Grounded answers:</strong> every response carries clickable <code>[N]</code> citations back to the source document. A hallucinated claim has nowhere to point to, which makes wrong answers easy to catch.</li>
+      <li><strong>Multi-turn that actually works:</strong> the query-rewriting step means a user can ask a vague follow-up and still get the right documents pulled in.</li>
       <li><strong>Works on real company documents:</strong> mixed PDFs, Word, Excel, CSV, and scanned images, in four languages, without a separate pipeline per format.</li>
     </ul>
-    <p><em>[AanSensei: nếu có số liệu thật — vd số tài liệu index được, thời gian phản hồi trung bình, % câu hỏi trả lời đúng qua đánh giá nội bộ — chèn vào đây sẽ mạnh hơn nhiều so với mô tả định tính.]</em></p>
+<!-- AanSensei: nếu có số liệu thật, vd số tài liệu index được, thời gian phản hồi trung bình, % câu hỏi trả lời đúng qua đánh giá nội bộ, chèn vào đây sẽ mạnh hơn nhiều so với mô tả định tính. -->
 
-    <h3 id="5-conclusion">5. Conclusion</h3>
-    <p>This internship pushed me past the "cool demo" version of RAG that most tutorials stop at. The interesting engineering wasn't the LLM call — it was everything around it: making retrieval actually find the right passage, making multi-turn conversation not fall apart, and making the system honest about the limits of what it knows. Building <strong>Ciel</strong> taught me that in an enterprise setting, <strong>trustworthiness is a feature you have to engineer for</strong>, not a side effect of a good model.</p>
-
-    <h3 id="6-future-directions">6. Future Directions</h3>
+    <h3 id="reflection">Looking Back &amp; Ahead</h3>
+    <p>This internship pushed me past the "cool demo" version of RAG that most tutorials stop at. The interesting engineering wasn't the LLM call. It was everything around it: making retrieval actually find the right passage, making multi-turn conversation not fall apart, and making the system honest about the limits of what it knows. Building <strong>Ciel</strong> taught me that in an enterprise setting, <strong>trustworthiness is a feature you have to engineer for</strong>, not a side effect of a good model.</p>
     <p>Directions I'd want to push this further:</p>
     <ul>
       <li><strong>Feedback-driven reranking:</strong> use thumbs-up/down on answers to fine-tune the reranker on the company's own documents instead of relying purely on a general-purpose model.</li>
-      <li><strong>Usage analytics:</strong> a lightweight admin dashboard showing which documents get queried most and where retrieval confidence is consistently low — a map of where the knowledge base has gaps.</li>
+      <li><strong>Usage analytics:</strong> a lightweight admin dashboard showing which documents get queried most and where retrieval confidence is consistently low, mapping out where the knowledge base has gaps.</li>
     </ul>
   </div>
 
   <div class="glass-box col-right">
     <img src="/assets/images/PLACEHOLDER-chatrag-preview.png" alt="ChatRAG Preview" class="cover-img">
-    <h2 class="proj-title">ChatRAG — Ciel</h2>
+    <h2 class="proj-title">ChatRAG · Ciel</h2>
     <div class="proj-skills">
       <span class="proj-skill">FastAPI</span>
       <span class="proj-skill">React</span>

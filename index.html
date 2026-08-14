@@ -132,6 +132,14 @@ title: "Hello, I'm An Nguyen"
     );
   }
 
+  .home-project-card.card-azure::before {
+    background: linear-gradient(180deg,
+      #050b18 0%, #0e3157 10%, #4d9fff 20%, #1f6fa8 30%,
+      #0e3157 40%, #1f6fa8 50%, #4d9fff 62%,
+      #1f6fa8 70%, #0e3157 80%, #b8860b 90%, #3a2203 100%
+    );
+  }
+
   .grim-corner { position: absolute; width: 14px; height: 14px; transition: width .35s ease, height .35s ease, border-color .35s ease, filter .35s ease; }
   .grim-corner.tl { top:10px;    left:22px;  border-top:    1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
   .grim-corner.tr { top:10px;    right:10px; border-top:    1.5px solid rgba(201,162,39,.58); border-right: 1.5px solid rgba(201,162,39,.58); }
@@ -188,6 +196,7 @@ title: "Hello, I'm An Nguyen"
   .grim-seal.seal-teal    { background: radial-gradient(circle at 38% 32%, #0a4a3a, #022018 70%); }
   .grim-seal.seal-rose    { background: radial-gradient(circle at 38% 32%, #7a1030, #3a0010 70%); }
   .grim-seal.seal-crimson { background: radial-gradient(circle at 38% 32%, #8b0000, #4a0000 70%); }
+  .grim-seal.seal-azure   { background: radial-gradient(circle at 38% 32%, #1f6fa8, #050b18 70%); }
 
   .home-project-title {
     font-family: 'Cormorant Garamond', serif;
@@ -220,6 +229,15 @@ title: "Hello, I'm An Nguyen"
   }
 
   .card-crimson .home-project-title:hover {
+    color: #f0c84a !important;
+  }
+
+  .card-azure .home-project-title {
+    color: #4d9fff !important;
+    border-bottom-color: rgba(77, 159, 255, .35);
+  }
+
+  .card-azure .home-project-title:hover {
     color: #f0c84a !important;
   }
 
@@ -472,6 +490,28 @@ title: "Hello, I'm An Nguyen"
     <a href="/projects/shadow-rent/" class="btn-cta-project btn-crimson"
       onclick="anBookOpen('/projects/shadow-rent/','linear-gradient(160deg,#1a0000,#4a0000,#8b0000)','Shadow Rent Index',event)">✦ Open the Tale</a>
     <div class="grim-seal seal-crimson">ᛞ</div>
+  </div>
+</div>
+
+<div class="home-project-card card-azure reveal-item">
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · IV</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. IV</div>
+  <p class="grim-chapter">Chapter the Fourth</p>
+  <div class="home-project-title-row">
+    <span class="grim-rune">ᚺ</span>
+    <a href="https://github.com/aansensei/chatRAG" target="_blank" class="home-project-title">ChatRAG · Ciel: Enterprise RAG Assistant</a>
+  </div>
+  <p class="home-project-desc">An internal chatbot that reads a company's documents and answers with real citations, built during my internship at SADEC Technology.</p>
+  <div class="home-project-links">
+    <a href="https://github.com/aansensei/chatRAG" target="_blank" class="home-link">View Code on GitHub</a>
+  </div>
+  <div class="grim-footer-row">
+    <a href="/projects/chatrag/" class="btn-cta-project btn-azure"
+      onclick="anBookOpen('/projects/chatrag/','linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)','ChatRAG · Ciel',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-azure">ᛉ</div>
   </div>
 </div>
 
