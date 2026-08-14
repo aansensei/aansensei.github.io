@@ -58,15 +58,9 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 
 .exp-hint{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--exp-text-faint);margin:14px 0 0;}
 
-.exp-network{position:relative;width:100%;max-width:820px;aspect-ratio:3/2;margin:26px auto 0;perspective:900px;}
+.exp-network{position:relative;width:100%;max-width:820px;aspect-ratio:3/2;margin:26px auto 0;}
 .exp-network::before{content:'';position:absolute;inset:0;background-image:var(--exp-medallion);background-size:min(78%,440px) auto;background-position:center;background-repeat:no-repeat;opacity:.5;pointer-events:none;}
-.exp-orbit{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:50% 50%;}
-@media(prefers-reduced-motion:no-preference){
-  .exp-orbit{animation:expOrbitFlip 26s linear infinite;}
-  .exp-node-btn{animation:expNodeCounterFlip 26s linear infinite;}
-}
-@keyframes expOrbitFlip{from{transform:rotateX(0deg);}to{transform:rotateX(360deg);}}
-@keyframes expNodeCounterFlip{from{transform:rotateX(0deg);}to{transform:rotateX(-360deg);}}
+.exp-orbit{position:absolute;inset:0;}
 .exp-network-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 .exp-net-line{stroke:url(#expLineGrad);stroke-width:.35;fill:none;filter:drop-shadow(0 0 2px var(--exp-gold-glow));transition:stroke-width .25s ease,opacity .25s ease;}
 .exp-net-line.dim{opacity:.25;}
@@ -211,19 +205,6 @@ var EXP_DATA = {
   var dragStartClientX = 0;
   var dragStartClientY = 0;
   var justDragged = false;
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  function ensureDrift(item, i){
-    if(item._bx === undefined){
-      item._bx = item.x;
-      item._by = item.y;
-      item._phaseX = Math.random() * Math.PI * 2;
-      item._phaseY = Math.random() * Math.PI * 2;
-      item._freqX = 0.06 + Math.random() * 0.05;
-      item._freqY = 0.05 + Math.random() * 0.05;
-      item._amp = 2.2 + Math.random() * 1.6;
-    }
-  }
 
   function renderNetwork(){
     var set = EXP_DATA[current];
@@ -231,6 +212,10 @@ var EXP_DATA = {
     linesEl.innerHTML = "";
     nodeEls = [];
     lineEls = {};
+
+    set.nodes.forEach(function(item){
+      if(item._bx === undefined){ item._bx = item.x; item._by = item.y; }
+    });
 
     set.links.forEach(function(pair){
       var line = document.createElementNS("http://www.w3.org/2000/svg","line");
@@ -241,7 +226,6 @@ var EXP_DATA = {
     });
 
     set.nodes.forEach(function(item, i){
-      ensureDrift(item, i);
       var div = document.createElement("div");
       div.className = "exp-node";
       div.style.left = item._bx + "%";
@@ -257,31 +241,19 @@ var EXP_DATA = {
       nodesEl.appendChild(div);
       nodeEls.push(div);
     });
+
+    updateLines();
   }
 
-  function tick(ts){
+  function updateLines(){
     var set = EXP_DATA[current];
-    var t = ts / 1000;
-    set.nodes.forEach(function(item, i){
-      var x, y;
-      if(i === dragIndex || reduceMotion){
-        x = item._bx; y = item._by;
-      } else {
-        x = item._bx + Math.sin(t * item._freqX + item._phaseX) * item._amp;
-        y = item._by + Math.cos(t * item._freqY + item._phaseY) * item._amp;
-      }
-      item._cx = x; item._cy = y;
-      var el = nodeEls[i];
-      if(el){ el.style.left = x + "%"; el.style.top = y + "%"; }
-    });
     set.links.forEach(function(pair){
       var line = lineEls[pair[0] + "-" + pair[1]];
       if(!line) return;
       var a = set.nodes[pair[0]], b = set.nodes[pair[1]];
-      line.setAttribute("x1", a._cx); line.setAttribute("y1", a._cy);
-      line.setAttribute("x2", b._cx); line.setAttribute("y2", b._cy);
+      line.setAttribute("x1", a._bx); line.setAttribute("y1", a._by);
+      line.setAttribute("x2", b._bx); line.setAttribute("y2", b._by);
     });
-    requestAnimationFrame(tick);
   }
 
   function highlightLinks(index){
@@ -351,6 +323,9 @@ var EXP_DATA = {
     py = Math.min(94, Math.max(6, py));
     var item = EXP_DATA[current].nodes[dragIndex];
     item._bx = px; item._by = py;
+    nodeEls[dragIndex].style.left = px + "%";
+    nodeEls[dragIndex].style.top = py + "%";
+    updateLines();
   });
 
   function endDrag(){
@@ -382,6 +357,5 @@ var EXP_DATA = {
   });
 
   renderNetwork();
-  requestAnimationFrame(tick);
 })();
 </script>
