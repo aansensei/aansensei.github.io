@@ -127,7 +127,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 
 .exp-modal-layer{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:1.25rem;background:var(--exp-modal-overlay);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:5;}
 .exp-modal-layer.open{opacity:1;visibility:visible;}
-.exp-modal-card{position:relative;width:100%;max-width:420px;max-height:85%;background:var(--exp-modal-bg);backdrop-filter:blur(16px);border:1px solid var(--exp-border-strong);border-radius:16px;padding:28px 30px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(201,162,39,.1);transform:scale(.94);transition:transform .25s ease;color:var(--exp-text);display:flex;flex-direction:column;}
+.exp-modal-card{position:relative;width:100%;max-width:540px;max-height:88%;background:var(--exp-modal-bg);backdrop-filter:blur(16px);border:1px solid var(--exp-border-strong);border-radius:16px;padding:34px 38px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(201,162,39,.1);transform:scale(.94);transition:transform .25s ease;color:var(--exp-text);display:flex;flex-direction:column;}
 .exp-modal-layer.open .exp-modal-card{transform:scale(1);}
 .exp-modal-card::before{content:'';position:absolute;top:0;left:9%;right:9%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
 .exp-modal-body{overflow-y:auto;}
