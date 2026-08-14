@@ -1481,9 +1481,16 @@
       }
       cursorLoop();
 
-      document.querySelectorAll('a,button,.tech-tag,home-project-card').forEach(function (el) {
-        el.addEventListener('mouseenter', function () { isHovering = true; rg.classList.add('noble-hover'); });
-        el.addEventListener('mouseleave', function () { isHovering = false; rg.classList.remove('noble-hover'); });
+      document.addEventListener('mouseover', function (ev) {
+        if (ev.target.closest && ev.target.closest('a,button,.tech-tag,home-project-card')) {
+          isHovering = true; rg.classList.add('noble-hover');
+        }
+      });
+      document.addEventListener('mouseout', function (ev) {
+        var el = ev.target.closest && ev.target.closest('a,button,.tech-tag,home-project-card');
+        if (el && !(ev.relatedTarget && el.contains(ev.relatedTarget))) {
+          isHovering = false; rg.classList.remove('noble-hover');
+        }
       });
     }
 

@@ -154,7 +154,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
   .exp-orbit{position:static;}
   #expNodes{position:relative;display:flex;flex-direction:column;gap:6px;padding-left:28px;}
   #expNodes::before{content:'';position:absolute;left:19px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--exp-gold),transparent);opacity:.5;}
-  .exp-node{position:static;transform:none;}
+  .exp-node{position:static;transform:none;animation:none;opacity:1;}
   .exp-node-btn{flex-direction:row;align-items:center;gap:12px;width:100%;padding:10px 4px;cursor:pointer;touch-action:auto;}
   .exp-star{width:40px;height:40px;flex:0 0 auto;}
   .exp-star-frame{width:30px;height:30px;}
