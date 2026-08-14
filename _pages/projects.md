@@ -615,7 +615,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
             <div class="cv-symbol"></div>
           </div>
           <div class="cv-rule"><span>✦</span></div>
-          <h3 class="cv-title">Shadow Rent<br>Index</h3>
+          <h3 class="cv-title cv-title-sm">Shadow Rent<br>Index</h3>
           <div class="cv-sub-rule"></div>
           <p class="cv-sub">The Oracle of Hidden Rents</p>
         </div>

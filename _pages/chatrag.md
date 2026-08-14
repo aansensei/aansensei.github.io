@@ -73,12 +73,17 @@ permalink: /projects/chatrag/
     <h1>ChatRAG · Ciel: An Enterprise RAG Assistant</h1>
     <p class="intern-meta">Internship at SADEC Technology JSC, June 2026 to August 2026</p>
 
+    <blockquote>"We're building a RAG system. Kind of like an internal chatbot with some role-based permission thing." That's roughly how my director and coworkers explained the project to me on my first day.</blockquote>
+
     <h3 id="context-goal">Context &amp; Goal</h3>
     <p>SADEC Technology JSC's problem was simple to state and expensive to live with: employees were spending real work hours digging through shared drives and asking coworkers the same recurring questions. Where's the policy, what does this report say, which version of this file is current. The company's goal was an internal assistant, later nicknamed <strong>"Ciel,"</strong> that could sit on top of its documents and answer in plain language, in <strong>Vietnamese, English, Japanese, or Chinese</strong>, without ever making an answer up.</p>
     <p>The non-negotiable part of the brief: it had to work for <strong>non-technical staff</strong>, respect <strong>department-scoped permissions</strong>, and be trustworthy enough that people would actually rely on it instead of double-checking the source file every time.</p>
 
-    <img src="/assets/images/PLACEHOLDER-chatrag-chat-ui.png" alt="Ciel chat interface with a cited answer">
-    <p><em>Figure 1: Ciel answering a question with clickable <code>[N]</code> citations pointing back to the exact source document.</em></p>
+    <img src="/assets/images/PLACEHOLDER-chatrag-dashboard-full.png" alt="Ciel full interface showing the sidebar, conversation, and a cited answer">
+    <p><em>Figure 1: The full Ciel interface, sidebar navigation, conversation, and a cited answer together.</em></p>
+
+    <img src="/assets/images/PLACEHOLDER-chatrag-chat-ui.png" alt="Ciel chat interface with a cited answer, zoomed in">
+    <p><em>Figure 2: A closer look at a cited answer, with clickable <code>[N]</code> references pointing back to the exact source document.</em></p>
 
     <h3 id="ideation">The Ideation Phase</h3>
     <p>Before any backend code, we weighed three ways to get an LLM to "know" the company's documents: fine-tune a model on internal data (expensive, and stale the moment a policy changes), give an LLM raw file access with no structure (fast to prototype, no way to guarantee it isn't making things up), or <strong>retrieval-augmented generation</strong>. RAG means indexing the documents, retrieving the relevant pieces at query time, and forcing the model to answer only from what it retrieved. RAG won because company documents change monthly, not yearly; an approach that needed retraining every time HR updated a policy was a non-starter.</p>
@@ -94,10 +99,10 @@ permalink: /projects/chatrag/
     </ul>
 
     <img src="/assets/images/PLACEHOLDER-chatrag-architecture.png" alt="ChatRAG system architecture diagram">
-    <p><em>Figure 2: High-level architecture, covering the ingestion pipeline, hybrid retrieval, and the streaming answer path.</em></p>
+    <p><em>Figure 3: High-level architecture, covering the ingestion pipeline, hybrid retrieval, and the streaming answer path.</em></p>
 
     <h3 id="mentor">The Person Who Guided Me</h3>
-    <p><strong>Anh Phi</strong> was the person I turned to whenever an idea looked good on paper but fell apart against real documents. He reviewed the retrieval design, pushed back on shortcuts that would've looked fine in a demo and broken in production, and was a big part of why this ended up as a system I'd trust with real company data rather than just a working prototype.</p>
+    <p><strong>Phi</strong>, a senior engineer at SADEC, was the person I turned to whenever an idea looked good on paper but fell apart against real documents. He reviewed the retrieval design, pushed back on shortcuts that would've looked fine in a demo and broken in production, and was a big part of why this ended up as a system I'd trust with real company data rather than just a working prototype.</p>
 
     <h3 id="results">Results</h3>
     <ul>
