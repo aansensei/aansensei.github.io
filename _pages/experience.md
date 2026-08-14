@@ -6,16 +6,17 @@ author_profile: true
 ---
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
+
 .exp-content{background:rgba(6,4,22,.6);backdrop-filter:blur(20px);border:1px solid rgba(201,162,39,.2);border-radius:16px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,162,39,.08);color:#f8f4ec;position:relative;}
 .exp-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
 
-.exp-intro{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(240,230,208,.7);margin-bottom:34px;text-align:center;}
+.exp-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:32px;}
+.exp-tab-btn{font-family:'Cinzel',serif;font-weight:600;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,230,208,.55);background:transparent;border:1px solid rgba(201,162,39,.25);border-radius:999px;padding:8px 22px;cursor:pointer;transition:all .25s ease;}
+.exp-tab-btn:hover{color:rgba(240,230,208,.85);border-color:rgba(201,162,39,.5);}
+.exp-tab-btn.active{color:#f0c84a;background:rgba(201,162,39,.12);border-color:rgba(201,162,39,.7);box-shadow:0 0 14px rgba(240,200,74,.2);}
 
-.exp-section-title{font-family:'Cinzel Decorative',serif;color:#f0c84a!important;font-size:1.15rem;text-align:center;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 12px rgba(201,162,39,.35);margin:0 0 30px;}
-.exp-section-title::before{content:'✦';display:block;color:#c9a227;opacity:.65;font-size:.85rem;margin-bottom:8px;letter-spacing:0;}
-.exp-section-hint{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.78rem;text-transform:none;letter-spacing:normal;color:rgba(240,230,208,.4);margin-top:6px;}
-
-.exp-section + .exp-section{margin-top:50px;padding-top:44px;border-top:1px solid rgba(201,162,39,.15);}
+.exp-section-hint{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:rgba(240,230,208,.4);text-align:center;margin:0 0 26px;}
 
 .exp-timeline{position:relative;padding-left:52px;}
 .exp-timeline::before{content:'';position:absolute;z-index:1;left:18px;top:19px;bottom:19px;width:1px;background:linear-gradient(180deg,rgba(240,200,74,.75),rgba(201,162,39,.1));box-shadow:0 0 8px rgba(240,200,74,.35);}
@@ -31,7 +32,7 @@ details.exp-item[open]:not(:last-child)::after{bottom:-30px;}
 .exp-node i{color:#8a6a10;font-size:1rem;}
 
 .exp-date{font-family:'Cormorant Garamond',serif;font-size:.82rem;letter-spacing:.08em;color:rgba(201,162,39,.75)!important;text-transform:uppercase;margin:4px 0 6px;}
-.exp-role{font-family:'Cinzel Decorative',serif;color:#f0c84a!important;font-size:1.1rem;text-shadow:0 0 12px rgba(201,162,39,.35);margin:0 0 4px;}
+.exp-role{font-family:'Cinzel',serif;font-weight:600;color:#f0c84a!important;font-size:1.1rem;text-shadow:0 0 12px rgba(201,162,39,.35);margin:0 0 4px;}
 .exp-meta{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:rgba(240,230,208,.6);margin:0;}
 
 details.exp-item summary{cursor:pointer;list-style:none;}
@@ -54,10 +55,12 @@ details.exp-item[open] .exp-chevron{transform:rotate(90deg);}
 </style>
 
 <div class="exp-content">
-  <p class="exp-intro">A timeline of school, internships, and research work, mostly data, sometimes code, always a little bit of chaos.</p>
+  <div class="exp-tabs">
+    <button type="button" class="exp-tab-btn active" data-tab="education">Education</button>
+    <button type="button" class="exp-tab-btn" data-tab="experience">Experience</button>
+  </div>
 
-  <div class="exp-section">
-    <p class="exp-section-title">Education</p>
+  <div class="exp-section" data-panel="education">
     <div class="exp-timeline">
 
       <div class="exp-item">
@@ -77,8 +80,8 @@ details.exp-item[open] .exp-chevron{transform:rotate(90deg);}
     </div>
   </div>
 
-  <div class="exp-section">
-    <p class="exp-section-title">Experience<span class="exp-section-hint">tap any role to see details</span></p>
+  <div class="exp-section" data-panel="experience" hidden>
+    <p class="exp-section-hint">tap any role to see details</p>
     <div class="exp-timeline">
 
       <details class="exp-item">
@@ -97,7 +100,7 @@ details.exp-item[open] .exp-chevron{transform:rotate(90deg);}
 
       <details class="exp-item">
         <summary>
-          <div class="exp-node"><img src="/assets/images/sadec-logo.png" alt="SADEC Technology JSC"></div>
+          <div class="exp-node"><img src="/assets/images/sadec-logo-square.png" alt="SADEC Technology JSC"></div>
           <p class="exp-date">June 2026 &ndash; August 2026</p>
           <h3 class="exp-role">AI Engineer Intern</h3>
           <p class="exp-meta">SADEC Technology JSC &middot; Ho Chi Minh City, Vietnam</p>
@@ -187,3 +190,16 @@ details.exp-item[open] .exp-chevron{transform:rotate(90deg);}
     </div>
   </div>
 </div>
+
+<script>
+document.querySelectorAll('.exp-tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.exp-tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    var target = btn.getAttribute('data-tab');
+    document.querySelectorAll('.exp-section[data-panel]').forEach(function(panel){
+      panel.hidden = panel.getAttribute('data-panel') !== target;
+    });
+  });
+});
+</script>
