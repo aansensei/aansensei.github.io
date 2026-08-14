@@ -19,6 +19,16 @@ author_profile: true
 .exp-hint{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:rgba(240,230,208,.4);margin:14px 0 0;}
 
 .exp-network{position:relative;width:100%;max-width:640px;aspect-ratio:8/5;margin:26px auto 0;}
+.exp-network::before{content:'';position:absolute;inset:0;background-image:url('/assets/images/dong-son-drum.svg');background-size:min(78%,440px) auto;background-position:center;background-repeat:no-repeat;opacity:.5;pointer-events:none;transform-origin:50% 50%;}
+@media(prefers-reduced-motion:no-preference){
+  .exp-network::before{animation:expMedallionSpin 220s linear infinite;}
+  .exp-orbit{animation:expOrbitSway 26s ease-in-out infinite;}
+  .exp-node-btn{animation:expNodeCounterSway 26s ease-in-out infinite;}
+}
+@keyframes expMedallionSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes expOrbitSway{0%,100%{transform:rotate(-5deg);}50%{transform:rotate(5deg);}}
+@keyframes expNodeCounterSway{0%,100%{transform:rotate(5deg);}50%{transform:rotate(-5deg);}}
+.exp-orbit{position:absolute;inset:0;transform-origin:50% 50%;}
 .exp-network-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
 .exp-net-line{stroke:url(#expLineGrad);stroke-width:.35;fill:none;filter:drop-shadow(0 0 2px rgba(240,200,74,.5));transition:stroke-width .25s ease,opacity .25s ease;}
 .exp-net-line.dim{opacity:.25;}
@@ -75,16 +85,18 @@ author_profile: true
   <p class="exp-hint">tap a star to open its memory</p>
 
   <div class="exp-network" id="expNetwork">
-    <svg class="exp-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="expLineGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#f0c84a" stop-opacity=".7"/>
-          <stop offset="100%" stop-color="#c9a227" stop-opacity=".25"/>
-        </linearGradient>
-      </defs>
-      <g id="expLines"></g>
-    </svg>
-    <div id="expNodes"></div>
+    <div class="exp-orbit">
+      <svg class="exp-network-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="expLineGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f0c84a" stop-opacity=".7"/>
+            <stop offset="100%" stop-color="#c9a227" stop-opacity=".25"/>
+          </linearGradient>
+        </defs>
+        <g id="expLines"></g>
+      </svg>
+      <div id="expNodes"></div>
+    </div>
 
     <div class="exp-modal-layer" id="expModalLayer">
       <div class="exp-modal-card" id="expModalCard" role="dialog" aria-modal="true" aria-labelledby="expModalRole">
@@ -109,41 +121,36 @@ var EXP_DATA = {
   },
   experience: {
     nodes: [
-      {x:18,y:16,logo:"/assets/images/visa-logo.jpg",role:"Rotational Program Intern",org:"Vietnamese International Student Association, UW-Madison · Madison, WI",date:"February 2026 – Present",highlights:[
+      {x:16,y:16,logo:"/assets/images/visa-logo.jpg",role:"Rotational Program Intern",org:"Vietnamese International Student Association, UW-Madison · Madison, WI",date:"February 2026 – Present",highlights:[
         "<strong>Event Support &amp; Coordination:</strong> Assisted senior members in planning and executing Tet in All Directions (2026), a large-scale cultural celebration with 500+ attendees, managing logistics, volunteer coordination, and on-site operations.",
         "<strong>Presentation &amp; Workshop Leadership:</strong> Led the planning and development of a comprehensive presentation for Cultural Workshop 2026, an educational event with 30+ participants, covering Vietnamese cultural traditions and student community resources."
       ]},
-      {x:47,y:10,logo:"/assets/images/sadec-logo-square.png",role:"AI Engineer Intern",org:"SADEC Technology JSC · Ho Chi Minh City, Vietnam",date:"June 2026 – August 2026",highlights:[
+      {x:44,y:10,logo:"/assets/images/sadec-logo-square.png",role:"AI Engineer Intern",org:"SADEC Technology JSC · Ho Chi Minh City, Vietnam",date:"June 2026 – August 2026",highlights:[
         "Built Ciel, an enterprise RAG chatbot that answers employee questions from company documents with inline citations, supporting Vietnamese, English, Japanese, and Chinese.",
         "Designed a hybrid retrieval pipeline (BM25, vector search, and cross-encoder reranking) so answers stay grounded in the actual source text instead of the model's memory."
       ]},
-      {x:80,y:24,logo:"/assets/images/mushroom-of-love-logo.jpg",role:"Founder & Project Lead",org:"Mush-Room of Love · Ho Chi Minh City, Vietnam",date:"2023 – 2025",highlights:[
+      {x:76,y:20,logo:"/assets/images/mushroom-of-love-logo.jpg",role:"Founder & Project Lead",org:"Mush-Room of Love · Ho Chi Minh City, Vietnam",date:"2023 – 2025",highlights:[
         "<strong>Leadership &amp; Operations:</strong> Recruited and led a dedicated team of 7 students to manage the full product lifecycle, from sourcing organic mushrooms at farms and designing eco-friendly packaging to executing Facebook sales campaigns.",
         "<strong>Sales Performance:</strong> Successfully distributed 154 kg of inventory to over 240 customers, generating 40.1 million VND in net profit with a 35% margin in the first year.",
         "<strong>Community Impact:</strong> Directed 100% of proceeds to Huynh De Nhu Nghia Shelter, and organized a charity music event with the team, delivering gifts and spiritual encouragement to visually impaired students."
       ]},
-      {x:60,y:48,icon:"fa-comments",role:"Co-Founder",org:"HCM Future Business Leader · Ho Chi Minh City, Vietnam",date:"2023 – 2025",highlights:[
-        "<strong>Community Building:</strong> Established a robust activity framework of case studies, debates, and networking events to foster a community of aspiring business leaders and promote Vietnam's cultural commodities.",
-        "<strong>Digital Marketing:</strong> Executed social media strategies to enhance brand visibility, growing the organization's Facebook page to over 1,000 followers.",
-        "<strong>Event Management:</strong> Spearheaded the \"Perk Up Your Brand\" workshop featuring 2 industry experts and 120+ participants, delivering strategic insights into Vietnam's coffee industry."
-      ]},
-      {x:25,y:56,logo:"/assets/images/ulsa-logo.jpg",role:"Research Assistant",org:"University of Labour and Social Affairs · Ho Chi Minh City, Vietnam",date:"March 2024 – July 2024",highlights:[
+      {x:58,y:44,logo:"/assets/images/ulsa-logo.jpg",role:"Research Assistant",org:"University of Labour and Social Affairs · Ho Chi Minh City, Vietnam",date:"March 2024 – July 2024",highlights:[
         "<strong>Market Research &amp; Analysis:</strong> Conducted an in-depth analysis of the semiconductor human resource shortage in Vietnam versus Taiwan, synthesizing data from 20+ industry reports to identify a critical 80% supply-demand gap.",
         "<strong>Case Study Development:</strong> Executed a comparative case study on TSMC's talent strategy, extracting lessons on specialization and FDI attraction to propose 3 policy recommendations for Vietnam's workforce development.",
         "<strong>Publication:</strong> Co-authored and published the peer-reviewed article \"Current Situation of Human Resources in the Semiconductor Industry in Vietnam and Experiences From Taiwan\" in the International Research Journal of Economics and Management Studies (Vol. 3, No. 8)."
       ]},
-      {x:52,y:82,logo:"/assets/images/hodeco-logo.png",role:"Business Intern",org:"Ba Ria – Vung Tau House Development JSC · Ho Chi Minh City, Vietnam",date:"July 2024",highlights:[
+      {x:28,y:52,logo:"/assets/images/hodeco-logo.png",role:"Business Intern",org:"Ba Ria – Vung Tau House Development JSC · Ho Chi Minh City, Vietnam",date:"July 2024",highlights:[
         "<strong>Data Analysis:</strong> Analyzed a real estate dataset of 500+ properties using Advanced Excel (Pivot Tables, VLOOKUP), identifying 3 underperforming assets and proposing pricing adjustments.",
         "<strong>Sales Reporting &amp; Presentation:</strong> Spearheaded the weekly sales reporting process, cleansing corrupt raw datasets to ensure 98% data accuracy, and presented strategic insights to 20 stakeholders, cutting preparation time by 30%.",
         "<strong>Market Research:</strong> Conducted competitor analysis that contributed to a 10% refinement in the company's marketing strategy for Q3."
       ]},
-      {x:86,y:74,logo:"/assets/images/bamboo-capital-logo.png",role:"Business Intern",org:"Bamboo Capital Group · Ho Chi Minh City, Vietnam",date:"July 2023",highlights:[
+      {x:50,y:80,logo:"/assets/images/bamboo-capital-logo.png",role:"Business Intern",org:"Bamboo Capital Group · Ho Chi Minh City, Vietnam",date:"July 2023",highlights:[
         "<strong>Data Integrity &amp; Operations:</strong> Managed the accurate entry of weekly sales data into the company's ERP, ensuring 100% data accuracy to support warehouse inventory operations and logistics planning.",
         "<strong>Strategic Market Research:</strong> Conducted a comprehensive analysis of 5+ key distribution channels, identifying coverage gaps and proposing improvements adopted by the marketing team.",
         "<strong>Process Optimization:</strong> Streamlined administrative workflows by digitizing a backlog of physical documents, reducing file retrieval time by 20% and enhancing information security."
       ]}
     ],
-    links: [[0,1],[1,2],[1,3],[2,3],[3,4],[3,5],[5,6]]
+    links: [[0,1],[1,2],[1,3],[2,3],[3,4],[4,5]]
   }
 };
 
