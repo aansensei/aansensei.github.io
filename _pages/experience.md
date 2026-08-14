@@ -94,8 +94,10 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-net-line.dim .exp-net-core{opacity:.35;}
 .exp-net-line.lit .exp-net-glow{opacity:.4;stroke-width:2.2;}
 .exp-net-line.lit .exp-net-core{stroke:var(--exp-gold);opacity:1;stroke-width:.6;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
+.exp-net-spark{fill:var(--exp-star-core);filter:drop-shadow(0 0 3px var(--exp-gold));opacity:.9;}
 @media(prefers-reduced-motion:reduce){
   .exp-lines-group{opacity:1;animation:none;}
+  .exp-net-spark{display:none;}
 }
 
 .exp-node{position:absolute;transform:translate(-50%,-50%);opacity:0;animation:expNodeReveal .55s ease forwards;animation-delay:calc(var(--i,0) * 90ms + .1s);}
@@ -260,7 +262,6 @@ var EXP_DATA = {
   var dragStartClientX = 0;
   var dragStartClientY = 0;
   var justDragged = false;
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function renderNetwork(){
     var set = EXP_DATA[current];
@@ -273,19 +274,30 @@ var EXP_DATA = {
       if(item._bx === undefined){ item._bx = item.x; item._by = item.y; }
     });
 
+    var depth = computeDepth(set);
+
     set.links.forEach(function(pair){
       var key = pair[0] + "-" + pair[1];
       var g = document.createElementNS("http://www.w3.org/2000/svg","g");
       g.setAttribute("class", "exp-net-line");
       g.setAttribute("data-pair", key);
-      var glow = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+      var glow = document.createElementNS("http://www.w3.org/2000/svg","line");
       glow.setAttribute("class", "exp-net-glow");
-      var core = document.createElementNS("http://www.w3.org/2000/svg","polyline");
+      var core = document.createElementNS("http://www.w3.org/2000/svg","line");
       core.setAttribute("class", "exp-net-core");
+      var spark = document.createElementNS("http://www.w3.org/2000/svg","circle");
+      spark.setAttribute("class", "exp-net-spark");
+      spark.setAttribute("r", "1.3");
+      var motion = document.createElementNS("http://www.w3.org/2000/svg","animateMotion");
+      motion.setAttribute("dur", "1.4s");
+      motion.setAttribute("begin", (depth[pair[0]] * 0.4) + "s");
+      motion.setAttribute("repeatCount", "indefinite");
+      spark.appendChild(motion);
       g.appendChild(glow);
       g.appendChild(core);
+      g.appendChild(spark);
       linesEl.appendChild(g);
-      lineEls[key] = { glow: glow, core: core };
+      lineEls[key] = { glow: glow, core: core, motion: motion };
     });
 
     set.nodes.forEach(function(item, i){
@@ -311,20 +323,24 @@ var EXP_DATA = {
     updateLines();
   }
 
-  function jitterPoints(x1, y1, x2, y2, amp){
-    var segs = 5;
-    var pts = [x1 + "," + y1];
-    for(var i = 1; i < segs; i++){
-      var t = i / segs;
-      var nx = x1 + (x2 - x1) * t;
-      var ny = y1 + (y2 - y1) * t;
-      var taper = 1 - Math.abs(t - 0.5) * 2;
-      nx += (Math.random() - 0.5) * amp * taper;
-      ny += (Math.random() - 0.5) * amp * taper;
-      pts.push(nx.toFixed(2) + "," + ny.toFixed(2));
+  function computeDepth(set){
+    var hasParent = {};
+    set.links.forEach(function(pair){ hasParent[pair[1]] = true; });
+    var root = 0;
+    for(var i = 0; i < set.nodes.length; i++){ if(!hasParent[i]){ root = i; break; } }
+    var depth = {};
+    depth[root] = 0;
+    var queue = [root];
+    while(queue.length){
+      var cur = queue.shift();
+      set.links.forEach(function(pair){
+        if(pair[0] === cur && depth[pair[1]] === undefined){
+          depth[pair[1]] = depth[cur] + 1;
+          queue.push(pair[1]);
+        }
+      });
     }
-    pts.push(x2 + "," + y2);
-    return pts.join(" ");
+    return depth;
   }
 
   function updateLines(){
@@ -333,11 +349,11 @@ var EXP_DATA = {
       var entry = lineEls[pair[0] + "-" + pair[1]];
       if(!entry) return;
       var a = set.nodes[pair[0]], b = set.nodes[pair[1]];
-      var lit = entry.core.closest(".exp-net-line").classList.contains("lit");
-      var amp = reduceMotion ? 0 : (lit ? 3.2 : 1.6);
-      var pts = amp ? jitterPoints(a._bx, a._by, b._bx, b._by, amp) : (a._bx + "," + a._by + " " + b._bx + "," + b._by);
-      entry.glow.setAttribute("points", pts);
-      entry.core.setAttribute("points", pts);
+      [entry.glow, entry.core].forEach(function(el){
+        el.setAttribute("x1", a._bx); el.setAttribute("y1", a._by);
+        el.setAttribute("x2", b._bx); el.setAttribute("y2", b._by);
+      });
+      entry.motion.setAttribute("path", "M" + a._bx + "," + a._by + " L" + b._bx + "," + b._by);
     });
   }
 
@@ -348,7 +364,6 @@ var EXP_DATA = {
       line.classList.toggle("lit", touches);
       line.classList.toggle("dim", index !== null && !touches);
     });
-    updateLines();
   }
 
   function openModal(index){
@@ -446,9 +461,5 @@ var EXP_DATA = {
 
   new MutationObserver(function(){ renderNetwork(); })
     .observe(document.body, { attributes: true, attributeFilter: ["class"] });
-
-  if(!reduceMotion){
-    setInterval(function(){ if(dragIndex === null) updateLines(); }, 140);
-  }
 })();
 </script>
