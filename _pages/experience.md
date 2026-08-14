@@ -25,7 +25,6 @@ author_profile: true
   --exp-tag-bg:rgba(9,7,26,.75);
   --exp-modal-overlay:rgba(5,4,16,.72);
   --exp-modal-bg:rgba(16,13,38,.92);
-  --exp-medallion:url('/assets/images/dong-son-drum.svg');
   --exp-star-core:#fff8e0;
   --exp-gold-glow-soft:rgba(240,200,74,.25);
   --exp-ring-color:rgba(90,170,255,.85);
@@ -50,7 +49,6 @@ body.an-day-mode .exp-content{
   --exp-tag-bg:rgba(255,250,238,.88);
   --exp-modal-overlay:rgba(58,42,16,.4);
   --exp-modal-bg:rgba(255,250,238,.97);
-  --exp-medallion:url('/assets/images/dong-son-drum-day.svg');
   --exp-star-core:#fffdf2;
   --exp-gold-glow-soft:rgba(154,106,16,.18);
   --exp-ring-color:rgba(30,95,180,.6);
@@ -72,7 +70,6 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-network::before{
   content:'';position:absolute;inset:0;pointer-events:none;
   background-image:
-    var(--exp-medallion),
     radial-gradient(1.5px 1.5px at 9% 16%, rgba(255,255,255,.55) 0, transparent 60%),
     radial-gradient(1px 1px at 23% 68%, rgba(255,255,255,.4) 0, transparent 60%),
     radial-gradient(1.5px 1.5px at 39% 12%, rgba(255,255,255,.5) 0, transparent 60%),
@@ -83,18 +80,29 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
     radial-gradient(1.5px 1.5px at 5% 90%, rgba(255,255,255,.4) 0, transparent 60%),
     radial-gradient(ellipse 55% 42% at 22% 28%, var(--exp-nebula-a) 0%, transparent 72%),
     radial-gradient(ellipse 50% 38% at 78% 74%, var(--exp-nebula-b) 0%, transparent 72%);
-  background-size:min(78%,440px) auto,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%;
-  background-position:center,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0;
+  background-size:100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%,100% 100%;
+  background-position:0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0,0 0;
   background-repeat:no-repeat;
-  opacity:.5;
 }
 .exp-orbit{position:absolute;inset:0;}
 .exp-network-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
-.exp-net-line{stroke:url(#expLineGrad);stroke-width:.4;fill:none;stroke-dasharray:1 1.4;filter:drop-shadow(0 0 2.5px var(--exp-gold-glow));transition:stroke-width .25s ease,opacity .25s ease;}
-.exp-net-line.dim{opacity:.22;}
-.exp-net-line.lit{stroke:var(--exp-gold);stroke-width:.6;stroke-dasharray:none;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
+.exp-lines-group{opacity:0;animation:expLinesReveal .8s ease forwards;animation-delay:.5s;}
+@keyframes expLinesReveal{to{opacity:1;}}
+.exp-net-line{stroke:url(#expLineGrad);stroke-width:.35;fill:none;filter:drop-shadow(0 0 2px var(--exp-gold-glow));transition:stroke-width .25s ease,opacity .25s ease;}
+.exp-net-line.dim{opacity:.28;}
+.exp-net-line.lit{stroke:var(--exp-gold);stroke-width:.55;filter:drop-shadow(0 0 5px var(--exp-gold-glow));}
+.exp-net-spark{stroke:var(--exp-gold);stroke-width:.85;fill:none;stroke-linecap:round;stroke-dasharray:1.6 16;filter:drop-shadow(0 0 3px var(--exp-gold-glow));opacity:.8;}
+@media(prefers-reduced-motion:no-preference){
+  .exp-net-spark{animation:expSparkFlow 3s linear infinite;}
+}
+@keyframes expSparkFlow{to{stroke-dashoffset:-17.6;}}
+@media(prefers-reduced-motion:reduce){
+  .exp-lines-group{opacity:1;animation:none;}
+}
 
-.exp-node{position:absolute;transform:translate(-50%,-50%);}
+.exp-node{position:absolute;transform:translate(-50%,-50%);opacity:0;animation:expNodeReveal .55s ease forwards;animation-delay:calc(var(--i,0) * 90ms + .1s);}
+@keyframes expNodeReveal{from{opacity:0;transform:translate(-50%,-50%) scale(.4);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
+@media(prefers-reduced-motion:reduce){.exp-node{opacity:1;animation:none;}}
 .exp-node-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;border:none;cursor:grab;padding:6px;font:inherit;color:inherit;touch-action:none;user-select:none;-webkit-user-select:none;}
 .exp-node-btn:active,.exp-node.dragging .exp-node-btn{cursor:grabbing;}
 .exp-node-btn:focus-visible{outline:2px solid var(--exp-gold);outline-offset:4px;border-radius:50%;}
@@ -139,8 +147,20 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 
 @media(max-width:600px){
   .exp-content{padding:22px;}
-  .exp-star{width:40px;height:40px;}
+}
+
+@media(max-width:680px){
+  .exp-network{aspect-ratio:auto;max-width:none;margin-top:22px;}
+  .exp-network::before{opacity:.35;}
+  .exp-network-svg{display:none;}
+  .exp-orbit{position:static;}
+  #expNodes{position:relative;display:flex;flex-direction:column;gap:6px;padding-left:28px;}
+  #expNodes::before{content:'';position:absolute;left:19px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--exp-gold),transparent);opacity:.5;}
+  .exp-node{position:static;transform:none;}
+  .exp-node-btn{flex-direction:row;align-items:center;gap:12px;width:100%;padding:10px 4px;cursor:pointer;touch-action:auto;}
+  .exp-star{width:40px;height:40px;flex:0 0 auto;}
   .exp-star-frame{width:30px;height:30px;}
+  .exp-node-tag{white-space:normal;text-align:left;font-size:.72rem;}
 }
 </style>
 
@@ -160,7 +180,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
             <stop offset="100%" stop-color="#c9a227" stop-opacity=".25"/>
           </linearGradient>
         </defs>
-        <g id="expLines"></g>
+        <g id="expLines" class="exp-lines-group"></g>
       </svg>
       <div id="expNodes"></div>
     </div>
@@ -251,11 +271,15 @@ var EXP_DATA = {
     });
 
     set.links.forEach(function(pair){
+      var key = pair[0] + "-" + pair[1];
       var line = document.createElementNS("http://www.w3.org/2000/svg","line");
       line.setAttribute("class", "exp-net-line");
-      line.setAttribute("data-pair", pair[0] + "-" + pair[1]);
+      line.setAttribute("data-pair", key);
       linesEl.appendChild(line);
-      lineEls[pair[0] + "-" + pair[1]] = line;
+      var spark = document.createElementNS("http://www.w3.org/2000/svg","line");
+      spark.setAttribute("class", "exp-net-spark");
+      linesEl.appendChild(spark);
+      lineEls[key] = { line: line, spark: spark };
     });
 
     set.nodes.forEach(function(item, i){
@@ -263,6 +287,7 @@ var EXP_DATA = {
       div.className = "exp-node";
       div.style.left = item._bx + "%";
       div.style.top = item._by + "%";
+      div.style.setProperty("--i", i);
       var starInner = item.logo
         ? '<img src="' + item.logo + '" alt="">'
         : '<i class="fas ' + item.icon + '"></i>';
@@ -281,11 +306,13 @@ var EXP_DATA = {
   function updateLines(){
     var set = EXP_DATA[current];
     set.links.forEach(function(pair){
-      var line = lineEls[pair[0] + "-" + pair[1]];
-      if(!line) return;
+      var entry = lineEls[pair[0] + "-" + pair[1]];
+      if(!entry) return;
       var a = set.nodes[pair[0]], b = set.nodes[pair[1]];
-      line.setAttribute("x1", a._bx); line.setAttribute("y1", a._by);
-      line.setAttribute("x2", b._bx); line.setAttribute("y2", b._by);
+      [entry.line, entry.spark].forEach(function(el){
+        el.setAttribute("x1", a._bx); el.setAttribute("y1", a._by);
+        el.setAttribute("x2", b._bx); el.setAttribute("y2", b._by);
+      });
     });
   }
 
