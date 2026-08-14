@@ -140,7 +140,7 @@ author_profile: true
   <p>When I need to step away from my laptop and find some balance in Madison, I have a few favorite ways to recharge. I absolutely love playing rhythm games like <strong>Project SEKAI</strong>, which never fails to give me a burst of energy and keep my reflexes sharp. I also spend time learning Japanese by breaking down the lyrics of my favorite songs.</p>
   <p>Sometimes, the smallest things make me smile the most. It could be catching a fresh aquatic fragrance that reminds me of a gentle sea breeze, the peaceful feeling of walking around campus, or simply the immense satisfaction of finally getting my code to run flawlessly.</p>
 
-  <h2>Vibes &amp; Playlists 🎧</h2>
+  <h2>Vibes &amp; Playlists</h2>
   <p>Some of my absolute favorite artists that I think everyone should listen to:</p>
 
   <div class="spotify-grid">
