@@ -196,6 +196,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 .btn-story-blue{background:linear-gradient(135deg,#2a9d8f,#0e4f8f);box-shadow:0 0 12px rgba(42,157,143,.55);}
 .btn-story-neon{background:linear-gradient(135deg,#c94f7c,#6a00c0);box-shadow:0 0 12px rgba(201,79,124,.55);}
 .btn-story-dark{background:linear-gradient(135deg,#2a2a2a,#111);box-shadow:0 0 10px rgba(201,162,39,.3);border:1px solid rgba(201,162,39,.25);}
+.btn-story-green{background:linear-gradient(135deg,#2ecc71,#0e6b3f);box-shadow:0 0 12px rgba(46,204,113,.55);}
 .coming-badge{display:inline-block;padding:5px 13px;margin-top:11px;background:rgba(201,162,39,.15);border:1px dashed rgba(201,162,39,.4);border-radius:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:#c9a227!important;pointer-events:none;}
 
 @keyframes bottomBreath{0%,100%{opacity:.35;transform:scaleX(.78);}50%{opacity:.62;transform:scaleX(1);}}
@@ -711,7 +712,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
         <i class="fas fa-robot" style="color:#4d9fff;"></i>
         <h4>SADEC Technology</h4>
         <p>Enterprise RAG chatbot answering from company documents with real citations</p>
-        <button class="btn-view-story btn-story-dark" onclick="openBookCard(this)">✦ Read the Tale</button>
+        <button class="btn-view-story btn-story-green" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
     </div>
     <div class="shelf-ornament">
