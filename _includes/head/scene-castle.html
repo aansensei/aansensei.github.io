@@ -605,21 +605,46 @@
         ctx.fillRect(0, groundY, VW, H - groundY);
 
         ctx.globalAlpha = a * (1 - t);
-        [[.5, bY + 15 * s, 7], [.41, bY + 12 * s, 5], [.59, bY + 12 * s, 5], [.33, bY + 8 * s, 4.5], [.67, bY + 8 * s, 4.5], [.25, bY + 5 * s, 4], [.75, bY + 5 * s, 4], [.19, bY + 3 * s, 3.5], [.81, bY + 3 * s, 3.5]].forEach(function (w) {
+        /* Ground lights: hoisted onto the function itself (function-static cache) so the
+           array and its per-light gradients are only rebuilt when the canvas resizes,
+           not on every single frame. */
+        if (!drawCastle._groundLights || drawCastle._glVW !== VW || drawCastle._glH !== H) {
+          drawCastle._groundLights = [[.5, bY + 15 * s, 7], [.41, bY + 12 * s, 5], [.59, bY + 12 * s, 5], [.33, bY + 8 * s, 4.5], [.67, bY + 8 * s, 4.5], [.25, bY + 5 * s, 4], [.75, bY + 5 * s, 4], [.19, bY + 3 * s, 3.5], [.81, bY + 3 * s, 3.5]].map(function (w) {
+            var wx = w[0] * VW;
+            var grad = ctx.createRadialGradient(wx, w[1], 0, wx, w[1], w[2] * 5);
+            grad.addColorStop(0, 'rgba(255,170,50,.2)');
+            grad.addColorStop(1, 'transparent');
+            return { wx: wx, wy: w[1], r: w[2] * 5, grad: grad };
+          });
+          drawCastle._glVW = VW; drawCastle._glH = H;
+        }
+        drawCastle._groundLights.forEach(function (w) {
           /* Warmer and softer ground light reflection */
-          var wx = w[0] * VW, fl = .85 + .15 * Math.sin(nt2 * 1.2 + wx * .003);
-          var wg = ctx.createRadialGradient(wx, w[1], 0, wx, w[1], w[2] * 5);
-          wg.addColorStop(0, 'rgba(255,170,50,' + .2 * fl + ')');
-          wg.addColorStop(1, 'transparent');
-          ctx.fillStyle = wg; ctx.beginPath(); ctx.arc(wx, w[1], w[2] * 5, 0, Math.PI * 2); ctx.fill();
+          var fl = .85 + .15 * Math.sin(nt2 * 1.2 + w.wx * .003);
+          var prevAlpha = ctx.globalAlpha;
+          ctx.globalAlpha = prevAlpha * fl;
+          ctx.fillStyle = w.grad; ctx.beginPath(); ctx.arc(w.wx, w.wy, w.r, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = prevAlpha;
+        });
+
+        /* Distant village lights: gradient shape is stable across frames (position only
+           changes on resize), so cache it per light and animate the flicker via
+           globalAlpha instead of re-allocating a gradient every frame. */
+        VL.forEach(function (vl) {
+          var vx = vl.px * VW, vy = bY - 8 - Math.abs(vl.py);
+          var br = .4 + .6 * Math.abs(Math.sin(nt2 * vl.sp + vl.ph));
+          if (!vl._grad || vl._gradVW !== VW || vl._gradH !== H) {
+            vl._grad = ctx.createRadialGradient(vx, vy, 0, vx, vy, vl.r * 4);
+            vl._grad.addColorStop(0, 'hsla(' + vl.hue + ',80%,70%,.7)');
+            vl._grad.addColorStop(1, 'transparent');
+            vl._gradVW = VW; vl._gradH = H;
+          }
+          var prevAlpha2 = ctx.globalAlpha;
+          ctx.globalAlpha = prevAlpha2 * br;
+          ctx.fillStyle = vl._grad; ctx.beginPath(); ctx.arc(vx, vy, vl.r * 4, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = prevAlpha2;
+          ctx.fillStyle = 'hsla(' + vl.hue + ',90%,80%,' + br * .9 + ')'; ctx.beginPath(); ctx.arc(vx, vy, vl.r, 0, Math.PI * 2); ctx.fill();
         });
       }
-      VL.forEach(function (vl) {
-        var vx = vl.px * VW, vy = bY - 8 - Math.abs(vl.py);
-        var br = .4 + .6 * Math.abs(Math.sin(nt2 * vl.sp + vl.ph));
-        var vg = ctx.createRadialGradient(vx, vy, 0, vx, vy, vl.r * 4); vg.addColorStop(0, 'hsla(' + vl.hue + ',80%,70%,' + br * .7 + ')'); vg.addColorStop(1, 'transparent');
-        ctx.fillStyle = vg; ctx.beginPath(); ctx.arc(vx, vy, vl.r * 4, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = 'hsla(' + vl.hue + ',90%,80%,' + br * .9 + ')'; ctx.beginPath(); ctx.arc(vx, vy, vl.r, 0, Math.PI * 2); ctx.fill();
-      });
       ctx.restore();
     }
