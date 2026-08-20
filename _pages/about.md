@@ -11,6 +11,7 @@ description: "About Cao Thien An Nguyen, a Data Science & Economics student at U
 .about-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
 .about-cover-img{width:100%;max-height:500px;object-fit:contain;background:rgba(0,0,0,.25);border-radius:12px;margin-bottom:28px;box-shadow:0 10px 25px rgba(0,0,0,.5);border:1px solid rgba(201,162,39,.15);}
 .about-content h2{color:#f0c84a!important;font-family:'Cinzel Decorative',serif!important;margin-top:30px;border-bottom:1px solid rgba(201,162,39,.2);padding-bottom:10px;text-shadow:0 0 16px rgba(201,162,39,.35)!important;}
+.about-content strong{color:#f0c84a!important;}
 .highlight-quote{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#c94f7c;text-align:center;margin:28px 0;font-style:italic;}
 .spotify-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-top:22px;}
 .artist-card{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:18px;text-align:center;transition:all .3s ease;}
