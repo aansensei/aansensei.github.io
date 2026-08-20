@@ -3,6 +3,7 @@ layout: single
 title: "Experience"
 permalink: /experience/
 author_profile: true
+description: "Education and work experience of Cao Thien An Nguyen, from an AI engineering internship at SADEC Technology to market research and student leadership."
 ---
 
 <style>

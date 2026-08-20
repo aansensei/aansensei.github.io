@@ -3,6 +3,7 @@ layout: single
 title: "About Me"
 permalink: /about/
 author_profile: true
+description: "About Cao Thien An Nguyen, a Data Science & Economics student at UW-Madison blending data analysis, research, and storytelling."
 ---
 
 <style>

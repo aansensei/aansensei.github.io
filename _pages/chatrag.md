@@ -2,6 +2,7 @@
 layout: splash
 title: "ChatRAG · Ciel"
 permalink: /projects/chatrag/
+description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC Technology internship, with hybrid retrieval and multilingual inline citations."
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">

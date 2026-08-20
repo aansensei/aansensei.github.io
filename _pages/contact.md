@@ -3,6 +3,7 @@ layout: single
 title: "Let's Connect"
 permalink: /contact/
 author_profile: true
+description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitHub for collaboration, internships, or a chat about data."
 ---
 
 <style>

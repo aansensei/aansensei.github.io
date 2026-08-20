@@ -2,6 +2,7 @@
 layout: splash
 title: "Tech Layoffs Analysis"
 permalink: /projects/tech-layoffs/
+description: "A data analysis of tech industry layoff trends, built with Python and Tableau to surface the patterns behind the headlines."
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">

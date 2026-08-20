@@ -2,6 +2,7 @@
 layout: splash
 title: "Shadow Rent Index"
 permalink: /projects/shadow-rent/
+description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimating hidden rental market pressure as a leading macroeconomic indicator."
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">

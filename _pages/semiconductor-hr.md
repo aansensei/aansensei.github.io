@@ -2,6 +2,7 @@
 layout: splash
 title: "Semiconductor HR"
 permalink: /projects/semiconductor-hr/
+description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's model, research published in the International Research Journal of Economics and Management Studies."
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
