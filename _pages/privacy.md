@@ -7,9 +7,11 @@ description: "How this site uses Google Analytics to understand visits, and what
 ---
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
+.page__title{font-family:'Cinzel',serif!important;font-weight:700!important;}
 .pp-content{background:rgba(6,4,22,.6);backdrop-filter:blur(20px);border:1px solid rgba(201,162,39,.2);border-radius:16px;padding:40px;box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,162,39,.08);color:#f8f4ec;position:relative;font-family:'Cormorant Garamond',serif;font-size:1.05rem;line-height:1.75;}
 .pp-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
-.pp-content h2{font-family:'Cinzel Decorative',serif!important;color:#f0c84a!important;font-size:1.2rem;letter-spacing:.08em;margin:32px 0 12px;}
+.pp-content h2{font-family:'Cinzel',serif!important;font-weight:700!important;color:#f0c84a!important;font-size:1.2rem;letter-spacing:.08em;margin:32px 0 12px;}
 .pp-content h2:first-child{margin-top:0;}
 .pp-content p{color:rgba(240,230,208,.85);margin:0 0 14px;}
 .pp-content ul{margin:0 0 14px;padding-left:24px;color:rgba(240,230,208,.85);}
