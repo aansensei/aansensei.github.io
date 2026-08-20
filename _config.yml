@@ -20,6 +20,12 @@ search: false
 atom_feed:
   hide: true
 
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: "G-W5R5TCGLJX"
+    anonymize_ip: false
+
 author:
   name: "Cao Thien An Nguyen"
   avatar: "/assets/images/avatar.jpg"
