@@ -19,7 +19,6 @@ include:
 search: false
 atom_feed:
   hide: true
-breadcrumbs: true
 
 author:
   name: "Cao Thien An Nguyen"
