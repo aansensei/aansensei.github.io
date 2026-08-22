@@ -1388,6 +1388,16 @@
     var r1 = hex2rgb(c1), r2 = hex2rgb(c2);
     return Math.round(r1[0] + (r2[0] - r1[0]) * t) + ',' + Math.round(r1[1] + (r2[1] - r1[1]) * t) + ',' + Math.round(r1[2] + (r2[2] - r1[2]) * t);
   }
+  /* drawCastle() runs up to 3x per frame (1 real pass + 2 river-reflection passes) with
+     the same themeT, so its lerpC(...) calls recompute identical results 3 times. Cache
+     within a single frame, cleared at the top of render(). */
+  var _lerpCCache = {};
+  function lerpCCached(c1, c2, t) {
+    var k = c1 + '|' + c2 + '|' + t;
+    var hit = _lerpCCache[k];
+    if (hit === undefined) { hit = lerpC(c1, c2, t); _lerpCCache[k] = hit; }
+    return hit;
+  }
   function lerpC3(night, dayA, dayB, tTheme, tScroll) {
     var n = hex2rgb(night), a = hex2rgb(dayA), b = hex2rgb(dayB);
     var dr = a[0] + (b[0] - a[0]) * tScroll, dg = a[1] + (b[1] - a[1]) * tScroll, db = a[2] + (b[2] - a[2]) * tScroll;
@@ -2496,6 +2506,7 @@
 
       ctx.clearRect(0, 0, W, H);
       var nt = activeTime * .001;
+      _lerpCCache = {};
 
       var isDayMode = document.body.classList.contains('an-day-mode');
       themeT += ((isDayMode ? 1 : 0) - themeT) * 0.04;
