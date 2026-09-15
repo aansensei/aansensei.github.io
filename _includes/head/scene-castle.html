@@ -85,24 +85,42 @@
         ctx.strokeStyle = 'rgba(0,0,0,0.6)'; ctx.lineWidth = 1.2 * s;
         ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, cy - h + w / 2); ctx.stroke();
 
-        /* Reflections are rippled and small on screen, so the per-rivet glow halo (a fresh
-           gradient per rivet, ~40 of them) is skipped there -- the rivet dots alone still
-           read correctly as a paneled door underwater. */
-        for (var py = cy - 8 * s; py > cy - h + 15 * s; py -= 10 * s) {
-          for (var px = cx - w / 2 + 5 * s; px < cx + w / 2; px += 10 * s) {
-            if (isNight && !isReflection) {
-              /* Glowing aura for door rivets */
-              var flicker = 0.85 + 0.15 * Math.sin(nt * 2 + px);
-              var halo = ctx.createRadialGradient(px, py, 0, px, py, 7 * s);
-              halo.addColorStop(0, 'rgba(255, 190, 60, ' + (0.5 * flicker) + ')');
-              halo.addColorStop(1, 'transparent');
-              ctx.fillStyle = halo;
-              ctx.beginPath(); ctx.arc(px, py, 7 * s, 0, Math.PI * 2); ctx.fill();
-            }
-            ctx.fillStyle = 'rgb(' + cGold + ')';
-            ctx.beginPath(); ctx.arc(px, py, 1.2 * s, 0, Math.PI * 2); ctx.fill();
-          }
+        /* Reflections are rippled and small on screen, so the per-rivet glow halo is
+           skipped there -- the rivet dots alone still read correctly as a paneled door
+           underwater. For the real (non-reflection) pass, rivet positions only change on
+           resize, so the ~8 halo gradients per door are built once and cached on
+           drawCastle itself, then just re-filled with globalAlpha driving the flicker. */
+        if (!drawCastle._rivetCache || drawCastle._rivetCacheVW !== VW || drawCastle._rivetCacheH !== H) {
+          drawCastle._rivetCache = {};
+          drawCastle._rivetCacheVW = VW; drawCastle._rivetCacheH = H;
         }
+        var rivetKey = cx + ',' + cy + ',' + w + ',' + h;
+        var rivets = drawCastle._rivetCache[rivetKey];
+        if (!rivets) {
+          rivets = [];
+          for (var py = cy - 8 * s; py > cy - h + 15 * s; py -= 10 * s) {
+            for (var px = cx - w / 2 + 5 * s; px < cx + w / 2; px += 10 * s) {
+              var halo = ctx.createRadialGradient(px, py, 0, px, py, 7 * s);
+              halo.addColorStop(0, 'rgba(255, 190, 60, .5)');
+              halo.addColorStop(1, 'transparent');
+              rivets.push({ px: px, py: py, halo: halo });
+            }
+          }
+          drawCastle._rivetCache[rivetKey] = rivets;
+        }
+        rivets.forEach(function (r) {
+          if (isNight && !isReflection) {
+            /* Glowing aura for door rivets */
+            var flicker = 0.85 + 0.15 * Math.sin(nt * 2 + r.px);
+            var prevAlpha = ctx.globalAlpha;
+            ctx.globalAlpha = prevAlpha * flicker;
+            ctx.fillStyle = r.halo;
+            ctx.beginPath(); ctx.arc(r.px, r.py, 7 * s, 0, Math.PI * 2); ctx.fill();
+            ctx.globalAlpha = prevAlpha;
+          }
+          ctx.fillStyle = 'rgb(' + cGold + ')';
+          ctx.beginPath(); ctx.arc(r.px, r.py, 1.2 * s, 0, Math.PI * 2); ctx.fill();
+        });
       }
 
       function drawHueRoof(cx, cy, w, h, cBase, cDark, upturn) {
@@ -241,19 +259,38 @@
           }
         }
 
+        /* Lantern position and colors are stable across frames (only change on resize),
+           so both gradients are built once per lantern and cached on drawCastle. The halo
+           is cached at its base alpha and the flicker is applied via globalAlpha instead
+           of rebuilding the gradient every frame. */
+        if (!drawCastle._lanternCache || drawCastle._lanternCacheVW !== VW || drawCastle._lanternCacheH !== H) {
+          drawCastle._lanternCache = {};
+          drawCastle._lanternCacheVW = VW; drawCastle._lanternCacheH = H;
+        }
+        var lanternKey = lx + ',' + ly + ',' + colorType + ',' + isNight;
+        var lanternGrads = drawCastle._lanternCache[lanternKey];
+        if (!lanternGrads) {
+          var haloG = ctx.createRadialGradient(lx, ly, 0, lx, ly, lw * 2.5);
+          haloG.addColorStop(0, glowColor.replace('0.9)', '0.35)'));
+          haloG.addColorStop(1, 'transparent');
+          var bodyG = ctx.createLinearGradient(lx - lw / 2, 0, lx + lw / 2, 0);
+          bodyG.addColorStop(0, grad0); bodyG.addColorStop(0.5, grad50); bodyG.addColorStop(1, grad100);
+          lanternGrads = { halo: haloG, body: bodyG };
+          drawCastle._lanternCache[lanternKey] = lanternGrads;
+        }
+
         if (isNight && !isReflection) {
           /* tắt lúc phản chiếu, lý do như trên (bug shadowBlur Safari) */
           ctx.shadowBlur = 25 * flicker * s;
           ctx.shadowColor = glowColor;
-          var halo = ctx.createRadialGradient(lx, ly, 0, lx, ly, lw * 2.5);
-          halo.addColorStop(0, glowColor.replace('0.9)', (0.35 * flicker) + ')'));
-          halo.addColorStop(1, 'transparent');
-          ctx.fillStyle = halo;
+          var prevAlpha = ctx.globalAlpha;
+          ctx.globalAlpha = prevAlpha * flicker;
+          ctx.fillStyle = lanternGrads.halo;
           ctx.beginPath(); ctx.arc(lx, ly, lw * 2.5, 0, Math.PI * 2); ctx.fill();
+          ctx.globalAlpha = prevAlpha;
         }
 
-        var lg = ctx.createLinearGradient(lx - lw / 2, 0, lx + lw / 2, 0);
-        lg.addColorStop(0, grad0); lg.addColorStop(0.5, grad50); lg.addColorStop(1, grad100);
+        var lg = lanternGrads.body;
 
         /* Lantern body (barrel shape) */
         ctx.fillStyle = lg;
