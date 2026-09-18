@@ -97,7 +97,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
     <p><strong>Pisces: Space Journey</strong> is a space shooter built with vanilla HTML, CSS, JavaScript, and PixiJS. It runs directly in the browser and is hosted on GitHub Pages, making the game easy to open, play, and share without installation or a backend.</p>
 
     <h2 id="the-idea">The Idea</h2>
-    <p>The project began with a simple goal: build a space shooter that could be played immediately from a browser link. As the game grew, the idea expanded beyond moving through space and firing at enemies. The game needed a system that could give players distinct combat directions instead of a single fixed loadout.</p>
+    <p>The idea first took shape in late 2024, nearly a year before the first line of the beta was written. The project began with a simple goal: build a space shooter that could be played immediately from a browser link. As the game grew, the idea expanded beyond moving through space and firing at enemies. The game needed a system that could give players distinct combat directions instead of a single fixed loadout.</p>
     <p>That direction became the zodiac <strong>sigil</strong> system. Each constellation represents an equipable build path, giving Pisces: Space Journey its own core mechanic while leaving room to grow with new sigils, skills, enemies, and bosses.</p>
 
     <h2 id="why-this-stack">Why HTML, JavaScript, and GitHub Pages</h2>
@@ -311,6 +311,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 
     <h2 id="changelog">Changelog</h2>
     <ul class="pisces-timeline">
+      <li><strong>Late 2024:</strong> The idea for a browser space shooter with a zodiac sigil build system first took shape.</li>
       <li><strong>October 2025:</strong> First beta, <em>Space Shooter – Nâng Cấp Toàn Diện</em>, created as a single HTML file.</li>
       <li><strong>November 2025:</strong> Second beta, <em>Space Shooter – Nâng Cấp Toàn Diện (FX &amp; Balance)</em>, improves effects and balance.</li>
       <li><strong>March 2026:</strong> The game is split into a modular multi file architecture.</li>
