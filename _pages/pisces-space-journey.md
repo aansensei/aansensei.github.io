@@ -258,6 +258,17 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
       </article>
     </div>
 
+    <div class="pisces-cards">
+      <figure class="pisces-card" style="padding:0;overflow:hidden;">
+        <img src="/assets/images/pisces-beta1-screenshot.png" alt="Beta One gameplay screenshot" style="display:block;width:100%;">
+        <figcaption class="pisces-caption" style="margin:8px 12px 12px;">Beta One: the abandoned VFX pass.</figcaption>
+      </figure>
+      <figure class="pisces-card" style="padding:0;overflow:hidden;">
+        <img src="/assets/images/pisces-beta2-screenshot.png" alt="Beta Two gameplay screenshot" style="display:block;width:100%;">
+        <figcaption class="pisces-caption" style="margin:8px 12px 12px;">Beta Two: the FX and Balance pass that replaced it.</figcaption>
+      </figure>
+    </div>
+
     <div class="pisces-note">
       <strong>The important shift was not only visual.</strong> The later modular refactor made the game easier to reason about, optimize, and extend than either one file beta.
     </div>
