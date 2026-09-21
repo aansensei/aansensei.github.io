@@ -316,8 +316,13 @@
     background: #03010a;
     font-family: 'EB Garamond', Georgia, serif;
     color: var(--parch);
-    cursor: none;
     transition: background 1.5s ease, color 1.5s ease;
+  }
+
+  /* This class is present only while the JS custom cursor exists and is drawing. Any
+     visitor without it (touch device, blocked JS) keeps the native cursor. */
+  body.an-cursor-on {
+    cursor: none;
   }
 
   body.an-day-mode {
@@ -421,16 +426,16 @@
 
   @media(pointer:fine) {
 
-    *,
-    *::before,
-    *::after,
-    a,
-    button,
-    input,
-    label,
-    select,
-    textarea,
-    [role="button"] {
+    body.an-cursor-on *,
+    body.an-cursor-on *::before,
+    body.an-cursor-on *::after,
+    body.an-cursor-on a,
+    body.an-cursor-on button,
+    body.an-cursor-on input,
+    body.an-cursor-on label,
+    body.an-cursor-on select,
+    body.an-cursor-on textarea,
+    body.an-cursor-on [role="button"] {
       cursor: none !important;
     }
   }
@@ -856,7 +861,6 @@
     border-radius: 30px;
     letter-spacing: .05em;
     transition: all .4s cubic-bezier(.25, 1, .5, 1);
-    cursor: none !important;
     position: relative;
     z-index: 10;
     border: none;
@@ -1094,7 +1098,6 @@
     bottom: 1.6rem;
     right: 1.4rem;
     z-index: 9000;
-    cursor: none !important;
     opacity: 0;
     pointer-events: none;
     transition: opacity .4s, transform .3s cubic-bezier(.25, 1, .5, 1);
@@ -1162,6 +1165,19 @@
     #an-ring,
     .an-spark {
       display: none !important;
+    }
+
+    /* The custom cursor is hidden at this width, so the native cursor has to come back
+       for anyone browsing in a narrow window on a desktop. */
+    body.an-cursor-on,
+    body.an-cursor-on * {
+      cursor: auto !important;
+    }
+
+    body.an-cursor-on a,
+    body.an-cursor-on button,
+    body.an-cursor-on [role="button"] {
+      cursor: pointer !important;
     }
 
     .page__inner-wrap,
@@ -1413,7 +1429,13 @@
   var globalPropAngle = 0;
 
   document.addEventListener('DOMContentLoaded', function () {
-    var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    /* The custom cursor requires a fine hovering pointer. Touchscreen laptops report
+       maxTouchPoints above zero while a mouse drives them, so touch support alone does
+       not decide this. */
+    var canHover = window.matchMedia
+      ? (window.matchMedia('(pointer: fine)').matches && window.matchMedia('(hover: hover)').matches)
+      : !(('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+    var isTouch = !canHover;
 
     var isTabActive = !document.hidden;
     var activeTime = 0;
@@ -1433,6 +1455,7 @@
       var mx = mc.getContext('2d');
       var rg = document.createElement('div'); rg.id = 'an-ring';
       document.body.append(mc, rg);
+      document.body.classList.add('an-cursor-on');
 
       function drawCursor(big) {
         mx.clearRect(0, 0, MS, MS);
