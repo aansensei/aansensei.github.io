@@ -11,6 +11,7 @@
     var FW_TYPES = ['normal', 'willow', 'lotus', 'dragon', 'brocade'];
 
     function makeFW(tx, ty) {
+      if (sceneQuality !== 'full') return;
       var startX = tx || W * (.2 + Math.random() * .6);
       var targetY = ty || H * (.06 + Math.random() * .28);
       var fw = {
@@ -116,6 +117,10 @@
     }
 
     function renderFireworksLayer() {
+        if (sceneQuality !== 'full') {
+          FW.length = 0;
+          return;
+        }
         if (FW.length) {
           ctx.globalCompositeOperation = 'lighter';
           for (var fi = FW.length - 1; fi >= 0; fi--) {

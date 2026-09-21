@@ -574,6 +574,42 @@
     pointer-events: none;
   }
 
+  #an-scene-quality {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 99998;
+    border: 1px solid rgba(240, 200, 74, .55);
+    border-radius: 999px;
+    padding: 8px 12px;
+    color: #fff3be;
+    background: rgba(8, 7, 26, .78);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .28);
+    font-size: .72rem;
+    line-height: 1;
+  }
+
+  #an-scene-quality:hover,
+  #an-scene-quality:focus-visible {
+    background: rgba(35, 27, 64, .94);
+  }
+
+  body.an-scene-lite .sidebar,
+  body.an-scene-lite .page__inner-wrap {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    background: rgba(8, 7, 26, .82) !important;
+  }
+
+  body.an-day-mode.an-scene-lite .sidebar,
+  body.an-day-mode.an-scene-lite .page__inner-wrap {
+    background: rgba(255, 255, 255, .84) !important;
+  }
+
+  body.an-scene-lite #an-grain {
+    display: none;
+  }
+
   .masthead {
     position: -webkit-sticky;
     position: sticky;
@@ -1439,11 +1475,60 @@
 
     var isTabActive = !document.hidden;
     var activeTime = 0;
-    var lastTick = Date.now();
+    var lastTick = performance.now();
+    var lastRafTick = lastTick;
+    var lastRenderTick = 0;
+    var slowFrameCount = 0;
     var mainRafId = null;
     var cursorRafId = null;
     var fwTimeoutId = null;
     var shootTimeoutId = null;
+
+    var sceneQualityKey = 'an_scene_quality';
+    var sceneQualityPreference = 'auto';
+    var sceneQuality = 'balanced';
+    var reduceMotionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    var qualityLabels = { auto: 'Hiệu ứng: Tự động', full: 'Hiệu ứng: Đầy đủ', lite: 'Hiệu ứng: Tối giản' };
+
+    try {
+      var savedQuality = localStorage.getItem(sceneQualityKey);
+      if (savedQuality === 'auto' || savedQuality === 'full' || savedQuality === 'lite') sceneQualityPreference = savedQuality;
+    } catch (err) {
+    }
+
+    function getAutoSceneQuality() {
+      if (reduceMotionQuery && reduceMotionQuery.matches) return 'lite';
+      var cores = navigator.hardwareConcurrency || 4;
+      var memory = navigator.deviceMemory || 4;
+      return cores <= 4 || memory <= 4 || isTouch ? 'lite' : 'balanced';
+    }
+
+    function applySceneQuality() {
+      sceneQuality = sceneQualityPreference === 'auto' ? getAutoSceneQuality() : sceneQualityPreference;
+      if (reduceMotionQuery && reduceMotionQuery.matches) sceneQuality = 'lite';
+      document.body.classList.toggle('an-scene-lite', sceneQuality === 'lite');
+      var qualityButton = document.getElementById('an-scene-quality');
+      if (qualityButton) {
+        qualityButton.textContent = qualityLabels[sceneQualityPreference];
+        qualityButton.setAttribute('aria-label', qualityLabels[sceneQualityPreference]);
+      }
+    }
+
+    var qualityButton = document.createElement('button');
+    qualityButton.id = 'an-scene-quality';
+    qualityButton.type = 'button';
+    qualityButton.title = 'Đổi chất lượng hiệu ứng';
+    qualityButton.addEventListener('click', function () {
+      sceneQualityPreference = sceneQualityPreference === 'auto' ? 'full' : sceneQualityPreference === 'full' ? 'lite' : 'auto';
+      try { localStorage.setItem(sceneQualityKey, sceneQualityPreference); } catch (err) { }
+      applySceneQuality();
+    });
+    document.body.appendChild(qualityButton);
+    applySceneQuality();
+
+    if (reduceMotionQuery && reduceMotionQuery.addEventListener) {
+      reduceMotionQuery.addEventListener('change', applySceneQuality);
+    }
 
     var cX = -1000, cY = -1000, rX = -1000, rY = -1000;
     var isHovering = false;
@@ -1592,7 +1677,7 @@
         if (!clickedTree) {
           if (!isDay) {
             if (ev.clientY > H * (H > W ? 0.65 : 0.82)) {
-              if (window._river_fishes) {
+              if (sceneQuality === 'full' && window._river_fishes) {
                 var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
                 var fTypes = ['koi', 'golden_carp', 'goby'];
                 var rType = fTypes[Math.floor(Math.random() * fTypes.length)];
@@ -1606,7 +1691,7 @@
               makeFW(ev.clientX, Math.max(ev.clientY - H * .08, H * .04));
             }
           }
-          else {
+          else if (sceneQuality === 'full') {
             for (var k = 0; k < 15; k++) {
               FF.push({
                 x: ev.clientX / W, y: ev.clientY / H,
@@ -1620,6 +1705,7 @@
     });
 
     function spawnPetalBurst(cx, cy) {
+      if (sceneQuality !== 'full') return;
       for (var k = 0; k < 45; k++) {
         var angle = Math.random() * Math.PI * 2;
         var speed = Math.random() * 0.01 + 0.008;
@@ -2521,9 +2607,22 @@
       ctx.restore();
     }
 
-    function render() {
+    function render(frameTime) {
       if (!isTabActive) return;
-      var now = Date.now();
+      mainRafId = requestAnimationFrame(render);
+      var now = frameTime || performance.now();
+      var rafGap = now - lastRafTick;
+      lastRafTick = now;
+      if (sceneQualityPreference === 'auto' && sceneQuality === 'balanced') {
+        slowFrameCount = rafGap > 55 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+        if (slowFrameCount >= 3) {
+          sceneQuality = 'lite';
+          document.body.classList.add('an-scene-lite');
+        }
+      }
+      var frameInterval = sceneQuality === 'full' ? 1000 / 60 : sceneQuality === 'balanced' ? 1000 / 30 : 1000 / 15;
+      if (now - lastRenderTick < frameInterval) return;
+      lastRenderTick = now;
       activeTime += Math.min(now - lastTick, 100);
       lastTick = now;
 
@@ -2649,14 +2748,16 @@
       }
 
       if (casA > 0) {
-        drawMist(casA * 0.5, false, themeT);
+        if (sceneQuality === 'full') drawMist(casA * 0.5, false, themeT);
         drawForest(casA, themeT);
-        drawCastle(casA, themeT, false); // vẽ sau pháo hoa để che chân pháo hoa như bắn từ trong thành
-        drawMeadow(casA, themeT);
+        drawCastle(casA, themeT, false);
+        if (sceneQuality !== 'lite') drawMeadow(casA, themeT);
         drawRiver(casA, themeT);
-        drawMist(casA * 0.7, true, themeT);
-        drawFireflies(casA, themeT);
-        drawCherryBlossomTrees(casA, themeT);
+        if (sceneQuality !== 'lite') {
+          drawMist(casA * 0.7, true, themeT);
+          drawFireflies(casA, themeT);
+        }
+        if (sceneQuality === 'full') drawCherryBlossomTrees(casA, themeT);
       }
 
       var scenePulse = Math.pow(Math.max(0, Math.sin(nt * 0.07 + 2)), 12) * themeT;
@@ -2676,7 +2777,6 @@
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'source-over';
 
-      mainRafId = requestAnimationFrame(render);
     }
     render();
 
@@ -2689,7 +2789,9 @@
         if (cursorRafId) cancelAnimationFrame(cursorRafId);
       } else {
         isTabActive = true;
-        lastTick = Date.now();
+        lastTick = performance.now();
+        lastRafTick = lastTick;
+        lastRenderTick = 0;
         // cancel/clear trước khi tạo lại: phòng 'visible' bắn 2 lần liên tiếp (alt-tab nhanh
         // kiểu gì đó, ko có 'hidden' xen giữa) sẽ đẻ ra 2 vòng render() + 2 chuỗi hẹn giờ
         // chạy song song mãi, gây bắn dồn + lag dài dài

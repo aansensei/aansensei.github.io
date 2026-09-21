@@ -13,14 +13,16 @@
       var bY = H * (H > W ? 0.65 : 0.82);
       var nt = activeTime * 0.001;
       var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
+      var isFullScene = sceneQuality === 'full';
+      var isLiteScene = sceneQuality === 'lite';
 
       try {
         var baseTransform = ctx.getTransform ? ctx.getTransform() : null;
         ctx.save();
         ctx.globalAlpha = riverA;
         var isMobile = H > W;
-        var lotusCount = isMobile ? 3 : 7;
-        var lanternCount = isMobile ? 6 : 18;
+        var lotusCount = isLiteScene ? 1 : isMobile ? 3 : isFullScene ? 7 : 3;
+        var lanternCount = isLiteScene ? 3 : isMobile ? 6 : isFullScene ? 18 : 6;
         if (!window._RIVER_INIT_V8 || !window._river_lanterns || window._river_lanterns.length !== lanternCount) {
           window._RIVER_INIT_V8 = true;
 
@@ -91,8 +93,8 @@
         ctx.fillStyle = rGrad;
         ctx.fillRect(0, bY, W, H - bY);
 
-        // Castle Reflection
-        try {
+        if (isFullScene) {
+          try {
           ctx.save();
           ctx.beginPath(); ctx.rect(0, bY, W, H - bY); ctx.clip();
 
@@ -108,10 +110,11 @@
           ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
           ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
-        } catch (err) {
-        } finally {
-          ctx.restore();
-          if (baseTransform) ctx.setTransform(baseTransform);
+          } catch (err) {
+          } finally {
+            ctx.restore();
+            if (baseTransform) ctx.setTransform(baseTransform);
+          }
         }
 
         // Wind Ripples on Water Surface (Shimmering, NOT moving like ducks)
@@ -119,8 +122,9 @@
         if (windCycle > 0.01) {
           ctx.globalAlpha = riverA * 0.06 * windCycle;
           ctx.fillStyle = '#ffffff';
-          for (var i = 0; i < 15; i++) {
-            var ry = bY + (H - bY) * (i / 14);
+          var rippleCount = isFullScene ? 15 : isLiteScene ? 4 : 8;
+          for (var i = 0; i < rippleCount; i++) {
+            var ry = bY + (H - bY) * (i / (rippleCount - 1));
             // Long, spanning width of the screen, just shifting/breathing slightly
             var rw = W * (0.3 + 0.5 * Math.sin(nt * 0.8 + i * 1.3));
             var rx = W * 0.5 + Math.sin(nt * 0.4 + i * 2.1) * W * 0.2;
@@ -133,7 +137,7 @@
         ctx.globalAlpha = riverA;
 
         // Surface Popping Bubbles (Bọt nước nổ trên mặt)
-        if (Math.random() < 0.1 && window._river_bubbles.length < 25) {
+        if (!isLiteScene && Math.random() < 0.05 && window._river_bubbles.length < (isFullScene ? 25 : 8)) {
           window._river_bubbles.push({
             x: Math.random(),
             y: Math.random(), // Random Y on surface
@@ -161,7 +165,8 @@
         }
 
         // Random fish jumping without click
-        if (Math.random() < 0.0025 && window._river_fishes.length < 5) {
+        if (!isFullScene) window._river_fishes.length = 0;
+        if (isFullScene && Math.random() < 0.0025 && window._river_fishes.length < 5) {
           var fTypes = ['koi', 'golden_carp', 'goby'];
           var rType = fTypes[Math.floor(Math.random() * fTypes.length)];
           var ry = bY + Math.random() * (H - bY) * 0.8;
