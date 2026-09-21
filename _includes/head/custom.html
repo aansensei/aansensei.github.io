@@ -576,22 +576,34 @@
 
   #an-scene-quality {
     position: fixed;
-    right: 16px;
-    bottom: 16px;
+    right: 22px;
+    bottom: 22px;
     z-index: 99998;
-    border: 1px solid rgba(240, 200, 74, .55);
-    border-radius: 999px;
-    padding: 8px 12px;
-    color: #fff3be;
-    background: rgba(8, 7, 26, .78);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, .28);
-    font-size: .72rem;
+    border: 1px solid rgba(240, 200, 74, .42);
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: #f9e7a0;
+    background: rgba(11, 13, 32, .74);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .3);
+    font-size: .64rem;
+    font-weight: 700;
+    letter-spacing: .08em;
     line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease, background .2s ease;
+  }
+
+  body.an-scene-controls-visible #an-scene-quality {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   #an-scene-quality:hover,
   #an-scene-quality:focus-visible {
-    background: rgba(35, 27, 64, .94);
+    background: rgba(42, 36, 74, .94);
   }
 
   body.an-scene-lite .sidebar,
@@ -1488,7 +1500,7 @@
     var sceneQualityPreference = 'auto';
     var sceneQuality = 'balanced';
     var reduceMotionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
-    var qualityLabels = { auto: 'Hiệu ứng: Tự động', full: 'Hiệu ứng: Đầy đủ', lite: 'Hiệu ứng: Tối giản' };
+    var qualityLabels = { auto: 'SCENE: AUTO', full: 'SCENE: FULL', lite: 'SCENE: LITE' };
 
     try {
       var savedQuality = localStorage.getItem(sceneQualityKey);
@@ -1517,7 +1529,7 @@
     var qualityButton = document.createElement('button');
     qualityButton.id = 'an-scene-quality';
     qualityButton.type = 'button';
-    qualityButton.title = 'Đổi chất lượng hiệu ứng';
+    qualityButton.title = 'Change scene quality';
     qualityButton.addEventListener('click', function () {
       sceneQualityPreference = sceneQualityPreference === 'auto' ? 'full' : sceneQualityPreference === 'full' ? 'lite' : 'auto';
       try { localStorage.setItem(sceneQualityKey, sceneQualityPreference); } catch (err) { }
@@ -1632,6 +1644,7 @@
       skyA = Math.max(0, 1 - (scrollPct / 0.35));
 
       if (maxScroll < 300) { mtnA = 1; casA = 1; skyA = 1; shipA = 1; }
+      document.body.classList.toggle('an-scene-controls-visible', casA > 0.05);
     }
     window.addEventListener('scroll', updateAlpha, { passive: true });
     window.addEventListener('resize', updateAlpha);
