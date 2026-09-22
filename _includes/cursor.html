@@ -1,6 +1,6 @@
 <style>
-  body { cursor: none !important; }
-  * { cursor: none !important; }
+  body.an-cursor-on,
+  body.an-cursor-on * { cursor: none !important; }
 
   #an-moon {
     position: fixed;
@@ -65,20 +65,22 @@
   @keyframes anRingSpin    { 100% { transform: rotate(360deg);  } }
   @keyframes anRingSpinRev { 100% { transform: rotate(-360deg); } }
 
-  @media (hover: none) and (pointer: coarse) {
+  @media (hover: none), (pointer: coarse) {
     #an-moon, #an-ring { display: none !important; }
-    body, * { cursor: auto !important; }
   }
 </style>
 <script>
 (function () {
-  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  if (isTouch) return;
+  var canHover = window.matchMedia
+    ? (window.matchMedia('(pointer: fine)').matches && window.matchMedia('(hover: hover)').matches)
+    : !(('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+  if (!canHover) return;
 
   var MS = 48;
   var mc = document.createElement('canvas');
   mc.id = 'an-moon'; mc.width = MS; mc.height = MS;
   var mx = mc.getContext('2d');
+  if (!mx) return;
   var rg = document.createElement('div');
   rg.id = 'an-ring';
   document.body.append(mc, rg);
@@ -87,7 +89,17 @@
   var isHovering = false;
   var t = 0;
 
-  document.addEventListener('mousemove', function (ev) { cX = ev.clientX; cY = ev.clientY; });
+  document.addEventListener('pointermove', function (ev) {
+    if (ev.pointerType === 'touch' || ev.pointerType === 'pen') {
+      document.body.classList.remove('an-cursor-on');
+      return;
+    }
+    cX = ev.clientX; cY = ev.clientY;
+    if (!document.body.classList.contains('an-cursor-on')) {
+      rX = cX; rY = cY;
+      document.body.classList.add('an-cursor-on');
+    }
+  }, { passive: true });
 
   function drawCursor(big) {
     mx.clearRect(0, 0, MS, MS);

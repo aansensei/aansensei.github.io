@@ -69,6 +69,7 @@
   body.an-bg-only .masthead,
   body.an-bg-only .initial-content,
   body.an-bg-only .page__footer,
+  body.an-bg-only #an-scene-quality,
   body.an-bg-only #an-top {
     opacity: 0 !important;
     visibility: hidden !important;
@@ -576,34 +577,64 @@
 
   #an-scene-quality {
     position: fixed;
-    right: 22px;
-    bottom: 22px;
-    z-index: 99998;
-    border: 1px solid rgba(240, 200, 74, .42);
-    border-radius: 8px;
-    padding: 9px 12px;
-    color: #f9e7a0;
-    background: rgba(11, 13, 32, .74);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, .3);
-    font-size: .64rem;
+    right: 8.2rem;
+    bottom: 2.3rem;
+    z-index: 9000;
+    border: 1px solid rgba(201, 162, 39, .4);
+    border-radius: 999px;
+    padding: 7px 15px 6px;
+    color: rgba(240, 200, 74, .9);
+    background: rgba(10, 8, 25, .72);
+    box-shadow: 0 0 12px rgba(0, 0, 0, .45), inset 0 0 8px rgba(201, 162, 39, .08);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: .78rem;
+    font-style: italic;
     font-weight: 700;
-    letter-spacing: .08em;
+    letter-spacing: .14em;
     line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transform: translateY(10px);
-    transition: opacity .25s ease, transform .25s ease, background .2s ease;
+    transform: translateY(14px);
+    transition: opacity .4s ease, transform .3s cubic-bezier(.25, 1, .5, 1), border-color .25s ease, box-shadow .25s ease, visibility 0s linear .4s;
   }
 
   body.an-scene-controls-visible #an-scene-quality {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
+    transition: opacity .4s ease, transform .3s cubic-bezier(.25, 1, .5, 1), border-color .25s ease, box-shadow .25s ease, visibility 0s linear 0s;
   }
 
   #an-scene-quality:hover,
   #an-scene-quality:focus-visible {
-    background: rgba(42, 36, 74, .94);
+    border-color: rgba(240, 200, 74, .85);
+    box-shadow: 0 0 16px rgba(201, 162, 39, .4), inset 0 0 8px rgba(201, 162, 39, .15);
+  }
+
+  body.an-day-mode #an-scene-quality {
+    color: #8b4513;
+    border-color: rgba(184, 134, 11, .5);
+    background: rgba(255, 255, 255, .72);
+    box-shadow: 0 2px 12px rgba(184, 134, 11, .25);
+  }
+
+  body.an-day-mode #an-scene-quality:hover,
+  body.an-day-mode #an-scene-quality:focus-visible {
+    border-color: rgba(184, 134, 11, .9);
+    box-shadow: 0 2px 16px rgba(184, 134, 11, .45);
+  }
+
+  @media (max-width: 768px) {
+    #an-scene-quality {
+      right: 6.6rem;
+      bottom: 2.1rem;
+      font-size: .72rem;
+      padding: 6px 12px 5px;
+    }
   }
 
   body.an-scene-lite .sidebar,
@@ -1197,8 +1228,10 @@
       cursor: auto !important;
     }
 
+    /* body keeps its own dark/day background here (unlike html and the wrappers below):
+       it is the last opaque layer under the fixed canvas, so a resize-triggered repaint
+       gap shows body's color instead of the browser's own white page background. */
     html,
-    body,
     #main,
     .wrapper,
     .page,
@@ -1491,6 +1524,7 @@
     var lastRafTick = lastTick;
     var lastRenderTick = 0;
     var slowFrameCount = 0;
+    var frameScale = 1;
     var mainRafId = null;
     var cursorRafId = null;
     var fwTimeoutId = null;
@@ -1551,8 +1585,15 @@
       var mc = document.createElement('canvas'); mc.id = 'an-moon'; mc.width = MS; mc.height = MS;
       var mx = mc.getContext('2d');
       var rg = document.createElement('div'); rg.id = 'an-ring';
-      document.body.append(mc, rg);
-      document.body.classList.add('an-cursor-on');
+      var cursorLive = false;
+
+      /* The native cursor is hidden only while the custom one is verifiably drawing: after
+         the first real mouse movement, and never while a finger or stylus is the input. */
+      function setCursorLive(on) {
+        if (cursorLive === on) return;
+        cursorLive = on;
+        document.body.classList.toggle('an-cursor-on', on);
+      }
 
       function drawCursor(big) {
         mx.clearRect(0, 0, MS, MS);
@@ -1603,31 +1644,68 @@
 
       function cursorLoop() {
         if (!isTabActive) return;
-        drawCursor(isHovering);
+        cursorRafId = requestAnimationFrame(cursorLoop);
+        if (!cursorLive) return;
+        try {
+          drawCursor(isHovering);
+        } catch (err) {
+          setCursorLive(false);
+          return;
+        }
         mc.style.left = cX + 'px'; mc.style.top = cY + 'px';
         rX += (cX - rX) * .12; rY += (cY - rY) * .12;
         rg.style.left = rX + 'px'; rg.style.top = rY + 'px';
-        cursorRafId = requestAnimationFrame(cursorLoop);
       }
-      cursorLoop();
 
-      document.addEventListener('mouseover', function (ev) {
-        if (ev.target.closest && ev.target.closest('a,button,.tech-tag,home-project-card')) {
-          isHovering = true; rg.classList.add('noble-hover');
-        }
-      });
-      document.addEventListener('mouseout', function (ev) {
-        var el = ev.target.closest && ev.target.closest('a,button,.tech-tag,home-project-card');
-        if (el && !(ev.relatedTarget && el.contains(ev.relatedTarget))) {
-          isHovering = false; rg.classList.remove('noble-hover');
-        }
-      });
+      if (mx) {
+        document.body.append(mc, rg);
+        cursorLoop();
+
+        document.addEventListener('pointermove', function (ev) {
+          if (ev.pointerType === 'touch' || ev.pointerType === 'pen') {
+            setCursorLive(false);
+            return;
+          }
+          if (!cursorLive) {
+            cX = rX = ev.clientX; cY = rY = ev.clientY;
+            try { drawCursor(isHovering); } catch (err) { return; }
+            mc.style.left = cX + 'px'; mc.style.top = cY + 'px';
+            rg.style.left = rX + 'px'; rg.style.top = rY + 'px';
+            setCursorLive(true);
+          }
+        }, { passive: true });
+        document.addEventListener('pointerdown', function (ev) {
+          if (ev.pointerType === 'touch' || ev.pointerType === 'pen') setCursorLive(false);
+        }, { passive: true });
+
+        document.addEventListener('mouseover', function (ev) {
+          if (ev.target.closest && ev.target.closest('a,button,.tech-tag,.home-project-card')) {
+            isHovering = true; rg.classList.add('noble-hover');
+          }
+        });
+        document.addEventListener('mouseout', function (ev) {
+          var el = ev.target.closest && ev.target.closest('a,button,.tech-tag,.home-project-card');
+          if (el && !(ev.relatedTarget && el.contains(ev.relatedTarget))) {
+            isHovering = false; rg.classList.remove('noble-hover');
+          }
+        });
+      }
     }
 
     var bg = document.createElement('canvas'); bg.id = 'an-bg'; document.body.prepend(bg);
     var ctx = bg.getContext('2d');
     var W = 0, H = 0;
-    function resize() { W = bg.width = window.innerWidth; H = bg.height = window.innerHeight; }
+    /* Assigning canvas.width wipes the bitmap, so the buffer is resized only when the size
+       really changed. Phone browsers fire resize each time the URL bar slides in or out; on
+       those a small height change keeps the current buffer instead of blanking the sky, and
+       the next frame redraws immediately after any real resize. */
+    function resize() {
+      var nw = window.innerWidth, nh = window.innerHeight;
+      if (bg.width === nw && bg.height === nh) return;
+      if (W && isTouch && nw === W && Math.abs(nh - H) < 160) return;
+      W = bg.width = nw; H = bg.height = nh;
+      lastRenderTick = 0;
+    }
     resize(); window.addEventListener('resize', resize);
 
     var mtnA = 0, casA = 0, skyA = 1, shipA = 0;
@@ -1756,12 +1834,12 @@
       for (var i = FF.length - 1; i >= 0; i--) {
         var f = FF[i];
         if (f.type === 'petal') {
-          f.x += f.vx; f.y += f.vy;
+          f.x += f.vx * frameScale; f.y += f.vy * frameScale;
           var sway = Math.sin(nt * (f.swaySpd || 2) + (f.swayPhase || 0)) * 0.0008;
-          f.x += sway; f.rotX = (f.rotX || 0) + (f.rotSpd || 0.05);
+          f.x += sway * frameScale; f.rotX = (f.rotX || 0) + (f.rotSpd || 0.05) * frameScale;
         } else {
-          f.x += f.vx + Math.sin(nt * f.sp + f.ph) * 0.0002;
-          f.y += f.vy + Math.cos(nt * f.sp * 0.8 + f.ph) * 0.0001;
+          f.x += (f.vx + Math.sin(nt * f.sp + f.ph) * 0.0002) * frameScale;
+          f.y += (f.vy + Math.cos(nt * f.sp * 0.8 + f.ph) * 0.0001) * frameScale;
         }
 
         var px = f.x * W, py = f.y * H;
@@ -1770,7 +1848,7 @@
 
         if (dist < 150 && cY > H * 0.5) {
           var force = (150 - dist) / 150;
-          f.x += (dx / dist) * force * 0.008; f.y += (dy / dist) * force * 0.008;
+          f.x += (dx / dist) * force * 0.008 * frameScale; f.y += (dy / dist) * force * 0.008 * frameScale;
         }
 
         if (!f.isTemp) {
@@ -2192,7 +2270,8 @@
       var nt = activeTime * 0.001;
       var s = W < 768 ? Math.max(W / 1280, 0.7) : Math.max(W / 1280, 0.4);
 
-      treeLeftShock *= 0.92; treeRightShock *= 0.92;
+      var shockDecay = Math.pow(0.92, frameScale);
+      treeLeftShock *= shockDecay; treeRightShock *= shockDecay;
 
       function drawBranch(startX, startY, len, angle, depth, seed, shockValue) {
         if (depth === 0) return;
@@ -2306,13 +2385,13 @@
       var smX = shipBaseX + dx * Math.cos(pitch) - dy * Math.sin(pitch);
       var smY = shipY + dx * Math.sin(pitch) + dy * Math.cos(pitch);
 
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.3 * frameScale) {
         SHIP_SMOKE.push({ x: smX + (Math.random() * 15 - 7.5), y: smY + (Math.random() * 10 - 5), life: 1, vx: -1.5 - Math.random() * 1.5, vy: -0.3 - Math.random() * 0.5, size: Math.random() * 15 + 15 });
       }
 
       for (var i = SHIP_SMOKE.length - 1; i >= 0; i--) {
         var sm = SHIP_SMOKE[i];
-        sm.x += sm.vx; sm.y += sm.vy; sm.life -= 0.006; sm.size += 0.5;
+        sm.x += sm.vx * frameScale; sm.y += sm.vy * frameScale; sm.life -= 0.006 * frameScale; sm.size += 0.5 * frameScale;
         if (sm.life <= 0) { SHIP_SMOKE.splice(i, 1); continue; }
         var smAlpha = sm.life * (isDay ? 0.6 : 0.3) * a;
         var sg = ctx.createRadialGradient(sm.x, sm.y, 0, sm.x, sm.y, sm.size);
@@ -2326,13 +2405,13 @@
 
       ctx.translate(shipBaseX, shipY); ctx.rotate(pitch); ctx.scale(scale, scale);
 
-      if (Math.random() < 0.6) {
+      if (Math.random() < 0.6 * frameScale) {
         SHIP_WIND.push({ x: 450 + Math.random() * 200, y: -80 + Math.random() * 160, l: Math.random() * 150 + 80, v: 30 + Math.random() * 15 });
       }
       ctx.lineCap = 'round';
       for (var i = SHIP_WIND.length - 1; i >= 0; i--) {
         var w = SHIP_WIND[i];
-        w.x -= w.v;
+        w.x -= w.v * frameScale;
         if (w.x + w.l < -450) { SHIP_WIND.splice(i, 1); } else {
           var wg = ctx.createLinearGradient(w.x, w.y, w.x + w.l, w.y);
           wg.addColorStop(0, 'rgba(255, 255, 255, 0)'); wg.addColorStop(0.5, 'rgba(255, 255, 255, ' + (0.4 * a) + ')'); wg.addColorStop(1, 'rgba(255, 255, 255, 0)');
@@ -2359,7 +2438,7 @@
       var gWing = ctx.createLinearGradient(0, 230, 0, 270);
       gWing.addColorStop(0, 'rgb(' + lerpC('#1a1822', '#fff0ed', t) + ')'); gWing.addColorStop(1, 'rgb(' + lerpC('#100e16', '#d6c5c1', t) + ')');
 
-      globalPropAngle += 0.18;
+      globalPropAngle += 0.18 * frameScale;
 
       function drawPropeller(px, py) {
         ctx.save(); ctx.translate(px, py);
@@ -2531,6 +2610,39 @@
       }
       ctx.restore();
     }
+
+    function drawAurora(t, nt) {
+      if (t > 0.38) return;
+      var fade = Math.max(0, 1 - t / 0.38);
+      ctx.save();
+      var C = [
+        { by: 0.06, h: 0.32, amp: 0.065, sp: 0.24, wv: 1.7, ph: 0.0, r: 15, g: 245, b: 130, op: 0.28 },
+        { by: 0.10, h: 0.28, amp: 0.050, sp: 0.31, wv: 2.2, ph: 2.4, r: 0, g: 215, b: 195, op: 0.22 },
+        { by: 0.20, h: 0.30, amp: 0.075, sp: 0.19, wv: 1.4, ph: 4.7, r: 115, g: 55, b: 235, op: 0.18 },
+        { by: 0.14, h: 0.22, amp: 0.040, sp: 0.38, wv: 2.7, ph: 1.3, r: 60, g: 230, b: 160, op: 0.16 },
+      ];
+      C.forEach(function (c) {
+        var N = 80;
+        ctx.beginPath();
+        ctx.moveTo(0, (c.by + c.h) * H); ctx.lineTo(W, (c.by + c.h) * H);
+        for (var xi = N; xi >= 0; xi--) {
+          var xp = (xi / N) * W;
+          var wy = c.by * H
+            + Math.sin(xi / N * Math.PI * c.wv + nt * c.sp + c.ph) * c.amp * H
+            + Math.sin(xi / N * Math.PI * c.wv * 1.8 + nt * c.sp * 0.7 + c.ph + 1.3) * c.amp * 0.38 * H;
+          ctx.lineTo(xp, wy);
+        }
+        ctx.closePath();
+        var grd = ctx.createLinearGradient(0, c.by * H, 0, (c.by + c.h) * H);
+        grd.addColorStop(0, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (c.op * fade * 0.95) + ')');
+        grd.addColorStop(0.3, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (c.op * fade * 0.65) + ')');
+        grd.addColorStop(0.7, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',' + (c.op * fade * 0.20) + ')');
+        grd.addColorStop(1, 'rgba(' + c.r + ',' + c.g + ',' + c.b + ',0)');
+        ctx.fillStyle = grd; ctx.fill();
+      });
+      ctx.restore();
+    }
+
     function drawHolyCelestial(t, nt) {
       ctx.save();
       var R = Math.min(W, H) * 0.11; R = Math.max(65, Math.min(110, R));
@@ -2627,14 +2739,18 @@
       var rafGap = now - lastRafTick;
       lastRafTick = now;
       if (sceneQualityPreference === 'auto' && sceneQuality === 'balanced') {
-        slowFrameCount = rafGap > 55 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
-        if (slowFrameCount >= 3) {
+        if (activeTime > 4000) slowFrameCount = rafGap > 50 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+        if (slowFrameCount >= 8) {
           sceneQuality = 'lite';
           document.body.classList.add('an-scene-lite');
         }
       }
-      var frameInterval = sceneQuality === 'full' ? 1000 / 60 : sceneQuality === 'balanced' ? 1000 / 30 : 1000 / 15;
-      if (now - lastRenderTick < frameInterval) return;
+      var frameInterval = sceneQuality === 'full' ? 1000 / 60 : sceneQuality === 'balanced' ? 1000 / 30 : 1000 / 20;
+      var elapsed = now - lastRenderTick;
+      /* a couple of ms of tolerance keeps a 30fps target on a 60Hz display from slipping to
+         every third refresh, which reads as judder */
+      if (elapsed < frameInterval - 3) return;
+      frameScale = lastRenderTick === 0 ? 1 : Math.min(4, Math.max(0.5, elapsed / 16.667));
       lastRenderTick = now;
       activeTime += Math.min(now - lastTick, 100);
       lastTick = now;
@@ -2665,12 +2781,13 @@
         ctx.fillStyle = cyanBand; ctx.fillRect(0, 0, W, bandH);
       }
 
+      drawAurora(themeT, nt);
       drawHolyCelestial(themeT, nt);
 
       var starAlpha = Math.max(0, 1 - themeT * 1.5);
       if (starAlpha > 0) {
         STARS.forEach(function (s) {
-          s.a = Math.max(.03, Math.min(1, s.a + s.da)); if (s.a >= 1 || s.a <= .03) s.da *= -1;
+          s.a = Math.max(.03, Math.min(1, s.a + s.da * frameScale)); if (s.a >= 1 || s.a <= .03) s.da *= -1;
           if (s.sp) {
             var br = s.a * .9, sz = s.r + 1.4 + Math.sin(nt * 3 + s.ph) * .6;
             ctx.strokeStyle = 'rgba(255,255,230,' + (br * starAlpha) + ')'; ctx.lineWidth = .6;
@@ -2738,8 +2855,10 @@
 
       for (var i = SH.length - 1; i >= 0; i--) {
         var s = SH[i];
-        s.trail.push({ x: s.x, y: s.y }); if (s.trail.length > 28) s.trail.shift();
-        s.x += s.vx; s.y += s.vy; s.life -= s.decay;
+        s.trail.push({ x: s.x, y: s.y });
+        var maxTrail = Math.max(8, Math.round(28 / frameScale));
+        while (s.trail.length > maxTrail) s.trail.shift();
+        s.x += s.vx * frameScale; s.y += s.vy * frameScale; s.life -= s.decay * frameScale;
         if (s.life <= 0) { SH.splice(i, 1); continue; }
         for (var tIdx = 1; tIdx < s.trail.length; tIdx++) {
           var pct = tIdx / s.trail.length;
@@ -2812,7 +2931,7 @@
         clearTimeout(fwTimeoutId);
         clearTimeout(shootTimeoutId);
         render();
-        if (!isTouch) cursorLoop();
+        if (!isTouch && typeof cursorLoop === 'function') cursorLoop();
         scheduleFW(); scheduleShoot();
         if (themeT < 0.5) { makeFW(W * 0.5, H * 0.4); } else { spawnPetalBurst(W * 0.5, H * 0.5); }
       }

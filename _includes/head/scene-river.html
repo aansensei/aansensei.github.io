@@ -149,7 +149,7 @@
         ctx.lineWidth = 1 * sc;
         for (var i = window._river_bubbles.length - 1; i >= 0; i--) {
           var b = window._river_bubbles[i];
-          b.life -= 0.015;
+          b.life -= 0.015 * frameScale;
           if (b.life <= 0) { window._river_bubbles.splice(i, 1); continue; }
 
           var bx = b.x * W;
@@ -615,7 +615,7 @@
           drawLotusObj(lo, false);
         });
         window._river_lanterns.forEach(function (la) {
-          la.x += la.speed * 0.015;
+          la.x += la.speed * 0.015 * frameScale;
           if (la.x > 1.1) la.x = -0.1;
           drawLanternObj(la, false);
         });
