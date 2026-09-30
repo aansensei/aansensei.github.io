@@ -63,15 +63,14 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 .pisces-tag{font-family:'Cormorant Garamond',serif;font-size:.82rem;padding:3px 10px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);border-radius:14px;color:#f0c84a!important;}
 .pisces-divider{border:0;border-top:1px solid rgba(201,162,39,.2);margin:0 0 15px;}
 .pisces-actions{display:flex;flex-direction:column;gap:12px;}
-.btn-action{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;box-sizing:border-box;padding:11px 10px;border-radius:999px;text-decoration:none!important;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:.9rem;letter-spacing:.04em;white-space:nowrap;color:#fff!important;transition:transform .3s,box-shadow .3s,background .3s,border-color .3s;}
-.btn-action i{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.16);font-size:.8rem;}
-.btn-action::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);pointer-events:none;transition:left .6s ease;}
-.btn-action:hover::after{left:130%;}
-.btn-live{background:linear-gradient(135deg,#1e40af,#0891b2);border:1px solid rgba(147,213,255,.5);box-shadow:0 6px 18px rgba(8,145,178,.4),inset 0 1px 0 rgba(255,255,255,.25);}
-.btn-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(8,145,178,.65),inset 0 1px 0 rgba(255,255,255,.3);}
-.btn-git{background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.45);color:#f0c84a!important;}
-.btn-git i{background:rgba(201,162,39,.16);}
-.btn-git:hover{background:rgba(201,162,39,.18);border-color:#f0c84a;transform:translateY(-3px);box-shadow:0 8px 20px rgba(201,162,39,.3);}
+.pisces-actions .btn-action{position:relative;overflow:hidden;display:flex!important;align-items:center;justify-content:center;gap:9px;width:100%;box-sizing:border-box;margin:0;padding:12px 18px;border-radius:999px;text-decoration:none!important;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:15px;line-height:1.2;letter-spacing:.03em;white-space:nowrap;color:#fff!important;transition:transform .3s,box-shadow .3s,background .3s,border-color .3s;}
+.pisces-actions .btn-action i{flex-shrink:0;font-size:14px;}
+.pisces-actions .btn-action::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);pointer-events:none;transition:left .6s ease;}
+.pisces-actions .btn-action:hover::after{left:130%;}
+.pisces-actions .btn-live{background:linear-gradient(135deg,#1e40af,#0891b2);border:1px solid rgba(147,213,255,.5);box-shadow:0 6px 18px rgba(8,145,178,.4),inset 0 1px 0 rgba(255,255,255,.25);}
+.pisces-actions .btn-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(8,145,178,.65),inset 0 1px 0 rgba(255,255,255,.3);}
+.pisces-actions .btn-git{background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.45);color:#f0c84a!important;}
+.pisces-actions .btn-git:hover{background:rgba(201,162,39,.18);border-color:#f0c84a;transform:translateY(-3px);box-shadow:0 8px 20px rgba(201,162,39,.3);}
 @media(max-width:1024px){.pisces-grid{grid-template-columns:1fr;}.pisces-sidebar{position:relative;top:0;max-height:none;overflow:visible;}.pisces-cards{grid-template-columns:1fr;}}
 @media(max-width:560px){.page__inner-wrap{padding:0 10px!important;}.pisces-box{padding:18px;}.pisces-sigils{grid-template-columns:1fr;}}
 </style>
