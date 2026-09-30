@@ -157,6 +157,31 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
 }
 
+/* ── BOOK-6: cover-back with skills on hover ── */
+.book-6 .front-cover { position: relative; }
+
+.book-6 .cover-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #050b18;
+  border-radius: 6px 14px 14px 6px;
+  overflow: hidden;
+  transform: scaleX(-1);
+  opacity: 0;
+  transition: none;
+  pointer-events: none;
+}
+.book-6.book-container:hover .cover-back {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.35s;
+}
+.book-6.book-container:hover .cover-content {
+  opacity: 0;
+  transition: none;
+}
+
 .cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:38px 8px 22px 24px;}
 .cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
 .cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
@@ -814,6 +839,19 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
           <div class="cv-sub-rule"></div>
           <p class="cv-sub">A Voyage Through the Stars</p>
         </div>
+        <div class="cover-back">
+          <div class="cover-back-graph" style="background:#050b18;">
+            <img src="/assets/images/pisces-space-journey-cover.png" alt="Pisces: Space Journey artwork" style="object-fit:cover;object-position:center 45%;">
+          </div>
+          <div class="cover-back-tags">
+            <span class="cover-back-tag">HTML</span>
+            <span class="cover-back-tag">CSS</span>
+            <span class="cover-back-tag">JavaScript</span>
+            <span class="cover-back-tag">PixiJS</span>
+            <span class="cover-back-tag">GitHub Pages</span>
+            <span class="cover-back-tag">PWA</span>
+          </div>
+        </div>
       </div>
       <div class="inside-pages">
         <i class="fas fa-rocket" style="color:#1689d4;"></i>
@@ -826,12 +864,19 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
       <div class="ornament-float">
         <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
           <ellipse cx="45" cy="120" rx="20" ry="3.5" fill="rgba(0,0,0,.35)"/>
-          <rect x="36" y="70" width="18" height="48" rx="2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2"/>
-          <ellipse cx="45" cy="70" rx="9" ry="3" fill="rgba(240,200,74,.4)"/>
-          <path class="orn-glint" d="M45 68 Q40 58 45 48 Q50 58 45 68 Z" fill="#ff6b4a" opacity=".85"/>
+          <path d="M34 62 L20 90 L34 82 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M56 62 L70 90 L56 82 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M45 8 C57 26 59 52 56 82 L34 82 C31 52 33 26 45 8 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.3" stroke-linejoin="round"/>
+          <circle cx="45" cy="42" r="8" fill="url(#orn-glass)" stroke="rgba(201,162,39,.75)" stroke-width="1.5"/>
+          <circle cx="45" cy="42" r="5" fill="none" stroke="rgba(201,162,39,.3)" stroke-width=".8" stroke-dasharray="2 2"/>
+          <path class="orn-glint" d="M41 38 Q43 35 46 36" stroke="#fff" stroke-width="1.4" fill="none" opacity=".7"/>
+          <path d="M37 62 H53" stroke="rgba(201,162,39,.5)" stroke-width="1"/>
+          <rect x="38" y="82" width="14" height="6" rx="1.5" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+          <path d="M39 88 Q45 116 51 88 Z" fill="#ff6b4a" opacity=".85"/>
+          <path d="M42 88 Q45 104 48 88 Z" fill="#ffd27a" opacity=".9"/>
         </svg>
       </div>
-      <span class="ornament-label">Candle</span>
+      <span class="ornament-label">Starship</span>
     </div>
   </div>
 

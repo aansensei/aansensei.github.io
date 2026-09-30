@@ -17,7 +17,7 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
 .col-left::-webkit-scrollbar{width:4px;}
 .col-left::-webkit-scrollbar-thumb{background:rgba(201,71,122,.3);border-radius:10px;}
 
-.back-btn{display:flex;align-items:center;gap:10px;color:#c9477a!important;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;cursor:pointer;}
+.back-btn{--back-a:#f07aa0;--back-b:#c9477a;--back-glow:201,71,122;--back-glow-hi:240,122,160;display:flex;align-items:center;gap:10px;color:#c9477a!important;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;cursor:pointer;}
 .back-btn:hover{color:#f07aa0!important;transform:translateX(-5px);text-shadow:0 0 10px rgba(201,71,122,.5);}
 
 .author-box{text-align:center;border-bottom:1px solid rgba(201,71,122,.15);padding-bottom:18px;margin-bottom:18px;}

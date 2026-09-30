@@ -575,6 +575,59 @@
     pointer-events: none;
   }
 
+  /* Every project page links back to the collection with the same filled pill so it is easy
+     to spot. The extra body prefix outranks each page's own .back-btn / .pisces-back rules,
+     and a page can retint it through --back-a, --back-b, --back-glow and --back-glow-hi. */
+  body a.back-btn,
+  body a.pisces-back {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 14px;
+    margin-bottom: 24px !important;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    background: linear-gradient(135deg, var(--back-a, #f0c84a), var(--back-b, #c9a227));
+    color: #1a1206 !important;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-shadow: none !important;
+    box-shadow: 0 4px 16px rgba(var(--back-glow, 201, 162, 39), .45);
+    animation: anBackGlow 3.2s ease-in-out infinite;
+  }
+
+  body a.back-btn:hover,
+  body a.pisces-back:hover {
+    color: #1a1206 !important;
+    text-shadow: none !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(var(--back-glow-hi, 240, 200, 74), .7);
+  }
+
+  @keyframes anBackGlow {
+
+    0%,
+    100% {
+      box-shadow: 0 4px 16px rgba(var(--back-glow, 201, 162, 39), .45);
+    }
+
+    50% {
+      box-shadow: 0 4px 24px rgba(var(--back-glow-hi, 240, 200, 74), .8);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    body a.back-btn,
+    body a.pisces-back {
+      animation: none;
+    }
+  }
+
   #an-scene-quality {
     position: fixed;
     right: 8.2rem;

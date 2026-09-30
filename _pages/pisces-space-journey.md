@@ -63,6 +63,11 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 .pisces-tag{font-family:'Cormorant Garamond',serif;font-size:.82rem;padding:3px 10px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);border-radius:14px;color:#f0c84a!important;}
 .pisces-divider{border:0;border-top:1px solid rgba(201,162,39,.2);margin:0 0 15px;}
 .pisces-fact{font-family:'Cormorant Garamond',serif;color:rgba(240,230,208,.72);font-style:italic;margin:9px 0!important;}
+.btn-action{display:block;width:100%;padding:11px;border-radius:28px;margin-bottom:11px;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:.97rem;letter-spacing:.05em;transition:all .3s;color:#fff!important;}
+.btn-live{background:linear-gradient(135deg,#2a9d8f,#0e4f8f);box-shadow:0 4px 14px rgba(42,157,143,.4);}
+.btn-live:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(42,157,143,.7);}
+.btn-git{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);}
+.btn-git:hover{background:rgba(201,162,39,.2);border-color:#c9a227;transform:translateY(-3px);box-shadow:0 4px 14px rgba(201,162,39,.3);}
 @media(max-width:1024px){.pisces-grid{grid-template-columns:1fr;}.pisces-sidebar{position:relative;top:0;max-height:none;overflow:visible;}.pisces-cards{grid-template-columns:1fr;}}
 @media(max-width:560px){.page__inner-wrap{padding:0 10px!important;}.pisces-box{padding:18px;}.pisces-sigils{grid-template-columns:1fr;}}
 </style>
@@ -335,6 +340,9 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
     <p class="pisces-fact"><strong>Core mechanic:</strong> 12 Zodiac Sigils</p>
     <p class="pisces-fact"><strong>First beta:</strong> January 2025</p>
     <p class="pisces-fact"><strong>Modular refactor:</strong> March 2026</p>
+    <hr class="pisces-divider">
+    <a href="https://aansensei.dev/space-shooter/" target="_blank" class="btn-action btn-live"><i class="fas fa-rocket"></i> Initiate Hyperjump</a>
+    <a href="https://github.com/aansensei/space-shooter" target="_blank" class="btn-action btn-git"><i class="fab fa-github"></i> Source Code</a>
   </aside>
 
 </div>
