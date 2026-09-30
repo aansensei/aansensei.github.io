@@ -575,55 +575,92 @@
     pointer-events: none;
   }
 
-  /* Every project page links back to the collection with the same filled pill so it is easy
+  /* Every project page links back to the collection with the same gold pill so it is easy
      to spot. The extra body prefix outranks each page's own .back-btn / .pisces-back rules,
-     and a page can retint it through --back-a, --back-b, --back-glow and --back-glow-hi. */
+     and a page can retint it through --back-a, --back-b and --back-glow (an r, g, b triple). */
   body a.back-btn,
   body a.pisces-back {
+    position: relative;
+    overflow: hidden;
     display: flex !important;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 9px;
     width: 100%;
     box-sizing: border-box;
-    padding: 11px 14px;
-    margin-bottom: 24px !important;
-    border-radius: 28px;
-    border: 1px solid rgba(255, 255, 255, .28);
-    background: linear-gradient(135deg, var(--back-a, #f0c84a), var(--back-b, #c9a227));
-    color: #1a1206 !important;
-    font-size: 1rem;
+    padding: 10px 14px;
+    margin-bottom: 22px !important;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 240, 190, .55);
+    background: linear-gradient(135deg, var(--back-a, #f6d365), var(--back-b, #c9a227));
+    color: #2a1c05 !important;
+    font-size: .92rem;
     font-weight: 700;
-    letter-spacing: .06em;
+    letter-spacing: .04em;
+    white-space: nowrap;
     text-shadow: none !important;
-    box-shadow: 0 4px 16px rgba(var(--back-glow, 201, 162, 39), .45);
-    animation: anBackGlow 3.2s ease-in-out infinite;
+    box-shadow: 0 6px 18px rgba(var(--back-glow, 201, 162, 39), .38), inset 0 1px 0 rgba(255, 255, 255, .55);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  body a.back-btn i,
+  body a.pisces-back i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(26, 18, 6, .85);
+    color: var(--back-a, #f6d365);
+    font-size: .68rem;
+    transition: transform .3s ease;
+  }
+
+  body a.back-btn::after,
+  body a.pisces-back::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 40%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .55), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    animation: anBackSheen 4.5s ease-in-out infinite;
   }
 
   body a.back-btn:hover,
   body a.pisces-back:hover {
-    color: #1a1206 !important;
+    color: #2a1c05 !important;
     text-shadow: none !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(var(--back-glow-hi, 240, 200, 74), .7);
+    box-shadow: 0 9px 26px rgba(var(--back-glow, 201, 162, 39), .6), inset 0 1px 0 rgba(255, 255, 255, .6);
   }
 
-  @keyframes anBackGlow {
+  body a.back-btn:hover i,
+  body a.pisces-back:hover i {
+    transform: translateX(-3px);
+  }
+
+  @keyframes anBackSheen {
 
     0%,
-    100% {
-      box-shadow: 0 4px 16px rgba(var(--back-glow, 201, 162, 39), .45);
+    55% {
+      left: -60%;
     }
 
-    50% {
-      box-shadow: 0 4px 24px rgba(var(--back-glow-hi, 240, 200, 74), .8);
+    100% {
+      left: 130%;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
 
-    body a.back-btn,
-    body a.pisces-back {
+    body a.back-btn::after,
+    body a.pisces-back::after {
       animation: none;
     }
   }

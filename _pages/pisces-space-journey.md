@@ -62,12 +62,16 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 .pisces-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px;}
 .pisces-tag{font-family:'Cormorant Garamond',serif;font-size:.82rem;padding:3px 10px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);border-radius:14px;color:#f0c84a!important;}
 .pisces-divider{border:0;border-top:1px solid rgba(201,162,39,.2);margin:0 0 15px;}
-.pisces-fact{font-family:'Cormorant Garamond',serif;color:rgba(240,230,208,.72);font-style:italic;margin:9px 0!important;}
-.btn-action{display:block;width:100%;padding:11px;border-radius:28px;margin-bottom:11px;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:.97rem;letter-spacing:.05em;transition:all .3s;color:#fff!important;}
-.btn-live{background:linear-gradient(135deg,#2a9d8f,#0e4f8f);box-shadow:0 4px 14px rgba(42,157,143,.4);}
-.btn-live:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(42,157,143,.7);}
-.btn-git{background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);}
-.btn-git:hover{background:rgba(201,162,39,.2);border-color:#c9a227;transform:translateY(-3px);box-shadow:0 4px 14px rgba(201,162,39,.3);}
+.pisces-actions{display:flex;flex-direction:column;gap:12px;}
+.btn-action{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:9px;width:100%;box-sizing:border-box;padding:11px 10px;border-radius:999px;text-decoration:none!important;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:.9rem;letter-spacing:.04em;white-space:nowrap;color:#fff!important;transition:transform .3s,box-shadow .3s,background .3s,border-color .3s;}
+.btn-action i{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.16);font-size:.8rem;}
+.btn-action::after{content:'';position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);pointer-events:none;transition:left .6s ease;}
+.btn-action:hover::after{left:130%;}
+.btn-live{background:linear-gradient(135deg,#1e40af,#0891b2);border:1px solid rgba(147,213,255,.5);box-shadow:0 6px 18px rgba(8,145,178,.4),inset 0 1px 0 rgba(255,255,255,.25);}
+.btn-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(8,145,178,.65),inset 0 1px 0 rgba(255,255,255,.3);}
+.btn-git{background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.45);color:#f0c84a!important;}
+.btn-git i{background:rgba(201,162,39,.16);}
+.btn-git:hover{background:rgba(201,162,39,.18);border-color:#f0c84a;transform:translateY(-3px);box-shadow:0 8px 20px rgba(201,162,39,.3);}
 @media(max-width:1024px){.pisces-grid{grid-template-columns:1fr;}.pisces-sidebar{position:relative;top:0;max-height:none;overflow:visible;}.pisces-cards{grid-template-columns:1fr;}}
 @media(max-width:560px){.page__inner-wrap{padding:0 10px!important;}.pisces-box{padding:18px;}.pisces-sigils{grid-template-columns:1fr;}}
 </style>
@@ -75,7 +79,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 <div class="pisces-grid">
 
   <aside class="pisces-box pisces-sidebar">
-    <a href="/projects/" class="pisces-back">❮ Back to Collection</a>
+    <a href="/projects/" class="pisces-back"><i class="fas fa-arrow-left"></i>Back to Collection</a>
     <div class="pisces-author">
       <img src="/assets/images/avatar.jpg" alt="Cao Thien An Nguyen">
       <h3>Cao Thien An Nguyen</h3>
@@ -336,13 +340,10 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
       <span class="pisces-tag">PWA</span>
     </div>
     <hr class="pisces-divider">
-    <p class="pisces-fact"><strong>Genre:</strong> Space Shooter</p>
-    <p class="pisces-fact"><strong>Core mechanic:</strong> 12 Zodiac Sigils</p>
-    <p class="pisces-fact"><strong>First beta:</strong> January 2025</p>
-    <p class="pisces-fact"><strong>Modular refactor:</strong> March 2026</p>
-    <hr class="pisces-divider">
-    <a href="https://aansensei.dev/space-shooter/" target="_blank" class="btn-action btn-live"><i class="fas fa-rocket"></i> Initiate Hyperjump</a>
-    <a href="https://github.com/aansensei/space-shooter" target="_blank" class="btn-action btn-git"><i class="fab fa-github"></i> Source Code</a>
+    <div class="pisces-actions">
+      <a href="https://aansensei.dev/space-shooter/" target="_blank" class="btn-action btn-live"><i class="fas fa-rocket"></i><span>Initiate Hyperjump</span></a>
+      <a href="https://github.com/aansensei/space-shooter" target="_blank" class="btn-action btn-git"><i class="fab fa-github"></i><span>Source Code</span></a>
+    </div>
   </aside>
 
 </div>

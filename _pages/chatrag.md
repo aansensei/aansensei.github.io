@@ -54,7 +54,7 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 <div class="project-grid">
 
   <div class="glass-box col-left">
-    <a href="/projects/" class="back-btn" >❮ Back to Collection</a>
+    <a href="/projects/" class="back-btn" ><i class="fas fa-arrow-left"></i>Back to Collection</a>
     <div class="author-box">
       <img src="/assets/images/avatar.jpg" alt="Avatar">
       <h3>Cao Thien An Nguyen</h3>

@@ -54,7 +54,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
 <div class="project-grid">
 
   <div class="glass-box col-left">
-    <a href="/projects/" class="back-btn" >❮ Back to Collection</a>
+    <a href="/projects/" class="back-btn" ><i class="fas fa-arrow-left"></i>Back to Collection</a>
     <div class="author-box">
       <img src="/assets/images/avatar.jpg" alt="Avatar">
       <h3>Cao Thien An Nguyen</h3>
