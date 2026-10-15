@@ -688,3 +688,39 @@
       }
       ctx.restore();
     }
+
+    /* drawCastle is the heaviest single call in the scene and Full mode runs it three times a
+       frame, once for the scene and twice more for the river reflection. The architecture never
+       moves, only the lantern and window glow flickers, so each variant is drawn into an
+       offscreen band and blitted every frame. It is redrawn when the size or theme changes and
+       after a short interval so the flicker keeps going. */
+    var CASTLE_CACHE = {};
+    function drawCastleCached(a, t, isReflection) {
+      if (a <= 0.003) return;
+      var key = isReflection ? 'refl' : 'main';
+      var c = CASTLE_CACHE[key];
+      if (!c) {
+        c = CASTLE_CACHE[key] = { cv: document.createElement('canvas'), at: -1e9, t: -1, w: 0, h: 0 };
+        c.cx = c.cv.getContext('2d');
+      }
+      var y0 = Math.floor(H * 0.2);
+      var maxAge = isReflection ? 160 : 70;
+      if (c.w !== W || c.h !== H || Math.abs(c.t - t) > 0.004 || activeTime - c.at > maxAge) {
+        if (c.w !== W || c.h !== H) { c.cv.width = W; c.cv.height = H - y0; c.w = W; c.h = H; }
+        var screenCtx = ctx;
+        ctx = c.cx;
+        try {
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, W, H - y0);
+          ctx.translate(0, -y0);
+          drawCastle(1, t, isReflection);
+        } finally {
+          ctx = screenCtx;
+        }
+        c.t = t; c.at = activeTime;
+      }
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.drawImage(c.cv, 0, y0);
+      ctx.restore();
+    }

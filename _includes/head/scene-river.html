@@ -107,8 +107,8 @@
           // xài luôn hình thành thật để phản chiếu, khỏi vẽ tay (nhìn giả) — isReflection=true
           // tự bớt vài chi tiết nặng rồi. vẽ 2 lần lệch nhau để giả mờ, khỏi cần ctx.filter (đỡ lag mobile)
           var refA = riverA * 0.1;
-          ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastle(refA, t, true); ctx.restore();
-          ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastle(refA * 0.7, t, true); ctx.restore();
+          ctx.save(); ctx.translate(swayX * 0.8, 1 * sc); drawCastleCached(refA, t, true); ctx.restore();
+          ctx.save(); ctx.translate(-swayX * 1.5, -0.5 * sc); drawCastleCached(refA * 0.7, t, true); ctx.restore();
           ctx.restore();
           } catch (err) {
           } finally {
@@ -382,6 +382,9 @@
           var yBob = 0; // No bobbing
           var rot = 0; // No rotation
 
+          var spr = riverSprite(lo, isRefl ? '_sprR' : '_sprN', ls.toFixed(2) + '|' + sc.toFixed(2),
+            Math.ceil(17 * ls) + 2, Math.ceil(15 * ls) + 2, function (c) { paintLotus(c, ls, isRefl, sc); });
+
           try {
             ctx.save();
             if (isRefl) {
@@ -395,57 +398,7 @@
               ctx.rotate(rot);
               ctx.globalAlpha = riverA * 0.9;
             }
-
-            // Leaf Pad
-            ctx.fillStyle = '#1a4020';
-            ctx.beginPath(); ctx.ellipse(0, 0, Math.max(0.1, 15 * ls), Math.max(0.1, 4 * ls), 0, 0, Math.PI * 2); ctx.fill();
-            if (!isRefl) {
-              ctx.fillStyle = '#255a2d';
-              ctx.beginPath(); ctx.ellipse(0, -1 * ls, Math.max(0.1, 13 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI * 2); ctx.fill();
-            }
-
-            // Lotus Petals
-            function drawRealPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
-              ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
-              var pG = ctx.createLinearGradient(0, 0, 0, -10 * scaleY);
-              pG.addColorStop(0, c1); pG.addColorStop(1, c2);
-              ctx.fillStyle = pG;
-              ctx.beginPath();
-              var w = 3.5 * scaleX, h = 10 * scaleY;
-              ctx.moveTo(0, 0);
-              ctx.bezierCurveTo(w, -h * 0.4, w * 0.9, -h * 0.8, 0, -h);
-              ctx.bezierCurveTo(-w * 0.9, -h * 0.8, -w, -h * 0.4, 0, 0);
-              ctx.fill();
-              if (!isRefl) {
-                ctx.strokeStyle = 'rgba(255, 200, 230, 0.4)';
-                ctx.lineWidth = 0.5 * sc;
-                ctx.stroke();
-              }
-              ctx.restore();
-            }
-
-            // Base layer petals (darker pink, spread out completely)
-            drawRealPetal(-1.3, 1.4 * ls, 0.5 * ls, 0.5 * ls, '#c93264', '#ff80af');
-            drawRealPetal(1.3, 1.4 * ls, 0.5 * ls, 0.5 * ls, '#c93264', '#ff80af');
-            drawRealPetal(-0.9, 1.3 * ls, 0.7 * ls, 0, '#d94179', '#ff99c2');
-            drawRealPetal(0.9, 1.3 * ls, 0.7 * ls, 0, '#d94179', '#ff99c2');
-
-            // Middle layer petals (brighter pink)
-            drawRealPetal(-0.5, 1.1 * ls, 0.9 * ls, -0.5 * ls, '#e8528f', '#ffb3d1');
-            drawRealPetal(0.5, 1.1 * ls, 0.9 * ls, -0.5 * ls, '#e8528f', '#ffb3d1');
-
-            // Inner layer petals (very light pink/white, standing up)
-            drawRealPetal(-0.25, 0.9 * ls, 1.0 * ls, -1 * ls, '#f76a9a', '#ffffff');
-            drawRealPetal(0.25, 0.9 * ls, 1.0 * ls, -1 * ls, '#f76a9a', '#ffffff');
-            drawRealPetal(0, 1.0 * ls, 1.2 * ls, -1.5 * ls, '#ff80af', '#ffffff'); // Center petal
-
-            // Yellow core (stamens)
-            if (!isRefl) {
-              var cG = ctx.createRadialGradient(0, -2.5 * ls, 0, 0, -2.5 * ls, Math.max(0.1, 2.5 * ls));
-              cG.addColorStop(0, '#ffcc00'); cG.addColorStop(1, '#ff9900');
-              ctx.fillStyle = cG;
-              ctx.beginPath(); ctx.ellipse(0, -2.5 * ls, Math.max(0.1, 2.5 * ls), Math.max(0.1, 1.5 * ls), 0, 0, Math.PI * 2); ctx.fill();
-            }
+            ctx.drawImage(spr.cv, -spr.ox, -spr.oy);
           } finally {
             ctx.restore();
           }
@@ -461,6 +414,14 @@
           var yBob = Math.cos(nt * 0.6 + la.phase) * 3 * ls;
           var rot = Math.sin(nt * 0.4 + la.phase) * 0.1;
 
+          var colorType = la.colorType || 0; // 0=mặc định(cam lửa) 1=đỏ 2=hồng 3=cam 4=vàng 5=trắng
+          var key = colorType + '|' + ls.toFixed(2) + '|' + sc.toFixed(2);
+          var tag = isRefl ? 'R' : 'N';
+          var glowSpr = riverSprite(la, '_glow' + tag, key, Math.ceil((isRefl ? 110 : 42) * ls) + 2, Math.ceil((isRefl ? 34 : 42) * ls) + 2,
+            function (c) { paintLanternGlow(c, ls, colorType, isRefl); });
+          var bodySpr = riverSprite(la, '_body' + tag, key, Math.ceil(18 * ls) + 2, Math.ceil(22 * ls) + 2,
+            function (c) { paintLanternBody(c, ls, colorType, isRefl, sc); });
+
           try {
             ctx.save();
             if (isRefl) {
@@ -475,128 +436,39 @@
               ctx.globalAlpha = riverA * (0.85 + 0.15 * Math.sin(nt * 3 + la.phase));
             }
 
-            var colorType = la.colorType || 0; // 0=mặc định(cam lửa) 1=đỏ 2=hồng 3=cam 4=vàng 5=trắng
-            var hGlow = [30, 0, 340, 25, 50, 45][colorType];
-
-            // Ambient Glow
-            if (!isRefl) {
-              var glow = ctx.createRadialGradient(0, -2.5 * ls, 0, 0, -2.5 * ls, Math.max(0.1, 40 * ls));
-              glow.addColorStop(0, 'hsla(' + hGlow + ', 100%, 75%, 0.45)');
-              glow.addColorStop(0.3, 'hsla(' + (hGlow + 15) + ', 100%, 65%, 0.15)');
-              glow.addColorStop(1, 'transparent');
-              ctx.fillStyle = glow;
-              ctx.globalCompositeOperation = 'lighter';
-              ctx.beginPath(); ctx.arc(0, -2.5 * ls, Math.max(0.1, 40 * ls), 0, Math.PI * 2); ctx.fill();
-              ctx.globalCompositeOperation = 'source-over';
-            } else {
-              ctx.save();
-              ctx.scale(1.8, 0.5); // Spread reflection horizontally for water ripple effect
-              var refGlow = ctx.createRadialGradient(0, -2.5 * ls / 0.5, 0, 0, -2.5 * ls / 0.5, Math.max(0.1, 60 * ls));
-              refGlow.addColorStop(0, 'hsla(' + hGlow + ', 100%, 75%, 0.35)');
-              refGlow.addColorStop(0.3, 'hsla(' + (hGlow + 15) + ', 100%, 65%, 0.1)');
-              refGlow.addColorStop(1, 'transparent');
-              ctx.fillStyle = refGlow;
-              ctx.globalCompositeOperation = 'lighter';
-              ctx.beginPath(); ctx.arc(0, -2.5 * ls / 0.5, Math.max(0.1, 60 * ls), 0, Math.PI * 2); ctx.fill();
-              ctx.globalCompositeOperation = 'source-over';
-              ctx.restore();
-            }
-
-            // Base leaf (green) matching the user's HTML design
-            var leafGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 15 * ls);
-            leafGrad.addColorStop(0, '#527540');
-            leafGrad.addColorStop(1, '#203315');
-            ctx.fillStyle = leafGrad;
-            ctx.beginPath();
-            ctx.ellipse(0, 3 * ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            if (!isRefl) {
-              // border-bottom solid
-              ctx.strokeStyle = '#0f1709';
-              ctx.lineWidth = 1 * sc;
-              ctx.beginPath();
-              ctx.ellipse(0, 3 * ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI);
-              ctx.stroke();
-            }
-
-            // cánh hoa đăng kiểu "giọt lửa" tròn phồng gốc thon đỉnh — cố tình khác cánh sen
-            // thon dài để khỏi lẫn với hoa sen. gradient tỏa từ gần gốc như file mockup gửi
-            function drawFlamePetal(pRot, scale, yOffset, stops) {
-              ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
-              var w = 7 * scale, h = 13 * scale;
-              var pG = ctx.createRadialGradient(w * 0.25, -h * 0.15, 0, w * 0.25, -h * 0.15, h * 1.15);
-              for (var si = 0; si < stops.length; si++) { pG.addColorStop(si / (stops.length - 1), stops[si]); }
-              ctx.fillStyle = pG;
-              ctx.beginPath();
-              ctx.moveTo(0, 0);
-              ctx.bezierCurveTo(w, -h * 0.08, w * 0.8, -h * 0.6, 0, -h);
-              ctx.bezierCurveTo(-w * 0.8, -h * 0.6, -w, -h * 0.08, 0, 0);
-              ctx.fill();
-              if (!isRefl) {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-                ctx.lineWidth = 0.5 * sc;
-                ctx.stroke();
-              }
-              ctx.restore();
-            }
-
-            var P = LANTERN_PALETTES[colorType];
-
-            // Back layers (most occluded, spread wide, muted/dark)
-            drawFlamePetal(-1.22, 1.3 * ls, 0.4 * ls, P.back2);
-            drawFlamePetal(1.22, 1.3 * ls, 0.4 * ls, P.back2);
-            drawFlamePetal(-0.79, 1.2 * ls, 0.1 * ls, P.back1);
-            drawFlamePetal(0.79, 1.2 * ls, 0.1 * ls, P.back1);
-
-            // Mid layers
-            drawFlamePetal(-0.44, 1.0 * ls, -0.3 * ls, P.mid);
-            drawFlamePetal(0.44, 1.0 * ls, -0.3 * ls, P.mid);
-
-            // Center petal (tallest, brightest — drawn before the small front petals so they sit on top)
-            drawFlamePetal(0, 1.35 * ls, -0.8 * ls, P.center);
-
-            // Small front petals hugging the center, on top
-            drawFlamePetal(-0.35, 0.7 * ls, -0.5 * ls, P.front);
-            drawFlamePetal(0.35, 0.7 * ls, -0.5 * ls, P.front);
+            // Ambient glow adds light on top of the water, the body is drawn over it
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.drawImage(glowSpr.cv, -glowSpr.ox, -glowSpr.oy);
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.drawImage(bodySpr.cv, -bodySpr.ox, -bodySpr.oy);
 
             if (!isRefl) {
               // lõi sáng nến: nhiều lớp glow, nhấp nháy dim/sáng như lồng đèn thành
+              var coreSpr = riverSprite(la, '_core', ls.toFixed(2), Math.ceil(23 * ls) + 2, Math.ceil(23 * ls) + 2,
+                function (c) { paintLanternCore(c, ls); });
               var coreFlicker = 0.72 + 0.28 * Math.sin(nt * 1.8 + la.phase * 4);
               var baseAlpha = ctx.globalAlpha;
               ctx.globalCompositeOperation = 'lighter';
               ctx.globalAlpha = baseAlpha * coreFlicker;
-              var core3 = ctx.createRadialGradient(0, -2.2 * ls, 0, 0, -2.2 * ls, Math.max(0.1, 20 * ls));
-              core3.addColorStop(0, 'rgba(255,80,0,0.28)'); core3.addColorStop(1, 'transparent');
-              ctx.fillStyle = core3; ctx.beginPath(); ctx.arc(0, -2.2 * ls, Math.max(0.1, 20 * ls), 0, Math.PI * 2); ctx.fill();
-
-              var core2 = ctx.createRadialGradient(0, -2.2 * ls, 0, 0, -2.2 * ls, Math.max(0.1, 11 * ls));
-              core2.addColorStop(0, 'rgba(255,204,0,0.45)'); core2.addColorStop(1, 'transparent');
-              ctx.fillStyle = core2; ctx.beginPath(); ctx.arc(0, -2.2 * ls, Math.max(0.1, 11 * ls), 0, Math.PI * 2); ctx.fill();
-
-              var core1 = ctx.createRadialGradient(0, -2.2 * ls, 0, 0, -2.2 * ls, Math.max(0.1, 4.5 * ls));
-              core1.addColorStop(0, 'rgba(255,255,255,0.8)'); core1.addColorStop(1, 'rgba(255,255,255,0)');
-              ctx.fillStyle = core1; ctx.beginPath(); ctx.arc(0, -2.2 * ls, Math.max(0.1, 4.5 * ls), 0, Math.PI * 2); ctx.fill();
+              ctx.drawImage(coreSpr.cv, -coreSpr.ox, -coreSpr.oy - 2.2 * ls);
               ctx.globalCompositeOperation = 'source-over';
               ctx.globalAlpha = baseAlpha;
 
-              // Glowing particles flying up
-              ctx.fillStyle = 'rgba(255, 240, 180, 0.8)';
+              // Glowing particles flying up. The halo is a second, larger and fainter dot because a
+              // per particle shadowBlur forces the GPU to blur an offscreen layer every frame.
               for (var k = 0; k < 3; k++) {
                 var pT = (nt * 0.4 + la.phase * 10 + k * 3.3) % 1.0;
                 if (pT > 0 && pT < 1) {
                   var px = Math.sin(la.phase * 5 + k * 7 + pT * 6) * 20 * ls;
                   var py = -3 * ls - pT * 50 * ls;
-                  var pr = (1 - pT) * 1.5 * ls;
-                  ctx.beginPath(); ctx.arc(px, py, Math.max(0.1, pr), 0, Math.PI * 2);
-                  ctx.shadowBlur = 6 * ls;
-                  ctx.shadowColor = 'rgba(255,200,100,0.8)';
-                  ctx.fill();
-                  ctx.shadowBlur = 0;
+                  var pr = Math.max(0.1, (1 - pT) * 1.5 * ls);
+                  ctx.fillStyle = 'rgba(255, 200, 100, 0.22)';
+                  ctx.beginPath(); ctx.arc(px, py, pr * 3, 0, Math.PI * 2); ctx.fill();
+                  ctx.fillStyle = 'rgba(255, 240, 180, 0.8)';
+                  ctx.beginPath(); ctx.arc(px, py, pr, 0, Math.PI * 2); ctx.fill();
                 }
               }
             }
-
           } finally {
             ctx.restore();
           }
@@ -624,5 +496,168 @@
         console.error(err);
       } finally {
         ctx.restore();
+      }
+    }
+
+    /* Lanterns and lotus flowers never change shape, only their position, tilt and glow level do,
+       so each one is painted once into a small sprite and every frame only places it. A sprite is
+       painted again if the lantern's size changes, for example after a window resize. */
+    function riverSprite(owner, slot, key, hw, hh, paint) {
+      var spr = owner[slot];
+      if (spr && spr.key === key) return spr;
+      var cv = spr ? spr.cv : document.createElement('canvas');
+      cv.width = hw * 2; cv.height = hh * 2;
+      var c = cv.getContext('2d');
+      c.translate(hw, hh);
+      paint(c);
+      return (owner[slot] = { key: key, cv: cv, ox: hw, oy: hh });
+    }
+
+    function paintLanternGlow(ctx, ls, colorType, isRefl) {
+      var hGlow = [30, 0, 340, 25, 50, 45][colorType];
+      if (!isRefl) {
+        var glow = ctx.createRadialGradient(0, -2.5 * ls, 0, 0, -2.5 * ls, Math.max(0.1, 40 * ls));
+        glow.addColorStop(0, 'hsla(' + hGlow + ', 100%, 75%, 0.45)');
+        glow.addColorStop(0.3, 'hsla(' + (hGlow + 15) + ', 100%, 65%, 0.15)');
+        glow.addColorStop(1, 'transparent');
+        ctx.fillStyle = glow;
+        ctx.beginPath(); ctx.arc(0, -2.5 * ls, Math.max(0.1, 40 * ls), 0, Math.PI * 2); ctx.fill();
+      } else {
+        ctx.save();
+        ctx.scale(1.8, 0.5); // Spread reflection horizontally for water ripple effect
+        var refGlow = ctx.createRadialGradient(0, -2.5 * ls / 0.5, 0, 0, -2.5 * ls / 0.5, Math.max(0.1, 60 * ls));
+        refGlow.addColorStop(0, 'hsla(' + hGlow + ', 100%, 75%, 0.35)');
+        refGlow.addColorStop(0.3, 'hsla(' + (hGlow + 15) + ', 100%, 65%, 0.1)');
+        refGlow.addColorStop(1, 'transparent');
+        ctx.fillStyle = refGlow;
+        ctx.beginPath(); ctx.arc(0, -2.5 * ls / 0.5, Math.max(0.1, 60 * ls), 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function paintLanternBody(ctx, ls, colorType, isRefl, sc) {
+      // Base leaf (green) matching the user's HTML design
+      var leafGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 15 * ls);
+      leafGrad.addColorStop(0, '#527540');
+      leafGrad.addColorStop(1, '#203315');
+      ctx.fillStyle = leafGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, 3 * ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (!isRefl) {
+        // border-bottom solid
+        ctx.strokeStyle = '#0f1709';
+        ctx.lineWidth = 1 * sc;
+        ctx.beginPath();
+        ctx.ellipse(0, 3 * ls, Math.max(0.1, 14 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI);
+        ctx.stroke();
+      }
+
+      // cánh hoa đăng kiểu "giọt lửa" tròn phồng gốc thon đỉnh — cố tình khác cánh sen
+      // thon dài để khỏi lẫn với hoa sen. gradient tỏa từ gần gốc như file mockup gửi
+      function drawFlamePetal(pRot, scale, yOffset, stops) {
+        ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
+        var w = 7 * scale, h = 13 * scale;
+        var pG = ctx.createRadialGradient(w * 0.25, -h * 0.15, 0, w * 0.25, -h * 0.15, h * 1.15);
+        for (var si = 0; si < stops.length; si++) { pG.addColorStop(si / (stops.length - 1), stops[si]); }
+        ctx.fillStyle = pG;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(w, -h * 0.08, w * 0.8, -h * 0.6, 0, -h);
+        ctx.bezierCurveTo(-w * 0.8, -h * 0.6, -w, -h * 0.08, 0, 0);
+        ctx.fill();
+        if (!isRefl) {
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+          ctx.lineWidth = 0.5 * sc;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      var P = LANTERN_PALETTES[colorType];
+
+      // Back layers (most occluded, spread wide, muted/dark)
+      drawFlamePetal(-1.22, 1.3 * ls, 0.4 * ls, P.back2);
+      drawFlamePetal(1.22, 1.3 * ls, 0.4 * ls, P.back2);
+      drawFlamePetal(-0.79, 1.2 * ls, 0.1 * ls, P.back1);
+      drawFlamePetal(0.79, 1.2 * ls, 0.1 * ls, P.back1);
+
+      // Mid layers
+      drawFlamePetal(-0.44, 1.0 * ls, -0.3 * ls, P.mid);
+      drawFlamePetal(0.44, 1.0 * ls, -0.3 * ls, P.mid);
+
+      // Center petal (tallest, brightest — drawn before the small front petals so they sit on top)
+      drawFlamePetal(0, 1.35 * ls, -0.8 * ls, P.center);
+
+      // Small front petals hugging the center, on top
+      drawFlamePetal(-0.35, 0.7 * ls, -0.5 * ls, P.front);
+      drawFlamePetal(0.35, 0.7 * ls, -0.5 * ls, P.front);
+    }
+
+    function paintLanternCore(ctx, ls) {
+      var core3 = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(0.1, 20 * ls));
+      core3.addColorStop(0, 'rgba(255,80,0,0.28)'); core3.addColorStop(1, 'transparent');
+      ctx.fillStyle = core3; ctx.beginPath(); ctx.arc(0, 0, Math.max(0.1, 20 * ls), 0, Math.PI * 2); ctx.fill();
+
+      var core2 = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(0.1, 11 * ls));
+      core2.addColorStop(0, 'rgba(255,204,0,0.45)'); core2.addColorStop(1, 'transparent');
+      ctx.fillStyle = core2; ctx.beginPath(); ctx.arc(0, 0, Math.max(0.1, 11 * ls), 0, Math.PI * 2); ctx.fill();
+
+      var core1 = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(0.1, 4.5 * ls));
+      core1.addColorStop(0, 'rgba(255,255,255,0.8)'); core1.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = core1; ctx.beginPath(); ctx.arc(0, 0, Math.max(0.1, 4.5 * ls), 0, Math.PI * 2); ctx.fill();
+    }
+
+    function paintLotus(ctx, ls, isRefl, sc) {
+      // Leaf Pad
+      ctx.fillStyle = '#1a4020';
+      ctx.beginPath(); ctx.ellipse(0, 0, Math.max(0.1, 15 * ls), Math.max(0.1, 4 * ls), 0, 0, Math.PI * 2); ctx.fill();
+      if (!isRefl) {
+        ctx.fillStyle = '#255a2d';
+        ctx.beginPath(); ctx.ellipse(0, -1 * ls, Math.max(0.1, 13 * ls), Math.max(0.1, 3 * ls), 0, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // Lotus Petals
+      function drawRealPetal(pRot, scaleX, scaleY, yOffset, c1, c2) {
+        ctx.save(); ctx.translate(0, yOffset); ctx.rotate(pRot);
+        var pG = ctx.createLinearGradient(0, 0, 0, -10 * scaleY);
+        pG.addColorStop(0, c1); pG.addColorStop(1, c2);
+        ctx.fillStyle = pG;
+        ctx.beginPath();
+        var w = 3.5 * scaleX, h = 10 * scaleY;
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(w, -h * 0.4, w * 0.9, -h * 0.8, 0, -h);
+        ctx.bezierCurveTo(-w * 0.9, -h * 0.8, -w, -h * 0.4, 0, 0);
+        ctx.fill();
+        if (!isRefl) {
+          ctx.strokeStyle = 'rgba(255, 200, 230, 0.4)';
+          ctx.lineWidth = 0.5 * sc;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      // Base layer petals (darker pink, spread out completely)
+      drawRealPetal(-1.3, 1.4 * ls, 0.5 * ls, 0.5 * ls, '#c93264', '#ff80af');
+      drawRealPetal(1.3, 1.4 * ls, 0.5 * ls, 0.5 * ls, '#c93264', '#ff80af');
+      drawRealPetal(-0.9, 1.3 * ls, 0.7 * ls, 0, '#d94179', '#ff99c2');
+      drawRealPetal(0.9, 1.3 * ls, 0.7 * ls, 0, '#d94179', '#ff99c2');
+
+      // Middle layer petals (brighter pink)
+      drawRealPetal(-0.5, 1.1 * ls, 0.9 * ls, -0.5 * ls, '#e8528f', '#ffb3d1');
+      drawRealPetal(0.5, 1.1 * ls, 0.9 * ls, -0.5 * ls, '#e8528f', '#ffb3d1');
+
+      // Inner layer petals (very light pink/white, standing up)
+      drawRealPetal(-0.25, 0.9 * ls, 1.0 * ls, -1 * ls, '#f76a9a', '#ffffff');
+      drawRealPetal(0.25, 0.9 * ls, 1.0 * ls, -1 * ls, '#f76a9a', '#ffffff');
+      drawRealPetal(0, 1.0 * ls, 1.2 * ls, -1.5 * ls, '#ff80af', '#ffffff'); // Center petal
+
+      // Yellow core (stamens)
+      if (!isRefl) {
+        var cG = ctx.createRadialGradient(0, -2.5 * ls, 0, 0, -2.5 * ls, Math.max(0.1, 2.5 * ls));
+        cG.addColorStop(0, '#ffcc00'); cG.addColorStop(1, '#ff9900');
+        ctx.fillStyle = cG;
+        ctx.beginPath(); ctx.ellipse(0, -2.5 * ls, Math.max(0.1, 2.5 * ls), Math.max(0.1, 1.5 * ls), 0, 0, Math.PI * 2); ctx.fill();
       }
     }

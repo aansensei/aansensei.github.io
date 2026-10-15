@@ -10,8 +10,12 @@
     // 5 kiểu pháo hoa: Thường, Liễu rủ, Liên Hoa (Hoa Sen), Hỏa Long (Rồng bay), Cẩm Tú (Lấp lánh)
     var FW_TYPES = ['normal', 'willow', 'lotus', 'dragon', 'brocade'];
 
+    /* A firework the visitor asks for by clicking always launches, because it is a single short
+       effect. The ambient ones launched on a timer are still limited to Full. Neither runs when
+       the visitor has asked their system for reduced motion. */
     function makeFW(tx, ty) {
-      if (sceneQuality !== 'full') return;
+      if (reduceMotionQuery && reduceMotionQuery.matches) return;
+      if (sceneQuality !== 'full' && !tx) return;
       var startX = tx || W * (.2 + Math.random() * .6);
       var targetY = ty || H * (.06 + Math.random() * .28);
       var fw = {
@@ -117,7 +121,7 @@
     }
 
     function renderFireworksLayer() {
-        if (sceneQuality !== 'full') {
+        if (reduceMotionQuery && reduceMotionQuery.matches) {
           FW.length = 0;
           return;
         }
