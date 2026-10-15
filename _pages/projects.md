@@ -226,6 +226,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 .coming-badge{display:inline-block;padding:5px 13px;margin-top:11px;background:rgba(201,162,39,.15);border:1px dashed rgba(201,162,39,.4);border-radius:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:#c9a227!important;pointer-events:none;}
 
 @keyframes bottomBreath{0%,100%{opacity:.35;transform:scaleX(.78);}50%{opacity:.62;transform:scaleX(1);}}
+.book-container::before{content:'';position:absolute;left:0;right:0;top:100%;height:12px;}
 .book-container::after{content:'';position:absolute;bottom:-5px;left:14%;right:14%;height:16px;border-radius:50%;filter:blur(14px);animation:bottomBreath 3.5s ease-in-out infinite;pointer-events:none;z-index:0;}
 .book-1.book-container::after{background:rgba(42,157,143,1);animation-duration:3.2s;animation-delay:0s;}
 .book-2.book-container::after{background:rgba(90,20,180,1);animation-duration:3.8s;animation-delay:-1.4s;}

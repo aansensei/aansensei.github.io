@@ -105,12 +105,17 @@ title: "Hello, I'm An Nguyen"
     transition: background .4s ease;
   }
 
+  /* The theme-wide transition rule in custom.html is !important and has no transform entry,
+     so the card is eased from script. The shadow keeps a short ease so hover feels immediate. */
+  .home-project-card {
+    transition: background 1.5s ease, border-color 1.5s ease, box-shadow .5s ease !important;
+  }
+
   .home-project-card.is-hovered {
     box-shadow:
       -14px  8px 0 rgba(80,50,8,.75),
       -22px 14px 0 rgba(50,30,4,.48),
-      26px 48px 90px rgba(0,0,0,.88),
-      0 0 80px rgba(120,55,210,.16),
+      22px 38px 56px rgba(0,0,0,.82),
       0 0 44px rgba(201,162,39,.22),
       inset 0 1px 0 rgba(201,162,39,.25),
       inset 0 0 60px rgba(15,8,45,.14);
@@ -342,12 +347,13 @@ title: "Hello, I'm An Nguyen"
   }
 
   @keyframes cornerPulse {
-    0%,100% { border-color: rgba(240,200,74,.90); filter: drop-shadow(0 0 4px rgba(240,200,74,.55)); }
-    50%      { border-color: rgba(255,252,180,.98); filter: drop-shadow(0 0 9px rgba(255,250,150,.80)); }
+    0%,100% { border-color: rgba(240,200,74,.90); }
+    50%      { border-color: rgba(255,252,180,.98); }
   }
 
   .home-project-card.is-hovered .grim-corner {
     width: 20px; height: 20px;
+    filter: drop-shadow(0 0 6px rgba(240,200,74,.65));
     animation: cornerPulse 1.6s ease-in-out infinite;
   }
 
@@ -521,22 +527,45 @@ title: "Hello, I'm An Nguyen"
   var RUNES = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛊ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
 
   document.querySelectorAll('.home-project-card').forEach(function (card) {
+    /* The wrapper never moves. Hover is read from it, so lifting and tilting the card cannot
+       slide the card out from under a pointer resting near its bottom edge. */
+    var hit = document.createElement('div');
+    hit.className = 'hpc-hit';
+    card.parentNode.insertBefore(hit, card);
+    hit.appendChild(card);
+
     var shimmer = card.querySelector('.grim-shimmer');
     var particleInterval = null;
-    var isHovered = false;
+    var cur = { lift: 0, rx: 0, ry: 0 };
+    var goal = { lift: 0, rx: 0, ry: 0 };
+    var raf = 0, lastT = 0;
 
-    card.addEventListener('mousemove', function (e) {
-      if (!isHovered) return;
-      var r  = card.getBoundingClientRect();
+    function ease(t) {
+      var k = 1 - Math.pow(0.82, Math.min(t - lastT, 50) / 16.7), settled = true;
+      lastT = t;
+      for (var p in cur) {
+        cur[p] += (goal[p] - cur[p]) * k;
+        if (Math.abs(goal[p] - cur[p]) < 0.01) cur[p] = goal[p]; else settled = false;
+      }
+      card.style.transform = (cur.lift || cur.rx || cur.ry)
+        ? 'translateY(' + cur.lift + 'px) perspective(700px) rotateX(' + cur.rx + 'deg) rotateY(' + cur.ry + 'deg)'
+        : '';
+      raf = settled ? 0 : requestAnimationFrame(ease);
+    }
+    function kick() { if (!raf) { lastT = performance.now(); raf = requestAnimationFrame(ease); } }
+
+    hit.addEventListener('mousemove', function (e) {
+      var r  = hit.getBoundingClientRect();
       var dx = (e.clientX - (r.left + r.width  / 2)) / (r.width  / 2);
       var dy = (e.clientY - (r.top  + r.height / 2)) / (r.height / 2);
-      card.style.transform = 'translateY(-16px) perspective(700px) rotateX(' + (-dy * 5) + 'deg) rotateY(' + (dx * 10) + 'deg)';
+      goal.lift = -16; goal.rx = -dy * 5; goal.ry = dx * 10;
+      kick();
     });
 
-    card.addEventListener('mouseenter', function () {
-      isHovered = true;
+    hit.addEventListener('mouseenter', function () {
       card.classList.add('is-hovered');
-      card.style.transition = 'box-shadow .5s ease';
+      goal.lift = -16;
+      kick();
       if (shimmer) {
         shimmer.style.transition = 'none';
         shimmer.style.left = '-80%';
@@ -548,17 +577,16 @@ title: "Hello, I'm An Nguyen"
       particleInterval = setInterval(spawnRune, 280);
     });
 
-    card.addEventListener('mouseleave', function () {
-      isHovered = false;
+    hit.addEventListener('mouseleave', function () {
       card.classList.remove('is-hovered');
-      card.style.transition = 'transform .65s cubic-bezier(.25,1,.5,1), box-shadow .5s ease';
-      card.style.transform  = '';
+      goal.lift = 0; goal.rx = 0; goal.ry = 0;
+      kick();
       clearInterval(particleInterval);
       particleInterval = null;
     });
 
     function spawnRune() {
-      var rect = card.getBoundingClientRect();
+      var rect = hit.getBoundingClientRect();
       var el   = document.createElement('span');
       el.className   = 'grim-rune-particle';
       el.textContent = RUNES[Math.floor(Math.random() * RUNES.length)];
