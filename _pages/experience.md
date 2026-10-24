@@ -9,7 +9,9 @@ description: "Education and work experience of Cao Thien An Nguyen, from an AI e
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
 
-.exp-content{
+/* The modal layer lives on body so a transformed or blurred ancestor cannot trap it, and it reads the same tokens. */
+.exp-content,
+.exp-modal-layer{
   --exp-bg:rgba(6,4,22,.6);
   --exp-border:rgba(201,162,39,.2);
   --exp-border-strong:rgba(201,162,39,.3);
@@ -31,9 +33,12 @@ description: "Education and work experience of Cao Thien An Nguyen, from an AI e
   --exp-ring-color:rgba(90,170,255,.85);
   --exp-nebula-a:rgba(120,80,220,.16);
   --exp-nebula-b:rgba(70,140,220,.14);
+}
+.exp-content{
   background:var(--exp-bg);backdrop-filter:blur(20px);border:1px solid var(--exp-border);border-radius:16px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,162,39,.08);color:var(--exp-text);position:relative;
 }
-body.an-day-mode .exp-content{
+body.an-day-mode .exp-content,
+body.an-day-mode .exp-modal-layer{
   --exp-bg:rgba(255,250,238,.85);
   --exp-border:rgba(154,110,30,.3);
   --exp-border-strong:rgba(154,110,30,.4);
@@ -55,6 +60,8 @@ body.an-day-mode .exp-content{
   --exp-ring-color:rgba(30,95,180,.6);
   --exp-nebula-a:rgba(120,80,220,.05);
   --exp-nebula-b:rgba(70,140,220,.05);
+}
+body.an-day-mode .exp-content{
   box-shadow:0 10px 30px rgba(120,90,30,.18),inset 0 1px 0 rgba(255,255,255,.5);
 }
 .exp-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
@@ -129,12 +136,13 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-node-tag{font-family:'Cinzel',serif!important;font-weight:600!important;font-size:.76rem;letter-spacing:.02em;color:var(--exp-text-dim);white-space:nowrap;background:var(--exp-tag-bg);padding:3px 11px;border-radius:999px;border:1px solid var(--exp-border);transition:color .2s ease,border-color .2s ease;}
 .exp-node.active .exp-node-tag{color:var(--exp-gold);border-color:var(--exp-border-strong);}
 
-.exp-modal-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.25rem;background:var(--exp-modal-overlay);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:50;}
+.exp-modal-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.25rem;background:var(--exp-modal-overlay);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:100000;overscroll-behavior:contain;}
 .exp-modal-layer.open{opacity:1;visibility:visible;}
 .exp-modal-card{position:relative;width:100%;max-width:540px;max-height:88%;background:var(--exp-modal-bg);backdrop-filter:blur(16px);border:1px solid var(--exp-border-strong);border-radius:16px;padding:34px 38px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(201,162,39,.1);transform:scale(.94);transition:transform .25s ease;color:var(--exp-text);display:flex;flex-direction:column;}
 .exp-modal-layer.open .exp-modal-card{transform:scale(1);}
 .exp-modal-card::before{content:'';position:absolute;top:0;left:9%;right:9%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
-.exp-modal-body{overflow-y:auto;}
+.exp-modal-body{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
+.exp-modal-card.wide{max-width:620px;}
 .exp-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,.12);border:1px solid var(--exp-border-strong);color:var(--exp-text-dim);cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:color .2s ease,border-color .2s ease,background .2s ease;z-index:1;}
 .exp-modal-close:hover{color:var(--exp-gold);border-color:var(--exp-border-strong);background:rgba(201,162,39,.2);}
 .exp-modal-close:focus-visible{outline:2px solid var(--exp-gold);outline-offset:2px;}
@@ -146,6 +154,47 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-panel-highlights li{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--exp-text-body);line-height:1.72;margin-bottom:9px;padding-left:20px;position:relative;}
 .exp-panel-highlights li::before{content:'✦';position:absolute;left:0;top:5px;color:var(--exp-divider);font-size:.68rem;}
 .exp-panel-highlights li strong{color:var(--exp-text);font-weight:600;}
+
+.exp-node-text{display:contents;}
+.exp-node-hint{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:5px;white-space:nowrap;pointer-events:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--exp-gold);}
+.exp-node.active .exp-node-hint{opacity:0;animation:none;}
+@media(prefers-reduced-motion:no-preference){.exp-node-hint{animation:expHintPulse 2.8s ease-in-out infinite;}}
+@keyframes expHintPulse{0%,100%{opacity:.72;}50%{opacity:1;}}
+body.an-day-mode .exp-modal-close{background:rgba(154,110,30,.14);color:#3a2a10;}
+body.an-day-mode .exp-course{background:rgba(154,110,30,.07);}
+body.an-day-mode .exp-course.open{background:rgba(154,110,30,.13);}
+body.an-day-mode .exp-term-status{background:rgba(154,110,30,.08);}
+body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168,.55);background:rgba(27,90,168,.07);}
+
+.exp-courses{margin-top:24px;}
+.exp-courses-title{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
+.exp-courses-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--exp-border-strong),transparent);}
+.exp-courses-note{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
+.exp-term{margin-top:16px;}
+.exp-term-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;}
+.exp-term-name{font-family:'Cinzel',serif;font-weight:700;font-size:.98rem;color:var(--exp-text);}
+.exp-term-meta{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--exp-text-dim);}
+.exp-term-status{margin-left:auto;align-self:center;padding:3px 10px;border-radius:999px;border:1px solid var(--exp-border-strong);font-family:'Cinzel',serif;font-weight:600;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--exp-gold);}
+.exp-term-status.live{border-color:var(--exp-ring-color);color:var(--exp-ring-color);}
+
+.exp-course-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
+.exp-course{background:rgba(201,162,39,.06);border:1px solid var(--exp-border);border-radius:10px;transition:border-color .2s ease,background .2s ease;}
+.exp-course:hover,.exp-course.open{border-color:var(--exp-border-strong);}
+.exp-course.open{background:rgba(201,162,39,.11);}
+.exp-course-btn{display:flex;align-items:center;gap:12px;width:100%;padding:10px 14px;background:none;border:0;border-radius:10px;font:inherit;color:inherit;text-align:left;cursor:pointer;}
+.exp-course-btn:focus-visible{outline:2px solid var(--exp-gold);outline-offset:-2px;}
+.exp-course-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+.exp-course-code{font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;color:var(--exp-text);}
+.exp-course-title{font-family:'Cormorant Garamond',serif;font-size:1.02rem;line-height:1.3;color:var(--exp-text-body);}
+.exp-course-cr{flex:none;font-family:'Cinzel',serif;font-weight:600;font-size:.74rem;white-space:nowrap;color:var(--exp-gold);}
+.exp-course-chev{flex:none;width:7px;height:7px;margin:0 3px 3px 0;border-right:1.5px solid var(--exp-text-dimmer);border-bottom:1.5px solid var(--exp-text-dimmer);transform:rotate(45deg);transition:transform .25s ease;}
+.exp-course.open .exp-course-chev{transform:rotate(-135deg);margin:3px 3px 0 0;}
+.exp-course-desc{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .28s ease,visibility 0s .28s;}
+.exp-course.open .exp-course-desc{grid-template-rows:1fr;}
+.exp-modal-layer.open .exp-course.open .exp-course-desc{visibility:visible;transition:grid-template-rows .28s ease,visibility 0s;}
+.exp-course-desc>div{overflow:hidden;min-height:0;}
+.exp-course-desc p{margin:0;padding:2px 14px 12px;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:var(--exp-text-dim);}
+@media(prefers-reduced-motion:reduce){.exp-course-desc,.exp-course-chev{transition:none;}}
 
 @media(max-width:600px){
   .exp-content{padding:22px;}
@@ -167,6 +216,9 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
   .exp-star{width:40px;height:40px;flex:0 0 auto;}
   .exp-star-frame{width:30px;height:30px;}
   .exp-node-tag{white-space:normal;text-align:left;font-size:.72rem;}
+  .exp-node-text{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
+  .exp-node-hint{position:static;transform:none;margin-top:0;white-space:normal;text-align:left;}
+  .exp-course-btn{padding:9px 12px;gap:10px;}
 }
 </style>
 
@@ -194,11 +246,12 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
     <div class="exp-modal-layer" id="expModalLayer">
       <div class="exp-modal-card" id="expModalCard" role="dialog" aria-modal="true" aria-labelledby="expModalRole">
         <button type="button" class="exp-modal-close" id="expModalClose" aria-label="Close">&#10005;</button>
-        <div class="exp-modal-body">
+        <div class="exp-modal-body" id="expModalBody">
           <p class="exp-panel-eyebrow" id="expModalDate"></p>
           <h3 class="exp-panel-role" id="expModalRole"></h3>
           <p class="exp-panel-org" id="expModalOrg"></p>
           <ul class="exp-panel-highlights" id="expModalHighlights"></ul>
+          <div id="expModalCourses"></div>
         </div>
       </div>
     </div>
@@ -209,7 +262,14 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 var EXP_DATA = {
   education: {
     nodes: [
-      {x:28,y:30,logo:"/assets/images/uwmadison-logo.jpg",role:"B.S. in Economics & Data Science",org:"University of Wisconsin–Madison · Madison, WI",date:"2025 – 2029",highlights:[]},
+      {x:28,y:30,logo:"/assets/images/uwmadison-logo.jpg",role:"B.S. in Economics & Data Science",org:"University of Wisconsin–Madison · Madison, WI",date:"2025 – 2029",highlights:[],hint:"click to see courses taken",courses:{
+        terms:[
+          {name:"Fall 2025",status:"Completed",items:[["ECON 101",4],["MATH 221",5],["ESL 117",3],["COMP SCI 220",4]]},
+          {name:"Spring 2026",status:"Completed",items:[["MUSIC 113",1],["ECON 102",4],["COMP SCI 320",4],["MATH 340",3],["ESL 118",3],["ENGL 153",3]]},
+          {name:"Fall 2026",status:"In Progress",items:[["ECON 302",4],["MUSIC 113",1],["COMP SCI 532",3],["BIOCHEM 104",3],["COMP SCI 544",3],["ENGL 169",3]]}
+        ],
+        extra:[["MATH 222",4]]
+      }},
       {x:68,y:62,logo:"/assets/images/ais-logo.jpg",role:"High School Diploma",org:"The Asian International School · Ho Chi Minh City, Vietnam",date:"August 2013 – June 2025",highlights:[]}
     ],
     links: [[0,1]]
@@ -249,6 +309,25 @@ var EXP_DATA = {
   }
 };
 
+var COURSE_INFO = {
+  "ECON 101": {title:"Principles of Microeconomics", desc:"How households, firms, and markets make choices: supply and demand, costs and competition, market failures, and the role of government."},
+  "ECON 102": {title:"Principles of Macroeconomics", desc:"The economy as a whole: GDP, unemployment, inflation, and growth, and how monetary and fiscal policy respond to the business cycle."},
+  "ECON 302": {title:"Intermediate Macroeconomic Theory", desc:"A model-based look at output, employment, inflation, and growth, and how policy shifts them in the short and long run."},
+  "MATH 221": {title:"Calculus and Analytic Geometry 1", desc:"Limits, derivatives, and an introduction to integrals for functions of one variable, with applications to rates of change and optimization."},
+  "MATH 222": {title:"Calculus and Analytic Geometry 2", desc:"Techniques of integration, improper integrals, infinite sequences and series, and Taylor series."},
+  "MATH 340": {title:"Elementary Matrix and Linear Algebra", desc:"Systems of linear equations, matrices, determinants, vector spaces, and eigenvalues: the linear algebra behind most of data science."},
+  "ESL 117": {title:"Academic Writing I", desc:"Academic writing for multilingual students: building clear paragraphs and essays, organizing an argument, and using sources responsibly."},
+  "ESL 118": {title:"Academic Writing II", desc:"A second course in academic writing with longer research-based essays, stronger argumentation, and revision for a university audience."},
+  "COMP SCI 220": {title:"Data Science Programming I", desc:"Programming fundamentals in Python for data work: data structures, functions, files, and the first steps of analyzing real datasets."},
+  "COMP SCI 320": {title:"Data Science Programming II", desc:"Continues Data Science Programming I with larger Python programs, more advanced data structures, and working with data from several sources."},
+  "COMP SCI 532": {title:"Matrix Methods in Machine Learning", desc:"Linear algebra applied to machine learning: least squares, SVD, PCA, and the optimization methods behind modern models."},
+  "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"How large datasets are stored and processed across many machines: distributed file systems, MapReduce and Spark style processing, and data pipelines."},
+  "BIOCHEM 104": {title:"Molecules to Life & Science", desc:"An introduction to the molecules of life and how biochemistry shapes health, food, and modern science, written for a broad audience."},
+  "MUSIC 113": {title:"Music in Performance", desc:"A one-credit music course about experiencing music in performance: listening closely and engaging with live concerts and performers."},
+  "ENGL 153": {title:"Literature and the Environment", desc:"Reading and writing about literature through the lens of nature: how authors imagine the environment, ecology, and our place in it."},
+  "ENGL 169": {title:"Modern American Literature", desc:"A survey of American literature from the modern era, reading fiction, poetry, and drama in their cultural context."}
+};
+
 (function(){
   var current = "education";
   var nodesEl = document.getElementById("expNodes");
@@ -256,6 +335,7 @@ var EXP_DATA = {
   var modalLayer = document.getElementById("expModalLayer");
   var expNetworkEl = document.getElementById("expNetwork");
   var lastFocused = null;
+  document.body.appendChild(modalLayer);
 
   var nodeEls = [];
   var lineEls = {};
@@ -308,10 +388,11 @@ var EXP_DATA = {
       var starInner = logoSrc
         ? '<img src="' + logoSrc + '" alt="">'
         : '<i class="fas ' + item.icon + '"></i>';
+      var hintHtml = item.hint ? '<span class="exp-node-hint">' + item.hint + '</span>' : '';
       div.innerHTML =
         '<button type="button" class="exp-node-btn" data-index="' + i + '" aria-haspopup="dialog">' +
           '<span class="exp-star" aria-hidden="true"><span class="exp-star-frame">' + starInner + '</span></span>' +
-          '<span class="exp-node-tag">' + item.role + '</span>' +
+          '<span class="exp-node-text"><span class="exp-node-tag">' + item.role + '</span>' + hintHtml + '</span>' +
         '</button>';
       nodesEl.appendChild(div);
       nodeEls.push(div);
@@ -366,6 +447,62 @@ var EXP_DATA = {
     });
   }
 
+  var courseSeq = 0;
+
+  function esc(s){
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  }
+
+  function sumCredits(items){
+    return items.reduce(function(total, it){ return total + it[1]; }, 0);
+  }
+
+  function courseRow(code, credits){
+    var info = COURSE_INFO[code];
+    var id = "expCourseDesc" + (++courseSeq);
+    return '<li class="exp-course">' +
+      '<button type="button" class="exp-course-btn" aria-expanded="false" aria-controls="' + id + '">' +
+        '<span class="exp-course-main"><span class="exp-course-code">' + esc(code) + '</span>' +
+        '<span class="exp-course-title">' + esc(info.title) + '</span></span>' +
+        '<span class="exp-course-cr">' + credits + ' Cr</span>' +
+        '<span class="exp-course-chev" aria-hidden="true"></span>' +
+      '</button>' +
+      '<div class="exp-course-desc" id="' + id + '"><div><p>' + esc(info.desc) + '</p></div></div>' +
+    '</li>';
+  }
+
+  function courseList(items){
+    return '<ul class="exp-course-list">' + items.map(function(it){ return courseRow(it[0], it[1]); }).join("") + '</ul>';
+  }
+
+  function renderCourses(data){
+    var html = '<div class="exp-courses">' +
+      '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
+      '<p class="exp-courses-note">tap a course to read what it covers</p>';
+    data.terms.forEach(function(term){
+      html += '<div class="exp-term"><div class="exp-term-head">' +
+        '<span class="exp-term-name">' + esc(term.name) + '</span>' +
+        '<span class="exp-term-meta">' + sumCredits(term.items) + ' credits</span>' +
+        '<span class="exp-term-status' + (term.status === "In Progress" ? ' live' : '') + '">' + esc(term.status) + '</span>' +
+        '</div>' + courseList(term.items) + '</div>';
+    });
+    html += '</div>';
+    if(data.extra && data.extra.length){
+      html += '<div class="exp-courses">' +
+        '<div class="exp-courses-title" role="heading" aria-level="4">Additional Credits</div>' +
+        '<div class="exp-term"><div class="exp-term-head"><span class="exp-term-meta">' + sumCredits(data.extra) + ' credits</span></div>' +
+        courseList(data.extra) + '</div></div>';
+    }
+    return html;
+  }
+
+  document.getElementById("expModalCourses").addEventListener("click", function(e){
+    var btn = e.target.closest(".exp-course-btn");
+    if(!btn) return;
+    var open = btn.parentNode.classList.toggle("open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
   function openModal(index){
     var item = EXP_DATA[current].nodes[index];
     nodesEl.querySelectorAll(".exp-node").forEach(function(n, i){ n.classList.toggle("active", i === index); });
@@ -380,6 +517,9 @@ var EXP_DATA = {
     } else {
       list.innerHTML = "";
     }
+    document.getElementById("expModalCourses").innerHTML = item.courses ? renderCourses(item.courses) : "";
+    document.getElementById("expModalCard").classList.toggle("wide", !!item.courses);
+    document.getElementById("expModalBody").scrollTop = 0;
 
     lastFocused = document.activeElement;
     modalLayer.classList.add("open");
