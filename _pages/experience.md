@@ -142,7 +142,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-modal-layer.open .exp-modal-card{transform:scale(1);}
 .exp-modal-card::before{content:'';position:absolute;top:0;left:9%;right:9%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
 .exp-modal-body{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
-.exp-modal-card.wide{max-width:620px;}
+.exp-modal-card.wide{max-width:min(1240px,94vw);max-height:92%;}
 .exp-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,.12);border:1px solid var(--exp-border-strong);color:var(--exp-text-dim);cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:color .2s ease,border-color .2s ease,background .2s ease;z-index:1;}
 .exp-modal-close:hover{color:var(--exp-gold);border-color:var(--exp-border-strong);background:rgba(201,162,39,.2);}
 .exp-modal-close:focus-visible{outline:2px solid var(--exp-gold);outline-offset:2px;}
@@ -170,7 +170,9 @@ body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168
 .exp-courses-title{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
 .exp-courses-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--exp-border-strong),transparent);}
 .exp-courses-note{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
+.exp-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 30px;align-items:start;}
 .exp-term{margin-top:16px;}
+.exp-term-extra .exp-term-name{color:var(--exp-gold);}
 .exp-term-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;}
 .exp-term-name{font-family:'Cinzel',serif;font-weight:700;font-size:.98rem;color:var(--exp-text);}
 .exp-term-meta{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--exp-text-dim);}
@@ -185,7 +187,7 @@ body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168
 .exp-course-btn:focus-visible{outline:2px solid var(--exp-gold);outline-offset:-2px;}
 .exp-course-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
 .exp-course-code{font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;color:var(--exp-text);}
-.exp-course-title{font-family:'Cormorant Garamond',serif;font-size:1.02rem;line-height:1.3;color:var(--exp-text-body);}
+.exp-course-title{font-family:'Cormorant Garamond',serif;font-size:.96rem;line-height:1.3;color:var(--exp-text-body);}
 .exp-course-cr{flex:none;font-family:'Cinzel',serif;font-weight:600;font-size:.74rem;white-space:nowrap;color:var(--exp-gold);}
 .exp-course-chev{flex:none;width:7px;height:7px;margin:0 3px 3px 0;border-right:1.5px solid var(--exp-text-dimmer);border-bottom:1.5px solid var(--exp-text-dimmer);transform:rotate(45deg);transition:transform .25s ease;}
 .exp-course.open .exp-course-chev{transform:rotate(-135deg);margin:3px 3px 0 0;}
@@ -203,7 +205,8 @@ body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168
 @media(max-width:680px){
   .exp-tabs{gap:6px;}
   .exp-tab-btn{padding:7px 14px;font-size:.7rem;letter-spacing:.06em;}
-  .exp-modal-card{max-width:none;width:100%;padding:26px 22px;}
+  .exp-modal-card,.exp-modal-card.wide{max-width:none;width:100%;padding:26px 22px;}
+  .exp-modal-card.wide{max-height:88%;}
   .exp-modal-close{top:10px;right:10px;}
   .exp-network{aspect-ratio:auto;max-width:none;margin-top:22px;}
   .exp-network::before{opacity:.35;}
@@ -475,25 +478,38 @@ var COURSE_INFO = {
     return '<ul class="exp-course-list">' + items.map(function(it){ return courseRow(it[0], it[1]); }).join("") + '</ul>';
   }
 
+  function termBlock(term){
+    return '<div class="exp-term"><div class="exp-term-head">' +
+      '<span class="exp-term-name">' + esc(term.name) + '</span>' +
+      '<span class="exp-term-meta">' + sumCredits(term.items) + ' credits</span>' +
+      '<span class="exp-term-status' + (term.status === "In Progress" ? ' live' : '') + '">' + esc(term.status) + '</span>' +
+      '</div>' + courseList(term.items) + '</div>';
+  }
+
+  function extraBlock(items){
+    return '<div class="exp-term exp-term-extra"><div class="exp-term-head">' +
+      '<span class="exp-term-name">Additional Credits</span>' +
+      '<span class="exp-term-meta">' + sumCredits(items) + ' credits</span>' +
+      '</div>' + courseList(items) + '</div>';
+  }
+
+  /* Each term is a column that wraps to fewer columns as the modal narrows. Additional Credits
+     joins the column with the fewest courses so the columns end at about the same height. */
   function renderCourses(data){
-    var html = '<div class="exp-courses">' +
-      '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
-      '<p class="exp-courses-note">tap a course to read what it covers</p>';
-    data.terms.forEach(function(term){
-      html += '<div class="exp-term"><div class="exp-term-head">' +
-        '<span class="exp-term-name">' + esc(term.name) + '</span>' +
-        '<span class="exp-term-meta">' + sumCredits(term.items) + ' credits</span>' +
-        '<span class="exp-term-status' + (term.status === "In Progress" ? ' live' : '') + '">' + esc(term.status) + '</span>' +
-        '</div>' + courseList(term.items) + '</div>';
+    var cols = data.terms.map(function(term){
+      return { size: term.items.length, html: termBlock(term) };
     });
-    html += '</div>';
     if(data.extra && data.extra.length){
-      html += '<div class="exp-courses">' +
-        '<div class="exp-courses-title" role="heading" aria-level="4">Additional Credits</div>' +
-        '<div class="exp-term"><div class="exp-term-head"><span class="exp-term-meta">' + sumCredits(data.extra) + ' credits</span></div>' +
-        courseList(data.extra) + '</div></div>';
+      var shortest = 0;
+      cols.forEach(function(col, i){ if(col.size < cols[shortest].size) shortest = i; });
+      cols[shortest].html += extraBlock(data.extra);
+      cols[shortest].size += data.extra.length;
     }
-    return html;
+    return '<div class="exp-courses">' +
+      '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
+      '<p class="exp-courses-note">tap a course to read what it covers</p>' +
+      '<div class="exp-terms">' + cols.map(function(col){ return '<div class="exp-term-col">' + col.html + '</div>'; }).join("") + '</div>' +
+      '</div>';
   }
 
   document.getElementById("expModalCourses").addEventListener("click", function(e){
