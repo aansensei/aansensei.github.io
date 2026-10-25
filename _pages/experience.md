@@ -112,6 +112,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-node{position:absolute;transform:translate(-50%,-50%);opacity:0;animation:expNodeReveal .55s ease forwards;animation-delay:calc(var(--i,0) * 90ms + .1s);}
 @keyframes expNodeReveal{from{opacity:0;transform:translate(-50%,-50%) scale(.4);}to{opacity:1;transform:translate(-50%,-50%) scale(1);}}
 @media(prefers-reduced-motion:reduce){.exp-node{opacity:1;animation:none;}}
+.exp-node-still{opacity:1;animation:none;}
 .exp-node-btn{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;background:transparent;border:none;cursor:grab;padding:6px;font:inherit;color:inherit;touch-action:none;user-select:none;-webkit-user-select:none;}
 .exp-node-btn:active,.exp-node.dragging .exp-node-btn{cursor:grabbing;}
 .exp-node-btn:focus-visible{outline:2px solid var(--exp-gold);outline-offset:4px;border-radius:50%;}
@@ -141,7 +142,7 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-modal-card{position:relative;width:100%;max-width:540px;max-height:88%;background:var(--exp-modal-bg);backdrop-filter:blur(16px);border:1px solid var(--exp-border-strong);border-radius:16px;padding:34px 38px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(201,162,39,.1);transform:scale(.94);transition:transform .25s ease;color:var(--exp-text);display:flex;flex-direction:column;}
 .exp-modal-layer.open .exp-modal-card{transform:scale(1);}
 .exp-modal-card::before{content:'';position:absolute;top:0;left:9%;right:9%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
-.exp-modal-body{overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
+.exp-modal-body{margin-top:14px;overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
 .exp-modal-card.wide{max-width:min(1240px,94vw);max-height:92%;}
 .exp-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,.12);border:1px solid var(--exp-border-strong);color:var(--exp-text-dim);cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:color .2s ease,border-color .2s ease,background .2s ease;z-index:1;}
 .exp-modal-close:hover{color:var(--exp-gold);border-color:var(--exp-border-strong);background:rgba(201,162,39,.2);}
@@ -170,6 +171,8 @@ body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168
 .exp-courses-title{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
 .exp-courses-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--exp-border-strong),transparent);}
 .exp-courses-note{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
+.exp-courses-source{margin:22px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;color:var(--exp-text-dimmer);}
+.exp-courses-source a{color:var(--exp-gold);text-decoration:underline;text-underline-offset:2px;}
 .exp-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 30px;align-items:start;}
 .exp-term{margin-top:16px;}
 .exp-term-extra .exp-term-name{color:var(--exp-gold);}
@@ -297,12 +300,12 @@ var EXP_DATA = {
         "<strong>Case Study Development:</strong> Executed a comparative case study on TSMC's talent strategy, extracting lessons on specialization and FDI attraction to propose 3 policy recommendations for Vietnam's workforce development.",
         "<strong>Publication:</strong> Co-authored and published the peer-reviewed article \"Current Situation of Human Resources in the Semiconductor Industry in Vietnam and Experiences From Taiwan\" in the International Research Journal of Economics and Management Studies (Vol. 3, No. 8)."
       ]},
-      {x:64,y:86,logo:"/assets/images/hodeco-logo.png",role:"Business Intern",org:"Ba Ria – Vung Tau House Development JSC · Ho Chi Minh City, Vietnam",date:"July 2024",highlights:[
+      {x:58,y:86,logo:"/assets/images/hodeco-logo.png",role:"Business Intern",org:"Ba Ria – Vung Tau House Development JSC · Ho Chi Minh City, Vietnam",date:"July 2024",highlights:[
         "<strong>Data Analysis:</strong> Analyzed a real estate dataset of 500+ properties using Advanced Excel (Pivot Tables, VLOOKUP), identifying 3 underperforming assets and proposing pricing adjustments.",
         "<strong>Sales Reporting &amp; Presentation:</strong> Spearheaded the weekly sales reporting process, cleansing corrupt raw datasets to ensure 98% data accuracy, and presented strategic insights to 20 stakeholders, cutting preparation time by 30%.",
         "<strong>Market Research:</strong> Conducted competitor analysis that contributed to a 10% refinement in the company's marketing strategy for Q3."
       ]},
-      {x:94,y:86,logo:"/assets/images/bamboo-capital-logo.png",role:"Business Intern",org:"Bamboo Capital Group · Ho Chi Minh City, Vietnam",date:"July 2023",highlights:[
+      {x:88,y:86,logo:"/assets/images/bamboo-capital-logo.png",role:"Business Intern",org:"Bamboo Capital Group · Ho Chi Minh City, Vietnam",date:"July 2023",highlights:[
         "<strong>Data Integrity &amp; Operations:</strong> Managed the accurate entry of weekly sales data into the company's ERP, ensuring 100% data accuracy to support warehouse inventory operations and logistics planning.",
         "<strong>Strategic Market Research:</strong> Conducted a comprehensive analysis of 5+ key distribution channels, identifying coverage gaps and proposing improvements adopted by the marketing team.",
         "<strong>Process Optimization:</strong> Streamlined administrative workflows by digitizing a backlog of physical documents, reducing file retrieval time by 20% and enhancing information security."
@@ -313,22 +316,22 @@ var EXP_DATA = {
 };
 
 var COURSE_INFO = {
-  "ECON 101": {title:"Principles of Microeconomics", desc:"How households, firms, and markets make choices: supply and demand, costs and competition, market failures, and the role of government."},
-  "ECON 102": {title:"Principles of Macroeconomics", desc:"The economy as a whole: GDP, unemployment, inflation, and growth, and how monetary and fiscal policy respond to the business cycle."},
-  "ECON 302": {title:"Intermediate Macroeconomic Theory", desc:"A model-based look at output, employment, inflation, and growth, and how policy shifts them in the short and long run."},
-  "MATH 221": {title:"Calculus and Analytic Geometry 1", desc:"Limits, derivatives, and an introduction to integrals for functions of one variable, with applications to rates of change and optimization."},
-  "MATH 222": {title:"Calculus and Analytic Geometry 2", desc:"Techniques of integration, improper integrals, infinite sequences and series, and Taylor series."},
-  "MATH 340": {title:"Elementary Matrix and Linear Algebra", desc:"Systems of linear equations, matrices, determinants, vector spaces, and eigenvalues: the linear algebra behind most of data science."},
-  "ESL 117": {title:"Academic Writing I", desc:"Academic writing for multilingual students: building clear paragraphs and essays, organizing an argument, and using sources responsibly."},
-  "ESL 118": {title:"Academic Writing II", desc:"A second course in academic writing with longer research-based essays, stronger argumentation, and revision for a university audience."},
-  "COMP SCI 220": {title:"Data Science Programming I", desc:"Programming fundamentals in Python for data work: data structures, functions, files, and the first steps of analyzing real datasets."},
-  "COMP SCI 320": {title:"Data Science Programming II", desc:"Continues Data Science Programming I with larger Python programs, more advanced data structures, and working with data from several sources."},
-  "COMP SCI 532": {title:"Matrix Methods in Machine Learning", desc:"Linear algebra applied to machine learning: least squares, SVD, PCA, and the optimization methods behind modern models."},
-  "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"How large datasets are stored and processed across many machines: distributed file systems, MapReduce and Spark style processing, and data pipelines."},
-  "BIOCHEM 104": {title:"Molecules to Life & Science", desc:"An introduction to the molecules of life and how biochemistry shapes health, food, and modern science, written for a broad audience."},
-  "MUSIC 113": {title:"Music in Performance", desc:"A one-credit music course about experiencing music in performance: listening closely and engaging with live concerts and performers."},
-  "ENGL 153": {title:"Literature and the Environment", desc:"Reading and writing about literature through the lens of nature: how authors imagine the environment, ecology, and our place in it."},
-  "ENGL 169": {title:"Modern American Literature", desc:"A survey of American literature from the modern era, reading fiction, poetry, and drama in their cultural context."}
+  "ECON 101": {title:"Principles of Microeconomics", desc:"The economic problems of individuals, firms, and industries, with emphasis on how value and prices are set and how income is distributed."},
+  "ECON 102": {title:"Principles of Macroeconomics", desc:"Macroeconomic measurement and models of aggregate demand and supply, plus fiscal and monetary policy for unemployment, inflation, and growth."},
+  "ECON 302": {title:"Intermediate Macroeconomic Theory", desc:"Theories of national income determination, including savings, consumption, and investment, and how these aggregates relate to employment, inflation, and stabilization in the national and international economy."},
+  "MATH 221": {title:"Calculus and Analytic Geometry 1", desc:"An introduction to differential and integral calculus and plane analytic geometry, with applications and transcendental functions."},
+  "MATH 222": {title:"Calculus and Analytic Geometry 2", desc:"Techniques of integration, improper integrals, first-order ordinary differential equations, sequences and series, Taylor series, and vector geometry in two and three dimensions."},
+  "MATH 340": {title:"Elementary Matrix and Linear Algebra", desc:"An introduction to linear algebra: matrix operations, systems of linear equations, vector spaces, and eigenvalues and eigenvectors."},
+  "ESL 117": {title:"Academic Writing I", desc:"The basic elements of academic writing, with emphasis on fluency and accuracy, paragraph structure, summarizing and paraphrasing, short essays, and a final research project."},
+  "ESL 118": {title:"Academic Writing II", desc:"Academic writing, critical reading and argumentation, documentation, and the style and organization of research papers, plus oral communication skills for class participation and presentations."},
+  "COMP SCI 220": {title:"Data Science Programming I", desc:"An introduction to data science programming in Python that needs no prior programming experience, emphasizing the analysis of real datasets in various forms and visual communication."},
+  "COMP SCI 320": {title:"Data Science Programming II", desc:"An intermediate approach to data science programming in Python: implementing data structures such as graphs, version control and virtual environments for reproducible analysis, A/B testing, and basic classification, clustering, optimization, and simulation."},
+  "COMP SCI 532": {title:"Matrix Methods in Machine Learning", desc:"The linear algebraic foundations of machine learning, with real-world applications of matrix methods ranging from classification and clustering to denoising and data analysis."},
+  "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"Deploying and using distributed systems to store and analyze large datasets, covering structured and unstructured storage, query languages, streaming data, and training machine learning models, mostly in Python."},
+  "BIOCHEM 104": {title:"Molecules to Life and the Nature of Science", desc:"An introduction to how life works at the molecular level and how life diversified, used to discuss topics in the news such as the human genome, genetic engineering of crops, gene editing, and biotechnology, with a focus on the nature of science."},
+  "MUSIC 113": {title:"Music in Performance", desc:"Descriptive lectures on chamber music, with performances by the instructor and others."},
+  "ENGL 153": {title:"Literature and the Environment", desc:"An introduction to literature in English about the natural world and humankind's relationship with it. Specific topics vary."},
+  "ENGL 169": {title:"Modern American Literature", desc:"An introduction to selected fiction, prose, drama, and poetry written by Americans from the early twentieth century to the present day."}
 };
 
 (function(){
@@ -338,6 +341,12 @@ var COURSE_INFO = {
   var modalLayer = document.getElementById("expModalLayer");
   var expNetworkEl = document.getElementById("expNetwork");
   var lastFocused = null;
+  var activeIndex = null;
+  var hintEl = document.querySelector(".exp-hint");
+  if(hintEl && window.matchMedia("(hover: hover) and (pointer: fine)").matches){
+    hintEl.textContent = "click a star to open its memory";
+  }
+  var lastDayMode = document.body.classList.contains("an-day-mode");
   document.body.appendChild(modalLayer);
 
   var nodeEls = [];
@@ -348,7 +357,7 @@ var COURSE_INFO = {
   var dragStartClientY = 0;
   var justDragged = false;
 
-  function renderNetwork(){
+  function renderNetwork(still){
     var set = EXP_DATA[current];
     nodesEl.innerHTML = "";
     linesEl.innerHTML = "";
@@ -382,7 +391,7 @@ var COURSE_INFO = {
 
     set.nodes.forEach(function(item, i){
       var div = document.createElement("div");
-      div.className = "exp-node";
+      div.className = still ? "exp-node exp-node-still" : "exp-node";
       div.style.left = item._bx + "%";
       div.style.top = item._by + "%";
       div.style.setProperty("--i", i);
@@ -402,6 +411,10 @@ var COURSE_INFO = {
     });
 
     updateLines();
+    if(activeIndex !== null && nodeEls[activeIndex]){
+      nodeEls[activeIndex].classList.add("active");
+      highlightLinks(activeIndex);
+    }
   }
 
   function computeDepth(set){
@@ -509,6 +522,7 @@ var COURSE_INFO = {
       '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
       '<p class="exp-courses-note">tap a course to read what it covers</p>' +
       '<div class="exp-terms">' + cols.map(function(col){ return '<div class="exp-term-col">' + col.html + '</div>'; }).join("") + '</div>' +
+      '<p class="exp-courses-source">Course titles and descriptions adapted from the <a href="https://guide.wisc.edu/courses/" target="_blank" rel="noopener noreferrer">UW-Madison Guide</a>.</p>' +
       '</div>';
   }
 
@@ -521,6 +535,7 @@ var COURSE_INFO = {
 
   function openModal(index){
     var item = EXP_DATA[current].nodes[index];
+    activeIndex = index;
     nodesEl.querySelectorAll(".exp-node").forEach(function(n, i){ n.classList.toggle("active", i === index); });
     highlightLinks(index);
 
@@ -543,6 +558,7 @@ var COURSE_INFO = {
   }
 
   function closeModal(){
+    activeIndex = null;
     modalLayer.classList.remove("open");
     nodesEl.querySelectorAll(".exp-node").forEach(function(n){ n.classList.remove("active"); });
     highlightLinks(null);
@@ -576,7 +592,8 @@ var COURSE_INFO = {
     var rect = expNetworkEl.getBoundingClientRect();
     var px = ((e.clientX - rect.left) / rect.width) * 100;
     var py = ((e.clientY - rect.top) / rect.height) * 100;
-    px = Math.min(94, Math.max(6, px));
+    var halfTag = (nodeEls[dragIndex].querySelector(".exp-node-tag").offsetWidth / 2 + 8) / rect.width * 100;
+    px = Math.min(Math.max(6, 100 - halfTag), Math.max(6, halfTag, px));
     py = Math.min(94, Math.max(6, py));
     var item = EXP_DATA[current].nodes[dragIndex];
     item._bx = px; item._by = py;
@@ -615,7 +632,14 @@ var COURSE_INFO = {
 
   renderNetwork();
 
-  new MutationObserver(function(){ renderNetwork(); })
+  /* Other scripts toggle body classes while the page scrolls, so the network is rebuilt only when
+     day mode itself changes, which is the one change that swaps the logos. */
+  new MutationObserver(function(){
+    var isDay = document.body.classList.contains("an-day-mode");
+    if(isDay === lastDayMode) return;
+    lastDayMode = isDay;
+    renderNetwork(true);
+  })
     .observe(document.body, { attributes: true, attributeFilter: ["class"] });
 })();
 </script>
