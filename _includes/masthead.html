@@ -245,6 +245,13 @@
     -webkit-text-fill-color: #8b4513 !important;
   }
 
+  /* on narrow phones the subtitle wraps instead of running under the menu button */
+  @media(max-width:430px) {
+    #an-nav-subtitle {
+      white-space: normal !important;
+    }
+  }
+
   /* fix mobile */
   @media(max-width:768px) {
     #an-ham-btn {
@@ -394,7 +401,7 @@
         <div id="an-nav-title-wrap"
           style="text-decoration:none!important;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;flex-shrink:0;min-width:0;flex:1;cursor:default;margin-left:0;padding-left:0;">
           <span id="an-nav-title" class="site-title masthead__title"
-            style="margin: 0; padding: 0; align-self: flex-start;">Nexus Datorum ✨</span>
+            style="margin: 0; padding: 0; align-self: flex-start;">An Nguyen ✨</span>
           <span id="an-nav-subtitle" style="margin: 0; padding: 0; margin-top: 5px; align-self: flex-start;">Data
             Science &amp; Economics @ UW&#8209;Madison</span>
         </div>

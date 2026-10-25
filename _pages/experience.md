@@ -39,30 +39,30 @@ description: "Education and work experience of Cao Thien An Nguyen, from an AI e
 }
 body.an-day-mode .exp-content,
 body.an-day-mode .exp-modal-layer{
-  --exp-bg:rgba(255,250,238,.85);
-  --exp-border:rgba(154,110,30,.3);
-  --exp-border-strong:rgba(154,110,30,.4);
-  --exp-divider:#a97a1a;
-  --exp-gold:#8a5c0c;
-  --exp-gold-glow:rgba(154,106,16,.4);
-  --exp-text:#3a2a10;
-  --exp-text-dim:rgba(74,54,20,.72);
-  --exp-text-dimmer:rgba(74,54,20,.62);
-  --exp-text-faint:rgba(74,54,20,.48);
-  --exp-text-body:rgba(58,42,16,.88);
-  --exp-star-bg:rgba(255,252,244,.98);
-  --exp-star-icon:#8a5c0c;
-  --exp-tag-bg:rgba(255,250,238,.88);
-  --exp-modal-overlay:rgba(58,42,16,.4);
-  --exp-modal-bg:rgba(255,250,238,.97);
-  --exp-star-core:#fffdf2;
-  --exp-gold-glow-soft:rgba(154,106,16,.18);
-  --exp-ring-color:rgba(30,95,180,.6);
-  --exp-nebula-a:rgba(120,80,220,.05);
-  --exp-nebula-b:rgba(70,140,220,.05);
+  --exp-bg:rgba(255,255,255,.72);
+  --exp-border:rgba(0,102,102,.26);
+  --exp-border-strong:rgba(0,102,102,.42);
+  --exp-divider:#0f8a8a;
+  --exp-gold:#006666;
+  --exp-gold-glow:rgba(0,128,128,.38);
+  --exp-text:#1f2a33;
+  --exp-text-dim:rgba(31,42,51,.76);
+  --exp-text-dimmer:rgba(31,42,51,.66);
+  --exp-text-faint:rgba(31,42,51,.56);
+  --exp-text-body:rgba(31,42,51,.9);
+  --exp-star-bg:rgba(255,255,255,.98);
+  --exp-star-icon:#006666;
+  --exp-tag-bg:rgba(255,255,255,.9);
+  --exp-modal-overlay:rgba(16,48,70,.4);
+  --exp-modal-bg:rgba(250,253,255,.97);
+  --exp-star-core:#ffffff;
+  --exp-gold-glow-soft:rgba(0,128,128,.18);
+  --exp-ring-color:rgba(19,92,158,.75);
+  --exp-nebula-a:rgba(19,92,158,.06);
+  --exp-nebula-b:rgba(0,128,128,.07);
 }
 body.an-day-mode .exp-content{
-  box-shadow:0 10px 30px rgba(120,90,30,.18),inset 0 1px 0 rgba(255,255,255,.5);
+  box-shadow:0 10px 30px rgba(19,60,90,.18),inset 0 1px 0 rgba(255,255,255,.6);
 }
 .exp-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
 
@@ -70,7 +70,7 @@ body.an-day-mode .exp-content{
 .exp-tab-btn{font-family:'Cinzel',serif!important;font-weight:600!important;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--exp-text-dimmer);background:transparent;border:1px solid var(--exp-border);border-radius:999px;padding:8px 22px;cursor:pointer;transition:all .25s ease;}
 .exp-tab-btn:hover{color:var(--exp-text-dim);border-color:var(--exp-border-strong);}
 .exp-tab-btn.active{color:var(--exp-gold);background:rgba(201,162,39,.12);border-color:var(--exp-border-strong);box-shadow:0 0 14px var(--exp-gold-glow);}
-body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
+body.an-day-mode .exp-tab-btn.active{background:rgba(0,128,128,.12);}
 
 .exp-hint{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--exp-text-faint);margin:14px 0 0;}
 
@@ -139,10 +139,11 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 
 .exp-modal-layer{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:1.25rem;background:var(--exp-modal-overlay);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s ease;z-index:100000;overscroll-behavior:contain;}
 .exp-modal-layer.open{opacity:1;visibility:visible;}
+html.exp-modal-open{overflow:hidden!important;scrollbar-gutter:stable;}
 .exp-modal-card{position:relative;width:100%;max-width:540px;max-height:88%;background:var(--exp-modal-bg);backdrop-filter:blur(16px);border:1px solid var(--exp-border-strong);border-radius:16px;padding:34px 38px;box-shadow:0 20px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(201,162,39,.1);transform:scale(.94);transition:transform .25s ease;color:var(--exp-text);display:flex;flex-direction:column;}
 .exp-modal-layer.open .exp-modal-card{transform:scale(1);}
 .exp-modal-card::before{content:'';position:absolute;top:0;left:9%;right:9%;height:1px;background:linear-gradient(to right,transparent,var(--exp-divider),transparent);}
-.exp-modal-body{margin-top:14px;overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
+.exp-modal-body{margin-top:14px;overflow-y:auto;overscroll-behavior:contain;min-height:0;scrollbar-width:thin;scrollbar-color:var(--exp-border-strong) transparent;}
 .exp-modal-card.wide{max-width:min(1240px,94vw);max-height:92%;}
 .exp-modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(201,162,39,.12);border:1px solid var(--exp-border-strong);color:var(--exp-text-dim);cursor:pointer;font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:color .2s ease,border-color .2s ease,background .2s ease;z-index:1;}
 .exp-modal-close:hover{color:var(--exp-gold);border-color:var(--exp-border-strong);background:rgba(201,162,39,.2);}
@@ -161,18 +162,22 @@ body.an-day-mode .exp-tab-btn.active{background:rgba(154,110,30,.12);}
 .exp-node.active .exp-node-hint{opacity:0;animation:none;}
 @media(prefers-reduced-motion:no-preference){.exp-node-hint{animation:expHintPulse 2.8s ease-in-out infinite;}}
 @keyframes expHintPulse{0%,100%{opacity:.72;}50%{opacity:1;}}
-body.an-day-mode .exp-modal-close{background:rgba(154,110,30,.14);color:#3a2a10;}
-body.an-day-mode .exp-course{background:rgba(154,110,30,.07);}
-body.an-day-mode .exp-course.open{background:rgba(154,110,30,.13);}
-body.an-day-mode .exp-term-status{background:rgba(154,110,30,.08);}
-body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168,.55);background:rgba(27,90,168,.07);}
+body.an-day-mode .exp-modal-close{background:rgba(0,102,102,.1);color:#1f2a33;}
+body.an-day-mode .exp-modal-close:hover{background:rgba(0,102,102,.2);}
+body.an-day-mode .exp-course{background:rgba(0,128,128,.06);}
+body.an-day-mode .exp-course.open{background:rgba(0,128,128,.12);}
+body.an-day-mode .exp-term-status{background:rgba(0,102,102,.08);}
+body.an-day-mode .exp-term-status.live{color:#135c9e;border-color:rgba(19,92,158,.55);background:rgba(19,92,158,.07);}
+body.an-day-mode .exp-panel-role{color:var(--exp-gold)!important;-webkit-text-fill-color:var(--exp-gold)!important;text-shadow:none!important;}
+body.an-day-mode .exp-modal-body{scrollbar-color:rgba(0,102,102,.55) rgba(0,102,102,.08);}
+body.an-day-mode #expLineGrad stop:nth-child(1){stop-color:#139a9a;}
+body.an-day-mode #expLineGrad stop:nth-child(2){stop-color:#135c9e;}
+body.an-day-mode .exp-net-beam{stroke:#ffffff;}
 
 .exp-courses{margin-top:24px;}
 .exp-courses-title{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
 .exp-courses-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--exp-border-strong),transparent);}
 .exp-courses-note{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
-.exp-courses-source{margin:22px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;color:var(--exp-text-dimmer);}
-.exp-courses-source a{color:var(--exp-gold);text-decoration:underline;text-underline-offset:2px;}
 .exp-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 30px;align-items:start;}
 .exp-term{margin-top:16px;}
 .exp-term-extra .exp-term-name{color:var(--exp-gold);}
@@ -225,6 +230,8 @@ body.an-day-mode .exp-term-status.live{color:#1b5aa8;border-color:rgba(27,90,168
   .exp-node-text{display:flex;flex-direction:column;align-items:flex-start;gap:3px;}
   .exp-node-hint{position:static;transform:none;margin-top:0;white-space:normal;text-align:left;}
   .exp-course-btn{padding:9px 12px;gap:10px;}
+  .exp-term-col{display:contents;}
+  .exp-term-extra{order:1;}
 }
 </style>
 
@@ -522,7 +529,6 @@ var COURSE_INFO = {
       '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
       '<p class="exp-courses-note">tap a course to read what it covers</p>' +
       '<div class="exp-terms">' + cols.map(function(col){ return '<div class="exp-term-col">' + col.html + '</div>'; }).join("") + '</div>' +
-      '<p class="exp-courses-source">Course titles and descriptions adapted from the <a href="https://guide.wisc.edu/courses/" target="_blank" rel="noopener noreferrer">UW-Madison Guide</a>.</p>' +
       '</div>';
   }
 
@@ -554,12 +560,14 @@ var COURSE_INFO = {
 
     lastFocused = document.activeElement;
     modalLayer.classList.add("open");
+    document.documentElement.classList.add("exp-modal-open");
     document.getElementById("expModalClose").focus();
   }
 
   function closeModal(){
     activeIndex = null;
     modalLayer.classList.remove("open");
+    document.documentElement.classList.remove("exp-modal-open");
     nodesEl.querySelectorAll(".exp-node").forEach(function(n){ n.classList.remove("active"); });
     highlightLinks(null);
     if(lastFocused) lastFocused.focus();
