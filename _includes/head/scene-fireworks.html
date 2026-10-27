@@ -14,6 +14,7 @@
        effect. The ambient ones launched on a timer are still limited to Full. Neither runs when
        the visitor has asked their system for reduced motion. */
     function makeFW(tx, ty) {
+      if (themeT >= 0.5) return; // fireworks belong to the night sky
       if (reduceMotionQuery && reduceMotionQuery.matches) return;
       if (sceneQuality !== 'full' && !tx) return;
       var startX = tx || W * (.2 + Math.random() * .6);
@@ -55,7 +56,7 @@
         scheduleFW();
       }, 3000 + Math.random() * 4000);
     }
-    setTimeout(scheduleFW, 2000); setTimeout(function () { makeFW(); }, 4000);
+    setTimeout(scheduleFW, 2000); setTimeout(function () { if (themeT < 0.5) makeFW(); }, 4000);
 
     function explodeFW(fw) {
       fw.phase = 'burst';
@@ -121,8 +122,8 @@
     }
 
     function renderFireworksLayer() {
-        if (reduceMotionQuery && reduceMotionQuery.matches) {
-          FW.length = 0;
+        if ((reduceMotionQuery && reduceMotionQuery.matches) || themeT >= 0.5) {
+          FW.length = 0; // a firework still in the air when the sky turns to day is dropped
           return;
         }
         if (FW.length) {
