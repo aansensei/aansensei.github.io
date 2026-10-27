@@ -1101,6 +1101,19 @@
     color: #fff !important;
   }
 
+  /* Day mode selects with a teal wash and dark text. Surfaces that stay dark in day mode keep white text. */
+  body.an-day-mode ::selection {
+    background: rgba(15, 138, 138, .3) !important;
+    color: #06302f !important;
+  }
+
+  body.an-day-mode .front-cover ::selection,
+  body.an-day-mode .song-card ::selection,
+  body.an-day-mode .pisces-figure ::selection {
+    background: rgba(15, 138, 138, .55) !important;
+    color: #fff !important;
+  }
+
   .page__footer {
     background: transparent !important;
     margin-top: 50px;
