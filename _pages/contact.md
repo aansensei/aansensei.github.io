@@ -14,7 +14,7 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
 .contact-card{background:rgba(6,4,22,.6);backdrop-filter:blur(22px);border:1px solid rgba(201,162,39,.22);border-radius:20px;padding:50px;max-width:620px;margin:0 auto;box-shadow:0 12px 48px rgba(0,0,0,.5),inset 0 1px 0 rgba(201,162,39,.1);position:relative;overflow:hidden;}
 .contact-card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
 .contact-card::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.35),transparent);}
-.contact-logo{width:300px;height:auto;margin:0 auto 24px;display:block;filter:drop-shadow(0 0 16px rgba(0,191,255,.45));transition:transform .5s,filter .4s;}
+.contact-logo{width:300px;max-width:100%;height:auto;margin:0 auto 24px;display:block;filter:drop-shadow(0 0 16px rgba(0,191,255,.45));transition:transform .5s,filter .4s;}
 .contact-logo:hover{transform:scale(1.06) rotate(2deg);filter:drop-shadow(0 0 28px rgba(0,191,255,.75));}
 .contact-title{font-family:'Cinzel Decorative',serif!important;font-size:1.55rem;color:#f0c84a!important;text-shadow:0 0 24px rgba(201,162,39,.5);margin-bottom:4px;pointer-events:none!important;cursor:default!important;}
 .contact-div{display:flex;align-items:center;gap:.8rem;margin:14px auto 22px;max-width:300px;}
@@ -31,6 +31,24 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
 .contact-icon-btn:hover{background:rgba(201,162,39,.2);border-color:#c9a227;color:#f0c84a!important;transform:translateY(-5px);box-shadow:0 8px 24px rgba(201,162,39,.3);}
 .contact-poem{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:rgba(240,230,208,.75);letter-spacing:.05em;margin-top:26px;}
 .contact-poem span{color:rgba(201,162,39,.85);}
+@media(max-width:480px){.contact-card{padding:36px 22px;}}
+body.an-day-mode .contact-chapter{color:#006666;opacity:.8;}
+body.an-day-mode .contact-card{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 12px 40px rgba(19,60,90,.2),inset 0 1px 0 rgba(255,255,255,.7);}
+body.an-day-mode .contact-card::before{background:linear-gradient(to right,transparent,#0f8a8a,transparent);}
+body.an-day-mode .contact-card::after{background:linear-gradient(to right,transparent,rgba(0,102,102,.3),transparent);}
+body.an-day-mode .contact-logo{filter:brightness(.8) saturate(1.15) drop-shadow(0 0 12px rgba(0,128,160,.35));}
+body.an-day-mode .contact-logo:hover{filter:brightness(.85) saturate(1.2) drop-shadow(0 0 20px rgba(0,128,160,.55));}
+body.an-day-mode .contact-title,body.an-day-mode .contact-name{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;}
+body.an-day-mode .contact-div::before,body.an-day-mode .contact-div::after{background:rgba(0,102,102,.35);}
+body.an-day-mode .contact-div span{color:#0f8a8a;}
+body.an-day-mode .contact-uni{color:rgba(31,42,51,.82);}
+body.an-day-mode .contact-email{color:#1f2a33!important;border-bottom-color:rgba(0,102,102,.4);}
+body.an-day-mode .contact-email i{color:#006666;}
+body.an-day-mode .contact-email:hover{color:#006666!important;border-bottom-color:#006666;}
+body.an-day-mode .contact-icon-btn{color:#006666!important;background:rgba(0,128,128,.08);border-color:rgba(0,102,102,.3);}
+body.an-day-mode .contact-icon-btn:hover{background:rgba(0,128,128,.16);border-color:#006666;color:#004d4d!important;box-shadow:0 8px 24px rgba(0,102,102,.25);}
+body.an-day-mode .contact-poem{color:rgba(31,42,51,.78);}
+body.an-day-mode .contact-poem span{color:#135c9e;}
 </style>
 
 <div id="contact-wrap">
