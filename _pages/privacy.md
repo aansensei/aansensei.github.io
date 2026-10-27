@@ -18,6 +18,12 @@ description: "How this site uses Google Analytics to understand visits, and what
 .pp-content li{margin-bottom:8px;}
 .pp-content a{color:#f0c84a;text-decoration:underline;text-decoration-color:rgba(201,162,39,.4);}
 .pp-updated{font-style:italic;font-size:.85rem;color:rgba(240,230,208,.45);margin-top:30px;}
+body.an-day-mode .pp-content{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 10px 30px rgba(19,60,90,.18),inset 0 1px 0 rgba(255,255,255,.7);color:#1f2a33;}
+body.an-day-mode .pp-content::before{background:linear-gradient(to right,transparent,#0f8a8a,transparent);}
+body.an-day-mode .pp-content h2{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;}
+body.an-day-mode .pp-content p,body.an-day-mode .pp-content ul{color:rgba(31,42,51,.88);}
+body.an-day-mode .pp-content a{color:#135c9e;text-decoration-color:rgba(19,92,158,.4);}
+body.an-day-mode .pp-updated{color:rgba(31,42,51,.58);}
 </style>
 
 <div class="pp-content">

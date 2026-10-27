@@ -10,6 +10,15 @@ description: "About Cao Thien An Nguyen, a Data Science & Economics student at U
 .about-content{background:rgba(6,4,22,.6);backdrop-filter:blur(20px);border:1px solid rgba(201,162,39,.2);border-radius:16px;padding:35px;box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,162,39,.08);color:#f8f4ec;line-height:1.8;font-size:1.05rem;position:relative;}
 .about-content::before{content:'';position:absolute;top:0;left:8%;right:8%;height:1px;background:linear-gradient(to right,transparent,#c9a227,transparent);}
 .about-cover-img{width:100%;max-height:500px;object-fit:contain;background:rgba(0,0,0,.25);border-radius:12px;margin-bottom:28px;box-shadow:0 10px 25px rgba(0,0,0,.5);border:1px solid rgba(201,162,39,.15);}
+body.an-day-mode .about-content{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 10px 30px rgba(19,60,90,.18),inset 0 1px 0 rgba(255,255,255,.7);color:#1f2a33;}
+body.an-day-mode .about-content::before{background:linear-gradient(to right,transparent,#0f8a8a,transparent);}
+body.an-day-mode .about-cover-img{background:rgba(0,102,102,.08);box-shadow:0 10px 25px rgba(19,60,90,.25);border-color:rgba(0,102,102,.2);}
+body.an-day-mode .about-content h2{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;border-bottom-color:rgba(0,102,102,.25);}
+body.an-day-mode .about-content strong{color:#006666!important;}
+body.an-day-mode .artist-card{background:rgba(0,128,128,.07);border-color:rgba(0,102,102,.18);}
+body.an-day-mode .artist-card:hover{background:rgba(29,185,84,.12);}
+body.an-day-mode .artist-name{color:#1f2a33!important;}
+body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
 .about-content h2{color:#f0c84a!important;font-family:'Cinzel Decorative',serif!important;margin-top:30px;border-bottom:1px solid rgba(201,162,39,.2);padding-bottom:10px;text-shadow:0 0 16px rgba(201,162,39,.35)!important;}
 .about-content strong{color:#f0c84a!important;}
 .highlight-quote{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#c94f7c;text-align:center;margin:28px 0;font-style:italic;}

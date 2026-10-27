@@ -419,6 +419,120 @@
     background: rgba(255, 255, 255, 0.65) !important;
   }
 
+  /* Project case study pages (ChatRAG, Semiconductor HR, Shadow Rent, Tech Layoffs) share the
+     glass-box layout. In day mode they use light glass with the site's teal and sky blue. */
+  body.an-day-mode .glass-box {
+    background: rgba(255, 255, 255, .74);
+    border-color: rgba(0, 102, 102, .26);
+    box-shadow: 0 10px 30px rgba(19, 60, 90, .18), inset 0 1px 0 rgba(255, 255, 255, .7);
+  }
+
+  body.an-day-mode .glass-box::before {
+    background: linear-gradient(to right, transparent, rgba(15, 138, 138, .55), transparent);
+  }
+
+  body.an-day-mode .col-left::-webkit-scrollbar-thumb {
+    background: rgba(0, 102, 102, .4);
+  }
+
+  body.an-day-mode .author-box {
+    border-bottom-color: rgba(0, 102, 102, .2);
+  }
+
+  body.an-day-mode .author-box img {
+    border-color: #0f8a8a;
+    box-shadow: 0 0 14px rgba(0, 128, 128, .3);
+  }
+
+  body.an-day-mode .author-box h3,
+  body.an-day-mode .proj-title,
+  body.an-day-mode .col-main h1 {
+    color: #006666 !important;
+    -webkit-text-fill-color: #006666 !important;
+    text-shadow: none !important;
+  }
+
+  body.an-day-mode .col-main h1 {
+    border-bottom-color: rgba(0, 102, 102, .25);
+  }
+
+  body.an-day-mode .toc-title {
+    color: #006666 !important;
+  }
+
+  body.an-day-mode .toc-list a {
+    color: rgba(31, 42, 51, .75) !important;
+  }
+
+  body.an-day-mode .toc-list a:hover {
+    color: #006666 !important;
+  }
+
+  body.an-day-mode .col-main {
+    color: rgba(31, 42, 51, .9);
+  }
+
+  body.an-day-mode .col-main h2,
+  body.an-day-mode .col-main h3 {
+    color: #135c9e !important;
+    -webkit-text-fill-color: #135c9e !important;
+    text-shadow: none !important;
+  }
+
+  body.an-day-mode .col-main strong {
+    color: #0b3d5c !important;
+  }
+
+  body.an-day-mode .col-main em {
+    color: #135c9e !important;
+  }
+
+  body.an-day-mode .col-main blockquote {
+    border-left-color: #0f8a8a;
+    color: #006666 !important;
+    background: rgba(0, 128, 128, .07);
+  }
+
+  body.an-day-mode .col-main code {
+    background: rgba(19, 92, 158, .09) !important;
+    color: #0e4a85 !important;
+    border-color: rgba(19, 92, 158, .25) !important;
+  }
+
+  body.an-day-mode .col-main img {
+    box-shadow: 0 5px 20px rgba(19, 60, 90, .25), 0 0 0 1px rgba(0, 102, 102, .15);
+  }
+
+  body.an-day-mode .intern-meta {
+    color: rgba(31, 42, 51, .6) !important;
+  }
+
+  body.an-day-mode .cover-img {
+    box-shadow: 0 0 22px rgba(19, 60, 90, .3), 0 0 0 1px rgba(0, 102, 102, .18);
+  }
+
+  body.an-day-mode .proj-skill {
+    background: rgba(0, 128, 128, .08);
+    border-color: rgba(0, 102, 102, .3);
+    color: #006666 !important;
+  }
+
+  body.an-day-mode .proj-divider {
+    border-top-color: rgba(0, 102, 102, .25);
+  }
+
+  body.an-day-mode .btn-git {
+    color: #1f2a33 !important;
+    background: rgba(0, 128, 128, .08);
+    border-color: rgba(0, 102, 102, .35);
+  }
+
+  body.an-day-mode .btn-git:hover {
+    background: rgba(0, 128, 128, .16);
+    border-color: #006666;
+    box-shadow: 0 4px 14px rgba(0, 102, 102, .25);
+  }
+
   @media(pointer:fine) {
 
     body.an-cursor-on *,

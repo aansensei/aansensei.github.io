@@ -81,6 +81,44 @@ header:
 .pisces-actions .btn-live:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(8,145,178,.65),inset 0 1px 0 rgba(255,255,255,.3);}
 .pisces-actions .btn-git{background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.45);color:#f0c84a!important;}
 .pisces-actions .btn-git:hover{background:rgba(201,162,39,.18);border-color:#f0c84a;transform:translateY(-3px);box-shadow:0 8px 20px rgba(201,162,39,.3);}
+body.an-day-mode .pisces-box{background:rgba(255,255,255,.74);border-color:rgba(0,102,102,.26);box-shadow:0 10px 30px rgba(19,60,90,.18),inset 0 1px 0 rgba(255,255,255,.7);}
+body.an-day-mode .pisces-box::before{background:linear-gradient(to right,transparent,rgba(15,138,138,.55),transparent);}
+body.an-day-mode .pisces-sidebar::-webkit-scrollbar-thumb{background:rgba(0,102,102,.4);}
+body.an-day-mode .pisces-author{border-bottom-color:rgba(0,102,102,.2);}
+body.an-day-mode .pisces-author img{border-color:#0f8a8a;box-shadow:0 0 14px rgba(0,128,128,.3);}
+body.an-day-mode .pisces-author h3,body.an-day-mode .pisces-title,body.an-day-mode .pisces-main h1,body.an-day-mode .pisces-main h2{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;}
+body.an-day-mode .pisces-main h1{border-bottom-color:rgba(0,102,102,.25);}
+body.an-day-mode .pisces-main h3{color:#135c9e!important;-webkit-text-fill-color:#135c9e!important;}
+body.an-day-mode .pisces-toc-title{color:#006666!important;}
+body.an-day-mode .pisces-toc a{color:rgba(31,42,51,.75)!important;}
+body.an-day-mode .pisces-toc a:hover{color:#006666!important;}
+body.an-day-mode .pisces-main{color:rgba(31,42,51,.9);}
+body.an-day-mode .pisces-main strong{color:#0b3d5c!important;}
+body.an-day-mode .pisces-main em{color:#135c9e!important;}
+body.an-day-mode .pisces-main code{background:rgba(19,92,158,.09)!important;color:#0e4a85!important;border-color:rgba(19,92,158,.25)!important;}
+body.an-day-mode .pisces-hook{border-left-color:#0f8a8a;color:#006666!important;background:rgba(0,128,128,.07);}
+body.an-day-mode .pisces-note{background:rgba(19,92,158,.07);border-color:rgba(19,92,158,.25);color:rgba(31,42,51,.88);}
+body.an-day-mode .pisces-card{background:linear-gradient(145deg,rgba(0,128,128,.08),rgba(255,255,255,.55));border-color:rgba(0,102,102,.22);}
+body.an-day-mode .pisces-card h4{color:#006666!important;-webkit-text-fill-color:#006666!important;}
+body.an-day-mode .pisces-tier{color:#135c9e;}
+body.an-day-mode .pisces-sigil{background:rgba(19,92,158,.06);border-color:rgba(19,92,158,.25);}
+body.an-day-mode .pisces-sigil h4{color:#135c9e!important;-webkit-text-fill-color:#135c9e!important;}
+body.an-day-mode .pisces-sigil p{color:rgba(31,42,51,.8);}
+body.an-day-mode .pisces-sigil strong{color:#0b3d5c!important;}
+body.an-day-mode .pisces-sigil .pisces-origin{color:#006666;}
+body.an-day-mode .pisces-figure{background:#0a0f26;border-color:rgba(0,102,102,.35);}
+body.an-day-mode .pisces-figure .pisces-caption{color:rgba(240,230,208,.72);}
+body.an-day-mode .pisces-caption{color:rgba(31,42,51,.62);}
+body.an-day-mode .pisces-screenshot-img{border-color:rgba(0,102,102,.3);box-shadow:0 10px 26px rgba(19,60,90,.28);}
+body.an-day-mode .pisces-faq details{background:rgba(255,255,255,.55);border-color:rgba(0,102,102,.25);}
+body.an-day-mode .pisces-faq summary{color:#1f2a33;}
+body.an-day-mode .pisces-timeline li{border-left-color:rgba(0,102,102,.4);}
+body.an-day-mode .pisces-timeline li::before{background:#0f8a8a;box-shadow:0 0 10px rgba(15,138,138,.6);}
+body.an-day-mode .pisces-cover{box-shadow:0 0 22px rgba(19,60,90,.3),0 0 0 1px rgba(0,102,102,.18);}
+body.an-day-mode .pisces-tag{background:rgba(0,128,128,.08);border-color:rgba(0,102,102,.3);color:#006666!important;}
+body.an-day-mode .pisces-divider{border-top-color:rgba(0,102,102,.25);}
+body.an-day-mode .pisces-actions .btn-git{background:rgba(0,128,128,.08);border-color:rgba(0,102,102,.35);color:#1f2a33!important;}
+body.an-day-mode .pisces-actions .btn-git:hover{background:rgba(0,128,128,.16);border-color:#006666;box-shadow:0 8px 20px rgba(0,102,102,.25);}
 @media(max-width:1024px){.pisces-grid{grid-template-columns:1fr;}.pisces-sidebar{position:relative;top:0;max-height:none;overflow:visible;}.pisces-cards{grid-template-columns:1fr;}}
 @media(max-width:560px){.page__inner-wrap{padding:0 10px!important;}.pisces-box{padding:18px;}.pisces-sigils{grid-template-columns:1fr;}}
 </style>
