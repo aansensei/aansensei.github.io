@@ -29,7 +29,7 @@ body.an-day-mode .pp-updated{color:rgba(31,42,51,.58);}
 <div class="pp-content">
 
 <h2>What this page is</h2>
-<p>This site is a personal portfolio. It does not sell anything, run ads, or collect information through any form. The only data collected is basic visit analytics, explained below.</p>
+<p>This site is a personal portfolio. It does not sell anything or run ads. The only data collected is basic visit analytics and, if you choose to use the contact form, the message you send. Both are explained below.</p>
 
 <h2>Analytics</h2>
 <p>This site uses Google Analytics (GA4) to understand how many people visit and which pages get read. Google Analytics automatically collects:</p>
@@ -44,12 +44,15 @@ body.an-day-mode .pp-updated{color:rgba(31,42,51,.58);}
 <h2>Cookies</h2>
 <p>Google Analytics sets cookies in your browser to distinguish visitors across sessions. You can block or delete these cookies at any time through your browser settings, and the site will work exactly the same without them.</p>
 
+<h2>Contact form</h2>
+<p>The Contact page has a form that asks for your name, email address, a subject, and a message. When you press send, those fields are emailed to me through FormSubmit, a form to email service. The message is not stored on this site, and I use it only to reply to you. Please do not send anything sensitive through it.</p>
+
 <h2>Third parties</h2>
-<p>No data collected on this site is sold or shared with anyone. Google processes analytics data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy</a>.</p>
+<p>No data collected on this site is sold or shared with anyone. Google processes analytics data under its own <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy</a>, and FormSubmit relays contact form messages under its own <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener">privacy policy</a>.</p>
 
 <h2>Questions</h2>
 <p>Reach out any time at <a href="mailto:cnguyen49@wisc.edu">cnguyen49@wisc.edu</a>.</p>
 
-<p class="pp-updated">Last updated August 2026.</p>
+<p class="pp-updated">Last updated October 2026.</p>
 
 </div>
