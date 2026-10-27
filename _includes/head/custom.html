@@ -1800,7 +1800,10 @@
       if (reduceMotionQuery && reduceMotionQuery.matches) return 'lite';
       var cores = navigator.hardwareConcurrency || 4;
       var memory = navigator.deviceMemory || 8;
-      return cores <= 4 || memory <= 4 || isTouch ? 'lite' : 'balanced';
+      /* Phones start on balanced so they keep the meadow and the mist. The frame monitor in
+         render() still drops them to lite if the scene runs slowly. */
+      if (isTouch) return cores <= 2 || memory <= 4 ? 'lite' : 'balanced';
+      return cores <= 4 || memory <= 4 ? 'lite' : 'balanced';
     }
 
     function applySceneQuality() {
