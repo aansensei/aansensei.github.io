@@ -38,7 +38,7 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
 .song-card:hover{box-shadow:0 15px 35px -5px rgba(0,0,0,.7),0 0 30px var(--song-glow2),inset 0 0 15px rgba(255,255,255,.07);transform:translateY(-2px);}
 .vinyl-container{position:relative;width:76px;height:76px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background-image:repeating-radial-gradient(#111,#111 4px,#222 5px,#222 6px);box-shadow:0 0 10px rgba(0,0,0,.8),inset 0 0 5px #333;}
 .vinyl-container::before{content:'';position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.35) 0%,transparent 40%,transparent 60%,rgba(255,255,255,.08) 100%);pointer-events:none;z-index:10;}
-.vinyl-cover{width:32px;height:32px;border-radius:50%;background-color:#1e293b;background-image:url('/assets/images/favorite-song.png');background-size:cover;background-position:center;border:2px solid #000;position:relative;}
+.vinyl-cover{width:32px;height:32px;border-radius:50%;background-color:#1e293b;background-image:url('/assets/images/favorite-song-108.png');background-size:cover;background-position:center;border:2px solid #000;position:relative;}
 .vinyl-cover::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:#111;border-radius:50%;}
 .vinyl-glow{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.2),rgba(138,43,226,.1));filter:blur(8px);z-index:-1;animation:song-pulse 2s ease-in-out infinite;}
 @keyframes song-pulse{0%,100%{opacity:.6}50%{opacity:1}}
@@ -103,7 +103,7 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
         <!-- Vinyl -->
         <div class="vinyl-wrap" style="position:relative;flex-shrink:0;width:76px;height:76px;">
           <div class="vinyl-container"><div style="width:10px;height:10px;border-radius:50%;background:#111;border:1px solid #333;position:relative;z-index:1;"></div></div>
-          <img src="/assets/images/favorite-song.png" alt="SToRY" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;object-fit:cover;z-index:15;pointer-events:none;">
+          <img src="/assets/images/favorite-song-108.png" alt="SToRY" width="36" height="36" loading="lazy" decoding="async" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:36px;height:36px;object-fit:cover;z-index:15;pointer-events:none;">
           <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;opacity:.9;filter:drop-shadow(0 0 3px #00d4ff);width:40px;height:40px;shape-rendering:crispEdges;" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="38" height="38" stroke="#00d4ff" stroke-width="1" stroke-dasharray="2 2"/><rect x="0" y="0" width="3" height="3" fill="#ff77ff"/><rect x="35" y="0" width="3" height="3" fill="#ff77ff"/><rect x="0" y="35" width="3" height="3" fill="#ff77ff"/><rect x="35" y="35" width="3" height="3" fill="#ff77ff"/></svg>
           <div class="vinyl-glow"></div>
         </div>
@@ -157,47 +157,47 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
 
   <div class="spotify-grid">
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-leoneed.jpg" alt="Leo/need" class="artist-img">
+      <img src="/assets/images/artist-leoneed.jpg" alt="Leo/need" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Leo/need</div>
       <a href="https://open.spotify.com/artist/7CXyP7IN0L3ySUeIQ6Ymu1" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-yoasobi.jpg" alt="YOASOBI" class="artist-img">
+      <img src="/assets/images/artist-yoasobi.jpg" alt="YOASOBI" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">YOASOBI</div>
       <a href="https://open.spotify.com/artist/64tJ2EAv1R6UaZqc4iOCyj" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-myuk.jpg" alt="Myuk" class="artist-img">
+      <img src="/assets/images/artist-myuk.jpg" alt="Myuk" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Myuk</div>
       <a href="https://open.spotify.com/artist/7oVNI7cJUA5f1Qvu8vQlq9" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-nightcord.jpg" alt="Nightcord at 25:00" class="artist-img">
+      <img src="/assets/images/artist-nightcord.jpg" alt="Nightcord at 25:00" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Nightcord at 25:00</div>
       <a href="https://open.spotify.com/artist/1VMXuPyhNldYomz8ojLKP7" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-yorushika.jpg" alt="Yorushika" class="artist-img">
+      <img src="/assets/images/artist-yorushika.jpg" alt="Yorushika" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Yorushika</div>
       <a href="https://open.spotify.com/artist/4UK2Lzi6fBfUi9rpDt6cik" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-zutomayo.jpg" alt="Zutomayo" class="artist-img">
+      <img src="/assets/images/artist-zutomayo.jpg" alt="Zutomayo" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Zutomayo</div>
       <a href="https://open.spotify.com/artist/38WbKH6oKAZskBhqDFA8Uj" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-mrsgreenapple.jpg" alt="Mrs. GREEN APPLE" class="artist-img">
+      <img src="/assets/images/artist-mrsgreenapple.jpg" alt="Mrs. GREEN APPLE" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Mrs. GREEN APPLE</div>
       <a href="https://open.spotify.com/artist/4QvgGvpgzgyUOo8Yp8LDm9" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-kenshi.jpg" alt="Kenshi Yonezu" class="artist-img">
+      <img src="/assets/images/artist-kenshi.jpg" alt="Kenshi Yonezu" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Kenshi Yonezu</div>
       <a href="https://open.spotify.com/artist/1snhtMLeb2DYoMOcVbb8iB" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
     <div class="artist-card reveal-item">
-      <img src="/assets/images/artist-tsukuyomi.jpg" alt="Tsukuyomi" class="artist-img">
+      <img src="/assets/images/artist-tsukuyomi.jpg" alt="Tsukuyomi" class="artist-img" width="100" height="100" loading="lazy" decoding="async">
       <div class="artist-name">Tsukuyomi</div>
       <a href="https://open.spotify.com/artist/2mcj8ajoE1eFlNkAihw5Cg" target="_blank" class="btn-spotify"><i class="fab fa-spotify"></i> Spotify</a>
     </div>
