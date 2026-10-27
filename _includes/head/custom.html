@@ -177,20 +177,14 @@
   });
 </script>
 <link rel="apple-touch-icon" href="/assets/images/ncta-logo.svg">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="{{ site.title }}">
-<meta property="og:title"
-  content="{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}AanSekai — An's Magical World{% endif %}">
-<meta property="og:description"
-  content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-<meta property="og:url" content="{{ site.url }}{{ page.url }}">
-<meta property="og:image" content="https://aansensei.github.io/assets/images/about-cover.jpg">
+{%- comment -%} The theme's seo.html already prints the og tags, so only the Twitter card tags it skips are printed here, from the same page values. {%- endcomment -%}
+{%- assign card_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image | default: site.og_image -%}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title"
-  content="{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}AanSekai — An's Magical World{% endif %}">
-<meta name="twitter:description"
-  content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-<meta name="twitter:image" content="https://aansensei.github.io/assets/images/about-cover.jpg">
+<meta name="twitter:title" content="{{ page.title | default: site.title | strip_html | escape_once }}">
+<meta name="twitter:description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 200 | escape_once }}">
+{%- if card_image %}
+<meta name="twitter:image" content="{% if card_image contains '://' %}{{ card_image }}{% else %}{{ card_image | absolute_url }}{% endif %}">
+{%- endif %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

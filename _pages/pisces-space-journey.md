@@ -2,7 +2,10 @@
 layout: splash
 title: "Pisces: Space Journey"
 permalink: /projects/pisces-space-journey/
-description: "Pisces: Space Journey is a browser space shooter built with vanilla HTML, CSS, JavaScript, PixiJS, and a modular zodiac sigil system."
+description: "Play free in your browser: a space shooter with 15 sigils, nine bosses and elites, and offline play. Built with vanilla JavaScript and PixiJS."
+header:
+  og_image: /assets/images/pisces-space-journey-og-2026-10.jpg
+  og_image_alt: "Egregor and the player ship above a violet void in Pisces: Space Journey"
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
@@ -41,14 +44,21 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 .pisces-card{background:linear-gradient(145deg,rgba(20,35,77,.42),rgba(10,7,20,.5));border:1px solid rgba(201,162,39,.2);border-radius:12px;padding:16px;}
 .pisces-card h4{font-family:'Cinzel Decorative',serif!important;font-size:.76rem!important;color:#f0c84a!important;margin:0 0 8px!important;line-height:1.5!important;}
 .pisces-card p{margin:0!important;font-family:'Cormorant Garamond',serif;font-style:italic;}
+.pisces-card-wide{grid-column:1/-1;}
+.pisces-tier{display:block;margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-style:normal;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:#79c7ff;}
+.pisces-card ul{margin:8px 0 0;padding-left:18px;}
+.pisces-card li{margin-bottom:4px;font-family:'Cormorant Garamond',serif;font-style:italic;}
 .pisces-sigils{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0;}
 .pisces-sigil{padding:12px 14px;border:1px solid rgba(77,159,255,.3);border-radius:10px;background:rgba(77,159,255,.07);}
 .pisces-sigil h4{margin:0 0 4px!important;font-family:'Cinzel Decorative',serif!important;font-size:.82rem!important;color:#9dd6ff!important;letter-spacing:.03em;}
 .pisces-sigil p{margin:0!important;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:rgba(240,230,208,.78);}
+.pisces-sigil p+p{margin-top:6px!important;}
+.pisces-sigil strong{color:#faeab1!important;}
+.pisces-sigil .pisces-origin{font-style:italic;color:rgba(157,214,255,.85);}
 .pisces-figure{margin:22px 0;padding:12px;background:rgba(3,5,16,.55);border:1px solid rgba(201,162,39,.18);border-radius:12px;overflow:auto;}
 .pisces-figure svg{display:block;width:100%;min-width:760px;height:auto;}
 .pisces-caption{font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(240,230,208,.62);font-size:.92rem;margin:8px 4px 0;}
-.pisces-screenshot-img{display:block;width:100%;margin:18px 0;border:1px solid rgba(201,162,39,.3);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.45);}
+.pisces-screenshot-img{display:block;width:100%;height:auto;margin:18px 0 0;border:1px solid rgba(201,162,39,.3);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.45);}
 .pisces-faq details{background:rgba(255,255,255,.025);border:1px solid rgba(201,162,39,.2);border-radius:9px;padding:0 15px;margin-bottom:10px;}
 .pisces-faq summary{cursor:pointer;padding:12px 0;color:#faeab1;font-family:'Cormorant Garamond',serif;font-size:1.04rem;font-weight:600;}
 .pisces-faq details p{padding-bottom:12px;margin:0!important;}
@@ -57,7 +67,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 .pisces-timeline li::before{content:'';position:absolute;left:-5px;top:7px;width:9px;height:9px;border-radius:50%;background:#f0c84a;box-shadow:0 0 10px rgba(240,200,74,.7);}
 .pisces-timeline li:last-child{padding-bottom:0;border-left-color:transparent;}
 .pisces-meta{text-align:center;}
-.pisces-cover{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;margin-bottom:12px;box-shadow:0 0 22px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.15);}
+.pisces-cover{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;margin-bottom:12px;box-shadow:0 0 22px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,39,.15);}
 .pisces-title{font-family:'Cinzel Decorative',serif!important;font-size:1rem!important;color:#f0c84a!important;text-shadow:0 0 14px rgba(201,162,39,.4)!important;line-height:1.5!important;margin:0 0 14px!important;}
 .pisces-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:16px;}
 .pisces-tag{font-family:'Cormorant Garamond',serif;font-size:.82rem;padding:3px 10px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.3);border-radius:14px;color:#f0c84a!important;}
@@ -90,6 +100,9 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
       <li><a href="#rookie-mistake">The Rookie Mistake</a></li>
       <li><a href="#architecture">Real Architecture</a></li>
       <li><a href="#sigil-system">The Core Skill System</a></li>
+      <li><a href="#bosses">Bosses and Elites</a></li>
+      <li><a href="#systems">Game Systems</a></li>
+      <li><a href="#testing">Testing and Performance</a></li>
       <li><a href="#betas">What Changed Between the Betas</a></li>
       <li><a href="#screenshots">Screenshots</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -100,7 +113,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
   <main class="pisces-box pisces-main">
     <h1>Pisces: Space Journey</h1>
 
-    <blockquote class="pisces-hook">"A browser tab becomes a cockpit: one ship, a field of stars, and twelve zodiac paths that turn every run into a different build."</blockquote>
+    <blockquote class="pisces-hook">"A browser tab becomes a cockpit: one ship, a field of stars, and fifteen sigils that turn every run into a different build."</blockquote>
 
     <p><strong>Pisces: Space Journey</strong> is a space shooter built with vanilla HTML, CSS, JavaScript, and PixiJS. It runs directly in the browser and is hosted on GitHub Pages, making the game easy to open, play, and share without installation or a backend.</p>
 
@@ -149,11 +162,11 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
     <p>When every concern lives in one file, a change in one area can make another harder to understand. Performance work becomes less direct, and adding a boss or a new sigil becomes harder than it needs to be. The project eventually required a more deliberate architecture.</p>
 
     <h2 id="architecture">From One File to a Real Architecture</h2>
-    <p>In March 2026, the game was refactored into a modular structure. The first Git commit for this stage was titled <strong>Code game Space Shooter chia file</strong>, meaning the game code was split into files. The project has continued to develop from that point and now has more than 600 commits.</p>
+    <p>In March 2026, the game was refactored into a modular structure. The first Git commit for this stage was titled <strong>Code game Space Shooter chia file</strong>, meaning the game code was split into files. The project has continued to develop from that point and now has more than 800 commits, 84 JavaScript files, and about 70,000 lines of code, including the bundled PixiJS library.</p>
     <p>The modular design separates runtime setup, combat simulation, rendering, and static delivery. This makes the game easier to navigate and easier to extend when adding new enemies, bosses, and zodiac builds.</p>
 
     <div class="pisces-figure">
-      <svg viewBox="0 0 920 780" role="img" aria-label="Pisces Space Journey architecture diagram">
+      <svg viewBox="0 0 920 800" role="img" aria-label="Pisces Space Journey architecture diagram">
         <defs>
           <linearGradient id="layerGold" x1="0" x2="1">
             <stop offset="0%" stop-color="#2d2309"/>
@@ -168,91 +181,226 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
           </marker>
         </defs>
 
-        <rect width="920" height="780" rx="16" fill="#080612"/>
+        <rect width="920" height="800" rx="16" fill="#080612"/>
         <text x="460" y="34" text-anchor="middle" fill="#f0c84a" font-family="Cinzel Decorative, serif" font-size="20">Pisces: Space Journey Architecture</text>
 
-        <rect x="36" y="58" width="848" height="128" rx="14" fill="url(#layerGold)" stroke="rgba(240,200,74,.6)" stroke-width="1.2"/>
+        <rect x="36" y="58" width="848" height="108" rx="14" fill="url(#layerGold)" stroke="rgba(240,200,74,.6)" stroke-width="1.2"/>
         <text x="62" y="86" fill="#f0c84a" font-family="Cinzel Decorative, serif" font-size="15">Browser Runtime</text>
-        <rect x="62" y="105" width="138" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
-        <text x="131" y="128" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="16">index.html</text>
-        <text x="131" y="147" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="13">entry point</text>
-        <rect x="218" y="105" width="138" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
-        <text x="287" y="128" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="16">main.js</text>
-        <text x="287" y="147" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="13">game loop</text>
-        <rect x="374" y="105" width="118" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
-        <text x="433" y="136" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="16">input.js</text>
-        <rect x="510" y="105" width="118" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
-        <text x="569" y="136" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="16">config.js</text>
-        <rect x="646" y="105" width="118" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
-        <text x="705" y="136" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="16">audio.js</text>
+        <rect x="62" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="116" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">index.html</text>
+        <text x="116" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">entry and UI</text>
+        <rect x="176" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="230" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">main.js</text>
+        <text x="230" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">game loop</text>
+        <rect x="290" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="344" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">input.js</text>
+        <text x="344" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">keys and touch</text>
+        <rect x="404" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="458" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">config.js</text>
+        <text x="458" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">settings</text>
+        <rect x="518" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="572" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">audio.js</text>
+        <text x="572" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">sfx and music</text>
+        <rect x="632" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="686" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">background.js</text>
+        <text x="686" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">parallax sky</text>
+        <rect x="746" y="98" width="108" height="54" rx="8" fill="url(#nodeBlue)" stroke="#79c7ff"/>
+        <text x="800" y="121.22" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">recap.js</text>
+        <text x="800" y="140.12" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">Voyage Recap</text>
 
-        <line x1="460" y1="186" x2="460" y2="214" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
+        <line x1="460" y1="166" x2="460" y2="194" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
 
-        <rect x="36" y="222" width="848" height="202" rx="14" fill="#10162f" stroke="rgba(121,199,255,.65)" stroke-width="1.2"/>
-        <text x="62" y="250" fill="#79c7ff" font-family="Cinzel Decorative, serif" font-size="15">Simulation &amp; Combat</text>
-        <rect x="62" y="270" width="170" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
-        <text x="147" y="299" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">entities/core.js</text>
-        <rect x="248" y="270" width="170" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
-        <text x="333" y="299" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">entities/goliath.js</text>
-        <rect x="434" y="270" width="170" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
-        <text x="519" y="299" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">entities/misc-enemies.js</text>
-        <rect x="620" y="270" width="200" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
-        <text x="720" y="299" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">skills/misc-mechanics.js</text>
-        <rect x="154" y="340" width="160" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
-        <text x="234" y="369" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">sigils/core.js</text>
-        <rect x="336" y="340" width="160" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
-        <text x="416" y="369" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">yuusha-party.js</text>
-        <rect x="518" y="340" width="160" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
-        <text x="598" y="369" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">match-stats.js</text>
+        <rect x="36" y="202" width="848" height="176" rx="14" fill="#10162f" stroke="rgba(121,199,255,.65)" stroke-width="1.2"/>
+        <text x="62" y="230" fill="#79c7ff" font-family="Cinzel Decorative, serif" font-size="15">Simulation &amp; Combat</text>
+        <rect x="62" y="248" width="250" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
+        <text x="187" y="267.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">entities/core.js</text>
+        <text x="187" y="283.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">shared enemy logic</text>
+        <rect x="335" y="248" width="250" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
+        <text x="460" y="267.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">entities/*.js</text>
+        <text x="460" y="283.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">bosses, elites, sentinels</text>
+        <rect x="608" y="248" width="250" height="46" rx="8" fill="#122653" stroke="#4d9fff"/>
+        <text x="733" y="267.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">skills/*.js</text>
+        <text x="733" y="283.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">18 skill modules</text>
+        <rect x="62" y="310" width="184" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
+        <text x="154" y="329.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">sigils/core.js</text>
+        <text x="154" y="345.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">picker and meters</text>
+        <rect x="266" y="310" width="184" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
+        <text x="358" y="329.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">sigils/*.js</text>
+        <text x="358" y="345.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">15 sigil definitions</text>
+        <rect x="470" y="310" width="184" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
+        <text x="562" y="329.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">timeline-distortion.js</text>
+        <text x="562" y="345.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">boss wave anomalies</text>
+        <rect x="674" y="310" width="184" height="46" rx="8" fill="#123f5e" stroke="#52c9b9"/>
+        <text x="766" y="329.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">yuusha-party.js</text>
+        <text x="766" y="345.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">Taurus squad</text>
 
-        <line x1="460" y1="424" x2="460" y2="452" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
+        <line x1="460" y1="378" x2="460" y2="406" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
 
-        <rect x="36" y="460" width="848" height="152" rx="14" fill="#111635" stroke="rgba(121,199,255,.65)" stroke-width="1.2"/>
-        <text x="62" y="488" fill="#79c7ff" font-family="Cinzel Decorative, serif" font-size="15">Rendering &amp; UI</text>
-        <rect x="62" y="510" width="150" height="48" rx="8" fill="#17255c" stroke="#4d9fff"/>
-        <text x="137" y="540" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">pixi-renderer.js</text>
-        <rect x="228" y="510" width="140" height="48" rx="8" fill="#17255c" stroke="#4d9fff"/>
-        <text x="298" y="540" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/core.js</text>
-        <rect x="384" y="510" width="140" height="48" rx="8" fill="#17255c" stroke="#4d9fff"/>
-        <text x="454" y="540" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/player.js</text>
-        <rect x="540" y="510" width="180" height="48" rx="8" fill="#17255c" stroke="#4d9fff"/>
-        <text x="630" y="540" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/enemy-common.js</text>
-        <rect x="736" y="510" width="100" height="48" rx="8" fill="#17255c" stroke="#4d9fff"/>
-        <text x="786" y="540" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">style.css</text>
+        <rect x="36" y="414" width="848" height="176" rx="14" fill="#111635" stroke="rgba(121,199,255,.65)" stroke-width="1.2"/>
+        <text x="62" y="442" fill="#79c7ff" font-family="Cinzel Decorative, serif" font-size="15">Rendering &amp; UI</text>
+        <rect x="62" y="460" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="154" y="479.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">pixi-renderer.js</text>
+        <text x="154" y="495.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">PixiJS adapter</text>
+        <rect x="266" y="460" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="358" y="479.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/core.js</text>
+        <text x="358" y="495.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">shared drawing</text>
+        <rect x="470" y="460" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="562" y="479.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/player.js</text>
+        <text x="562" y="495.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">ship and shield</text>
+        <rect x="674" y="460" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="766" y="479.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/fx.js</text>
+        <text x="766" y="495.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">effects</text>
+        <rect x="62" y="522" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="154" y="541.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/enemy-*.js</text>
+        <text x="154" y="557.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">10 enemy renderers</text>
+        <rect x="266" y="522" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="358" y="541.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/sigil-*.js</text>
+        <text x="358" y="557.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">6 sigil scenes</text>
+        <rect x="470" y="522" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="562" y="541.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/skill-*.js</text>
+        <text x="562" y="557.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">skills and buttons</text>
+        <rect x="674" y="522" width="184" height="46" rx="8" fill="#17255c" stroke="#4d9fff"/>
+        <text x="766" y="541.78" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">render/kanade-*.js</text>
+        <text x="766" y="557.88" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="12.5">cutscene and face</text>
 
-        <line x1="460" y1="612" x2="460" y2="640" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
+        <line x1="460" y1="590" x2="460" y2="618" stroke="#f0c84a" stroke-width="2" marker-end="url(#archArrow)"/>
 
-        <rect x="36" y="648" width="848" height="96" rx="14" fill="#20200d" stroke="rgba(240,200,74,.6)" stroke-width="1.2"/>
-        <text x="62" y="676" fill="#f0c84a" font-family="Cinzel Decorative, serif" font-size="15">Static Delivery</text>
-        <rect x="206" y="687" width="120" height="34" rx="8" fill="#3a3210" stroke="#c9a227"/>
-        <text x="266" y="710" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">sw.js</text>
-        <rect x="346" y="687" width="120" height="34" rx="8" fill="#3a3210" stroke="#c9a227"/>
-        <text x="406" y="710" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">guide.html</text>
-        <rect x="486" y="687" width="180" height="34" rx="8" fill="#3a3210" stroke="#c9a227"/>
-        <text x="576" y="710" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">image and audio assets</text>
+        <rect x="36" y="626" width="848" height="104" rx="14" fill="#20200d" stroke="rgba(240,200,74,.6)" stroke-width="1.2"/>
+        <text x="62" y="654" fill="#f0c84a" font-family="Cinzel Decorative, serif" font-size="15">Static Delivery</text>
+        <rect x="62" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="122" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">sw.js</text>
+        <rect x="197" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="257" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">offline.js</text>
+        <rect x="332" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="392" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">manifest.json</text>
+        <rect x="467" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="527" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">guide.html</text>
+        <rect x="602" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="662" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">css/*.css</text>
+        <rect x="737" y="670" width="120" height="40" rx="8" fill="#3a3210" stroke="#c9a227"/>
+        <text x="797" y="695" text-anchor="middle" fill="#f4ead8" font-family="Cormorant Garamond, serif" font-size="15">assets</text>
+
+        <text x="460" y="762" text-anchor="middle" fill="#9dd6ff" font-family="Cormorant Garamond, serif" font-size="15">84 JavaScript files, about 70,000 lines, 148 sound effects, 23 music tracks</text>
       </svg>
       <p class="pisces-caption">The three files named core.js remain distinct in the codebase: entities/core.js, sigils/core.js, and render/core.js.</p>
     </div>
 
     <h2 id="sigil-system">The Core Skill System</h2>
-    <p>The zodiac sigil system is the defining mechanic of Pisces: Space Journey. Each sign is an equipable sigil that gives the character its own build direction, drawing on a distinct combat theme instead of decorative naming.</p>
+    <p>The sigil system is the defining mechanic of Pisces: Space Journey. Each sigil gives the ship its own build direction and carries two blessings, so every run can be pushed toward a different style of play instead of a single fixed loadout.</p>
+    <p>The roster now holds <strong>fifteen sigils</strong>: the twelve Western zodiac signs, plus three drawn from the Eastern animal zodiac, Great Sage, Dawn Herald, and Umbral Serpent. The summaries below follow the in-game descriptions.</p>
 
     <div class="pisces-sigils">
-      <div class="pisces-sigil"><h4>Aries · Gate of Babylon</h4><p>Landed hits summon piercing blade fans and phantom spear strikes.</p></div>
-      <div class="pisces-sigil"><h4>Taurus · Yuusha Party</h4><p>Tank build that banks squad and self-soaked damage into an absorb meter.</p></div>
-      <div class="pisces-sigil"><h4>Gemini · Shadow Twin</h4><p>Spawns a phantom twin ship that fires mirrored volleys of piercing plasma.</p></div>
-      <div class="pisces-sigil"><h4>Cancer · Lunar Aegis</h4><p>Sentinel-based protection: regenerating shields, evade, and a whirlpool pull-burst.</p></div>
-      <div class="pisces-sigil"><h4>Leo</h4><p>Opens each wave with a full-field freeze paired with a damage buff.</p></div>
-      <div class="pisces-sigil"><h4>Virgo · Forest Guardian</h4><p>Boosts critical strikes and stacks debuffs for follow-up damage amplification.</p></div>
-      <div class="pisces-sigil"><h4>Libra · Blood Arrow</h4><p>Charges Skill A into a bankable release of piercing, exploding arrows.</p></div>
-      <div class="pisces-sigil"><h4>Scorpio · Resurrection</h4><p>Grants bonus lives on pick and accelerates the life-gain rate.</p></div>
-      <div class="pisces-sigil"><h4>Sagittarius · Twin Blades</h4><p>Boomerang and arc-blade barrages that slow and pull enemies in.</p></div>
-      <div class="pisces-sigil"><h4>Capricorn · Compound Interest</h4><p>Each kill compounds a stacking global damage bonus.</p></div>
-      <div class="pisces-sigil"><h4>Aquarius · Chain Lightning</h4><p>Area slow and damage-over-time pulse while Skill G is active or charged.</p></div>
-      <div class="pisces-sigil"><h4>Pisces · Dream Realm</h4><p>Negates incoming damage for a window, then detonates marked enemies for a delayed burst.</p></div>
+      <div class="pisces-sigil"><h4>Aries · Fire</h4><p><strong>Gate of Babylon.</strong> Ally hits can open gates that fire 14 piercing blades in a fan.</p><p><strong>Enuma Elish.</strong> Every 30 ally hits, a phantom hurls a spear through the strongest enemy's line for heavy true damage.</p></div>
+      <div class="pisces-sigil"><h4>Taurus · Earth</h4><p><strong>Yuusha Party.</strong> Summons a squad of four Sentinels (Tank, Support, Marksman, Mage) that take hits meant for you and return 5 seconds after falling.</p><p><strong>Squad Synergy.</strong> Every squad role fights: blade sweeps, healing, piercing arrows, and arcane zones.</p></div>
+      <div class="pisces-sigil"><h4>Gemini · Air</h4><p><strong>Shadow Twin.</strong> Every 10th ally hit calls a phantom twin ship that fires three volleys of piercing plasma orbs.</p><p><strong>Mirror Laser.</strong> The Overload Laser gains two mirror beams and extra damage.</p></div>
+      <div class="pisces-sigil"><h4>Cancer · Water</h4><p><strong>Lunar Aegis.</strong> Stronger Sentinel protection, and a killer whale finishes any enemy at 8% HP or below.</p><p><strong>Tidal Flow.</strong> Sentinels regenerate and return if all fall, and a tide meter summons whirlpools that drag enemies in.</p></div>
+      <div class="pisces-sigil"><h4>Leo · Fire</h4><p><strong>Lion's Roar.</strong> Hits apply a stacking Burn, and a Burning enemy that dies spreads it to up to six nearby enemies.</p><p><strong>Divine Fate.</strong> Each wave starts with every enemy petrified for 5 seconds and taking more damage. Burning kills fill a Fate meter that petrifies the field again.</p></div>
+      <div class="pisces-sigil"><h4>Virgo · Earth</h4><p><strong>Forest Guardian.</strong> Every 6th auto volley crits for triple damage with Vulnerability, root, and silence, and a vine wrapped log sweeps the screen when five or more enemies are present.</p><p><strong>Circuit Engineer.</strong> Tesla damage rises 30%, destroyed Coils refund Skill G charge, and debuffed enemies take 25% more damage.</p></div>
+      <div class="pisces-sigil"><h4>Libra · Blood Sorcery</h4><p><strong>Blood Arrow.</strong> Skill A banks volleys of five piercing arrows and fires everything banked once a target is in sight. Arrows explode and apply Vulnerability.</p><p><strong>Astral Pierce.</strong> Skill A orbs pierce through their target to the screen edge, with larger size and more damage.</p></div>
+      <div class="pisces-sigil"><h4>Scorpio · Water</h4><p><strong>Resurrection.</strong> Gain 4 lives immediately (up to 12) and earn an extra life every 300,000 points.</p><p><strong>Death Mark.</strong> Damage rises as enemies lose HP, up to +65% at 20% HP or below, and enemies at 5% HP are struck down by lightning.</p></div>
+      <div class="pisces-sigil"><h4>Sagittarius · Fire</h4><p><strong>Twin Blades.</strong> Spirit slashes fire extra blades, boomerangs can multiply, and Skill F throws two boomerangs.</p><p><strong>Arctic Chill.</strong> Boomerangs and arc slashes often slow enemies by 30% and pull them in.</p></div>
+      <div class="pisces-sigil"><h4>Capricorn · Earth</h4><p><strong>Compound Interest.</strong> Each kill adds a stacking damage bonus, up to +40%, and every five stacks add ally fire rate.</p><p><strong>Mountainfall.</strong> A full Ley meter drops a mountain on the densest group, then leaves rock walls that stop every enemy bullet, beam, and body for 4 seconds.</p></div>
+      <div class="pisces-sigil"><h4>Aquarius · Air</h4><p><strong>Chain Lightning.</strong> Tesla damage over time arcs to a nearby enemy, and Skill G charges 35% faster.</p><p><strong>Magnetic Field.</strong> While Skill G is active or fully charged, enemies within 300px are slowed 30% and take damage every second.</p></div>
+      <div class="pisces-sigil"><h4>Pisces · Water</h4><p><strong>Dream Realm.</strong> Shift grants 2.5 seconds of immunity and marks every enemy, which then burst for part of the damage they took.</p><p><strong>Cycle of Flow.</strong> Kills and movement cut skill cooldowns, and at 12 Flow points bubbles form a fish that swims through enemies and stuns each one.</p></div>
+      <div class="pisces-sigil"><h4>Great Sage · Earth</h4><p class="pisces-origin">Monkey (Than)</p><p><strong>Ransacked Treasury.</strong> Skill F becomes the Ruyi Jingu Bang. Killing an Elite or stronger steals its gem, and F then unleashes a copy of that enemy's signature attack.</p><p><strong>72 Transformations.</strong> While holding three different gems, each stolen attack hits 1.65 times as hard.</p></div>
+      <div class="pisces-sigil"><h4>Dawn Herald · Metal</h4><p class="pisces-origin">Rooster (Dau)</p><p><strong>Daybreak Clarion.</strong> Every 10 seconds the rooster crows: a ring of light erases enemy bullets, shoves enemies back, and marks them to take more damage and lose evade.</p><p><strong>Starfall Needles.</strong> Erased bullets return as homing golden needles, seven star needles pin the strongest enemies, and enemy skill shots the ring touches return to their caster.</p></div>
+      <div class="pisces-sigil"><h4>Umbral Serpent · Venomancy</h4><p class="pisces-origin">Snake (Ty)</p><p><strong>Umbral Devour.</strong> A 10 second charge releases four bites and four piercing shards on the next bullet contact, even through armor or barriers.</p><p><strong>Serpent Array.</strong> Skill S opens a seal that pulls enemies in, then erupts, while ten serpents hunt for 8 seconds and every fifth bite stacks Venom.</p></div>
     </div>
 
-    <p>This structure also supports future work. New sigils can be developed as their own build paths, while enemy and boss behavior can remain separated in the combat modules.</p>
+    <p>New sigils are built as their own build paths, while enemy and boss behavior stays separated in the combat modules. That separation is what let the roster grow from twelve signs to fifteen sigils without reworking the rest of the game.</p>
+
+    <h2 id="bosses">Bosses and Elites</h2>
+    <p>Enemies are grouped into tiers: the lesser Apostles, then Abnormal, Elite, and Dominator enemies, with Goliath as a Digiform boss that appears on every fifth wave. Each has a signature mechanic, summarized here from the in-game Guide.</p>
+
+    <div class="pisces-cards">
+      <article class="pisces-card pisces-card-wide">
+        <h4>Egregor</h4>
+        <span class="pisces-tier">Elite</span>
+        <p>A psychic parasite that was rebuilt for the latest update.</p>
+        <ul>
+          <li><strong>Collective Mind:</strong> ten tentacles intercept most hits, and each lost tentacle heals and strengthens the body.</li>
+          <li><strong>Mind Link:</strong> nearby enemy deaths feed rage stacks that make Egregor faster and tougher.</li>
+          <li><strong>Null Slash:</strong> a 180 degree sweep that tears open a cosmic rift for 1.8 seconds, with deeper space at higher rage.</li>
+          <li><strong>Psychic Tempest:</strong> a planted tentacle locks up to three targets, then giant hooked tentacles erupt from portals beneath them.</li>
+        </ul>
+      </article>
+      <article class="pisces-card">
+        <h4>Goliath</h4>
+        <span class="pisces-tier">Digiform</span>
+        <p>Arrives as an invulnerable Alpha that feeds on the wave, then transforms into its True Form. Fracture Step teleports it, Unbroken Will revives it once, and Absolute Verdict fires a piercing orb that can cost the player five lives.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Leviathan</h4>
+        <span class="pisces-tier">Dominator</span>
+        <p>All for One keeps it behind an Iron Body shield until a kill quota is met. Herd Leader buffs every other enemy, Perseverance is a full 360 degree sweeping laser, and Last Rites locks nine wing plates onto targets at 1 HP.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Dargruel</h4>
+        <span class="pisces-tier">Dominator</span>
+        <p>Abyssal Chains root and silence the player, and a darkened chain can cost a life. Demon Gift heals the horde at set health thresholds, and Maou Haki at 50% HP sends a screen wide shockwave that clears friendly projectiles.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Marchosias</h4>
+        <span class="pisces-tier">Elite</span>
+        <p>A rotating 90 degree Arc Barrier with its own health pool. Hits on the barrier queue Swords, a fourth sword makes the barrier self detonate, and on death it splits into three Minion Robots.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Raphael</h4>
+        <span class="pisces-tier">Elite, the Wisdom King</span>
+        <p>Custos Aeternus nullifies its first 20 hits while Support Aura heals and shields other enemies. Once Custos breaks, Wisdom King raises its evade, and every 80 hits landed while Custos was up fire a piercing Wisdom Orb.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Uriel</h4>
+        <span class="pisces-tier">Abnormal, the Covenant King</span>
+        <p>Covenant King grants every other living enemy CC immunity and Iron Body layers. Uriel starts at 99% evade that each landed hit wears down, vanishes with Camouflage, throws a piercing Holy Sword, and leaves a barrier when it dies.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Veilshroud</h4>
+        <span class="pisces-tier">Abnormal</span>
+        <p>Slips into a Phantom state with 99% damage reduction and turns the damage it absorbs into a shield. When it dies, a portal opens and births about ten Apostles before collapsing.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Thaelis</h4>
+        <span class="pisces-tier">Abnormal</span>
+        <p>At zero HP it collapses into an untargetable Cocoon guarded by four Guards. Defeat enough Guards in time and it is gone for good, otherwise it climbs back out with permanent buffs. Its shots split into six homing bullets.</p>
+      </article>
+    </div>
+
+    <h2 id="systems">Game Systems</h2>
+    <div class="pisces-cards">
+      <article class="pisces-card">
+        <h4>Timeline Distortion</h4>
+        <p>Every fifth wave is a boss wave. It opens with a cutscene where time stops, the Administrator Kanade summons Goliath, and she casts a paired anomaly on the fight: one half favors you, one half favors the enemy. The four pairs are Stack Overflow, Spacetime Flow, Administrator's Favor, and Adaptive Counter, and a pair never repeats back to back.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Voyage Recap</h4>
+        <p>Replaces the Game Over screen with a full flight log: score, wave, what shot you down, the sigils you chose in order, damage dealt and taken by source, and a battle timeline. A share image can be saved as a portrait or landscape card, with an optional callsign.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Walpurgis</h4>
+        <p>Every five waves, all enemies permanently gain a stack: more Max HP, more evade up to a cap, flat damage reduction, and stronger healing and shields. Enemies already on screen are rescaled at once, so late waves keep pushing back.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Combat Scaling Rebalance</h4>
+        <p>Every hostile attack and ally skill was moved onto one shared basis, either the player's ATK or the target's own Max HP or lost HP, instead of scattered flat numbers. Enemy damage reduction, healing, and shield caps were retuned, and a DPS and time to kill checking tool was added to the debug console.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Kanade Cutscene</h4>
+        <p>The first boss wave a player reaches always plays Kanade's cutscene. After that first viewing it can be skipped, while the Distortion still applies. Her frozen world has its own piece of music, Fermata.</p>
+      </article>
+      <article class="pisces-card">
+        <h4>Offline Play and PWA</h4>
+        <p>A service worker serves the game from cache, and Settings can download a Basic package (about 66 MB) or a Full package that adds every music track (about 219 MB). The game can also be installed like an app.</p>
+      </article>
+      <article class="pisces-card pisces-card-wide">
+        <h4>The Guide</h4>
+        <p>A separate Guide page documents the sigils, skills, enemies, combat rules, and the full update log. The enemy cards include demos that run the real game renderers, and the Guide is available in English and Vietnamese.</p>
+      </article>
+    </div>
+
+    <h2 id="testing">Testing and Performance</h2>
+    <p>The repository includes headless browser scripts that drive the real game in Chrome through Playwright. They load the production scripts and replace the clock with a virtual game clock, so a fight can be stepped frame by frame and the same result repeats on every run. Some of them also time the update and draw steps under fixed loads, for example with 80 enemies and 60 bullets on screen.</p>
+    <p>Performance work shows up in the update log as concrete changes: five graphics levels from High to Performance, switches in Advanced Graphics for glow, trails, and flashes, cached sprites and fixed particle pools for heavy effects, and heavy artwork built while the game is idle. Egregor's rift art is now prepared before it ever appears, which removed a freeze in its first fight.</p>
 
     <h2 id="betas">What Changed Between the Betas</h2>
     <div class="pisces-cards">
@@ -268,11 +416,11 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 
     <div class="pisces-cards">
       <figure class="pisces-card" style="padding:0;overflow:hidden;">
-        <img src="/assets/images/pisces-beta1-screenshot.png" alt="Beta One gameplay screenshot" style="display:block;width:100%;">
+        <img src="/assets/images/pisces-beta1-screenshot.png" alt="Beta One gameplay screenshot" width="1917" height="897" loading="lazy" style="display:block;width:100%;height:auto;">
         <figcaption class="pisces-caption" style="margin:8px 12px 12px;">Beta One: the abandoned VFX pass.</figcaption>
       </figure>
       <figure class="pisces-card" style="padding:0;overflow:hidden;">
-        <img src="/assets/images/pisces-beta2-screenshot.png" alt="Beta Two gameplay screenshot" style="display:block;width:100%;">
+        <img src="/assets/images/pisces-beta2-screenshot.png" alt="Beta Two gameplay screenshot" width="1917" height="907" loading="lazy" style="display:block;width:100%;height:auto;">
         <figcaption class="pisces-caption" style="margin:8px 12px 12px;">Beta Two: the FX and Balance pass that replaced it.</figcaption>
       </figure>
     </div>
@@ -283,37 +431,49 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
 
     <h2 id="screenshots">Screenshots</h2>
 
-    <img src="/assets/images/pisces-screenshot-gameplay.png" alt="Gameplay scene with the player ship, enemies, and PixiJS visual effects" class="pisces-screenshot-img">
+    <picture>
+      <source srcset="/assets/images/pisces-screenshot-gameplay-2026-10.webp" type="image/webp">
+      <img src="/assets/images/pisces-screenshot-gameplay-2026-10.png" alt="Fight against Egregor with a cosmic rift from Null Slash, Psychic Tempest tentacles rising from portals, and the Umbral Serpent sigil in play" class="pisces-screenshot-img" width="1917" height="852" loading="lazy">
+    </picture>
+    <p class="pisces-caption">A fight against Egregor: Null Slash leaves a cosmic rift across the arena, Psychic Tempest tentacles rise from portals, and the Umbral Serpent sigil hunts with its serpents.</p>
 
-    <img src="/assets/images/pisces-screenshot-sigils.png" alt="Zodiac sigil selection interface showing several constellation build options" class="pisces-screenshot-img">
+    <img src="/assets/images/pisces-screenshot-sigils.png" alt="Zodiac sigil selection interface showing several constellation build options" class="pisces-screenshot-img" width="1917" height="907" loading="lazy">
 
-    <img src="/assets/images/pisces-screenshot-boss.png" alt="Boss encounter against the Goliath enemy" class="pisces-screenshot-img">
+    <img src="/assets/images/pisces-screenshot-boss.png" alt="Boss encounter against the Goliath enemy" class="pisces-screenshot-img" width="1917" height="902" loading="lazy">
 
     <h2 id="faq">FAQ</h2>
     <section class="pisces-faq">
       <details>
         <summary>Can I play Pisces: Space Journey on mobile?</summary>
-        <p>The game runs in a browser. This case study does not claim a dedicated mobile interface, so the experience may vary by device and browser.</p>
+        <p>Yes, with limits. The game has touch controls with an on-screen joystick and skill buttons, a landscape HUD for phones, and its own performance tier for phones, where enemies and bosses are drawn smaller in landscape so they cover less of the screen. It is still a demanding browser game, so the experience can differ by device and browser.</p>
       </details>
       <details>
         <summary>Do I need to download anything?</summary>
-        <p>No. The game is hosted on GitHub Pages and is designed to run directly from a browser link.</p>
+        <p>No. The game is hosted on GitHub Pages and runs directly from a browser link. Optional offline packages can be downloaded from Settings.</p>
+      </details>
+      <details>
+        <summary>Can I play offline?</summary>
+        <p>Yes. The game is a progressive web app with a service worker. In Settings you can download a Basic package (about 66 MB, the app shell and every sound effect) or a Full package (about 219 MB, which adds every music track), and the game then runs without a connection.</p>
+      </details>
+      <details>
+        <summary>Is it free?</summary>
+        <p>Yes. It is free to play in the browser with no account, and the source code is available on GitHub under the MIT license.</p>
       </details>
       <details>
         <summary>What technology does the game use?</summary>
-        <p>The project uses vanilla HTML, CSS, and JavaScript, with PixiJS used as the rendering adapter.</p>
+        <p>The project uses vanilla HTML, CSS, and JavaScript, with PixiJS bundled as the rendering adapter and a service worker for offline play.</p>
       </details>
       <details>
         <summary>Can a new sigil be added?</summary>
-        <p>Yes. The modular architecture was created to make expansion easier, including new zodiac sigils, skills, enemies, and bosses.</p>
+        <p>Yes. The modular architecture was created to make expansion easier, and it has already carried the roster from the twelve zodiac signs to fifteen sigils with Great Sage, Dawn Herald, and Umbral Serpent.</p>
       </details>
       <details>
         <summary>Where is player data stored?</summary>
-        <p>This case study does not document a specific player data storage implementation.</p>
+        <p>Only settings are stored, locally in your browser through localStorage: audio volumes and chosen music, language, graphics and background options, the PC or Mobile choice, the callsign for the Voyage Recap card, and flags such as whether the Kanade cutscene was seen or skipped. There are no accounts and no backend, and the offline packages live in the browser's cache storage.</p>
       </details>
       <details>
         <summary>Is the project still evolving?</summary>
-        <p>Yes. The project has continued to develop since the March 2026 modular refactor and has accumulated more than 600 commits.</p>
+        <p>Yes. The project has continued to develop since the March 2026 modular refactor and has accumulated more than 800 commits.</p>
       </details>
     </section>
 
@@ -322,13 +482,19 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
       <li><strong>Late 2024:</strong> The idea for a browser space shooter with a zodiac sigil build system first took shape.</li>
       <li><strong>January 25, 2025:</strong> First beta, <em>Space Shooter – Nâng Cấp Toàn Diện</em>, created as a single HTML file while still in high school.</li>
       <li><strong>November 2025:</strong> Second beta, <em>Space Shooter – Nâng Cấp Toàn Diện (FX &amp; Balance)</em>, improves effects and balance.</li>
-      <li><strong>March 2026:</strong> The game is split into a modular multi file architecture.</li>
-      <li><strong>Current:</strong> Continued development passes 600 commits, with modular systems for combat, rendering, skills, sigils, audio, input, and offline delivery.</li>
+      <li><strong>March 12, 2026:</strong> The game is split into a modular multi file architecture, starting with the commit <em>Code game Space Shooter chia file</em>.</li>
+      <li><strong>September 10 to 11, 2026 (v6.7.0):</strong> Uriel, the Covenant King, joins the roster as a new Abnormal tier boss.</li>
+      <li><strong>September 15 to 16, 2026 (v6.8.0):</strong> Combat Scaling Rebalance puts every hostile attack and ally skill on one shared damage basis.</li>
+      <li><strong>September 25 to 30, 2026 (v6.9.0):</strong> Timeline Distortion arrives: Kanade opens every boss wave, summons Goliath, and imposes a paired anomaly on the fight.</li>
+      <li><strong>October 12, 2026 (v6.9.3):</strong> Dawn Herald, a new Metal sigil, joins the roster.</li>
+      <li><strong>October 19, 2026 (v6.9.4):</strong> Capricorn is rebuilt around Compound Interest and Mountainfall, and the Voyage Recap replaces the Game Over screen.</li>
+      <li><strong>October 23, 2026 (v6.9.5):</strong> The Umbral Serpent sigil arrives, and Egregor is rebuilt with Psychic Tempest and cosmic Null Slash rifts.</li>
+      <li><strong>Current:</strong> More than 800 commits, fifteen sigils, and modular systems for combat, rendering, skills, sigils, audio, input, and offline delivery.</li>
     </ul>
   </main>
 
   <aside class="pisces-box pisces-sidebar pisces-meta">
-    <img src="/assets/images/pisces-space-journey-cover.png" alt="Pisces Space Journey cover artwork" class="pisces-cover">
+    <img src="/assets/images/pisces-space-journey-cover-2026-10-square.webp" alt="Pisces Space Journey cover artwork showing the player ship facing Egregor" class="pisces-cover" width="793" height="793">
     <h2 class="pisces-title">Pisces:<br>Space Journey</h2>
     <div class="pisces-tags">
       <span class="pisces-tag">HTML</span>
@@ -346,3 +512,7 @@ description: "Pisces: Space Journey is a browser space shooter built with vanill
   </aside>
 
 </div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoGame","name":"Pisces: Space Journey","description":"A free browser space shooter with 15 sigils, nine bosses and elites, and offline play, built with vanilla JavaScript and PixiJS.","url":"https://aansensei.dev/projects/pisces-space-journey/","image":"https://aansensei.dev/assets/images/pisces-space-journey-og-2026-10.jpg","genre":"Shooter","gamePlatform":"Web browser","applicationCategory":"Game","operatingSystem":"Any","inLanguage":["en","vi"],"author":{"@type":"Person","name":"Cao Thien An Nguyen"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
+</script>
