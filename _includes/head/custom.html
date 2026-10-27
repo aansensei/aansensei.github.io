@@ -510,7 +510,7 @@
   }
 
   body.an-day-mode .intern-meta {
-    color: rgba(31, 42, 51, .6) !important;
+    color: rgba(31, 42, 51, .8) !important;
   }
 
   body.an-day-mode .cover-img {
@@ -1159,6 +1159,24 @@
     font-weight: 600;
     font-size: .9rem;
     letter-spacing: .12em;
+  }
+
+  #an-ham-btn {
+    position: relative;
+  }
+
+  #an-ham-btn::before,
+  #an-bg-peek::before,
+  #an-scene-quality::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
   }
 
   body.an-day-mode .page__footer::after {
@@ -2471,6 +2489,9 @@
         ctx.lineWidth = 1.2 * fsc; ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(-sway * 0.4, 28 * fsc); ctx.quadraticCurveTo(0, 13 * fsc, 0, 0); ctx.stroke();
 
+        /* the head never changes shape, so it is painted once per size and fade and then stamped */
+        var head = riverSprite(fl, '_head', fsc + ':' + Math.round(alp * 1000),
+          Math.ceil(22 * fsc) + 2, Math.ceil(33 * fsc) + 2, function (ctx) {
         if (fl.type === 'poppy') {
           for (var i = 0; i < 5; i++) {
             ctx.save(); ctx.rotate(i * Math.PI * 2 / 5);
@@ -2489,9 +2510,6 @@
             ctx.beginPath(); ctx.ellipse(lx - 2 * fsc, ly + 2 * fsc, 1.4 * fsc, 2.4 * fsc, 0.3, 0, Math.PI * 2); ctx.fill();
             ctx.beginPath(); ctx.ellipse(lx + 2 * fsc, ly + 2 * fsc, 1.4 * fsc, 2.4 * fsc, -0.3, 0, Math.PI * 2); ctx.fill();
           }
-        /* the head never changes shape, so it is painted once per size and fade and then stamped */
-        var head = riverSprite(fl, '_head', fsc + ':' + Math.round(alp * 1000),
-          Math.ceil(22 * fsc) + 2, Math.ceil(33 * fsc) + 2, function (ctx) {
 
         } else if (fl.type === 'cosmos') {
           for (var i = 0; i < 8; i++) {
@@ -2527,6 +2545,8 @@
             ctx.beginPath(); ctx.moveTo(-3 * fsc, 0); ctx.bezierCurveTo(-3 * fsc, -5 * fsc, 3 * fsc, -5 * fsc, 3 * fsc, 0); ctx.bezierCurveTo(3 * fsc, 5 * fsc, -3 * fsc, 5 * fsc, -3 * fsc, 0); ctx.fill(); ctx.restore();
           }
         }
+        });
+        ctx.drawImage(head.cv, -head.ox, -head.oy);
         ctx.restore();
       });
 
@@ -2545,8 +2565,6 @@
 
       ctx.globalAlpha = a * t;
       ctx.restore();
-        });
-        ctx.drawImage(head.cv, -head.ox, -head.oy);
     }
 
 {% include head/scene-river.html %}
@@ -3103,6 +3121,7 @@
         });
       }
 
+      if (skyA * starAlpha > 0) {
       ctx.save();
       ctx.globalAlpha = skyA * starAlpha;
       if (W < 768) {
@@ -3121,13 +3140,13 @@
       });
       PIS.forEach(function (st, i) {
         var px = (st.x - .5) * pisc + .5, py = (st.y - .15) * pisc + .15;
-      if (skyA * starAlpha > 0) {
         var tw = .5 + .45 * Math.sin(nt * 1.4 + i * .9), rr = (i === 0 || i === 7 || i === 12 ? 4 : 2.5) * pisr;
         var sg = ctx.createRadialGradient(px * W, py * H, 0, px * W, py * H, rr * 4); sg.addColorStop(0, 'rgba(180,210,255,' + tw * .5 + ')'); sg.addColorStop(1, 'transparent');
         ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(px * W, py * H, rr * 4, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = 'rgba(230,245,255,' + Math.min(1, tw * 1.3) + ')'; ctx.beginPath(); ctx.arc(px * W, py * H, rr, 0, Math.PI * 2); ctx.fill();
       });
       ctx.restore();
+      }
 
       if (starAlpha > 0 && sceneQuality !== 'lite') drawSkyBands(starAlpha);
 
@@ -3146,7 +3165,6 @@
       }
 
       if (mtnA > 0) drawMtns(mtnA, themeT);
-      }
       if (shipA > 0) drawAirship(shipA, themeT);
 
       // pháo hoa tách khỏi casA để click chỗ nào cũng bắn đc, khỏi cần cuộn tới thành

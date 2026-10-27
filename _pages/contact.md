@@ -79,7 +79,7 @@ body.an-day-mode .contact-open{color:#006666;border-color:rgba(0,102,102,.35);ba
 body.an-day-mode .contact-open-dot{background:#0f8a8a;}
 body.an-day-mode .contact-welcome{color:rgba(31,42,51,.82);}
 body.an-day-mode .cf-title{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;}
-body.an-day-mode body.an-day-mode .cf-row label{color:#006666;}
+body.an-day-mode .cf-row label{color:#006666;}
 body.an-day-mode .contact-card .cf-row input,body.an-day-mode .contact-card .cf-row textarea{background:rgba(255,255,255,.85)!important;border-color:rgba(0,102,102,.3)!important;color:#1f2a33!important;}
 body.an-day-mode .contact-card .cf-row input::placeholder,body.an-day-mode .contact-card .cf-row textarea::placeholder{color:rgba(31,42,51,.42);}
 body.an-day-mode .contact-card .cf-row input:focus,body.an-day-mode .contact-card .cf-row textarea:focus{border-color:#0f8a8a!important;background:#fff!important;box-shadow:0 0 0 3px rgba(15,138,138,.18)!important;}
@@ -142,6 +142,8 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
   }
   form.addEventListener('submit',function(e){
     e.preventDefault();
+    if(btn.disabled){return;}
+    ['name','subject','message'].forEach(function(k){form.elements[k].value=form.elements[k].value.trim();});
     if(form.elements['_honey'].value){return;}
     if(!form.checkValidity()){form.reportValidity();return;}
     btn.disabled=true;label.textContent='Sending';say('');

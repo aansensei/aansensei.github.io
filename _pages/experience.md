@@ -626,6 +626,20 @@ var COURSE_INFO = {
   });
   document.addEventListener("keydown", function(e){
     if(e.key === "Escape" && modalLayer.classList.contains("open")) closeModal();
+    if(e.key === "Tab" && modalLayer.classList.contains("open")){
+      var focusable = Array.from(modalLayer.querySelectorAll('button:not([disabled]),a[href],input,textarea,select,[tabindex="0"]')).filter(function(el){
+        return el.getClientRects().length && getComputedStyle(el).visibility === "visible";
+      });
+      if(!focusable.length) return;
+      var first = focusable[0], last = focusable[focusable.length - 1];
+      if(!modalLayer.contains(document.activeElement)){
+        e.preventDefault(); first.focus();
+      } else if(e.shiftKey && document.activeElement === first){
+        e.preventDefault(); last.focus();
+      } else if(!e.shiftKey && document.activeElement === last){
+        e.preventDefault(); first.focus();
+      }
+    }
   });
 
   document.querySelectorAll(".exp-tab-btn").forEach(function(btn){
@@ -646,7 +660,10 @@ var COURSE_INFO = {
     var isDay = document.body.classList.contains("an-day-mode");
     if(isDay === lastDayMode) return;
     lastDayMode = isDay;
-    renderNetwork(true);
+    EXP_DATA[current].nodes.forEach(function(item, i){
+      var img = nodeEls[i] && nodeEls[i].querySelector(".exp-star-frame img");
+      if(img) img.src = (isDay && item.logoDay) ? item.logoDay : item.logo;
+    });
   })
     .observe(document.body, { attributes: true, attributeFilter: ["class"] });
 })();
