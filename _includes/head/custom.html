@@ -2489,6 +2489,9 @@
             ctx.beginPath(); ctx.ellipse(lx - 2 * fsc, ly + 2 * fsc, 1.4 * fsc, 2.4 * fsc, 0.3, 0, Math.PI * 2); ctx.fill();
             ctx.beginPath(); ctx.ellipse(lx + 2 * fsc, ly + 2 * fsc, 1.4 * fsc, 2.4 * fsc, -0.3, 0, Math.PI * 2); ctx.fill();
           }
+        /* the head never changes shape, so it is painted once per size and fade and then stamped */
+        var head = riverSprite(fl, '_head', fsc + ':' + Math.round(alp * 1000),
+          Math.ceil(22 * fsc) + 2, Math.ceil(33 * fsc) + 2, function (ctx) {
 
         } else if (fl.type === 'cosmos') {
           for (var i = 0; i < 8; i++) {
@@ -2542,6 +2545,8 @@
 
       ctx.globalAlpha = a * t;
       ctx.restore();
+        });
+        ctx.drawImage(head.cv, -head.ox, -head.oy);
     }
 
 {% include head/scene-river.html %}
@@ -3116,6 +3121,7 @@
       });
       PIS.forEach(function (st, i) {
         var px = (st.x - .5) * pisc + .5, py = (st.y - .15) * pisc + .15;
+      if (skyA * starAlpha > 0) {
         var tw = .5 + .45 * Math.sin(nt * 1.4 + i * .9), rr = (i === 0 || i === 7 || i === 12 ? 4 : 2.5) * pisr;
         var sg = ctx.createRadialGradient(px * W, py * H, 0, px * W, py * H, rr * 4); sg.addColorStop(0, 'rgba(180,210,255,' + tw * .5 + ')'); sg.addColorStop(1, 'transparent');
         ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(px * W, py * H, rr * 4, 0, Math.PI * 2); ctx.fill();
@@ -3140,6 +3146,7 @@
       }
 
       if (mtnA > 0) drawMtns(mtnA, themeT);
+      }
       if (shipA > 0) drawAirship(shipA, themeT);
 
       // pháo hoa tách khỏi casA để click chỗ nào cũng bắn đc, khỏi cần cuộn tới thành
