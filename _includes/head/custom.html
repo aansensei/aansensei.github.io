@@ -224,7 +224,7 @@
       }
       var sv = sessionStorage.getItem(KTHEME);
       var ts = +sessionStorage.getItem(KTS) || 0;
-      var isDay = (sv === 'day' && now - ts < TTL);
+      var isDay = !(sv === 'night' && now - ts < TTL);
       sessionStorage.setItem(KACT, now);
 
       function applyTheme() {
@@ -580,7 +580,7 @@
 
   body.an-day-mode *,
   html:has(body.an-day-mode) {
-    scrollbar-color: #b8860b rgba(240, 248, 255, .98)
+    scrollbar-color: #0f8a8a rgba(240, 248, 255, .98)
   }
 
   #an-moon {
@@ -749,6 +749,24 @@
   body a.back-btn:hover i,
   body a.pisces-back:hover i {
     transform: translateX(-3px);
+  }
+
+  /* :where() keeps this default tint at zero specificity, so a page that sets its own --back-a, --back-b
+     and --back-glow (Shadow Rent) still wins. */
+  :where(body.an-day-mode a.back-btn, body.an-day-mode a.pisces-back) {
+    --back-a: #8fe3d8;
+    --back-b: #0f8a8a;
+    --back-glow: 15, 138, 138;
+  }
+
+  body.an-day-mode a.back-btn,
+  body.an-day-mode a.pisces-back {
+    color: #06302f !important;
+  }
+
+  body.an-day-mode a.back-btn:hover,
+  body.an-day-mode a.pisces-back:hover {
+    color: #06302f !important;
   }
 
   @keyframes anBackSheen {
@@ -3225,7 +3243,13 @@
         if (!document.hidden) {
           try {
             if (Date.now() - (+sessionStorage.getItem(KACT) || 0) > TTL) {
-              sessionStorage.removeItem(KTHEME); sessionStorage.removeItem(KTS); document.body.classList.remove('an-day-mode');
+              sessionStorage.removeItem(KTHEME); sessionStorage.removeItem(KTS); document.body.classList.add('an-day-mode');
+              ['an-theme-icon-desktop', 'an-theme-icon-mobile'].forEach(function (id) {
+                var ic = document.getElementById(id);
+                if (!ic) return;
+                ic.className = ic.className.replace(/fa-sun|fa-moon/g, '').trim();
+                ic.classList.add('fa-moon');
+              });
             }
           } catch (e) { }
         }
