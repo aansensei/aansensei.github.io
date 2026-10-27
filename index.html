@@ -65,6 +65,19 @@ title: "Hello, I'm An Nguyen"
     opacity: .8;
   }
 
+  body.an-day-mode .home-chapter,
+  body.an-day-mode .home-divider-text {
+    color: #006666;
+  }
+
+  body.an-day-mode .home-divider::before {
+    background: linear-gradient(to right, transparent, rgba(0, 102, 102, .35));
+  }
+
+  body.an-day-mode .home-divider::after {
+    background: linear-gradient(to left, transparent, rgba(0, 102, 102, .35));
+  }
+
   .home-project-card {
     background: linear-gradient(155deg, rgba(10,5,28,.97) 0%, rgba(16,9,38,.95) 45%, rgba(8,4,22,.97) 100%);
     border: 1px solid rgba(201,162,39,.30);

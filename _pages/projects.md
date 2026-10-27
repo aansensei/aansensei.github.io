@@ -205,6 +205,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 .cv-symbol{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .45s cubic-bezier(.25,1,.5,1);}
 .book-container:hover .cv-symbol{transform:scale(1.12);}
 .cv-title{font-family:'IM Fell English SC','Cinzel Decorative',serif!important;font-size:.90rem!important;font-weight:400!important;line-height:1.30!important;letter-spacing:.06em!important;text-align:center!important;color:#f5ece0!important;text-shadow:0 1px 0 rgba(255,255,255,.06),0 -1px 0 rgba(0,0,0,.45),0 0 18px rgba(255,255,255,.28)!important;margin:0 0 6px 0!important;padding:0!important;border:none!important;transition:text-shadow .35s;}
+body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ece0!important;}
 .book-container:hover .cv-title{text-shadow:0 1px 0 rgba(255,255,255,.10),0 -1px 0 rgba(0,0,0,.45),0 0 26px rgba(255,255,255,.52)!important;}
 .cv-title-sm{font-size:.78rem!important;}
 .cv-sub-rule{width:52%;height:1px;border-top:1px dashed rgba(201,162,39,.30);margin:4px auto 7px!important;}
