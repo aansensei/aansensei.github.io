@@ -864,6 +864,16 @@
     background: rgba(8, 7, 26, .82) !important;
   }
 
+  /* A backdrop blur re-samples and blurs whatever is behind it on every frame, and the canvas behind
+     redraws constantly. The page wrapper is nearly opaque in lite, so the cards on top of it gain
+     nothing from blurring and only cost fill rate on machines without a strong GPU. */
+  body.an-scene-lite *,
+  body.an-scene-lite *::before,
+  body.an-scene-lite *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
   body.an-day-mode.an-scene-lite .sidebar,
   body.an-day-mode.an-scene-lite .page__inner-wrap {
     background: rgba(255, 255, 255, .84) !important;
