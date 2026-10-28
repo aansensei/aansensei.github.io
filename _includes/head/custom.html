@@ -1830,10 +1830,34 @@
     } catch (err) {
     }
 
+    /* Auto starts on balanced and then watches the real frame times. A machine with headroom is
+       promoted to full, one that stutters is dropped to balanced or lite. The tier it had to fall
+       back to is remembered for the tab session so the next page does not repeat the stutter. */
+    var autoCapKey = 'an_auto_cap';
+    var autoCap = '';
+    try { autoCap = sessionStorage.getItem(autoCapKey) || ''; } catch (err) { }
+    var autoCores = navigator.hardwareConcurrency || 4;
+    var autoMemory = navigator.deviceMemory || 8;
+    var autoCanFull = !isTouch && autoCores >= 6 && autoMemory >= 8 && !autoCap;
+    var drawCostAvg = 0;
+
+    function setAutoTier(tier, cap) {
+      sceneQuality = tier;
+      slowFrameCount = 0;
+      drawCostAvg = 0;
+      document.body.classList.toggle('an-scene-lite', tier === 'lite');
+      document.body.setAttribute('data-scene-tier', tier);
+      if (cap) {
+        autoCap = cap; autoCanFull = false;
+        try { sessionStorage.setItem(autoCapKey, cap); } catch (err) { }
+      }
+    }
+
     function getAutoSceneQuality() {
       if (reduceMotionQuery && reduceMotionQuery.matches) return 'lite';
-      var cores = navigator.hardwareConcurrency || 4;
-      var memory = navigator.deviceMemory || 8;
+      if (autoCap === 'lite') return 'lite';
+      var cores = autoCores;
+      var memory = autoMemory;
       /* Phones start on balanced so they keep the meadow and the mist. The frame monitor in
          render() still drops them to lite if the scene runs slowly. */
       if (isTouch) return cores <= 2 || memory <= 4 ? 'lite' : 'balanced';
@@ -1844,6 +1868,8 @@
       sceneQuality = sceneQualityPreference === 'auto' ? getAutoSceneQuality() : sceneQualityPreference;
       if (reduceMotionQuery && reduceMotionQuery.matches) sceneQuality = 'lite';
       document.body.classList.toggle('an-scene-lite', sceneQuality === 'lite');
+      document.body.setAttribute('data-scene-tier', sceneQuality);
+      slowFrameCount = 0; drawCostAvg = 0;
       var qualityButton = document.getElementById('an-scene-quality');
       if (qualityButton) {
         qualityButton.textContent = qualityLabels[sceneQualityPreference];
@@ -3087,11 +3113,14 @@
       var now = frameTime || performance.now();
       var rafGap = now - lastRafTick;
       lastRafTick = now;
-      if (sceneQualityPreference === 'auto' && sceneQuality === 'balanced') {
-        if (activeTime > 4000) slowFrameCount = rafGap > 50 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
-        if (slowFrameCount >= 8) {
-          sceneQuality = 'lite';
-          document.body.classList.add('an-scene-lite');
+      if (sceneQualityPreference === 'auto') {
+        if (sceneQuality === 'balanced') {
+          if (activeTime > 2500) slowFrameCount = rafGap > 50 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+          if (slowFrameCount >= 6) setAutoTier('lite', 'lite');
+        } else if (sceneQuality === 'full') {
+          /* full asks for 60fps, so a gap past 40ms means the machine cannot keep up */
+          slowFrameCount = rafGap > 40 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+          if (slowFrameCount >= 12) setAutoTier('balanced', 'balanced');
         }
       }
       var frameInterval = sceneQuality === 'full' ? 1000 / 60 : sceneQuality === 'balanced' ? 1000 / 30 : 1000 / 20;
@@ -3103,6 +3132,7 @@
       lastRenderTick = now;
       activeTime += Math.min(now - lastTick, 100);
       lastTick = now;
+      var drawStart = performance.now();
 
       ctx.clearRect(0, 0, W, H);
       var nt = activeTime * .001;
@@ -3234,6 +3264,17 @@
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'source-over';
 
+      /* Promotion only counts while the castle is on screen, because that is where full adds
+         work (mist, cherry trees). Judging at the top of the page would promote too eagerly. */
+      if (sceneQualityPreference === 'auto' && (sceneQuality === 'balanced' || sceneQuality === 'full')) {
+        var drawCost = performance.now() - drawStart;
+        drawCostAvg = drawCostAvg === 0 ? drawCost : drawCostAvg * 0.9 + drawCost * 0.1;
+        if (sceneQuality === 'balanced' && autoCanFull && casA > 0.5 && activeTime > 6000 && slowFrameCount === 0 && drawCostAvg < 5) {
+          setAutoTier('full');
+        } else if (sceneQuality === 'full' && drawCostAvg > 13) {
+          setAutoTier('balanced', 'balanced');
+        }
+      }
     }
     render();
 
