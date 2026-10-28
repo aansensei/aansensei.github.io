@@ -1902,7 +1902,7 @@
       var mc = document.createElement('canvas'); mc.id = 'an-moon'; mc.width = MS; mc.height = MS;
       var mx = mc.getContext('2d');
       var rg = document.createElement('div'); rg.id = 'an-ring';
-      var cursorLive = false;
+      var cursorLive = false, lastCursorT = performance.now();
 
       /* The native cursor is hidden only while the custom one is verifiably drawing: after
          the first real mouse movement, and never while a finger or stylus is the input. */
@@ -1976,7 +1976,12 @@
           setCursorLive(false);
           return;
         }
-        rX += (cX - rX) * .12; rY += (cY - rY) * .12;
+        /* the ring eases toward the pointer by elapsed time, so it trails by the same amount of
+           real time whether the page runs at 144fps or 10fps */
+        var cNow = performance.now(), cDt = Math.min(250, cNow - lastCursorT);
+        lastCursorT = cNow;
+        var cEase = 1 - Math.pow(.88, cDt / 16.667);
+        rX += (cX - rX) * cEase; rY += (cY - rY) * cEase;
         placeCursor();
       }
 
