@@ -279,7 +279,7 @@ var EXP_DATA = {
         terms:[
           {name:"Fall 2025",status:"Completed",items:[["ECON 101",4],["MATH 221",5],["ESL 117",3],["COMP SCI 220",4]]},
           {name:"Spring 2026",status:"Completed",items:[["MUSIC 113",1],["ECON 102",4],["COMP SCI 320",4],["MATH 340",3],["ESL 118",3],["ENGL 153",3]]},
-          {name:"Fall 2026",status:"In Progress",items:[["ECON 302",4],["MUSIC 113",1],["COMP SCI 532",3],["BIOCHEM 104",3],["COMP SCI 544",3],["ENGL 169",3]]}
+          {name:"Fall 2026",status:"In Progress",items:[["ECON 302",4],["MUSIC 113",1],["E C E 532",3],["BIOCHEM 104",3],["COMP SCI 544",3],["ENGL 169",3]]}
         ],
         extra:[["MATH 222",4]]
       }},
@@ -333,7 +333,7 @@ var COURSE_INFO = {
   "ESL 118": {title:"Academic Writing II", desc:"Academic writing, critical reading and argumentation, documentation, and the style and organization of research papers, plus oral communication skills for class participation and presentations."},
   "COMP SCI 220": {title:"Data Science Programming I", desc:"An introduction to data science programming in Python that needs no prior programming experience, emphasizing the analysis of real datasets in various forms and visual communication."},
   "COMP SCI 320": {title:"Data Science Programming II", desc:"An intermediate approach to data science programming in Python: implementing data structures such as graphs, version control and virtual environments for reproducible analysis, A/B testing, and basic classification, clustering, optimization, and simulation."},
-  "COMP SCI 532": {title:"Matrix Methods in Machine Learning", desc:"The linear algebraic foundations of machine learning, with real-world applications of matrix methods ranging from classification and clustering to denoising and data analysis."},
+  "E C E 532": {title:"Matrix Methods in Machine Learning", desc:"The linear algebraic foundations of machine learning, with real-world applications of matrix methods ranging from classification and clustering to denoising and data analysis."},
   "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"Deploying and using distributed systems to store and analyze large datasets, covering structured and unstructured storage, query languages, streaming data, and training machine learning models, mostly in Python."},
   "BIOCHEM 104": {title:"Molecules to Life and the Nature of Science", desc:"An introduction to how life works at the molecular level and how life diversified, used to discuss topics in the news such as the human genome, genetic engineering of crops, gene editing, and biotechnology, with a focus on the nature of science."},
   "MUSIC 113": {title:"Music in Performance", desc:"Descriptive lectures on chamber music, with performances by the instructor and others."},
