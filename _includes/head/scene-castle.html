@@ -43,6 +43,11 @@
       var cWoodDark = lerpCCached('#120704', '#3d1b0c', t);
       var cRidge = lerpCCached('#6c6863', '#fffcf5', t);
 
+      function mixRGB(c, target, k) {
+        var q = c.split(',');
+        return Math.round(q[0] * (1 - k) + target * k) + ',' + Math.round(q[1] * (1 - k) + target * k) + ',' + Math.round(q[2] * (1 - k) + target * k);
+      }
+
       function drawFlag(fx, fy, flagType) {
         var wave = Math.sin(nt * 5) * 5 * s;
         var wave2 = Math.cos(nt * 5) * 4 * s;
@@ -136,7 +141,11 @@
 
       function drawHueRoof(cx, cy, w, h, cBase, cDark, upturn) {
         var rg = ctx.createLinearGradient(cx - w / 2, 0, cx + w / 2, 0);
-        rg.addColorStop(0, 'rgb(' + cDark + ')'); rg.addColorStop(0.5, 'rgb(' + cBase + ')'); rg.addColorStop(1, 'rgb(' + cDark + ')');
+        rg.addColorStop(0, 'rgb(' + cDark + ')');
+        rg.addColorStop(0.26, 'rgb(' + cBase + ')');
+        rg.addColorStop(0.5, 'rgb(' + mixRGB(cBase, 255, isNight ? 0.14 : 0.26) + ')');
+        rg.addColorStop(0.74, 'rgb(' + cBase + ')');
+        rg.addColorStop(1, 'rgb(' + cDark + ')');
         ctx.fillStyle = rg;
 
         ctx.beginPath();
@@ -146,6 +155,14 @@
         ctx.quadraticCurveTo(cx + w * 0.42, cy - h * 0.4, cx + w / 2, cy - upturn);
         ctx.quadraticCurveTo(cx + w * 0.35, cy, cx, cy + 2 * s);
         ctx.quadraticCurveTo(cx - w * 0.35, cy, cx - w / 2, cy - upturn);
+        ctx.fill();
+
+        /* light from above: the crown catches it and the lower tiles fall into shade */
+        var rv = ctx.createLinearGradient(0, cy - h, 0, cy + 2 * s);
+        rv.addColorStop(0, isNight ? 'rgba(170,190,255,0.12)' : 'rgba(255,246,214,0.22)');
+        rv.addColorStop(0.5, 'rgba(0,0,0,0)');
+        rv.addColorStop(1, 'rgba(0,0,0,' + (isNight ? 0.34 : 0.24) + ')');
+        ctx.fillStyle = rv;
         ctx.fill();
 
         ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1 * s;
@@ -162,9 +179,22 @@
 
         ctx.strokeStyle = 'rgb(' + cRidge + ')'; ctx.lineWidth = 3.5 * s;
         ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.lineTo(cx + w * 0.34, cy - h); ctx.stroke();
+        ctx.lineWidth = 1 * s;
+        ctx.strokeStyle = isNight ? 'rgba(175,200,255,0.55)' : 'rgba(255,255,255,0.8)';
+        ctx.beginPath(); ctx.moveTo(cx - w * 0.33, cy - h - 1.2 * s); ctx.lineTo(cx + w * 0.33, cy - h - 1.2 * s); ctx.stroke();
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+        ctx.beginPath(); ctx.moveTo(cx - w * 0.33, cy - h + 2.2 * s); ctx.lineTo(cx + w * 0.33, cy - h + 2.2 * s); ctx.stroke();
 
         ctx.fillStyle = 'rgb(' + cGold + ')';
         ctx.beginPath(); ctx.arc(cx, cy - h - 4.5 * s, 4.5 * s, 0, Math.PI * 2); ctx.fill();
+        if (w > 150 * s) {
+          /* the big roofs carry a stacked finial: a second bead and a thin spike above the first */
+          ctx.beginPath(); ctx.arc(cx, cy - h - 11.5 * s, 2.4 * s, 0, Math.PI * 2); ctx.fill();
+          ctx.lineWidth = 1.4 * s; ctx.strokeStyle = 'rgb(' + cGold + ')';
+          ctx.beginPath(); ctx.moveTo(cx, cy - h - 13.5 * s); ctx.lineTo(cx, cy - h - 20 * s); ctx.stroke();
+          ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.25 : 0.55) + ')';
+          ctx.beginPath(); ctx.arc(cx - 1.4 * s, cy - h - 5.8 * s, 1.3 * s, 0, Math.PI * 2); ctx.fill();
+        }
 
         ctx.lineWidth = 2 * s; ctx.strokeStyle = 'rgb(' + cGold + ')';
         ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.quadraticCurveTo(cx - w * 0.42, cy - h - 6 * s, cx - w * 0.38, cy - h - 10 * s); ctx.stroke();
@@ -185,6 +215,19 @@
         ctx.quadraticCurveTo(cx + w * 0.35, cy + 2 * s, cx + w / 2 - 2 * s, cy - upturn + 2 * s);
         ctx.quadraticCurveTo(cx + w * 0.35, cy, cx, cy + 2 * s);
         ctx.quadraticCurveTo(cx - w * 0.35, cy, cx - w / 2 + 2 * s, cy - upturn + 2 * s);
+        ctx.fill();
+
+        /* round tile ends along the lower eave, the row of small discs seen on Hue roofs */
+        ctx.fillStyle = 'rgb(' + mixRGB(cGold, 255, 0.1) + ')';
+        var ends = Math.max(4, Math.floor(w / (11 * s))), er = 1.15 * s;
+        ctx.beginPath();
+        for (var e = 0; e <= ends; e++) {
+          var eu = e / ends, ev1 = 1 - eu;
+          var ex = ev1 * ev1 * (cx - w / 2) + 2 * ev1 * eu * (cx - w * 0.35) + eu * eu * cx;
+          var ey = ev1 * ev1 * (cy - upturn) + 2 * ev1 * eu * cy + eu * eu * (cy + 2 * s) + 0.5 * s;
+          ctx.moveTo(ex + er, ey); ctx.arc(ex, ey, er, 0, Math.PI * 2);
+          if (e < ends) { ctx.moveTo(2 * cx - ex + er, ey); ctx.arc(2 * cx - ex, ey, er, 0, Math.PI * 2); }
+        }
         ctx.fill();
       }
 
@@ -396,6 +439,33 @@
       var gateStoneGrad = ctx.createLinearGradient(gcx - baseW / 2, 0, gcx + baseW / 2, 0);
       gateStoneGrad.addColorStop(0, 'rgb(' + cStoneDark + ')'); gateStoneGrad.addColorStop(0.1, 'rgb(' + cStoneBase + ')'); gateStoneGrad.addColorStop(0.5, 'rgb(' + lerpCCached('#484b52', '#d0cec4', t) + ')'); gateStoneGrad.addColorStop(0.9, 'rgb(' + cStoneBase + ')'); gateStoneGrad.addColorStop(1, 'rgb(' + cStoneDark + ')');
 
+      /* A few bricks take a different tone so the wall stops looking printed. The choice comes from a
+         seeded hash of the brick position, so the pattern is identical on every redraw. */
+      function brickAccents(x0, wid, y0, rows, seedBase) {
+        var tones = [
+          { c: 'rgba(255,248,230,' + (isNight ? 0.05 : 0.14) + ')', b: [] },
+          { c: 'rgba(0,0,0,' + (isNight ? 0.2 : 0.12) + ')', b: [] },
+          { c: 'rgba(150,100,60,' + (isNight ? 0.1 : 0.12) + ')', b: [] }
+        ];
+        for (var r = 0; r < rows; r++) {
+          var off = (r % 2 === 0) ? 0 : 12 * s;
+          for (var bx = x0 + off, ci = 0; bx < x0 + wid - 24 * s; bx += 24 * s, ci++) {
+            if (prand(seedBase + r * 97 + ci * 3.7) > 0.2) continue;
+            var h2 = prand(seedBase + r * 31 + ci * 11.3);
+            tones[h2 < 0.4 ? 0 : h2 < 0.75 ? 1 : 2].b.push(bx + 1, y0 + r * 10 * s + 1);
+          }
+        }
+        /* one path per tone, so a wall costs three fills instead of one per brick */
+        for (var k = 0; k < 3; k++) {
+          var bl = tones[k].b;
+          if (!bl.length) continue;
+          ctx.fillStyle = tones[k].c;
+          ctx.beginPath();
+          for (var j = 0; j < bl.length; j += 2) ctx.rect(bl[j], bl[j + 1], 23 * s, 9 * s);
+          ctx.fill();
+        }
+      }
+
       // Extended background walls
       ctx.fillStyle = 'rgb(' + cStoneDark + ')';
       ctx.fillRect(gcx - extW / 2, bY - extH, extW, extH);
@@ -409,6 +479,7 @@
         }
         eRow++;
       }
+      brickAccents(gcx - extW / 2, extW, bY - extH, Math.ceil(extH / (10 * s)), 17);
 
       // Battlements for extended wall
       for (var bw = gcx - extW / 2 + 5 * s; bw < gcx + extW / 2; bw += 25 * s) {
@@ -446,6 +517,7 @@
         }
         mRow++;
       }
+      brickAccents(gcx - baseW / 2, baseW, bY - baseH, Math.ceil(baseH / (10 * s)), 53);
 
       var wallShade = ctx.createLinearGradient(0, bY - baseH, 0, bY);
       wallShade.addColorStop(0, 'rgba(255,255,255,' + (isNight ? 0.04 : 0.10) + ')');
@@ -469,6 +541,27 @@
       ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.10 : 0.30) + ')';
       ctx.fillRect(bayL - 3 * s, bY - baseH, 3 * s, baseH);
       ctx.fillRect(bayR, bY - baseH, 3 * s, baseH);
+
+      /* damp stone at the foot of the wall */
+      var damp = ctx.createLinearGradient(0, bY - 16 * s, 0, bY);
+      damp.addColorStop(0, 'rgba(40,70,44,0)'); damp.addColorStop(1, 'rgba(40,70,44,' + (isNight ? 0.22 : 0.2) + ')');
+      ctx.fillStyle = damp;
+      ctx.fillRect(gcx - baseW / 2, bY - 16 * s, baseW, 16 * s);
+
+      /* lantern light washes the lower wall at night, strongest around the three doors */
+      if (isNight && !isReflection) {
+        var prevOp = ctx.globalCompositeOperation;
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.save();
+        ctx.beginPath(); ctx.rect(gcx - baseW / 2, bY - baseH, baseW, baseH); ctx.clip();
+        ctx.translate(gcx, bY); ctx.scale(1, 0.38);
+        var doorGlow = ctx.createRadialGradient(0, 0, 0, 0, 0, 330 * s);
+        doorGlow.addColorStop(0, 'rgba(255,160,60,0.2)'); doorGlow.addColorStop(1, 'rgba(255,160,60,0)');
+        ctx.fillStyle = doorGlow;
+        ctx.fillRect(-330 * s, -330 * s, 660 * s, 330 * s);
+        ctx.restore();
+        ctx.globalCompositeOperation = prevOp;
+      }
 
       ctx.fillStyle = 'rgb(' + cRidge + ')'; ctx.fillRect(gcx - baseW / 2 - 5 * s, bY - baseH - 12 * s, baseW + 10 * s, 12 * s);
       ctx.fillStyle = 'rgba(0,0,0,0.4)';
