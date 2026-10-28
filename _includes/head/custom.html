@@ -2049,7 +2049,11 @@
       skyA = Math.max(0, 1 - (scrollPct / 0.35));
 
       if (maxScroll < 300) { mtnA = 1; casA = 1; skyA = 1; shipA = 1; }
-      document.body.classList.toggle('an-scene-controls-visible', casA > 0.05);
+      /* On a phone the fixed button would sit over the text for the last third of the page, so it
+         only appears once the reader is within a screen's tail of the very bottom. */
+      var narrow = isTouch || window.innerWidth <= 768;
+      var showControls = casA > 0.05 && (!narrow || maxScroll - s < 220);
+      document.body.classList.toggle('an-scene-controls-visible', showControls);
     }
     window.addEventListener('scroll', updateAlpha, { passive: true });
     window.addEventListener('resize', updateAlpha);
