@@ -2020,7 +2020,9 @@
     }
 
     var bg = document.createElement('canvas'); bg.id = 'an-bg'; document.body.prepend(bg);
-    var ctx = bg.getContext('2d');
+    /* The sky gradient covers every pixel each frame, so the canvas can be declared opaque. The
+       browser then skips blending it with the page behind and can drop whatever it hides. */
+    var ctx = bg.getContext('2d', { alpha: false });
     var W = 0, H = 0;
     /* Assigning canvas.width wipes the bitmap, so the buffer is resized only when the size
        really changed. Phone browsers fire resize each time the URL bar slides in or out; on
@@ -3192,6 +3194,12 @@
       var drawStart = performance.now();
 
       ctx.clearRect(0, 0, W, H);
+      /* Once the castle has faded in completely, its bitmap is opaque from the horizon down and the
+         meadow and river are painted over that. Everything drawn before the castle (sky, mountains,
+         mist, forest, fireworks) is hidden there, so it is clipped to the area above the horizon. */
+      var occludeY = casA >= 0.999 ? Math.min(H, Math.ceil(H * (H > W ? 0.65 : 0.82)) + 2) : H;
+      var occluding = occludeY < H;
+      if (occluding) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, occludeY); ctx.clip(); }
       var nt = activeTime * .001;
       _lerpCCache = {};
 
@@ -3294,6 +3302,7 @@
       if (casA > 0) {
         if (sceneQuality === 'full') drawMist(casA * 0.5, false, themeT);
         drawForest(casA, themeT);
+        if (occluding) { ctx.restore(); occluding = false; }
         drawCastleCached(casA, themeT, false);
         if (sceneQuality !== 'lite') drawMeadow(casA, themeT);
         drawRiver(casA, themeT);
