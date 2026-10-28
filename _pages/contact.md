@@ -52,6 +52,21 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
 .contact-card .cf-send{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;box-sizing:border-box;margin:6px 0 0;padding:12px 18px;border-radius:999px;border:1px solid rgba(255,240,190,.55);background:linear-gradient(135deg,#f6d365,#c9a227);color:#2a1c05!important;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;letter-spacing:.06em;cursor:pointer;box-shadow:0 6px 18px rgba(201,162,39,.35),inset 0 1px 0 rgba(255,255,255,.55);transition:transform .25s,box-shadow .25s,opacity .25s;}
 .contact-card .cf-send:hover{transform:translateY(-2px);box-shadow:0 9px 24px rgba(201,162,39,.55),inset 0 1px 0 rgba(255,255,255,.6);}
 .contact-card .cf-send:disabled{opacity:.6;cursor:wait;transform:none;}
+.contact-card .cf-send{position:relative;overflow:hidden;}
+.contact-card .cf-send.is-sending:disabled{opacity:1;}
+.cf-send.is-sending::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);transform:translateX(-100%);animation:cfSweep 1.2s ease-in-out infinite;pointer-events:none;}
+.cf-send .cf-plane{display:inline-block;}
+.cf-send.is-sending .cf-plane{animation:cfFly 1.1s ease-in-out infinite;}
+.cf-send.is-sent .cf-plane{animation:cfPop .5s cubic-bezier(.34,1.56,.64,1);}
+.cf-send.is-fail{animation:cfShake .45s ease;}
+.cf-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:3;}
+.cf-conf{position:absolute;left:0;top:0;width:7px;height:7px;border-radius:2px;opacity:0;animation:cfConf .95s ease-out forwards;}
+@keyframes cfSweep{to{transform:translateX(100%);}}
+@keyframes cfFly{0%{transform:translate(-30px,7px) rotate(-14deg);opacity:0;}25%{opacity:1;}70%{transform:translate(20px,-9px) rotate(8deg);opacity:1;}100%{transform:translate(50px,-16px) rotate(16deg);opacity:0;}}
+@keyframes cfPop{0%{transform:scale(.2) rotate(-40deg);}100%{transform:scale(1) rotate(0);}}
+@keyframes cfShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(3px);}}
+@keyframes cfConf{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.6);}}
+@media(prefers-reduced-motion:reduce){.cf-send.is-sending::after,.cf-send.is-sending .cf-plane,.cf-send.is-sent .cf-plane,.cf-send.is-fail,.cf-conf{animation:none;}}
 .cf-status{min-height:1.5em;margin:12px 0 0;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.5;}
 .cf-status.ok{color:#52c9b9;}
 .cf-status.err{color:#ff9aa8;}
@@ -123,7 +138,7 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
       <input type="text" name="_honey" class="cf-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
-      <button type="submit" class="cf-send" id="cfSend"><i class="fas fa-paper-plane"></i><span>Send message</span></button>
+      <button type="submit" class="cf-send" id="cfSend"><i class="fas fa-paper-plane cf-plane" id="cfIcon"></i><span id="cfLabel">Send message</span></button>
       <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
     </form>
   </div>
@@ -133,20 +148,62 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
 (function(){
   var form=document.getElementById('contactForm');
   if(!form)return;
-  var btn=document.getElementById('cfSend'),status=document.getElementById('cfStatus'),label=btn.querySelector('span');
+  var btn=document.getElementById('cfSend'),status=document.getElementById('cfStatus'),label=document.getElementById('cfLabel'),icon=document.getElementById('cfIcon');
   var ENDPOINT='https://formsubmit.co/ajax/cnguyen49@wisc.edu',MAIL='cnguyen49@wisc.edu';
+  var SLOW_MS=7000,TIMEOUT_MS=30000,IDLE='Send message';
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dotTimer=null,slowTimer=null,abortTimer=null,resetTimer=null,sending=false;
   function say(text,kind){status.className='cf-status'+(kind?' '+kind:'');status.textContent=text;}
-  function fail(){
+  function fail(why){
     status.className='cf-status err';
-    status.innerHTML='Something went wrong. Please try again, or email me directly at <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';
+    status.innerHTML=(why==='timeout'?'That is taking too long. ':'Something went wrong. ')+'Please try again, or email me directly at <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';
+    btn.classList.remove('is-fail');void btn.offsetWidth;btn.classList.add('is-fail');
+  }
+  function confetti(){
+    if(reduce)return;
+    var burst=document.createElement('span');burst.className='cf-burst';
+    var colors=['#f0c84a','#52c9b9','#ff9aa8','#79c7ff','#c9a227','#ffffff'];
+    for(var i=0;i<16;i++){
+      var c=document.createElement('i');c.className='cf-conf';
+      var ang=(Math.PI*2*i/16)+Math.random()*.4,dist=40+Math.random()*50;
+      c.style.setProperty('--dx',Math.round(Math.cos(ang)*dist)+'px');
+      c.style.setProperty('--dy',Math.round(Math.sin(ang)*dist-14)+'px');
+      c.style.setProperty('--rot',Math.round(Math.random()*540-270)+'deg');
+      c.style.background=colors[i%colors.length];
+      burst.appendChild(c);
+    }
+    btn.appendChild(burst);
+    setTimeout(function(){if(burst.parentNode)burst.parentNode.removeChild(burst);},1100);
+  }
+  function startSending(){
+    sending=true;btn.disabled=true;
+    btn.classList.remove('is-sent','is-fail');btn.classList.add('is-sending');
+    icon.className='fas fa-paper-plane cf-plane';
+    var n=0;label.textContent='Sending';
+    dotTimer=setInterval(function(){n=(n+1)%4;label.textContent='Sending'+'...'.slice(0,n);},350);
+    slowTimer=setTimeout(function(){say('Still sending. The first message can take a little longer.');},SLOW_MS);
+  }
+  function stopSending(ok){
+    sending=false;
+    clearInterval(dotTimer);clearTimeout(slowTimer);clearTimeout(abortTimer);
+    btn.disabled=false;btn.classList.remove('is-sending');
+    if(ok){
+      btn.classList.add('is-sent');icon.className='fas fa-check cf-plane';label.textContent='Sent';
+      confetti();
+      clearTimeout(resetTimer);
+      resetTimer=setTimeout(function(){btn.classList.remove('is-sent');icon.className='fas fa-paper-plane cf-plane';label.textContent=IDLE;},3200);
+    }else{
+      label.textContent=IDLE;
+    }
   }
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    if(btn.disabled){return;}
+    if(sending||btn.disabled){return;}
     ['name','subject','message'].forEach(function(k){form.elements[k].value=form.elements[k].value.trim();});
     if(form.elements['_honey'].value){return;}
     if(!form.checkValidity()){form.reportValidity();return;}
-    btn.disabled=true;label.textContent='Sending';say('');
+    say('');clearTimeout(resetTimer);
+    startSending();
     var payload={
       name:form.elements['name'].value.trim(),
       email:form.elements['email'].value.trim(),
@@ -157,16 +214,21 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
       _template:'table',
       _captcha:'false'
     };
-    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+    var ctrl=window.AbortController?new AbortController():null,timedOut=false;
+    abortTimer=setTimeout(function(){timedOut=true;if(ctrl)ctrl.abort();else{stopSending(false);fail('timeout');}},TIMEOUT_MS);
+    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
       .then(function(r){return r.json();})
       .then(function(j){
         if(j&&(j.success===true||j.success==='true')){
           form.reset();
+          stopSending(true);
           say('Thank you. Your message is on its way, and I will reply soon.','ok');
-        }else{fail();}
+        }else{
+          if(window.console)console.warn('FormSubmit:',j&&j.message);
+          stopSending(false);fail();
+        }
       })
-      .catch(fail)
-      .then(function(){btn.disabled=false;label.textContent='Send message';});
+      .catch(function(){if(sending){stopSending(false);fail(timedOut?'timeout':'');}});
   });
 })();
 </script>
