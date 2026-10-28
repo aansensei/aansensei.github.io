@@ -2459,6 +2459,24 @@
       });
       ctx.globalAlpha = a * t;
 
+      // ── Đường ngự đạo: lối đá dẫn từ cửa giữa ra phía trước ──
+      var pathMob = W < 768, pathS = Math.max((pathMob ? 900 : W) / 1280, pathMob ? 0.9 : .4) * 1.1 * (pathMob ? 1.25 : 1);
+      var pathTop = bY + mH * 0.02, pathBot = bY + mH * 0.62, pw0 = 46 * pathS, pw1 = 150 * pathS;
+      var pathG = ctx.createLinearGradient(0, pathTop, 0, pathBot);
+      pathG.addColorStop(0, 'rgba(206,196,170,0.95)'); pathG.addColorStop(1, 'rgba(206,196,170,0)');
+      ctx.fillStyle = pathG;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - pw0 / 2, pathTop); ctx.lineTo(W / 2 + pw0 / 2, pathTop);
+      ctx.lineTo(W / 2 + pw1 / 2, pathBot); ctx.lineTo(W / 2 - pw1 / 2, pathBot);
+      ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(120,108,84,1)'; ctx.lineWidth = Math.max(1, pathS);
+      for (var pk = 1; pk < 7; pk++) {
+        var pf = pk / 7, py2 = pathTop + (pathBot - pathTop) * pf * pf, pwid = pw0 + (pw1 - pw0) * (py2 - pathTop) / (pathBot - pathTop);
+        ctx.globalAlpha = a * t * 0.32 * (1 - pf * 0.85);
+        ctx.beginPath(); ctx.moveTo(W / 2 - pwid / 2, py2); ctx.lineTo(W / 2 + pwid / 2, py2); ctx.stroke();
+      }
+      ctx.globalAlpha = a * t;
+
       // ── Cỏ mềm (xa → gần) ──
       ctx.lineCap = 'round';
       GRASS.forEach(function (g) {

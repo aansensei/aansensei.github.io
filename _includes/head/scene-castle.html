@@ -18,6 +18,17 @@
       ctx.globalAlpha = a;
       ctx.translate((W - VW) / 2, 0);
 
+      if (!isReflection) {
+        var hazeTop = bY - 330 * s, hazeBot = bY - 40 * s, hazeA = 0.26 + 0.12 * t;
+        var hazeC = lerpCCached('#3a506b', '#ebf5f0', t);
+        var hazeG = ctx.createLinearGradient(0, hazeTop, 0, hazeBot);
+        hazeG.addColorStop(0, 'rgba(' + hazeC + ',0)');
+        hazeG.addColorStop(0.6, 'rgba(' + hazeC + ',' + hazeA + ')');
+        hazeG.addColorStop(1, 'rgba(' + hazeC + ',' + (hazeA * 0.55) + ')');
+        ctx.fillStyle = hazeG;
+        ctx.fillRect(-W, hazeTop, VW + 2 * W, hazeBot - hazeTop);
+      }
+
       // Hue Palette      
       var cStoneBase = lerpCCached('#2f3338', '#b5b7b0', t);
       var cStoneDark = lerpCCached('#16181c', '#606461', t);
@@ -26,8 +37,8 @@
       var cGold = lerpCCached('#8a620c', '#ffdd00', t);
       var cRoofYellow = lerpCCached('#5e410b', '#f5b018', t);
       var cRoofYellowDk = lerpCCached('#331f03', '#ab7003', t);
-      var cRoofGreen = lerpCCached('#092b18', '#26965d', t);
-      var cRoofGreenDk = lerpCCached('#03170a', '#125432', t);
+      var cRoofGreen = lerpCCached('#123c4a', '#1e8a70', t);
+      var cRoofGreenDk = lerpCCached('#09222c', '#0b4a3c', t);
       var cWoodBase = lerpCCached('#26130b', '#613620', t);
       var cWoodDark = lerpCCached('#120704', '#3d1b0c', t);
       var cRidge = lerpCCached('#6c6863', '#fffcf5', t);
@@ -216,6 +227,12 @@
             ctx.beginPath(); ctx.moveTo(px1 + 2 * s, gy); ctx.lineTo(px1 + pWidth - 2 * s, gy); ctx.stroke();
           }
         }
+        var eaveH = Math.min(h * 0.45, 14 * s);
+        var eaveG = ctx.createLinearGradient(0, cy - h, 0, cy - h + eaveH);
+        eaveG.addColorStop(0, 'rgba(25,6,6,' + (isNight ? 0.6 : 0.5) + ')');
+        eaveG.addColorStop(1, 'rgba(25,6,6,0)');
+        ctx.fillStyle = eaveG;
+        ctx.fillRect(cx - w / 2, cy - h, w, eaveH);
       }
 
       function drawRailing(cx, cy, w) {
@@ -430,9 +447,36 @@
         mRow++;
       }
 
+      var wallShade = ctx.createLinearGradient(0, bY - baseH, 0, bY);
+      wallShade.addColorStop(0, 'rgba(255,255,255,' + (isNight ? 0.04 : 0.10) + ')');
+      wallShade.addColorStop(1, 'rgba(0,0,0,' + (isNight ? 0.22 : 0.14) + ')');
+      ctx.fillStyle = wallShade;
+      ctx.fillRect(gcx - baseW / 2, bY - baseH, baseW, baseH);
+
+      /* The Ngo Mon platform is a U in plan: the three central doors sit in a bay set back between
+         two wings that step forward. Seen from the front that is a darker middle bay, a shadow cast
+         by each wing onto it, and a lit front edge on each wing. */
+      var bayW = 230 * s, bayL = gcx - bayW / 2, bayR = gcx + bayW / 2, cutW = 26 * s;
+      var cutA = isNight ? 0.38 : 0.26;
+      ctx.fillStyle = 'rgba(0,0,0,' + (isNight ? 0.18 : 0.10) + ')';
+      ctx.fillRect(bayL, bY - baseH, bayW, baseH);
+      var cutL = ctx.createLinearGradient(bayL, 0, bayL + cutW, 0);
+      cutL.addColorStop(0, 'rgba(0,0,0,' + cutA + ')'); cutL.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = cutL; ctx.fillRect(bayL, bY - baseH, cutW, baseH);
+      var cutR = ctx.createLinearGradient(bayR - cutW, 0, bayR, 0);
+      cutR.addColorStop(0, 'rgba(0,0,0,0)'); cutR.addColorStop(1, 'rgba(0,0,0,' + cutA + ')');
+      ctx.fillStyle = cutR; ctx.fillRect(bayR - cutW, bY - baseH, cutW, baseH);
+      ctx.fillStyle = 'rgba(255,255,255,' + (isNight ? 0.10 : 0.30) + ')';
+      ctx.fillRect(bayL - 3 * s, bY - baseH, 3 * s, baseH);
+      ctx.fillRect(bayR, bY - baseH, 3 * s, baseH);
+
       ctx.fillStyle = 'rgb(' + cRidge + ')'; ctx.fillRect(gcx - baseW / 2 - 5 * s, bY - baseH - 12 * s, baseW + 10 * s, 12 * s);
       ctx.fillStyle = 'rgba(0,0,0,0.4)';
       for (var lx = gcx - baseW / 2; lx < gcx + baseW / 2; lx += 15 * s) { ctx.fillRect(lx + 2 * s, bY - baseH - 10 * s, 11 * s, 10 * s); }
+      var capSh = ctx.createLinearGradient(0, bY - baseH, 0, bY - baseH + 12 * s);
+      capSh.addColorStop(0, 'rgba(0,0,0,' + (isNight ? 0.4 : 0.3) + ')'); capSh.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = capSh;
+      ctx.fillRect(gcx - baseW / 2, bY - baseH, baseW, 12 * s);
 
       function drawSeal(cx, cy, r, text) {
         var baseC = cStoneBase; // match the wall stone color
@@ -547,18 +591,31 @@
       drawHueRoof(galCxL, pav1Y - galH, galW * 1.2, 30 * s, cRoofGreen, cRoofGreenDk, 5 * s);
       drawHueRoof(galCxR, pav1Y - galH, galW * 1.2, 30 * s, cRoofGreen, cRoofGreenDk, 5 * s);
 
-      var cen1W = 160 * s, cen1H = 34 * s;
-      drawRailing(gcx, pav1Y, cen1W + 15 * s);
-      drawPavilion(gcx, pav1Y, cen1W, cen1H, 5);
-      drawHueRoof(gcx, pav1Y - cen1H, cen1W * 1.25, 28 * s, cRoofYellow, cRoofYellowDk, 7 * s);
+      /* The two yellow tiers stand on a raised stone plinth, which lifts the middle pavilion above the
+         wings and gives the whole gate a pyramid silhouette instead of a long flat bar. */
+      var cen1W = 160 * s, cen1H = 40 * s, plinthH = 14 * s, cenY = pav1Y - plinthH;
+      var plinthW = cen1W + 36 * s;
+      var plinthG = ctx.createLinearGradient(gcx - plinthW / 2, 0, gcx + plinthW / 2, 0);
+      plinthG.addColorStop(0, 'rgb(' + cStoneDark + ')');
+      plinthG.addColorStop(0.5, 'rgb(' + lerpCCached('#484b52', '#d0cec4', t) + ')');
+      plinthG.addColorStop(1, 'rgb(' + cStoneDark + ')');
+      ctx.fillStyle = plinthG;
+      ctx.fillRect(gcx - plinthW / 2, cenY, plinthW, plinthH);
+      ctx.fillStyle = 'rgb(' + cRidge + ')';
+      ctx.fillRect(gcx - plinthW / 2 - 3 * s, cenY, plinthW + 6 * s, 3 * s);
+      ctx.fillStyle = 'rgba(0,0,0,' + (isNight ? 0.4 : 0.25) + ')';
+      ctx.fillRect(gcx - plinthW / 2, pav1Y - 3 * s, plinthW, 3 * s);
+      drawRailing(gcx, cenY, cen1W + 15 * s);
+      drawPavilion(gcx, cenY, cen1W, cen1H, 5);
+      drawHueRoof(gcx, cenY - cen1H, cen1W * 1.25, 28 * s, cRoofYellow, cRoofYellowDk, 7 * s);
 
-      var pav2Y = pav1Y - cen1H - 10 * s;
-      var cen2W = 115 * s, cen2H = 30 * s;
+      var pav2Y = cenY - cen1H - 10 * s;
+      var cen2W = 120 * s, cen2H = 36 * s, roof2H = 62 * s;
       drawRailing(gcx, pav2Y, cen2W + 20 * s);
       drawPavilion(gcx, pav2Y, cen2W, cen2H, 3);
-      drawHueRoof(gcx, pav2Y - cen2H, cen2W * 1.45, 52 * s, cRoofYellow, cRoofYellowDk, 14 * s);
+      drawHueRoof(gcx, pav2Y - cen2H, cen2W * 1.45, roof2H, cRoofYellow, cRoofYellowDk, 16 * s);
 
-      var topY = pav2Y - cen2H - 52 * s;
+      var topY = pav2Y - cen2H - roof2H;
       ctx.fillStyle = 'rgb(' + cGold + ')';
       ctx.beginPath(); ctx.arc(gcx, topY - 3 * s, 6 * s, 0, Math.PI * 2); ctx.fill();
       ctx.lineWidth = 3 * s; ctx.strokeStyle = 'rgb(' + cGold + ')';
