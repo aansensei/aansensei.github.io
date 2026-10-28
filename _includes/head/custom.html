@@ -2082,7 +2082,7 @@
         var isDay = themeT > 0.5;
         var clickedTree = false;
 
-        if (isDay && ev.clientY > H * 0.4) {
+        if (isDay && sceneQuality !== 'lite' && ev.clientY > H * 0.4) {
           if (ev.clientX < W * 0.3) {
             treeLeftShock = 2.0; clickedTree = true;
             spawnPetalBurst(W * 0.15, H * 0.8);
@@ -2628,10 +2628,14 @@
 
 {% include head/scene-river.html %}
 
+    var cherryStill = false;
+    var CHERRY_CACHE = null;
+
     function drawCherryBlossomTrees(a, t) {
       if (t < 0.01) return;
       ctx.save(); ctx.globalAlpha = a * t;
-      var nt = activeTime * 0.001;
+      var still = cherryStill;
+      var nt = still ? 0 : activeTime * 0.001;
       var s = W < 768 ? Math.max(W / 1280, 0.7) : Math.max(W / 1280, 0.4);
 
       var shockDecay = Math.pow(0.92, frameScale);
@@ -2640,17 +2644,17 @@
       function drawBranch(startX, startY, len, angle, depth, seed, shockValue) {
         if (depth === 0) return;
         var endX = startX + Math.cos(angle) * len, endY = startY + Math.sin(angle) * len;
-        var swayX = Math.sin(nt * 1.5 + depth) * (depth < 3 ? 8 * s : 2 * s);
-        var swayY = Math.cos(nt * 1.2 + depth * 0.8) * (depth < 3 ? 4 * s : 1 * s);
+        var swayX = still ? 0 : Math.sin(nt * 1.5 + depth) * (depth < 3 ? 8 * s : 2 * s);
+        var swayY = still ? 0 : Math.cos(nt * 1.2 + depth * 0.8) * (depth < 3 ? 4 * s : 1 * s);
 
-        if (shockValue > 0.01) {
+        if (!still && shockValue > 0.01) {
           swayX += Math.sin(nt * 25 + depth) * shockValue * 15 * s; swayY += Math.cos(nt * 20 + depth) * shockValue * 5 * s;
         }
         endX += swayX; endY += swayY;
 
         var dx = endX - cX, dy = endY - cY, dist = Math.sqrt(dx * dx + dy * dy);
         var hoverDist = 140;
-        if (dist < hoverDist && cY > H * 0.4) {
+        if (!still && dist < hoverDist && cY > H * 0.4) {
           var force = (hoverDist - dist) / hoverDist;
           endX += (dx / dist) * force * 35 * s; endY += (dy / dist) * force * 35 * s;
 
@@ -2686,6 +2690,50 @@
       var scale = Math.min(W, H) * 0.22;
       ctx.save(); ctx.translate(W * 0.05, H); ctx.rotate(-0.1); drawBranch(0, 0, scale, -Math.PI / 2 + 0.3, 6, 100, treeLeftShock); ctx.restore();
       ctx.save(); ctx.translate(W * 0.95, H); ctx.rotate(0.1); drawBranch(0, 0, scale, -Math.PI / 2 - 0.3, 6, 200, treeRightShock); ctx.restore();
+      ctx.restore();
+    }
+
+    /* Balanced quality shows the same trees as full, drawn once into a bitmap. Each frame only pastes
+       the two halves with a tiny rotation around the trunk, so the trees still sway and shake when
+       clicked, without redrawing thousands of blossoms. Full keeps the live version, which also
+       reacts to the cursor. */
+    function drawCherryTreesCached(a, t) {
+      if (t < 0.01 || a <= 0.003) return;
+      var y0 = Math.floor(H * 0.2), ch = H - y0, halfW = Math.ceil(W / 2);
+      var c = CHERRY_CACHE;
+      if (!c) {
+        c = CHERRY_CACHE = { l: document.createElement('canvas'), r: document.createElement('canvas'), t: -1, w: 0, h: 0 };
+        c.lx = c.l.getContext('2d'); c.rx = c.r.getContext('2d');
+      }
+      if (c.w !== W || c.h !== H || Math.abs(c.t - t) > 0.02) {
+        if (c.w !== W || c.h !== H) { c.l.width = c.r.width = halfW; c.l.height = c.r.height = ch; c.w = W; c.h = H; }
+        var screenCtx = ctx;
+        cherryStill = true;
+        try {
+          for (var side = 0; side < 2; side++) {
+            ctx = side ? c.rx : c.lx;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, halfW, ch);
+            ctx.translate(side ? -halfW : 0, -y0);
+            ctx.beginPath(); ctx.rect(side ? halfW : 0, y0, halfW, ch); ctx.clip();
+            drawCherryBlossomTrees(1, t);
+          }
+        } finally {
+          ctx = screenCtx; cherryStill = false;
+        }
+        c.t = t;
+      }
+      var nt = activeTime * 0.001, decay = Math.pow(0.92, frameScale);
+      treeLeftShock *= decay; treeRightShock *= decay;
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.translate(W * 0.05, H);
+      ctx.rotate(Math.sin(nt * 0.9) * 0.006 + Math.sin(nt * 22) * treeLeftShock * 0.012);
+      ctx.drawImage(c.l, -W * 0.05, y0 - H);
+      ctx.restore();
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.translate(W * 0.95, H);
+      ctx.rotate(Math.sin(nt * 0.9 + 1.7) * -0.006 + Math.sin(nt * 22) * treeRightShock * 0.012);
+      ctx.drawImage(c.r, halfW - W * 0.95, y0 - H);
       ctx.restore();
     }
 
@@ -3250,6 +3298,7 @@
           drawFireflies(casA, themeT);
         }
         if (sceneQuality === 'full') drawCherryBlossomTrees(casA, themeT);
+        else if (sceneQuality === 'balanced') drawCherryTreesCached(casA, themeT);
       }
 
       var scenePulse = Math.pow(Math.max(0, Math.sin(nt * 0.07 + 2)), 12) * themeT;
