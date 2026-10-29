@@ -2681,7 +2681,8 @@
       ctx.save(); ctx.globalAlpha = a * t;
       var still = cherryStill;
       var nt = still ? 0 : activeTime * 0.001;
-      var s = W < 768 ? Math.max(W / 1280, 0.7) : Math.max(W / 1280, 0.4);
+      var narrow = W < 768 && H > W;
+      var s = narrow ? 0.55 : (W < 768 ? Math.max(W / 1280, 0.7) : Math.max(W / 1280, 0.4));
 
       var shockDecay = Math.pow(0.92, frameScale);
       treeLeftShock *= shockDecay; treeRightShock *= shockDecay;
@@ -2732,9 +2733,10 @@
         drawBranch(endX, endY, len * (0.7 + prand(seed + 6) * 0.1), angle + 0.4 + prand(seed + 7) * 0.2, depth - 1, seed * 1.2 + 2, shockValue);
       }
 
-      var scale = Math.min(W, H) * 0.22;
-      ctx.save(); ctx.translate(W * 0.05, H); ctx.rotate(-0.1); drawBranch(0, 0, scale, -Math.PI / 2 + 0.3, 6, 100, treeLeftShock); ctx.restore();
-      ctx.save(); ctx.translate(W * 0.95, H); ctx.rotate(0.1); drawBranch(0, 0, scale, -Math.PI / 2 - 0.3, 6, 200, treeRightShock); ctx.restore();
+      var scale = Math.min(W, H) * (narrow ? 0.15 : 0.22);
+      var lean = narrow ? -0.18 : 0.3;
+      ctx.save(); ctx.translate(W * 0.05, H); ctx.rotate(-0.1); drawBranch(0, 0, scale, -Math.PI / 2 + lean, 6, 100, treeLeftShock); ctx.restore();
+      ctx.save(); ctx.translate(W * 0.95, H); ctx.rotate(0.1); drawBranch(0, 0, scale, -Math.PI / 2 - lean, 6, 200, treeRightShock); ctx.restore();
       ctx.restore();
     }
 
