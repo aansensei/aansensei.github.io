@@ -49,12 +49,12 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 
 .book-container{width:210px;height:360px;position:relative;z-index:1;cursor:pointer;transform:translateY(-4px);filter:drop-shadow(0 16px 14px rgba(0,0,0,.5));transition:transform .6s cubic-bezier(.25,1,.5,1),filter .4s ease;}
 
-.book-container:hover{z-index:50;transform:translateY(-16px) scale(1.03);filter:drop-shadow(0 24px 26px rgba(0,0,0,.7));}
+.book-container:is(:hover,:has(:focus-visible)){z-index:50;transform:translateY(-16px) scale(1.03);filter:drop-shadow(0 24px 26px rgba(0,0,0,.7));}
 .book{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
 
 .front-cover{position:absolute;top:0;left:0;width:100%;height:100%;transform-origin:left center;transition:transform .85s cubic-bezier(.25,1,.5,1);z-index:20;border-radius:6px 16px 16px 6px;transform-style:preserve-3d;backface-visibility:visible;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px 16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:inset 6px 0 16px rgba(0,0,0,.45),4px 6px 18px rgba(0,0,0,.5);}
 .front-cover::before{content:'';position:absolute;left:0;top:0;bottom:0;width:16px;background:linear-gradient(180deg,#3a2203 0%,#b8860b 10%,#f0c84a 20%,#d4a820 28%,#7a4e08 38%,#8a5e10 46%,#c9a227 54%,#f0c84a 62%,#c9a227 70%,#7a4e08 78%,#b8860b 88%,#3a2203 100%);border-radius:6px 0 0 6px;box-shadow:inset -3px 0 6px rgba(0,0,0,.50);z-index:21;}
-.book-container:is(:hover,:focus-within) .front-cover{transform:rotateY(-178deg);pointer-events:none;}
+.book-container:is(:hover,:has(:focus-visible)) .front-cover{transform:rotateY(-178deg);pointer-events:none;}
 
 .book-1 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(42,157,143,.15) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#040d17 0%,#081b2c 38%,#0c2238 68%,#030e1c 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 .book-2 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(114,9,183,.22) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#13001e 0%,#270040 38%,#18004e 68%,#070018 100%);border:1.5px solid rgba(0,229,255,.18);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
@@ -70,10 +70,10 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   overflow: hidden; transform: scaleX(-1);
   opacity: 0; transition: none; pointer-events: none;
 }
-.book-2.book-container:hover .cover-back {
+.book-2.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1; transition: opacity 0.25s ease 0.35s;
 }
-.book-2.book-container:hover .cover-content {
+.book-2.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0; transition: none;
 }
 
@@ -93,11 +93,11 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
   pointer-events: none;
 }
-.book-3.book-container:hover .cover-back {
+.book-3.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1;
   transition: opacity 0.25s ease 0.35s;
 }
-.book-3.book-container:hover .cover-content {
+.book-3.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0;
   transition: none;
 }
@@ -123,11 +123,11 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
   pointer-events: none;
 }
-.book-4.book-container:hover .cover-back {
+.book-4.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1;
   transition: opacity 0.25s ease 0.35s;
 }
-.book-4.book-container:hover .cover-content {
+.book-4.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0;
   transition: none;
 }
@@ -148,11 +148,11 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
   pointer-events: none;
 }
-.book-5.book-container:hover .cover-back {
+.book-5.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1;
   transition: opacity 0.25s ease 0.35s;
 }
-.book-5.book-container:hover .cover-content {
+.book-5.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0;
   transition: none;
 }
@@ -173,11 +173,11 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
   pointer-events: none;
 }
-.book-6.book-container:hover .cover-back {
+.book-6.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1;
   transition: opacity 0.25s ease 0.35s;
 }
-.book-6.book-container:hover .cover-content {
+.book-6.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0;
   transition: none;
 }
@@ -321,11 +321,11 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
   transition: none; /* instant when closing */
   pointer-events: none;
 }
-.book-1.book-container:hover .cover-back {
+.book-1.book-container:is(:hover,:has(:focus-visible)) .cover-back {
   opacity: 1;
   transition: opacity 0.25s ease 0.35s; /* fade in after flip starts */
 }
-.book-1.book-container:hover .cover-content {
+.book-1.book-container:is(:hover,:has(:focus-visible)) .cover-content {
   opacity: 0;
   transition: none;
 }
