@@ -494,8 +494,11 @@ var COURSE_INFO = {
     '</li>';
   }
 
+  /* most credits first; courses with equal credits keep the order they are listed in */
   function courseList(items){
-    return '<ul class="exp-course-list">' + items.map(function(it){ return courseRow(it[0], it[1]); }).join("") + '</ul>';
+    var ordered = items.map(function(it, i){ return { it: it, i: i }; })
+      .sort(function(a, b){ return (b.it[1] - a.it[1]) || (a.i - b.i); });
+    return '<ul class="exp-course-list">' + ordered.map(function(o){ return courseRow(o.it[0], o.it[1]); }).join("") + '</ul>';
   }
 
   function termBlock(term){
