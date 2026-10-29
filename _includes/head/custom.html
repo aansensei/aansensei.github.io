@@ -2373,6 +2373,49 @@
       ctx.globalCompositeOperation = 'source-over';
     }
 
+    /* The four ridge layers never move, only the theme blend changes them. Each one is painted once
+       into its own bitmap and pasted every frame, while the mist drifting between the layers stays
+       live. The bitmaps are rebuilt only when the window size changes or the day and night blend is
+       moving, so a still page costs four drawImage calls instead of about 1200 curve segments. */
+    var MTN_CACHE = [], MTN_CACHE_KEY = '';
+    var MTN_CACHE_MARGIN = 80;
+
+    function paintMtnLayer(i, MVW, peakY, t, top) {
+      var pts = MTN_LAYERS[i];
+      var c = MTN_COLORS[i];
+      var cTop = lerpC(c.nTop, c.dTop, t), cBot = lerpC(c.nBot, c.dBot, t);
+
+      var minY = 1e9;
+      for (var k = 0; k < pts.length; k++) { var yy = peakY(pts[k]); if (yy < minY) minY = yy; }
+
+      var mGrad = ctx.createLinearGradient(0, minY, 0, H);
+      mGrad.addColorStop(0, 'rgb(' + cTop + ')'); mGrad.addColorStop(1, 'rgb(' + cBot + ')');
+      ctx.fillStyle = mGrad;
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] * MVW, H);
+      ctx.lineTo(pts[0][0] * MVW, peakY(pts[0]));
+      for (var j = 1; j < pts.length; j++) {
+        var xc = (pts[j - 1][0] * MVW + pts[j][0] * MVW) / 2;
+        var yc = (peakY(pts[j - 1]) + peakY(pts[j])) / 2;
+        ctx.quadraticCurveTo(pts[j - 1][0] * MVW, peakY(pts[j - 1]), xc, yc);
+      }
+      ctx.lineTo(pts[pts.length - 1][0] * MVW, peakY(pts[pts.length - 1]));
+      ctx.lineTo(MVW, H);
+      ctx.closePath();
+      ctx.fill();
+
+      // viền sáng đỉnh cho nét hơn
+      ctx.strokeStyle = 'rgba(200,220,255,' + (0.1 + 0.15 * t) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // chùa cổ trên đỉnh đẹp nhất lớp 2
+      if (i === 1 && MTN_PAGODA.exists) {
+        drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), 'rgb(' + cTop + ')', t, MVW);
+      }
+      return minY;
+    }
+
     function drawMtns(a, t) {
       ctx.save(); ctx.globalAlpha = a;
       var isMobilePortrait = W < 768 && H > W;
@@ -2384,41 +2427,36 @@
 
       if (!MTN_LAYERS || MTN_MVW !== MVW) { MTN_LAYERS = genMtnLayers(MVW); MTN_MVW = MVW; }
 
+      var cacheKey = W + 'x' + H + ':' + MVW;
+      if (MTN_CACHE_KEY !== cacheKey) { MTN_CACHE = []; MTN_CACHE_KEY = cacheKey; }
+
       ctx.translate((W - MVW) / 2, 0);
 
       for (var i = 0; i < MTN_LAYERS.length; i++) {
-        var pts = MTN_LAYERS[i];
-        var c = MTN_COLORS[i];
-        var cTop = lerpC(c.nTop, c.dTop, t), cBot = lerpC(c.nBot, c.dBot, t);
-
-        var minY = 1e9;
-        for (var k = 0; k < pts.length; k++) { var yy = peakY(pts[k]); if (yy < minY) minY = yy; }
-
-        var mGrad = ctx.createLinearGradient(0, minY, 0, H);
-        mGrad.addColorStop(0, 'rgb(' + cTop + ')'); mGrad.addColorStop(1, 'rgb(' + cBot + ')');
-        ctx.fillStyle = mGrad;
-        ctx.beginPath();
-        ctx.moveTo(pts[0][0] * MVW, H);
-        ctx.lineTo(pts[0][0] * MVW, peakY(pts[0]));
-        for (var j = 1; j < pts.length; j++) {
-          var xc = (pts[j - 1][0] * MVW + pts[j][0] * MVW) / 2;
-          var yc = (peakY(pts[j - 1]) + peakY(pts[j])) / 2;
-          ctx.quadraticCurveTo(pts[j - 1][0] * MVW, peakY(pts[j - 1]), xc, yc);
+        var c = MTN_CACHE[i];
+        if (!c) {
+          c = MTN_CACHE[i] = { cv: document.createElement('canvas'), t: -1, top: 0, w: 0, h: 0 };
+          c.cx = c.cv.getContext('2d');
         }
-        ctx.lineTo(pts[pts.length - 1][0] * MVW, peakY(pts[pts.length - 1]));
-        ctx.lineTo(MVW, H);
-        ctx.closePath();
-        ctx.fill();
-
-        // viền sáng đỉnh cho nét hơn
-        ctx.strokeStyle = 'rgba(200,220,255,' + (0.1 + 0.15 * t) + ')';
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        // chùa cổ trên đỉnh đẹp nhất lớp 2
-        if (i === 1 && MTN_PAGODA.exists) {
-          drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), 'rgb(' + cTop + ')', t, MVW);
+        if (Math.abs(c.t - t) > 0.004) {
+          var layerTop = 1e9, pts = MTN_LAYERS[i];
+          for (var k = 0; k < pts.length; k++) { var yy = peakY(pts[k]); if (yy < layerTop) layerTop = yy; }
+          c.top = Math.max(0, Math.floor(layerTop) - MTN_CACHE_MARGIN);
+          var ch = Math.max(1, Math.ceil(H) - c.top);
+          if (c.w !== Math.ceil(MVW) || c.h !== ch) { c.cv.width = c.w = Math.ceil(MVW); c.cv.height = c.h = ch; }
+          var screenCtx = ctx;
+          ctx = c.cx;
+          try {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, c.w, c.h);
+            ctx.translate(0, -c.top);
+            paintMtnLayer(i, MVW, peakY, t, c.top);
+          } finally {
+            ctx = screenCtx;
+          }
+          c.t = t;
         }
+        ctx.drawImage(c.cv, 0, c.top);
 
         // sương mù xen giữa các lớp
         if (i < MTN_LAYERS.length - 1 && sceneQuality !== 'lite') { drawMtnMist(i, mScale, yOffset, MVW, t); }
