@@ -2274,10 +2274,10 @@
 
     function genMtnLayers(MVW) {
       var configs = [
-        { baseY: 0.35, amp: 0.08, f1: 1.5, f2: 2.3, p: 0.0, detail: 0.15 },
-        { baseY: 0.48, amp: 0.11, f1: 2.1, f2: 3.7, p: 2.5, detail: 0.12 }, // Lớp 2: đặt chùa cổ
-        { baseY: 0.62, amp: 0.14, f1: 1.8, f2: 3.1, p: 4.2, detail: 0.10 },
-        { baseY: 0.78, amp: 0.16, f1: 1.2, f2: 2.5, p: 1.1, detail: 0.08 }
+        { baseY: 0.35, amp: 0.08, f1: 1.5, f2: 2.3, p: 0.0, detail: 0.15, lift: 0.07 },
+        { baseY: 0.48, amp: 0.11, f1: 2.1, f2: 3.7, p: 2.5, detail: 0.12, lift: 0.07 }, // lớp 2: chùa Thiên Mụ đứng ở đây
+        { baseY: 0.62, amp: 0.14, f1: 1.8, f2: 3.1, p: 4.2, detail: 0.10, lift: 0.06 },
+        { baseY: 0.78, amp: 0.16, f1: 1.2, f2: 2.5, p: 1.1, detail: 0.08, lift: 0.05 }
       ];
       var layers = [];
       MTN_PAGODA.exists = false;
@@ -2291,11 +2291,13 @@
           var noise1 = Math.sin(nx * Math.PI * 2 * cfg.f1 * 5) * cfg.detail;
           var microNoise = Math.cos(nx * Math.PI * 2 * cfg.f1 * 18) * (cfg.detail * 0.3);
           var yFrac = cfg.baseY - wave1 * cfg.amp - wave2 * (cfg.amp * 0.5) - noise1 * cfg.amp - microNoise * cfg.amp;
+          /* the two sides climb toward the screen edges and the middle stays low, so the ranges frame the gate */
+          yFrac -= cfg.lift * Math.pow(Math.abs(nx * 2 - 1), 1.6);
           points.push([x / MVW, yFrac]);
         }
         layers.push(points);
         if (index === 1) {
-          var targetX = 0.68, searchRange = 0.15, peakYFrac = 99, peakXFrac = 0;
+          var targetX = 0.63, searchRange = 0.05, peakYFrac = 99, peakXFrac = 0;
           points.forEach(function (pt) {
             if (pt[0] > targetX - searchRange && pt[0] < targetX + searchRange && pt[1] < peakYFrac) {
               peakYFrac = pt[1]; peakXFrac = pt[0];
@@ -2307,29 +2309,29 @@
       return layers;
     }
 
+    /* Phuoc Duyen tower of Thien Mu: seven square tiers that narrow toward the top, each with a thin
+       overhanging eave, standing on a low plinth. It is a clear silhouette on the second range. */
     function drawMtnPagoda(cx, cy, color, t, MVW) {
-      var ps = Math.max(MVW / 1280, 0.5) * 1.2;
-      ctx.shadowBlur = 15 * ps;
-      ctx.shadowColor = 'rgba(255,200,100,' + (0.4 * (1 - t)) + ')';
+      var ps = Math.max(MVW / 1280, 0.5) * 1.25;
+      ctx.shadowBlur = 12 * ps;
+      ctx.shadowColor = 'rgba(255,200,100,' + (0.35 * (1 - t)) + ')';
       ctx.fillStyle = color;
-      ctx.fillRect(cx - 10 * ps, cy, 20 * ps, 3 * ps);
-      ctx.fillRect(cx - 7 * ps, cy - 8 * ps, 14 * ps, 8 * ps);
-      ctx.beginPath();
-      ctx.moveTo(cx - 14 * ps, cy - 8 * ps);
-      ctx.quadraticCurveTo(cx - 6 * ps, cy - 6 * ps, cx - 6 * ps, cy - 12 * ps);
-      ctx.lineTo(cx + 6 * ps, cy - 12 * ps);
-      ctx.quadraticCurveTo(cx + 6 * ps, cy - 6 * ps, cx + 14 * ps, cy - 8 * ps);
-      ctx.quadraticCurveTo(cx, cy - 15 * ps, cx - 14 * ps, cy - 8 * ps);
-      ctx.fill();
-      ctx.fillRect(cx - 4 * ps, cy - 18 * ps, 8 * ps, 6 * ps);
-      ctx.beginPath();
-      ctx.moveTo(cx - 10 * ps, cy - 18 * ps);
-      ctx.quadraticCurveTo(cx - 4 * ps, cy - 16 * ps, cx - 4 * ps, cy - 22 * ps);
-      ctx.lineTo(cx + 4 * ps, cy - 22 * ps);
-      ctx.quadraticCurveTo(cx + 4 * ps, cy - 16 * ps, cx + 10 * ps, cy - 18 * ps);
-      ctx.quadraticCurveTo(cx, cy - 25 * ps, cx - 10 * ps, cy - 18 * ps);
-      ctx.fill();
-      ctx.fillRect(cx - 1 * ps, cy - 30 * ps, 2 * ps, 8 * ps);
+      ctx.fillRect(cx - 9 * ps, cy - 2 * ps, 18 * ps, 2.4 * ps);
+      var y = cy - 2 * ps;
+      for (var tier = 0; tier < 7; tier++) {
+        var w = (11.5 - tier * 1.15) * ps, bodyH = 4.4 * ps, eave = w + 3.2 * ps;
+        ctx.fillRect(cx - w / 2, y - bodyH, w, bodyH);
+        ctx.beginPath();
+        ctx.moveTo(cx - eave / 2 - 1.2 * ps, y - bodyH + 0.4 * ps);
+        ctx.lineTo(cx + eave / 2 + 1.2 * ps, y - bodyH + 0.4 * ps);
+        ctx.lineTo(cx + eave / 2, y - bodyH - 1.4 * ps);
+        ctx.lineTo(cx - eave / 2, y - bodyH - 1.4 * ps);
+        ctx.closePath();
+        ctx.fill();
+        y -= bodyH + 1.2 * ps;
+      }
+      ctx.fillRect(cx - 0.7 * ps, y - 7 * ps, 1.4 * ps, 7 * ps);
+      ctx.beginPath(); ctx.arc(cx, y - 7.6 * ps, 1.3 * ps, 0, Math.PI * 2); ctx.fill();
       ctx.shadowBlur = 0;
     }
 
@@ -2409,9 +2411,12 @@
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // chùa cổ trên đỉnh đẹp nhất lớp 2
+      // chùa Thiên Mụ trên đỉnh dãy thứ hai, nổi lên trước bóng dãy xa
       if (i === 1 && MTN_PAGODA.exists) {
-        drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), 'rgb(' + cTop + ')', t, MVW);
+        /* darker than the pale far ridge by day, a little lighter than the dark one at night */
+        var pc = cTop.split(','), pk = t > 0.5 ? 0.72 : 3.0;
+        var pagodaColor = 'rgb(' + Math.min(255, Math.round(pc[0] * pk)) + ',' + Math.min(255, Math.round(pc[1] * pk)) + ',' + Math.min(255, Math.round(pc[2] * pk)) + ')';
+        drawMtnPagoda(MTN_PAGODA.xFrac * MVW, peakY([0, MTN_PAGODA.yFrac]), pagodaColor, t, MVW);
       }
       return minY;
     }
