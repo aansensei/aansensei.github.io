@@ -494,10 +494,12 @@ var COURSE_INFO = {
     '</li>';
   }
 
-  /* most credits first; courses with equal credits keep the order they are listed in */
+  /* Most credits first. With equal credits, courses in the two majors (computing, economics, math)
+     come before the rest, and anything still tied keeps the order it is listed in. */
+  var MAJOR_COURSE = /^(COMP SCI|E C E|ECON|MATH|STAT)\b/;
   function courseList(items){
-    var ordered = items.map(function(it, i){ return { it: it, i: i }; })
-      .sort(function(a, b){ return (b.it[1] - a.it[1]) || (a.i - b.i); });
+    var ordered = items.map(function(it, i){ return { it: it, i: i, major: MAJOR_COURSE.test(it[0]) ? 0 : 1 }; })
+      .sort(function(a, b){ return (b.it[1] - a.it[1]) || (a.major - b.major) || (a.i - b.i); });
     return '<ul class="exp-course-list">' + ordered.map(function(o){ return courseRow(o.it[0], o.it[1]); }).join("") + '</ul>';
   }
 
