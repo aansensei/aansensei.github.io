@@ -2088,7 +2088,7 @@
         var isDay = themeT > 0.5;
         var clickedTree = false;
 
-        if (isDay && sceneQuality !== 'lite' && ev.clientY > H * 0.4) {
+        if (isDay && sceneQuality !== 'lite' && casA > 0.4 && ev.clientY > H * 0.4) {
           if (ev.clientX < W * 0.3) {
             treeLeftShock = 2.0; clickedTree = true;
             spawnPetalBurst(W * 0.15, H * 0.8);
@@ -2115,7 +2115,7 @@
               makeFW(ev.clientX, Math.max(ev.clientY - H * .08, H * .04));
             }
           }
-          else if (sceneQuality !== 'lite') {
+          else if (sceneQuality !== 'lite' && casA > 0.3) {
             for (var k = 0; k < 15; k++) {
               FF.push({
                 x: ev.clientX / W, y: ev.clientY / H,
@@ -3337,6 +3337,11 @@
         ctx.globalCompositeOperation = 'source-over';
       }
 
+      if (casA <= 0) {
+        /* nothing below the castle is simulated off screen, so drop whatever a click left behind */
+        treeLeftShock = 0; treeRightShock = 0;
+        for (var fi = FF.length - 1; fi >= 0; fi--) { if (FF[fi].isTemp) FF.splice(fi, 1); }
+      }
       if (casA > 0) {
         if (sceneQuality === 'full') drawMist(casA * 0.5, false, themeT);
         drawForest(casA, themeT);
