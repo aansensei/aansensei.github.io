@@ -1084,6 +1084,18 @@ title: "Xin chào! I'm An"
   #mb-title-force {
     animation: mbTitleGlitch 5s ease-in-out infinite !important;
   }
+
+  /* The book interface is invisible until the scene opens or is hovered, so its endless loops wait
+     until then instead of ticking behind an opacity of zero. */
+  .mb-scene:not(.is-open) .mb-magic-circle-svg {
+    animation-play-state: paused !important;
+  }
+
+  .mb-scene:not(.is-open):not(.is-hovered) #mb-title-force,
+  .mb-scene:not(.is-open):not(.is-hovered) #mb-btn-force::before,
+  .mb-scene:not(.is-open):not(.is-hovered) #mb-ui-force-layer::after {
+    animation-play-state: paused !important;
+  }
 </style>
 
 <!-- wrapper chính, bắt hover/click ở đây -->
