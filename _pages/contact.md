@@ -71,6 +71,9 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
 .cf-status.ok{color:#52c9b9;}
 .cf-status.err{color:#ff9aa8;}
 .cf-status a{color:inherit;text-decoration:underline;}
+.cf-alt{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px;}
+.cf-alt a,.cf-alt button{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;letter-spacing:.04em;line-height:1;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(240,200,74,.6);background:rgba(10,8,25,.7);color:#f6d765;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;}
+.cf-alt a:hover,.cf-alt button:hover,.cf-alt a:focus-visible,.cf-alt button:focus-visible{background:#f0c84a;color:#1a1204;}
 @media(max-width:480px){.contact-card{padding:34px 20px;}.contact-poem{letter-spacing:.02em;}.contact-status{padding:12px 12px 10px;}.contact-open{font-size:.72rem;letter-spacing:.09em;padding:4px 11px;}.cf-title{font-size:1.1rem;}}
 body.an-day-mode .contact-chapter{color:#006666;opacity:.8;}
 body.an-day-mode .contact-card{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 12px 40px rgba(19,60,90,.2),inset 0 1px 0 rgba(255,255,255,.7);}
@@ -102,6 +105,8 @@ body.an-day-mode .contact-card .cf-send{background:linear-gradient(135deg,#8fe3d
 body.an-day-mode .contact-card .cf-send:hover{box-shadow:0 9px 24px rgba(15,138,138,.5),inset 0 1px 0 rgba(255,255,255,.6);}
 body.an-day-mode .cf-status.ok{color:#0b6b45;}
 body.an-day-mode .cf-status.err{color:#b3261e;}
+body.an-day-mode .cf-alt a,body.an-day-mode .cf-alt button{background:rgba(255,255,255,.92);border-color:rgba(0,102,102,.55);color:#00504e;}
+body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-day-mode .cf-alt a:focus-visible,body.an-day-mode .cf-alt button:focus-visible{background:#006666;color:#fff;}
 </style>
 
 <div id="contact-wrap">
@@ -149,14 +154,60 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
   var form=document.getElementById('contactForm');
   if(!form)return;
   var btn=document.getElementById('cfSend'),status=document.getElementById('cfStatus'),label=document.getElementById('cfLabel'),icon=document.getElementById('cfIcon');
-  var ENDPOINT='https://formsubmit.co/ajax/cnguyen49@wisc.edu',MAIL='cnguyen49@wisc.edu';
-  var SLOW_MS=7000,TIMEOUT_MS=30000,IDLE='Send message';
+  var MAIL='cnguyen49@wisc.edu';
+  /* Web3Forms access key. It is public by design: it can only deliver mail to the address it was made for. */
+  var W3F_KEY='2b240aef-074c-4c4e-a046-a2b0b47efed1';
+  var SLOW_MS=5000,TRY_MS=12000,IDLE='Send message';
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dotTimer=null,slowTimer=null,abortTimer=null,resetTimer=null,sending=false;
+  var dotTimer=null,slowTimer=null,resetTimer=null,sending=false;
   function say(text,kind){status.className='cf-status'+(kind?' '+kind:'');status.textContent=text;}
-  function fail(why){
+  /* each service takes the same fields and answers JSON; a missing or slow answer moves on to the next one.
+     Web3Forms goes first when it has a key, because it answers fast, and FormSubmit is the second chance. */
+  var SERVICES=[
+    {name:'Web3Forms',on:!!W3F_KEY,url:'https://api.web3forms.com/submit',
+      body:function(d){return {access_key:W3F_KEY,name:d.name,email:d.email,subject:'Portfolio message: '+d.subject,message:d.message,replyto:d.email,botcheck:''};}},
+    {name:'FormSubmit',on:true,url:'https://formsubmit.co/ajax/'+MAIL,
+      body:function(d){return {name:d.name,email:d.email,subject:d.subject,message:d.message,_subject:'Portfolio message: '+d.subject,_replyto:d.email,_template:'table',_captcha:'false'};}}
+  ].filter(function(x){return x.on;});
+  function readOk(j){return !!j&&(j.success===true||j.success==='true');}
+  function post(service,data){
+    var ctrl=window.AbortController?new AbortController():null,timer=null,timedOut=false;
+    var limit=new Promise(function(_,reject){timer=setTimeout(function(){timedOut=true;if(ctrl)ctrl.abort();reject(new Error('timeout'));},TRY_MS);});
+    var request=fetch(service.url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(service.body(data)),signal:ctrl?ctrl.signal:undefined})
+      .then(function(r){return r.json().then(function(j){return {ok:r.ok,json:j};},function(){return {ok:false,json:null};});})
+      .then(function(res){
+        if(res.ok&&readOk(res.json))return true;
+        if(window.console)console.warn(service.name+':',res.json&&res.json.message);
+        throw new Error('rejected');
+      });
+    return Promise.race([request,limit]).then(function(v){clearTimeout(timer);return v;},function(e){clearTimeout(timer);throw e;});
+  }
+  function deliver(data){
+    var i=0;
+    function next(){
+      if(i>=SERVICES.length)return Promise.reject(new Error('all failed'));
+      return post(SERVICES[i++],data).catch(function(){return next();});
+    }
+    return next();
+  }
+  function mailtoHref(d){
+    var body='Name: '+d.name+'\nEmail: '+d.email+'\n\n'+d.message;
+    if(body.length>1700)body=body.slice(0,1700)+'...';
+    return 'mailto:'+MAIL+'?subject='+encodeURIComponent('Portfolio message: '+d.subject)+'&body='+encodeURIComponent(body);
+  }
+  function copyText(text,done){
+    function legacy(){var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:-9999px;top:0;';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done(ok);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){done(true);},legacy);}else{legacy();}
+  }
+  /* nothing is lost: the form keeps the text, and two buttons deliver it another way */
+  function fail(data){
     status.className='cf-status err';
-    status.innerHTML=(why==='timeout'?'That is taking too long. ':'Something went wrong. ')+'Please try again, or email me directly at <a href="mailto:'+MAIL+'">'+MAIL+'</a>.';
+    status.textContent='The message service is not answering right now, so nothing was sent. Your text is still here. You can send it from your own email app, or copy it.';
+    var alt=document.createElement('div');alt.className='cf-alt';
+    var mail=document.createElement('a');mail.href=mailtoHref(data);mail.textContent='Open in my email app';
+    var copy=document.createElement('button');copy.type='button';copy.textContent='Copy message';
+    copy.addEventListener('click',function(){copyText('To: '+MAIL+'\nSubject: Portfolio message: '+data.subject+'\n\n'+data.message,function(ok){copy.textContent=ok?'Copied':'Copy failed';setTimeout(function(){copy.textContent='Copy message';},2200);});});
+    alt.appendChild(mail);alt.appendChild(copy);status.appendChild(alt);
     btn.classList.remove('is-fail');void btn.offsetWidth;btn.classList.add('is-fail');
   }
   function confetti(){
@@ -181,11 +232,11 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
     icon.className='fas fa-paper-plane cf-plane';
     var n=0;label.textContent='Sending';
     dotTimer=setInterval(function(){n=(n+1)%4;label.textContent='Sending'+'...'.slice(0,n);},350);
-    slowTimer=setTimeout(function(){say('Still sending. The first message can take a little longer.');},SLOW_MS);
+    slowTimer=setTimeout(function(){say('Still sending. This is taking a little longer than usual.');},SLOW_MS);
   }
   function stopSending(ok){
     sending=false;
-    clearInterval(dotTimer);clearTimeout(slowTimer);clearTimeout(abortTimer);
+    clearInterval(dotTimer);clearTimeout(slowTimer);
     btn.disabled=false;btn.classList.remove('is-sending');
     if(ok){
       btn.classList.add('is-sent');icon.className='fas fa-check cf-plane';label.textContent='Sent';
@@ -204,31 +255,19 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
     if(!form.checkValidity()){form.reportValidity();return;}
     say('');clearTimeout(resetTimer);
     startSending();
-    var payload={
+    var data={
       name:form.elements['name'].value.trim(),
       email:form.elements['email'].value.trim(),
       subject:form.elements['subject'].value.trim(),
-      message:form.elements['message'].value.trim(),
-      _subject:'Portfolio message: '+form.elements['subject'].value.trim(),
-      _replyto:form.elements['email'].value.trim(),
-      _template:'table',
-      _captcha:'false'
+      message:form.elements['message'].value.trim()
     };
-    var ctrl=window.AbortController?new AbortController():null,timedOut=false;
-    abortTimer=setTimeout(function(){timedOut=true;if(ctrl)ctrl.abort();else{stopSending(false);fail('timeout');}},TIMEOUT_MS);
-    fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload),signal:ctrl?ctrl.signal:undefined})
-      .then(function(r){return r.json();})
-      .then(function(j){
-        if(j&&(j.success===true||j.success==='true')){
-          form.reset();
-          stopSending(true);
-          say('Thank you. Your message is on its way, and I will reply soon.','ok');
-        }else{
-          if(window.console)console.warn('FormSubmit:',j&&j.message);
-          stopSending(false);fail();
-        }
-      })
-      .catch(function(){if(sending){stopSending(false);fail(timedOut?'timeout':'');}});
+    deliver(data).then(function(){
+      form.reset();
+      stopSending(true);
+      say('Thank you. Your message is on its way, and I will reply soon.','ok');
+    },function(){
+      stopSending(false);fail(data);
+    });
   });
 })();
 </script>
