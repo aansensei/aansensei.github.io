@@ -3585,7 +3585,7 @@
         if (occluding) { ctx.restore(); occluding = false; }
         drawCastleCached(casA, themeT, false);
         if (sceneQuality !== 'lite') drawMeadow(casA, themeT); else drawMeadowCached(casA, themeT);
-        drawRiver(casA, themeT);
+        if (sceneQuality === 'lite') drawRiverCached(casA, themeT); else drawRiver(casA, themeT);
         if (sceneQuality !== 'lite') {
           drawMist(casA * 0.7, true, themeT);
           drawFireflies(casA, themeT);

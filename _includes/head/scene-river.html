@@ -7,11 +7,17 @@
       { back2: ['#999999', '#666666', '#333333'], back1: ['#cccccc', '#999999', '#4d4d4d'], mid: ['#e6e6e6', '#cccccc', '#808080'], front: ['#ffffff', '#f0f0f0', '#b3b3b3'], center: ['#ffffff', '#ffffff', '#fff5d9', '#e6d9b3'] } // trắng
     ];
 
+    /* True while the lite tier paints its still picture of the river: time stands at zero, so nothing
+       drifts, sways, ripples or flickers, and there are many more lanterns and lotus flowers than a
+       moving river could afford. */
+    var riverStill = false;
+    var RIVER_CACHE = null;
+
     function drawRiver(a, t) {
       var riverA = a * (1 - t);
       if (riverA < 0.01) return;
       var bY = H * (H > W ? 0.65 : 0.82);
-      var nt = activeTime * 0.001;
+      var nt = riverStill ? 0 : activeTime * 0.001;
       var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
       var isFullScene = sceneQuality === 'full';
       var isLiteScene = sceneQuality === 'lite';
@@ -21,8 +27,8 @@
         ctx.save();
         ctx.globalAlpha = riverA;
         var isMobile = H > W;
-        var lotusCount = isLiteScene ? 1 : isMobile ? 3 : isFullScene ? 7 : 3;
-        var lanternCount = isLiteScene ? 3 : isMobile ? 6 : isFullScene ? 18 : 6;
+        var lotusCount = riverStill ? (isMobile ? 4 : 8) : isLiteScene ? 1 : isMobile ? 3 : isFullScene ? 7 : 3;
+        var lanternCount = riverStill ? (isMobile ? 8 : 20) : isLiteScene ? 3 : isMobile ? 6 : isFullScene ? 18 : 6;
         if (!window._RIVER_INIT_V8 || !window._river_lanterns || window._river_lanterns.length !== lanternCount) {
           window._RIVER_INIT_V8 = true;
 
@@ -137,7 +143,7 @@
         ctx.globalAlpha = riverA;
 
         // Surface Popping Bubbles (Bọt nước nổ trên mặt)
-        if (!isLiteScene && Math.random() < 0.05 && window._river_bubbles.length < (isFullScene ? 25 : 8)) {
+        if (!isLiteScene && !riverStill && Math.random() < 0.05 && window._river_bubbles.length < (isFullScene ? 25 : 8)) {
           window._river_bubbles.push({
             x: Math.random(),
             y: Math.random(), // Random Y on surface
@@ -456,7 +462,7 @@
 
               // Glowing particles flying up. The halo is a second, larger and fainter dot because a
               // per particle shadowBlur forces the GPU to blur an offscreen layer every frame.
-              for (var k = 0; k < 3; k++) {
+              for (var k = 0; k < (riverStill ? 0 : 3); k++) {
                 var pT = (nt * 0.4 + la.phase * 10 + k * 3.3) % 1.0;
                 if (pT > 0 && pT < 1) {
                   var px = Math.sin(la.phase * 5 + k * 7 + pT * 6) * 20 * ls;
@@ -487,8 +493,10 @@
           drawLotusObj(lo, false);
         });
         window._river_lanterns.forEach(function (la) {
-          la.x += la.speed * 0.015 * frameScale;
-          if (la.x > 1.1) la.x = -0.1;
+          if (!riverStill) {
+            la.x += la.speed * 0.015 * frameScale;
+            if (la.x > 1.1) la.x = -0.1;
+          }
           drawLanternObj(la, false);
         });
 
@@ -497,6 +505,35 @@
       } finally {
         ctx.restore();
       }
+    }
+
+    /* The lite tier shows the river as one picture painted once for the window size: many lanterns and
+       lotus flowers standing still on the water. One drawImage puts it on screen each frame, so it
+       costs almost nothing, and it does not leave a bare dark slab below the castle at night. */
+    function drawRiverCached(a, t) {
+      var alpha = a * (1 - t);
+      if (alpha < 0.01) return;
+      var bY = H * (H > W ? 0.65 : 0.82);
+      var y0 = Math.max(0, Math.floor(bY));
+      var c = RIVER_CACHE;
+      if (!c) {
+        c = RIVER_CACHE = { cv: document.createElement('canvas'), w: 0, h: 0 };
+        c.cx = c.cv.getContext('2d');
+      }
+      if (c.w !== W || c.h !== H) {
+        c.cv.width = W; c.cv.height = Math.max(1, Math.ceil(H - y0)); c.w = W; c.h = H;
+        var screenCtx = ctx;
+        ctx = c.cx; riverStill = true;
+        try {
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, c.cv.width, c.cv.height);
+          ctx.translate(0, -y0);
+          drawRiver(1, 0);
+        } finally {
+          ctx = screenCtx; riverStill = false;
+        }
+      }
+      ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(c.cv, 0, y0); ctx.restore();
     }
 
     /* Lanterns and lotus flowers never change shape, only their position, tilt and glow level do,
