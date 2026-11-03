@@ -2035,6 +2035,7 @@
       drawCostAvg = 0;
       document.body.classList.toggle('an-scene-lite', tier === 'lite');
       document.body.setAttribute('data-scene-tier', tier);
+      refreshQualityLabel();
       if (cap) {
         autoCap = cap; autoCanFull = false;
         try { sessionStorage.setItem(autoCapKey, cap); } catch (err) { }
@@ -2053,16 +2054,24 @@
     }
 
     function applySceneQuality() {
+      /* Auto follows the system setting for reduced motion and picks lite. A tier the visitor chose with
+         the button is respected, because the setting is often on only because a school or remote
+         machine switched animations off, and it left the Full choice with the same bare scene as Lite. */
       sceneQuality = sceneQualityPreference === 'auto' ? getAutoSceneQuality() : sceneQualityPreference;
-      if (reduceMotionQuery && reduceMotionQuery.matches) sceneQuality = 'lite';
       document.body.classList.toggle('an-scene-lite', sceneQuality === 'lite');
       document.body.setAttribute('data-scene-tier', sceneQuality);
       slowFrameCount = 0; drawCostAvg = 0;
+      refreshQualityLabel();
+    }
+
+    /* the button names the tier Auto picked, so it is clear what the scene is running at */
+    function refreshQualityLabel() {
       var qualityButton = document.getElementById('an-scene-quality');
-      if (qualityButton) {
-        qualityButton.textContent = qualityLabels[sceneQualityPreference];
-        qualityButton.setAttribute('aria-label', qualityLabels[sceneQualityPreference]);
-      }
+      if (!qualityButton) return;
+      var text = qualityLabels[sceneQualityPreference];
+      if (sceneQualityPreference === 'auto') text += ' (' + (sceneQuality === 'balanced' ? 'MID' : sceneQuality.toUpperCase()) + ')';
+      qualityButton.textContent = text;
+      qualityButton.setAttribute('aria-label', text);
     }
 
     var qualityButton = document.createElement('button');
@@ -2711,10 +2720,13 @@
       };
     });
 
+    var meadowStill = false;
+    var MEADOW_CACHE = null;
+
     function drawMeadow(a, t) {
       if (t < 0.01) return;
       ctx.save();
-      var bY = H * (H > W ? 0.65 : 0.82), mH = H - bY, nt = activeTime * 0.001;
+      var bY = H * (H > W ? 0.65 : 0.82), mH = H - bY, nt = meadowStill ? 0 : activeTime * 0.001;
       var sc = Math.max(W / 1280, H > W ? 1.2 : 0.4);
 
       // ── 3 lớp đồi nhấp nhô, xa → gần ──
@@ -2850,7 +2862,7 @@
       });
 
       // ── Cánh hoa / hạt phấn bay ──
-      MPETALS.forEach(function (p) {
+      if (!meadowStill) MPETALS.forEach(function (p) {
         var px = (p.x + Math.sin(nt * p.sp + p.ph) * 0.055) * W;
         var rawY = (p.y - nt * p.sp * 0.038) % 1;
         var py = bY + ((rawY + 1) % 1) * mH;
@@ -2864,6 +2876,34 @@
 
       ctx.globalAlpha = a * t;
       ctx.restore();
+    }
+
+    /* Lite keeps the meadow as a picture: the hills, the royal path, the grass and the flowers are painted
+       once for the window size, with no sway and no drifting petals, and one drawImage puts them on
+       screen each frame. Without it Lite showed a bare green slab below the castle. */
+    function drawMeadowCached(a, t) {
+      if (t < 0.01 || a <= 0.003) return;
+      var bY = H * (H > W ? 0.65 : 0.82), mH = H - bY;
+      var y0 = Math.max(0, Math.floor(bY - mH * 0.4));
+      var c = MEADOW_CACHE;
+      if (!c) {
+        c = MEADOW_CACHE = { cv: document.createElement('canvas'), w: 0, h: 0 };
+        c.cx = c.cv.getContext('2d');
+      }
+      if (c.w !== W || c.h !== H) {
+        c.cv.width = W; c.cv.height = Math.max(1, Math.ceil(H - y0)); c.w = W; c.h = H;
+        var screenCtx = ctx, savedX = cX, savedY = cY;
+        ctx = c.cx; cX = cY = -100000; meadowStill = true;
+        try {
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, c.cv.width, c.cv.height);
+          ctx.translate(0, -y0);
+          drawMeadow(1, 1);
+        } finally {
+          ctx = screenCtx; cX = savedX; cY = savedY; meadowStill = false;
+        }
+      }
+      ctx.save(); ctx.globalAlpha = a * t; ctx.drawImage(c.cv, 0, y0); ctx.restore();
     }
 
 {% include head/scene-river.html %}
@@ -3545,7 +3585,7 @@
         drawForest(casA, themeT);
         if (occluding) { ctx.restore(); occluding = false; }
         drawCastleCached(casA, themeT, false);
-        if (sceneQuality !== 'lite') drawMeadow(casA, themeT);
+        if (sceneQuality !== 'lite') drawMeadow(casA, themeT); else drawMeadowCached(casA, themeT);
         drawRiver(casA, themeT);
         if (sceneQuality !== 'lite') {
           drawMist(casA * 0.7, true, themeT);
