@@ -92,7 +92,10 @@
         ctx.arc(cx, cy - h + w / 2, w / 2, Math.PI, 0);
         ctx.lineTo(cx + w / 2, cy); ctx.stroke();
         ctx.strokeStyle = 'rgba(0,0,0,0.4)'; ctx.lineWidth = 1.5 * s;
-        for (var plankX = cx - w / 2 + 5 * s; plankX < cx + w / 2; plankX += 5 * s) {
+        /* the planks are laid out from the middle outwards, so both halves of the door match */
+        var plankReach = Math.floor((w / 2 - 1.5 * s) / (5 * s));
+        for (var pk = -plankReach; pk <= plankReach; pk++) {
+          var plankX = cx + pk * 5 * s;
           ctx.beginPath(); ctx.moveTo(plankX, cy);
           var dx = plankX - cx, r = w / 2, dy = Math.sqrt(Math.max(0, r * r - dx * dx));
           ctx.lineTo(plankX, cy - h + r - dy); ctx.stroke();
@@ -115,11 +118,14 @@
         if (!rivets) {
           rivets = [];
           for (var py = cy - 8 * s; py > cy - h + 15 * s; py -= 10 * s) {
-            for (var px = cx - w / 2 + 5 * s; px < cx + w / 2; px += 10 * s) {
-              var halo = ctx.createRadialGradient(px, py, 0, px, py, 7 * s);
-              halo.addColorStop(0, 'rgba(255, 190, 60, .5)');
-              halo.addColorStop(1, 'transparent');
-              rivets.push({ px: px, py: py, halo: halo });
+            /* columns of rivets sit at equal distances either side of the middle seam */
+            for (var off = 5 * s; off < w / 2 - 1 * s; off += 10 * s) {
+              [cx - off, cx + off].forEach(function (px) {
+                var halo = ctx.createRadialGradient(px, py, 0, px, py, 7 * s);
+                halo.addColorStop(0, 'rgba(255, 190, 60, .5)');
+                halo.addColorStop(1, 'transparent');
+                rivets.push({ px: px, py: py, halo: halo });
+              });
             }
           }
           drawCastle._rivetCache[rivetKey] = rivets;
@@ -176,6 +182,13 @@
           ctx.quadraticCurveTo(tx + (txc - tx) * 0.2, cy - h * 0.5, txc, cy - h);
           ctx.stroke();
         }
+
+        /* a thin dark rim under the pale roof edge: the white edge alone vanishes against a pale sky and
+           shouts against a dark mountain, so one side of the roof looked drawn and the other unfinished */
+        ctx.strokeStyle = isNight ? 'rgba(10,6,22,0.5)' : 'rgba(78,44,6,0.5)'; ctx.lineWidth = 4.6 * s;
+        ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.lineTo(cx + w * 0.34, cy - h); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx - w / 2, cy - upturn); ctx.quadraticCurveTo(cx - w * 0.42, cy - h * 0.4, cx - w * 0.32, cy - h); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + w / 2, cy - upturn); ctx.quadraticCurveTo(cx + w * 0.42, cy - h * 0.4, cx + w * 0.32, cy - h); ctx.stroke();
 
         ctx.strokeStyle = 'rgb(' + cRidge + ')'; ctx.lineWidth = 3.5 * s;
         ctx.beginPath(); ctx.moveTo(cx - w * 0.34, cy - h); ctx.lineTo(cx + w * 0.34, cy - h); ctx.stroke();
