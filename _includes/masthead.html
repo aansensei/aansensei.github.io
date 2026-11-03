@@ -486,5 +486,15 @@
     if (deskBtn) deskBtn.addEventListener('click', toggleTheme);
     if (mobBtn) mobBtn.addEventListener('click', toggleTheme);
 
+    /* mark the menu link of the page being viewed, and of the section it belongs to */
+    var here = location.pathname.replace(/index\.html$/, '').replace(/\/+$/, '') || '/';
+    document.querySelectorAll('.masthead__menu-item a, #an-ham-menu a').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) === '#') return;
+      var target = href.replace(/^https?:\/\/[^/]+/, '').replace(/\/+$/, '') || '/';
+      var on = target === here || (target !== '/' && here.indexOf(target + '/') === 0);
+      if (on) { a.classList.add('is-current'); a.setAttribute('aria-current', 'page'); }
+    });
+
   })();
 </script>
