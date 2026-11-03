@@ -2060,6 +2060,9 @@
     var lastRafTick = lastTick;
     var lastRenderTick = 0;
     var slowFrameCount = 0;
+    /* a tier change builds its bitmaps in the first frames, which are slow by nature, so the frame monitor
+       waits a moment before it judges the new tier */
+    var autoGraceUntil = 0;
     var frameScale = 1;
     var mainRafId = null;
     var cursorRafId = null;
@@ -2086,12 +2089,15 @@
     try { autoCap = sessionStorage.getItem(autoCapKey) || ''; } catch (err) { }
     var autoCores = navigator.hardwareConcurrency || 4;
     var autoMemory = navigator.deviceMemory || 8;
-    var autoCanFull = !isTouch && autoCores >= 6 && autoMemory >= 8 && !autoCap;
+    var autoCanFull = false;
+    function refreshAutoCanFull() { autoCanFull = !isTouch && autoCores >= 6 && autoMemory >= 8 && !autoCap; }
+    refreshAutoCanFull();
     var drawCostAvg = 0;
 
     function setAutoTier(tier, cap) {
       sceneQuality = tier;
       slowFrameCount = 0;
+      autoGraceUntil = performance.now() + 2500;
       drawCostAvg = 0;
       document.body.classList.toggle('an-scene-lite', tier === 'lite');
       document.body.setAttribute('data-scene-tier', tier);
@@ -2107,10 +2113,11 @@
       if (autoCap === 'lite') return 'lite';
       var cores = autoCores;
       var memory = autoMemory;
-      /* Phones start on balanced so they keep the meadow and the mist. The frame monitor in
-         render() still drops them to lite if the scene runs slowly. */
+      /* Everything but a very small machine starts on balanced, because the core and memory counts say
+         little about how fast the scene really runs. The frame monitor in render() drops it to lite
+         within a few seconds if it stutters, and a machine with spare time is promoted to full. */
       if (isTouch) return cores <= 2 || memory <= 4 ? 'lite' : 'balanced';
-      return cores <= 4 || memory <= 4 ? 'lite' : 'balanced';
+      return cores <= 2 || memory <= 2 ? 'lite' : 'balanced';
     }
 
     function applySceneQuality() {
@@ -2121,6 +2128,7 @@
       document.body.classList.toggle('an-scene-lite', sceneQuality === 'lite');
       document.body.setAttribute('data-scene-tier', sceneQuality);
       slowFrameCount = 0; drawCostAvg = 0;
+      autoGraceUntil = performance.now() + 2500;
       refreshQualityLabel();
     }
 
@@ -2140,6 +2148,13 @@
     qualityButton.addEventListener('click', function () {
       sceneQualityPreference = sceneQualityPreference === 'auto' ? 'full' : sceneQualityPreference === 'full' ? 'lite' : 'auto';
       try { localStorage.setItem(sceneQualityKey, sceneQualityPreference); } catch (err) { }
+      if (sceneQualityPreference === 'auto') {
+        /* choosing Auto again gives it a fresh start: the tier it fell back to earlier in this tab is
+           forgotten, so it measures the machine again instead of staying stuck on lite */
+        autoCap = '';
+        try { sessionStorage.removeItem(autoCapKey); } catch (err) { }
+        refreshAutoCanFull();
+      }
       applySceneQuality();
     });
     document.body.appendChild(qualityButton);
@@ -3509,11 +3524,11 @@
       lastRafTick = now;
       if (sceneQualityPreference === 'auto') {
         if (sceneQuality === 'balanced') {
-          if (activeTime > 2500) slowFrameCount = rafGap > 50 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+          if (activeTime > 2500 && now > autoGraceUntil) slowFrameCount = rafGap > 50 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
           if (slowFrameCount >= 6) setAutoTier('lite', 'lite');
         } else if (sceneQuality === 'full') {
           /* full asks for 60fps, so a gap past 40ms means the machine cannot keep up */
-          slowFrameCount = rafGap > 40 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
+          if (now > autoGraceUntil) slowFrameCount = rafGap > 40 ? slowFrameCount + 1 : Math.max(0, slowFrameCount - 1);
           if (slowFrameCount >= 12) setAutoTier('balanced', 'balanced');
         }
       }
