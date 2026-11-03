@@ -2064,12 +2064,11 @@
       refreshQualityLabel();
     }
 
-    /* the button names the tier Auto picked, so it is clear what the scene is running at */
+    /* the button shows the choice the visitor made: Auto, Full or Lite */
     function refreshQualityLabel() {
       var qualityButton = document.getElementById('an-scene-quality');
       if (!qualityButton) return;
       var text = qualityLabels[sceneQualityPreference];
-      if (sceneQualityPreference === 'auto') text += ' (' + (sceneQuality === 'balanced' ? 'MID' : sceneQuality.toUpperCase()) + ')';
       qualityButton.textContent = text;
       qualityButton.setAttribute('aria-label', text);
     }
