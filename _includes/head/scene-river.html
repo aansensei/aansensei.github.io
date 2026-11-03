@@ -99,12 +99,13 @@
         ctx.fillStyle = rGrad;
         ctx.fillRect(0, bY, W, H - bY);
 
-        if (isFullScene) {
+        /* the castle's reflection is part of the still picture too, with the sway at zero */
+        if (isFullScene || riverStill) {
           try {
           ctx.save();
           ctx.beginPath(); ctx.rect(0, bY, W, H - bY); ctx.clip();
 
-          var swayX = Math.sin(activeTime * 0.001 * 1.5) * 1.2 * sc;
+          var swayX = riverStill ? 0 : Math.sin(activeTime * 0.001 * 1.5) * 1.2 * sc;
 
           ctx.save();
           ctx.translate(0, 2 * bY);
