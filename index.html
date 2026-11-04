@@ -1482,7 +1482,10 @@ title: "Xin chào! I'm An"
       }
 
       if (!isBookOpen && cloudGrowth < 0.01) {
-        requestAnimationFrame(animate);
+        /* closed and settled: the loop stops here instead of asking for a frame forever. It starts again
+           from startAnimate() when the book scrolls into view. */
+        if (currentFlipSpeed > 0.001) requestAnimationFrame(animate);
+        else rafRunning = false;
         return;
       }
 
