@@ -867,10 +867,15 @@
         c.cx = c.cv.getContext('2d');
       }
       var y0 = Math.floor(H * 0.2);
-      var maxAge = isReflection ? 160 : 70;
+      /* The bitmap is rebuilt now and then so the flag, the lanterns and the night lights keep moving. On
+         a fast machine a rebuild takes a couple of milliseconds, but on a slow one it takes 15 to 20, longer
+         than a whole frame, so the interval grows with the measured cost: the castle never spends more than
+         about a fifteenth of the time redrawing itself. Lite, the low power tier, always rebuilds less often. */
+      var baseAge = isReflection ? 160 : (sceneQuality === 'lite' ? 150 : 70);
+      var maxAge = Math.min(isReflection ? 700 : 300, Math.max(baseAge, (c.cost || 0) * (isReflection ? 24 : 14)));
       if (c.w !== W || c.h !== H || Math.abs(c.t - t) > 0.004 || activeTime - c.at > maxAge) {
         if (c.w !== W || c.h !== H) { c.cv.width = W; c.cv.height = H - y0; c.w = W; c.h = H; }
-        var screenCtx = ctx;
+        var screenCtx = ctx, buildStart = performance.now();
         ctx = c.cx;
         try {
           ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -880,6 +885,8 @@
         } finally {
           ctx = screenCtx;
         }
+        var buildMs = performance.now() - buildStart;
+        c.cost = c.cost ? c.cost * 0.7 + buildMs * 0.3 : Math.min(buildMs, 12);
         c.t = t; c.at = activeTime;
       }
       ctx.save();
