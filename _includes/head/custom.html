@@ -2237,15 +2237,26 @@
         rg.style.transform = 'translate(calc(' + rX + 'px - 50%), calc(' + rY + 'px - 50%))';
       }
 
+      /* The cursor artwork only changes with the theme and the hover state, except the sun's turning
+         rays, so it is painted again only then. The two pieces are moved only while the pointer or the
+         trailing ring is actually moving, which leaves a resting pointer with no work at all. The pointer
+         position itself is still read from the mouse events, never from this loop. */
+      var drawnCursorKey = '', placedX = NaN, placedY = NaN, placedRX = NaN, placedRY = NaN;
+
       function cursorLoop() {
         if (!isTabActive) return;
         cursorRafId = requestAnimationFrame(cursorLoop);
-        if (!cursorLive) return;
-        try {
-          drawCursor(isHovering);
-        } catch (err) {
-          setCursorLive(false);
-          return;
+        if (!cursorLive) { drawnCursorKey = ''; placedX = NaN; return; }
+        var isDayCursor = document.body.classList.contains('an-day-mode');
+        var cursorKey = (isHovering ? 'h' : 'n') + (isDayCursor ? 'd' : 'n');
+        if (cursorKey !== drawnCursorKey || (isDayCursor && isHovering)) {
+          try {
+            drawCursor(isHovering);
+          } catch (err) {
+            setCursorLive(false);
+            return;
+          }
+          drawnCursorKey = cursorKey;
         }
         /* the ring eases toward the pointer by elapsed time, so it trails by the same amount of
            real time whether the page runs at 144fps or 10fps */
@@ -2253,7 +2264,11 @@
         lastCursorT = cNow;
         var cEase = 1 - Math.pow(.88, cDt / 16.667);
         rX += (cX - rX) * cEase; rY += (cY - rY) * cEase;
-        placeCursor();
+        if (Math.abs(cX - rX) < 0.05 && Math.abs(cY - rY) < 0.05) { rX = cX; rY = cY; }
+        if (cX !== placedX || cY !== placedY || rX !== placedRX || rY !== placedRY) {
+          placeCursor();
+          placedX = cX; placedY = cY; placedRX = rX; placedRY = rY;
+        }
       }
 
       if (mx) {
