@@ -1,0 +1,602 @@
+<style id="an-project-style">
+  /* Shared design for the five project pages (three columns: contents, article, project card).
+     It is scoped to .project-grid and .pisces-grid and written after the pages' own inline styles
+     are overridden by specificity, so each page keeps its markup and its accent colour, which
+     arrives as --rail-acc from the contents script. */
+
+  body {
+    --pj-panel: rgba(8, 6, 28, .8);
+    --pj-text: rgba(240, 230, 208, .92);
+    --pj-muted: rgba(240, 230, 208, .62);
+    --pj-head: #f0c84a;
+    --pj-strong: #faeab1;
+    --pj-em: #6fd6c6;
+    --pj-shadow: 0 30px 60px -36px rgba(0, 0, 20, .7);
+  }
+
+  body.an-day-mode {
+    --pj-panel: rgba(255, 255, 255, .86);
+    --pj-text: #2c2c2c;
+    --pj-muted: rgba(44, 44, 44, .66);
+    --pj-head: #0a6a7e;
+    --pj-strong: #15323b;
+    --pj-em: #0a7490;
+    --pj-shadow: 0 30px 60px -40px rgba(20, 50, 70, .45);
+  }
+
+  /* The wrapper is only a frame for the grid, so the site-wide panel look is switched off here */
+  body .page__inner-wrap:has(.project-grid),
+  body .page__inner-wrap:has(.pisces-grid) {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    padding: 0 20px !important;
+  }
+
+  body .page__inner-wrap:has(.project-grid)::before,
+  body .page__inner-wrap:has(.pisces-grid)::before {
+    display: none;
+  }
+
+  body .project-grid,
+  body .pisces-grid {
+    grid-template-columns: 220px minmax(0, 1fr) 270px !important;
+    gap: var(--space-m) clamp(18px, 2vw, 30px) !important;
+    margin-top: var(--space-l) !important;
+  }
+
+  /* The three columns share the site's panel: hairline, quiet shadow, four corner marks */
+  body .project-grid > .glass-box,
+  body .pisces-grid > .pisces-box {
+    background: var(--pj-panel) !important;
+    border: 1px solid var(--rail-line) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--pj-shadow) !important;
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+
+  /* The day-mode rules in each page and in custom.html paint a full-width gradient into this same
+     ::before, so the day selectors are repeated to keep it as four small corner marks */
+  body .project-grid > .glass-box::before,
+  body .pisces-grid > .pisces-box::before,
+  body.an-day-mode .project-grid > .glass-box::before,
+  body.an-day-mode .pisces-grid > .pisces-box::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: auto;
+    pointer-events: none;
+    opacity: .6;
+    background:
+      linear-gradient(var(--rail-acc), var(--rail-acc)) top left / 16px 1px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) top left / 1px 16px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) top right / 16px 1px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) top right / 1px 16px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) bottom left / 16px 1px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) bottom left / 1px 16px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) bottom right / 16px 1px no-repeat,
+      linear-gradient(var(--rail-acc), var(--rail-acc)) bottom right / 1px 16px no-repeat;
+  }
+
+  /* Article column */
+  body .col-main,
+  body .pisces-main {
+    padding: clamp(22px, 3.2vw, 44px) !important;
+    color: var(--pj-text) !important;
+    font-size: var(--step-1);
+    line-height: 1.8;
+    min-height: 0 !important;
+  }
+
+  body .col-main h1,
+  body .pisces-main > h1 {
+    margin: 0 0 var(--space-m) !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-size: var(--step-3) !important;
+    line-height: 1.25;
+    letter-spacing: .04em;
+    color: var(--pj-head) !important;
+    -webkit-text-fill-color: var(--pj-head) !important;
+    text-shadow: none !important;
+  }
+
+  body .col-main h1::before,
+  body .pisces-main > h1::before {
+    content: 'Project';
+    display: block;
+    margin-bottom: .7rem;
+    color: var(--rail-acc);
+    -webkit-text-fill-color: var(--rail-acc);
+    font: 700 .72rem 'Cormorant Garamond', serif;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+  }
+
+  body .col-main h1::after,
+  body .pisces-main > h1::after {
+    content: '';
+    display: block;
+    height: 1px;
+    margin-top: var(--space-m);
+    background: linear-gradient(90deg, var(--rail-acc), transparent 75%);
+  }
+
+  body .col-main h2,
+  body .col-main h3,
+  body .pisces-main > h2 {
+    margin: var(--space-xl) 0 var(--space-s) !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: var(--step-2) !important;
+    font-weight: 700 !important;
+    line-height: 1.3;
+    letter-spacing: .02em;
+    color: var(--rail-acc) !important;
+    -webkit-text-fill-color: var(--rail-acc) !important;
+    text-shadow: none !important;
+  }
+
+  body .col-main h1 + h3,
+  body .col-main h1 + h2,
+  body .pisces-main > h1 + h2 {
+    margin-top: var(--space-m) !important;
+  }
+
+  body .col-main p,
+  body .pisces-main > p {
+    max-width: 68ch;
+    margin: 0 0 1.1em;
+  }
+
+  body .col-main ul,
+  body .col-main ol {
+    max-width: 68ch;
+    padding-left: 1.3em !important;
+    margin: 0 0 1.1em !important;
+  }
+
+  body .col-main li {
+    margin-bottom: .55em !important;
+  }
+
+  body .col-main li::marker {
+    color: var(--rail-acc);
+    font-weight: 700;
+  }
+
+  body .col-main strong,
+  body .pisces-main > p strong {
+    color: var(--pj-strong) !important;
+    -webkit-text-fill-color: var(--pj-strong) !important;
+  }
+
+  body .col-main em,
+  body .pisces-main > p em {
+    color: var(--pj-em) !important;
+  }
+
+  /* Pull quote */
+  body .col-main blockquote,
+  body .pisces-main > blockquote {
+    max-width: 68ch;
+    margin: var(--space-m) 0 !important;
+    padding: var(--space-s) var(--space-m) !important;
+    border: 0 !important;
+    border-left: 3px solid var(--rail-acc) !important;
+    border-radius: 0 12px 12px 0 !important;
+    background: var(--rail-soft) !important;
+    color: var(--pj-head) !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: var(--step-2) !important;
+    font-style: italic;
+    line-height: 1.6;
+    text-shadow: none !important;
+  }
+
+  /* Figures: a framed image with its caption set as a quiet note underneath */
+  body .col-main img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: var(--space-m) auto 10px !important;
+    border: 1px solid var(--rail-line);
+    border-radius: 10px !important;
+    box-shadow: 0 18px 38px -22px rgba(0, 0, 20, .65) !important;
+  }
+
+  body .col-main img + p {
+    margin: 0 0 var(--space-m);
+    padding-left: 12px;
+    border-left: 1px solid var(--rail-line);
+    color: var(--pj-muted);
+    font-size: .92rem;
+    line-height: 1.6;
+  }
+
+  body .col-main img + p em {
+    color: inherit !important;
+  }
+
+  /* Project card (right column) */
+  body .col-right {
+    text-align: left !important;
+    padding: 20px !important;
+  }
+
+  body .col-right .cover-img {
+    width: 100%;
+    margin-bottom: var(--space-s);
+    border: 1px solid var(--rail-line);
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  body .col-right .proj-title {
+    margin: 0 0 var(--space-s) !important;
+    font-size: var(--step-2) !important;
+    line-height: 1.35;
+    letter-spacing: .03em;
+    color: var(--pj-head) !important;
+    -webkit-text-fill-color: var(--pj-head) !important;
+    text-shadow: none !important;
+  }
+
+  body .col-right .proj-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  body .col-right .proj-skill {
+    margin: 0 !important;
+    padding: 3px 11px !important;
+    border: 1px solid var(--rail-line) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--pj-text) !important;
+    font-size: .86rem !important;
+  }
+
+  body .col-right .proj-divider {
+    margin: var(--space-m) 0 !important;
+    border: 0 !important;
+    height: 1px;
+    background: var(--rail-line) !important;
+  }
+
+  body .col-right .btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    margin-bottom: 10px !important;
+    padding: 0 14px !important;
+    border-radius: 10px !important;
+    font-size: .98rem !important;
+    letter-spacing: .05em;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease !important;
+  }
+
+  body .col-right .btn-live {
+    background: linear-gradient(135deg, #0a7490, #1a5fc0) !important;
+    border: 0 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+
+  body .col-right .btn-live:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px -14px rgba(10, 116, 144, .8) !important;
+  }
+
+  body .col-right .btn-git {
+    background: transparent !important;
+    border: 1px solid var(--rail-line) !important;
+    color: var(--pj-text) !important;
+    box-shadow: none !important;
+  }
+
+  body .col-right .btn-git:hover {
+    transform: translateY(-2px);
+    border-color: var(--rail-acc) !important;
+    color: var(--rail-acc) !important;
+    box-shadow: none !important;
+  }
+
+  /* Reading surface: the article panel is denser than the side cards so the animated scene behind
+     it never shows through as streaks */
+  body .project-grid > .col-main,
+  body .pisces-grid > .pisces-main {
+    background: var(--pj-reading) !important;
+  }
+
+  body {
+    --pj-reading: rgba(8, 6, 28, .9);
+  }
+
+  body.an-day-mode {
+    --pj-reading: rgba(255, 255, 255, .95);
+  }
+
+  /* Left card: follows the scroll, never taller than the window, no visible scrollbar. The current
+     entry is kept in view by the contents script. */
+  body .col-left,
+  body .pisces-sidebar:not(.pisces-meta) {
+    max-height: calc(100vh - 124px) !important;
+    overflow-y: auto !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 26px), transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 12px, #000 calc(100% - 26px), transparent 100%);
+  }
+
+  body .col-left::-webkit-scrollbar,
+  body .pisces-sidebar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+
+  /* Project card (right): never scrolls inside itself, so its buttons are always reachable. It follows
+     the scroll only when the window is tall enough to show the whole card. */
+  body .col-right,
+  body .pisces-meta {
+    position: static !important;
+    max-height: none !important;
+    overflow: visible !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
+  @media (min-width: 1025px) and (min-height: 780px) {
+    body .col-right,
+    body .pisces-meta {
+      position: sticky !important;
+      top: 100px !important;
+    }
+  }
+
+  body .col-right .cover-img,
+  body .pisces-meta .cover-img,
+  body .pisces-meta img:first-child {
+    max-height: 170px;
+    object-fit: cover;
+  }
+
+  @media (min-width: 1025px) and (max-height: 780px) {
+    body .col-left,
+    body .pisces-sidebar:not(.pisces-meta) {
+      padding: 16px 16px 14px !important;
+    }
+
+    body .an-toc .an-toc__item {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      font-size: .92rem;
+    }
+
+    body .col-left a.back-btn,
+    body .pisces-sidebar a.pisces-back {
+      margin-bottom: 14px !important;
+    }
+  }
+
+  /* Pisces project card: same look as the other projects' card, from its own class names */
+  body .pisces-meta {
+    padding: 20px !important;
+    text-align: left !important;
+  }
+
+  body .pisces-meta .pisces-cover {
+    border: 1px solid var(--rail-line);
+    border-radius: 8px;
+    box-shadow: none;
+    margin-bottom: var(--space-s);
+  }
+
+  body .pisces-meta .pisces-title {
+    margin: 0 0 var(--space-s) !important;
+    font-size: var(--step-2) !important;
+    line-height: 1.35 !important;
+    letter-spacing: .03em;
+    color: var(--pj-head) !important;
+    -webkit-text-fill-color: var(--pj-head) !important;
+    text-shadow: none !important;
+  }
+
+  body .pisces-meta .pisces-tags {
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
+
+  body .pisces-meta .pisces-tag {
+    padding: 3px 11px !important;
+    border: 1px solid var(--rail-line) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: var(--pj-text) !important;
+    font-size: .86rem !important;
+  }
+
+  body .pisces-meta .pisces-divider {
+    margin: var(--space-m) 0 !important;
+    border: 0 !important;
+    height: 1px;
+    background: var(--rail-line) !important;
+  }
+
+  body .pisces-meta .pisces-actions .btn-action {
+    min-height: 44px;
+    padding: 0 14px !important;
+    border-radius: 10px !important;
+    font-size: .98rem !important;
+    letter-spacing: .05em;
+    transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease, color .2s ease !important;
+  }
+
+  body .pisces-meta .pisces-actions .btn-action::after {
+    display: none;
+  }
+
+  body .pisces-meta .pisces-actions .btn-live {
+    background: linear-gradient(135deg, #0a7490, #1a5fc0) !important;
+    border: 0 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+  }
+
+  body .pisces-meta .pisces-actions .btn-live:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px -14px rgba(10, 116, 144, .8) !important;
+  }
+
+  body .pisces-meta .pisces-actions .btn-git {
+    background: transparent !important;
+    border: 1px solid var(--rail-line) !important;
+    color: var(--pj-text) !important;
+    box-shadow: none !important;
+  }
+
+  body .pisces-meta .pisces-actions .btn-git:hover {
+    transform: translateY(-2px);
+    border-color: var(--rail-acc) !important;
+    color: var(--rail-acc) !important;
+    box-shadow: none !important;
+  }
+
+  @media (max-width: 1024px) {
+    body .pisces-meta {
+      padding: 16px !important;
+    }
+
+    body .pisces-meta .pisces-cover {
+      max-height: 200px;
+    }
+
+    body .pisces-meta .pisces-divider {
+      display: none;
+    }
+
+    body .pisces-meta .pisces-tags {
+      margin-bottom: var(--space-s);
+    }
+
+    body .pisces-meta .pisces-actions {
+      flex-direction: row;
+      gap: var(--space-s);
+    }
+
+    body .pisces-meta .pisces-actions .btn-action {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 0 10px !important;
+      font-size: .9rem !important;
+    }
+  }
+
+  /* Stacked layout: the left card is just a back link, so it loses its panel */
+  @media (max-width: 1024px) {
+    body .project-grid,
+    body .pisces-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    body .col-left,
+    body .pisces-sidebar:not(.pisces-meta) {
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      max-height: none !important;
+      overflow: visible !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+
+    body .col-left::before,
+    body .pisces-sidebar:not(.pisces-meta)::before {
+      display: none;
+    }
+
+    body .col-left .back-btn,
+    body .pisces-sidebar .pisces-back {
+      margin: 0 !important;
+    }
+  }
+
+  /* Project card below the article on tablets and phones: compact, buttons side by side */
+  @media (max-width: 1024px) {
+    body .col-right {
+      position: relative !important;
+      top: 0 !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-s);
+      padding: 16px !important;
+    }
+
+    body .col-right .cover-img,
+    body .col-right .proj-title,
+    body .col-right .proj-skills {
+      grid-column: 1 / -1;
+      margin: 0 !important;
+    }
+
+    body .col-right .cover-img {
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    body .col-right .proj-title {
+      font-size: var(--step-1) !important;
+    }
+
+    body .col-right .proj-skill {
+      padding: 2px 9px !important;
+      font-size: .8rem !important;
+    }
+
+    body .col-right .proj-divider {
+      display: none;
+    }
+
+    body .col-right .btn-action {
+      margin: 0 !important;
+      padding: 0 10px !important;
+      font-size: .9rem !important;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1024px) {
+    body .col-right {
+      grid-template-columns: minmax(0, 38%) 1fr 1fr;
+      align-items: start;
+    }
+
+    body .col-right .cover-img {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+      max-height: none;
+    }
+
+    body .col-right .proj-title,
+    body .col-right .proj-skills {
+      grid-column: 2 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body .page__inner-wrap:has(.project-grid),
+    body .page__inner-wrap:has(.pisces-grid) {
+      padding: 0 12px !important;
+    }
+  }
+</style>

@@ -1,0 +1,604 @@
+<style id="an-refine">
+  /* Refinement layer for day and night. It loads after every other head style and keeps the
+     site's own palette (sky, teal and cyan, gold). It only tidies structure: hairline borders,
+     corner marks, quiet shadows, underlined navigation and calmer spacing. */
+
+  /* overflow-x: hidden on both html and body turns body into its own scroll container, which stops
+     position: sticky from following the window (the project page columns scrolled away).
+     overflow-x: clip hides sideways spill without creating a scroll container. */
+  @supports (overflow-x: clip) {
+    html,
+    body {
+      overflow-x: clip !important;
+    }
+  }
+
+  /* One fluid scale for type and spacing: every size grows smoothly from a 344px foldable cover
+     screen to a wide laptop, so no page needs its own phone overrides */
+  :root {
+    --step-0: clamp(1rem, .96rem + .2vw, 1.1rem);
+    --step-1: clamp(1.05rem, .98rem + .3vw, 1.2rem);
+    --step-2: clamp(1.15rem, 1.05rem + .45vw, 1.3rem);
+    --step-3: clamp(1.45rem, 1.2rem + 1.1vw, 2.2rem);
+    --space-s: clamp(.6rem, .55rem + .25vw, .8rem);
+    --space-m: clamp(1rem, .9rem + .5vw, 1.4rem);
+    --space-l: clamp(1.5rem, 1.2rem + 1.5vw, 2.6rem);
+    --space-xl: clamp(2rem, 1.6rem + 1.6vw, 2.9rem);
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --t-fast: .2s;
+    --t-base: .35s;
+  }
+
+  /* Hover and focus answer within 200ms. The slow cross-fade of the day and night switch
+     is applied only for the moment the theme button is pressed (class set by the script below). */
+  body p,
+  body span,
+  body a,
+  body .tech-tag,
+  body strong,
+  body em {
+    transition: color var(--t-fast) ease, text-shadow var(--t-fast) ease, background-color var(--t-fast) ease, border-color var(--t-fast) ease !important;
+  }
+
+  body.an-theme-fade p,
+  body.an-theme-fade span,
+  body.an-theme-fade a,
+  body.an-theme-fade .tech-tag,
+  body.an-theme-fade strong,
+  body.an-theme-fade em {
+    transition: color 1.5s ease, text-shadow 1.5s ease, background 1.5s ease, border-color 1.5s ease !important;
+  }
+
+  /* Pages cross-fade into each other in browsers that support cross-document view transitions;
+     the scene and the navigation bar keep their own layer so only the content changes. */
+  @view-transition {
+    navigation: auto;
+  }
+
+  #an-bg {
+    view-transition-name: an-scene;
+  }
+
+  body .masthead {
+    view-transition-name: an-masthead;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: var(--t-base);
+    animation-timing-function: var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+
+  /* Night keeps the site's own palette: gold headings, ornaments and navigation on the dark scene.
+     --r-nav colours the navigation and focus marks: gold at night, deep cyan by day. */
+  body {
+    --r-nav: var(--gold-l);
+  }
+
+  /* Day: deep cyan for headings, links and accents, bronze gold kept for ornaments */
+  body.an-day-mode {
+    --teal: #0a7490;
+    --teal-l: #0a7490;
+    --gold-l: #0a6a7e;
+    --r-nav: #0a7490;
+  }
+
+  /* Only the page title is retuned. Headings inside components such as the book covers keep
+     their own weight and glow, which are set for the display font they use. */
+  body h1.page__title,
+  body.an-day-mode h1.page__title {
+    font-weight: 600 !important;
+    text-shadow: none !important;
+    letter-spacing: .05em;
+  }
+
+  body h1.page__title {
+    font-size: var(--step-3) !important;
+    margin-bottom: var(--space-m);
+  }
+
+  /* A short hairline with a diamond under each page title */
+  body h1.page__title::after {
+    content: '\25C6';
+    display: block;
+    width: 170px;
+    margin-top: .7rem;
+    text-align: center;
+    font-size: .5rem;
+    line-height: 1;
+    color: var(--gold);
+    letter-spacing: 0;
+    background:
+      linear-gradient(90deg, transparent, var(--gold)) left center / 68px 1px no-repeat,
+      linear-gradient(270deg, transparent, var(--gold)) right center / 68px 1px no-repeat;
+  }
+
+  /* The top bar is dense enough that page text scrolling under it never shows through */
+  html body .masthead {
+    background: rgba(5, 4, 18, .97) !important;
+    border-bottom: 1px solid var(--gbord);
+  }
+
+  html body.an-day-mode .masthead {
+    background: rgba(255, 255, 255, .98) !important;
+  }
+
+  /* Skill groups on the home page sit over the castle, so they get a dense surface instead of
+     letting the scene show through the chips */
+  body .tech-group {
+    background: rgba(8, 6, 28, .84) !important;
+    border: 1px solid var(--gbord) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  body.an-day-mode .tech-group {
+    background: rgba(255, 255, 255, .92) !important;
+  }
+
+  /* Panels: one hairline, one radius, a quiet shadow and four gold corner marks */
+  body .sidebar,
+  body .page__inner-wrap,
+  body.an-day-mode .sidebar,
+  body.an-day-mode .page__inner-wrap {
+    position: relative;
+    border: 1px solid var(--gbord) !important;
+    border-radius: 12px !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+    backdrop-filter: blur(16px) saturate(1.1);
+    box-shadow: 0 30px 60px -36px rgba(0, 0, 20, .55) !important;
+  }
+
+  body .page__inner-wrap {
+    padding: var(--space-l) !important;
+  }
+
+  body .sidebar::before,
+  body .page__inner-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 9px;
+    pointer-events: none;
+    opacity: .7;
+    background:
+      linear-gradient(var(--gold), var(--gold)) top left / 18px 1px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) top left / 1px 18px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) top right / 18px 1px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) top right / 1px 18px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) bottom left / 18px 1px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) bottom left / 1px 18px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) bottom right / 18px 1px no-repeat,
+      linear-gradient(var(--gold), var(--gold)) bottom right / 1px 18px no-repeat;
+  }
+
+  /* Navigation: plain text links, an underline that draws in on hover and marks the current page */
+  body .masthead .masthead__menu-item a,
+  body.an-day-mode .masthead .masthead__menu-item a,
+  body .masthead .masthead__menu-item a:hover,
+  body.an-day-mode .masthead .masthead__menu-item a:hover,
+  body .masthead .masthead__menu-item a:focus,
+  body.an-day-mode .masthead .masthead__menu-item a:focus,
+  body .masthead .masthead__menu-item a:active,
+  body.an-day-mode .masthead .masthead__menu-item a:active,
+  body .masthead .masthead__menu-item a.is-current,
+  body.an-day-mode .masthead .masthead__menu-item a.is-current {
+    background-color: transparent !important;
+    background-image: linear-gradient(var(--r-nav), var(--r-nav)) !important;
+    background-repeat: no-repeat !important;
+    background-position: 50% 100% !important;
+    background-size: 0 2px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none;
+    letter-spacing: .08em;
+    padding: 6px 12px !important;
+    transition: background-size .35s ease, color .25s ease !important;
+  }
+
+  body .masthead .masthead__menu-item a:hover,
+  body.an-day-mode .masthead .masthead__menu-item a:hover,
+  body .masthead .masthead__menu-item a.is-current,
+  body.an-day-mode .masthead .masthead__menu-item a.is-current {
+    background-size: 100% 2px !important;
+    color: var(--r-nav) !important;
+  }
+
+  body .masthead .masthead__menu-item a:focus-visible {
+    outline: 1px solid var(--r-nav);
+    outline-offset: 3px;
+  }
+
+  /* Home page rhythm: one reading column and generous gaps */
+  body .home-chapter {
+    font-size: .8rem;
+    letter-spacing: .34em;
+    margin-bottom: 1.2rem;
+  }
+
+  body .home-intro {
+    font-size: var(--step-1);
+    line-height: 1.85;
+    max-width: 60ch;
+  }
+
+  body .home-divider {
+    margin: var(--space-xl) 0 var(--space-l);
+  }
+
+  body .home-divider-text {
+    font-size: .68rem;
+    letter-spacing: .32em;
+  }
+
+  /* Links: no dashed underlines, a hairline that draws in on hover */
+  body .home-link,
+  body.an-day-mode .home-link {
+    border-bottom: 1px solid transparent !important;
+    text-decoration: none !important;
+  }
+
+  body .home-link:hover,
+  body.an-day-mode .home-link:hover {
+    border-bottom-color: currentColor !important;
+  }
+
+  /* Book cards keep their colour-coded spines, the same ones as the Projects shelf */
+  body .home-project-card {
+    border-radius: 0 12px 12px 0;
+    box-shadow: -3px 0 0 rgba(0, 0, 0, .28), 0 24px 46px -28px rgba(0, 0, 20, .6) !important;
+  }
+
+  body .home-project-card.is-hovered {
+    box-shadow: -3px 0 0 rgba(0, 0, 0, .35), 0 36px 64px -30px rgba(0, 0, 20, .7) !important;
+  }
+
+  body .grim-shimmer,
+  body .grim-spine-vol {
+    display: none !important;
+  }
+
+  body .home-project-card::before,
+  body .home-project-card.card-rose::before,
+  body .home-project-card.card-crimson::before,
+  body .home-project-card.card-azure::before {
+    width: 8px !important;
+    box-shadow: none !important;
+  }
+
+  body .home-project-card .home-project-title,
+  body .card-rose .home-project-title,
+  body .card-crimson .home-project-title,
+  body .card-azure .home-project-title {
+    border-bottom: none !important;
+    font-size: var(--step-2) !important;
+  }
+
+  /* Day: card text colours are darkened so every title and label reads on the pale card */
+  body.an-day-mode .home-project-card .home-project-title {
+    color: #0a7490 !important;
+  }
+
+  body.an-day-mode .home-project-card.card-rose .home-project-title {
+    color: #a52a5c !important;
+  }
+
+  body.an-day-mode .home-project-card.card-crimson .home-project-title {
+    color: #a3302b !important;
+  }
+
+  body.an-day-mode .home-project-card.card-azure .home-project-title {
+    color: #1a5fc0 !important;
+  }
+
+  body.an-day-mode .grim-chapter,
+  body.an-day-mode .grim-vol {
+    color: rgba(122, 90, 14, .9) !important;
+  }
+
+  body.an-day-mode .home-divider-text,
+  body.an-day-mode .home-chapter {
+    color: #0a6a7e !important;
+    opacity: 1;
+  }
+
+  body .btn-cta-project,
+  body.an-day-mode .btn-cta-project {
+    box-shadow: none !important;
+    letter-spacing: .08em;
+  }
+
+  body .btn-cta-project:hover,
+  body.an-day-mode .btn-cta-project:hover {
+    box-shadow: 0 10px 24px -12px rgba(0, 128, 160, .7) !important;
+  }
+
+  body .grim-rune,
+  body.an-day-mode .grim-rune {
+    color: var(--gold) !important;
+    opacity: .9;
+  }
+
+  body.an-day-mode .grim-rune {
+    color: #8a6a12 !important;
+  }
+
+  /* Mobile menu button and dropdown follow the same hairline style as the panels */
+  body #an-ham-btn,
+  body.an-day-mode #an-ham-btn {
+    background: transparent;
+    border: 1px solid var(--gbord);
+    border-radius: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 11px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  body #an-ham-menu,
+  body.an-day-mode #an-ham-menu {
+    border-radius: 12px;
+  }
+
+  body #an-ham-menu li a {
+    min-height: 44px;
+  }
+
+  /* The contact list lives inside the sidebar panel at every width, never as a floating white popup */
+  body .sidebar .author__urls,
+  body.an-day-mode .sidebar .author__urls {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+
+  body .sidebar .author__urls::before,
+  body .sidebar .author__urls::after {
+    display: none !important;
+  }
+
+  @media (min-width: 481px) and (max-width: 1023px) {
+    body .sidebar .author__urls {
+      display: flex !important;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 22px;
+      padding: 12px 0 0 !important;
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 1023px) {
+    body .sidebar .author__urls li {
+      width: auto !important;
+      flex: 0 0 auto;
+    }
+  }
+
+  /* Small laptops and iPad landscape: the narrow sidebar column keeps every label whole */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    body .sidebar {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+
+    body .sidebar .author__urls li,
+    body .sidebar .p-locality {
+      font-size: .9rem;
+      overflow-wrap: anywhere;
+      white-space: normal !important;
+      line-height: 1.35;
+    }
+
+    body .sidebar .author__urls li a {
+      gap: 6px;
+    }
+  }
+
+  /* Tablets and unfolded foldables: the five links and the title do not fit in one row,
+     so the menu button is used up to 1024px as it is on phones */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    body #an-ham-btn {
+      display: flex;
+    }
+
+    body .masthead .visible-links,
+    body .masthead .greedy-nav__toggle {
+      display: none !important;
+    }
+  }
+
+  /* Phones and foldable cover screens */
+  @media (max-width: 480px) {
+    body .sidebar::before,
+    body .page__inner-wrap::before {
+      inset: 6px;
+    }
+
+    body h1.page__title {
+      letter-spacing: .035em;
+    }
+
+    body .home-intro {
+      line-height: 1.8;
+    }
+
+    body .grim-chapter {
+      font-size: .66rem;
+      letter-spacing: .14em;
+      white-space: nowrap;
+    }
+
+    body .home-divider-text {
+      letter-spacing: .24em;
+    }
+
+    body .btn-cta-project {
+      min-height: 44px;
+    }
+  }
+
+  /* Touch screens: every control is at least 44px tall and hover-only shadows rest */
+  @media (hover: none) and (pointer: coarse) {
+    body .sidebar .author__urls a,
+    body .sidebar .author__urls li {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    body .home-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+
+    body .btn-cta-project {
+      min-height: 44px;
+    }
+
+    body .home-project-card.is-hovered {
+      box-shadow: -3px 0 0 rgba(0, 0, 0, .28), 0 24px 46px -28px rgba(0, 0, 20, .6) !important;
+    }
+  }
+
+  /* Favourite song card on the About page. Its colours are written inline per element, so each
+     mode sets them again here: a dense ink card at night, a light card with dark text by day. */
+  body .song-card {
+    background: rgba(11, 14, 34, .94) !important;
+  }
+
+  body.an-day-mode .song-card {
+    background: rgba(255, 255, 255, .96) !important;
+    border: 1px solid var(--gbord) !important;
+    box-shadow: 0 18px 38px -22px rgba(20, 50, 70, .5), 0 0 18px var(--song-glow) !important;
+  }
+
+  /* The pixel tag keeps its dark ink and neon cyan at night. By day it is a pale tag with a deep cyan
+     outline and text, drawn with the same stepped pixel border. */
+  body.an-day-mode .pixel-tag {
+    background: #f1fbfd !important;
+    color: #0a6a7e !important;
+    text-shadow: none !important;
+    box-shadow: 0 -2px 0 #0a7490, 0 2px 0 #0a7490, -2px 0 0 #0a7490, 2px 0 0 #0a7490 !important;
+  }
+
+  body.an-day-mode .pixel-tag::after {
+    background: #f1fbfd !important;
+    box-shadow: -2px 0 0 #0a7490, 2px 0 0 #0a7490, 0 2px 0 #0a7490 !important;
+  }
+
+  body.an-day-mode .pixel-tag svg {
+    fill: #d4398f;
+  }
+
+  body.an-day-mode .song-card span[style*="color:#fff"] {
+    color: #15323b !important;
+  }
+
+  body.an-day-mode .song-card p[style*="67e8f9"] {
+    color: #0a7490 !important;
+    opacity: 1 !important;
+  }
+
+  body.an-day-mode .song-card span[style*="9ca3af"] {
+    color: rgba(44, 44, 44, .62) !important;
+  }
+
+  body.an-day-mode .song-card #song-play-btn {
+    background: rgba(10, 116, 144, .12) !important;
+    color: #0a7490 !important;
+  }
+
+  body.an-day-mode .song-card .song-progress-bar {
+    background: rgba(10, 116, 144, .16);
+  }
+
+  body.an-day-mode .song-card .song-expand-icon {
+    color: rgba(44, 44, 44, .55);
+  }
+
+  body.an-day-mode .song-card .song-why-box {
+    background: rgba(10, 116, 144, .07);
+    border-color: rgba(10, 116, 144, .16);
+  }
+
+  body.an-day-mode .song-card .song-why-box i[style*="quote-left"],
+  body.an-day-mode .song-card .fa-quote-left {
+    color: rgba(10, 116, 144, .2) !important;
+  }
+
+  body.an-day-mode .song-card .song-why-box h4 {
+    color: #0a6a7e !important;
+  }
+
+  body.an-day-mode .song-card .song-why-box p {
+    color: #2c2c2c !important;
+  }
+
+  body.an-day-mode .song-card .song-why-box span[style*="a5f3fc"] {
+    color: #0a6a7e !important;
+  }
+
+  body.an-day-mode .song-card .song-btn-spotify {
+    background: rgba(29, 185, 84, .12);
+    border-color: rgba(29, 185, 84, .6);
+    color: #0b6b32 !important;
+    box-shadow: none;
+  }
+
+  body.an-day-mode .song-card .song-btn-youtube {
+    background: rgba(220, 38, 38, .1);
+    border-color: rgba(220, 38, 38, .5);
+    color: #a11b1b !important;
+    box-shadow: none;
+  }
+
+  /* Large blurred surfaces over the animated scene cost GPU time, so phones and tablets get a lighter blur */
+  @media (max-width: 1024px) {
+    body .sidebar,
+    body .page__inner-wrap,
+    body .masthead {
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body .home-project-card,
+    body .btn-cta-project,
+    body .masthead .masthead__menu-item a {
+      transition: none !important;
+    }
+  }
+</style>
+<script>
+  // Marks the body for the length of the day and night cross-fade. It listens in the capture
+  // phase from the head, ahead of the theme button's own handler, and never blocks the click.
+  (function () {
+    var timer;
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('#an-theme-toggle-desktop, #an-theme-toggle-mobile');
+      if (!btn || !document.body) return;
+      document.body.classList.add('an-theme-fade');
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        document.body.classList.remove('an-theme-fade');
+      }, 1700);
+    }, true);
+  })();
+</script>
