@@ -444,7 +444,7 @@ title: "Xin chào! I'm An"
 
 <div class="home-divider reveal-item"><span class="home-divider-text">Featured Projects</span></div>
 
-<div class="home-project-card reveal-item">
+<div class="home-project-card card-azure reveal-item">
   <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
   <span class="grim-corner bl"></span><span class="grim-corner br"></span>
   <span class="grim-spine-vol">VOL · I</span>
@@ -452,9 +452,46 @@ title: "Xin chào! I'm An"
   <div class="grim-vol">Vol. I</div>
   <p class="grim-chapter">Chapter the First</p>
   <div class="home-project-title-row">
+    <span class="grim-rune">ᚺ</span>
+    <a href="/projects/chatrag/" class="home-project-title" data-pm="pm-chatrag" aria-haspopup="dialog">ChatRAG · Ciel: Enterprise RAG Assistant</a>
+  </div>
+  <p class="home-project-desc">An internal chatbot that reads a company's documents and answers with real citations, built during my internship at SADEC Technology.</p>
+  <div class="home-project-links">
+    <a href="https://github.com/aansensei/chatRAG" target="_blank" class="home-link">View Code on GitHub</a>
+  </div>
+  <div class="grim-footer-row">
+    <a href="/projects/chatrag/" class="btn-cta-project btn-azure"
+      onclick="anBookOpen('/projects/chatrag/','linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)','ChatRAG · Ciel',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-azure">ᛉ</div>
+  </div>
+</div>
+
+<template id="pm-chatrag">
+  <p class="pm-eyebrow">Chapter the First · Internship at SADEC Technology</p>
+  <h2 class="pm-title" id="pm-title-text">ChatRAG · Ciel: Enterprise RAG Assistant</h2>
+  <p class="pm-metric">4 languages · cited answers · department scoped permissions</p>
+  <ul class="pm-points">
+    <li>An internal assistant that reads a company's documents and answers in plain language, with clickable [N] citations pointing back to the exact source.</li>
+    <li>Hybrid retrieval (BM25, vector search and a keyword fallback) with BGE cross-encoder reranking, plus query rewriting so a vague follow-up question still finds the right documents.</li>
+    <li>Works on PDF, Word, Excel, CSV and scanned images (PaddleOCR) in Vietnamese, English, Japanese and Chinese, without a separate pipeline per format.</li>
+  </ul>
+  <ul class="pm-chips"><li>FastAPI</li><li>React</li><li>TypeScript</li><li>Supabase</li><li>pgvector</li><li>Redis</li><li>Ollama</li><li>PaddleOCR</li><li>sentence-transformers</li></ul>
+  <div class="pm-actions">
+    <a class="pm-btn pm-btn-primary" href="https://github.com/aansensei/chatRAG" target="_blank" rel="noopener">Source on GitHub</a>
+    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
+  </div>
+</template>
+
+<div class="home-project-card reveal-item">
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · II</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. II</div>
+  <p class="grim-chapter">Chapter the Second</p>
+  <div class="home-project-title-row">
     <span class="grim-rune">ᛞ</span>
-    <a href="https://github.com/aansensei/Tech_Layoff_Project/blob/main/README.md" target="_blank"
-      class="home-project-title">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
+    <a href="/projects/tech-layoffs/" class="home-project-title" data-pm="pm-tech-layoffs" aria-haspopup="dialog">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
   </div>
   <p class="home-project-desc">An end-to-end analysis using Random Forest to predict layoff trends vs. reality.</p>
   <div class="home-project-links">
@@ -468,16 +505,33 @@ title: "Xin chào! I'm An"
   </div>
 </div>
 
+<template id="pm-tech-layoffs">
+  <p class="pm-eyebrow">Chapter the Second · Data analysis</p>
+  <h2 class="pm-title" id="pm-title-text">Global Tech Layoffs &amp; Macro-Economics Analysis</h2>
+  <p class="pm-metric">3 month lag · about 10k predicted vs 24k actual layoffs in 2025</p>
+  <ul class="pm-points">
+    <li>Tests whether interest rates and stock crashes drive tech layoffs, using FRED macro data, yfinance stock prices and the Layoffs.fyi database.</li>
+    <li>Finds a consistent lag: a stock drop at month t is followed by a layoff spike at month t+3. A Random Forest ranks lagged stock returns and interest rates as the top predictors.</li>
+    <li>The model catches the rising trend but predicts about 10k layoffs for 2025 against about 24k in reality, which points to herd behavior that economic variables alone miss.</li>
+  </ul>
+  <ul class="pm-chips"><li>Python</li><li>Pandas</li><li>Scikit-Learn</li><li>NumPy</li><li>SQLite</li><li>FRED API</li><li>yfinance</li><li>Streamlit</li><li>Tableau</li><li>Matplotlib</li><li>Seaborn</li></ul>
+  <div class="pm-actions">
+    <a class="pm-btn pm-btn-primary" href="https://aansensei-tech-layoff-analytics.hf.space" target="_blank" rel="noopener">Live dashboard</a>
+    <a class="pm-btn pm-btn-ghost" href="https://github.com/aansensei/tech_layoff_project" target="_blank" rel="noopener">Source on GitHub</a>
+    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
+  </div>
+</template>
+
 <div class="home-project-card card-rose reveal-item">
   <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
   <span class="grim-corner bl"></span><span class="grim-corner br"></span>
-  <span class="grim-spine-vol">VOL · II</span>
+  <span class="grim-spine-vol">VOL · III</span>
   <div class="grim-shimmer"></div>
-  <div class="grim-vol">Vol. II</div>
-  <p class="grim-chapter">Chapter the Second</p>
+  <div class="grim-vol">Vol. III</div>
+  <p class="grim-chapter">Chapter the Third</p>
   <div class="home-project-title-row">
     <span class="grim-rune">ᚱ</span>
-    <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="home-project-title">Reflection: Human
+    <a href="/projects/semiconductor-hr/" class="home-project-title" data-pm="pm-semiconductor-hr" aria-haspopup="dialog">Reflection: Human
       Resources in Vietnam's Semiconductor Industry</a>
   </div>
   <p class="home-project-desc">Current Situation of Human Resources in the Semiconductor Industry in Vietnam and
@@ -492,16 +546,32 @@ title: "Xin chào! I'm An"
   </div>
 </div>
 
+<template id="pm-semiconductor-hr">
+  <p class="pm-eyebrow">Chapter the Third · Published in IRJEMS</p>
+  <h2 class="pm-title" id="pm-title-text">Reflection: Human Resources in Vietnam's Semiconductor Industry</h2>
+  <p class="pm-metric">About 5,500 engineers · 5,000 to 10,000 needed each year · about 20% of demand met</p>
+  <ul class="pm-points">
+    <li>Co-authored a paper as a Research Assistant at the University of Labour and Social Affairs in Vietnam, on the shortage of skilled workers in the semiconductor sector.</li>
+    <li>I led the data collection and literature review, and analyzed workforce statistics, training capacity and industry reports.</li>
+    <li>Policy ideas drawn from TSMC and Taiwan: labs shared by universities and industry, output standards aligned with international requirements, and an ecosystem linking universities, companies and government.</li>
+  </ul>
+  <ul class="pm-chips"><li>Literature Review</li><li>Data Collection</li><li>Quantitative Analysis</li><li>Qualitative Analysis</li><li>Policy Analysis</li><li>Academic Writing</li></ul>
+  <div class="pm-actions">
+    <a class="pm-btn pm-btn-primary" href="https://irjems.org/irjems-v3i8p112.html" target="_blank" rel="noopener">Read the paper</a>
+    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
+  </div>
+</template>
+
 <div class="home-project-card card-crimson reveal-item">
   <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
   <span class="grim-corner bl"></span><span class="grim-corner br"></span>
-  <span class="grim-spine-vol">VOL · III</span>
+  <span class="grim-spine-vol">VOL · IV</span>
   <div class="grim-shimmer"></div>
-  <div class="grim-vol">Vol. III</div>
-  <p class="grim-chapter">Chapter the Third</p>
+  <div class="grim-vol">Vol. IV</div>
+  <p class="grim-chapter">Chapter the Fourth</p>
   <div class="home-project-title-row">
     <span class="grim-rune">ᛏ</span>
-    <a href="https://github.com/aansensei/shadow-rent-index" target="_blank" class="home-project-title">Shadow Rent Index
+    <a href="/projects/shadow-rent/" class="home-project-title" data-pm="pm-shadow-rent" aria-haspopup="dialog">Shadow Rent Index
       — Real-Time Housing Inflation Tracker</a>
   </div>
   <p class="home-project-desc">An automated ETL data pipeline tracking real-time housing inflation. Generates a zero-lag
@@ -517,27 +587,22 @@ title: "Xin chào! I'm An"
   </div>
 </div>
 
-<div class="home-project-card card-azure reveal-item">
-  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
-  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
-  <span class="grim-spine-vol">VOL · IV</span>
-  <div class="grim-shimmer"></div>
-  <div class="grim-vol">Vol. IV</div>
-  <p class="grim-chapter">Chapter the Fourth</p>
-  <div class="home-project-title-row">
-    <span class="grim-rune">ᚺ</span>
-    <a href="https://github.com/aansensei/chatRAG" target="_blank" class="home-project-title">ChatRAG · Ciel: Enterprise RAG Assistant</a>
+<template id="pm-shadow-rent">
+  <p class="pm-eyebrow">Chapter the Fourth · Data engineering</p>
+  <h2 class="pm-title" id="pm-title-text">Shadow Rent Index: Real-Time Housing Inflation Tracker</h2>
+  <p class="pm-metric">6 to 9 month CPI lag · weekly scrape · Madison, WI</p>
+  <ul class="pm-points">
+    <li>Official CPI shelter data lags the rental market by 6 to 9 months because it relies on existing leases. This pipeline tracks current asking prices instead.</li>
+    <li>A stealth scraper (Selenium with undetected-chromedriver) collects hundreds of Madison listings every Sunday. Pandas and regex clean them, and PostgreSQL keeps the history.</li>
+    <li>A Streamlit dashboard shows interactive Plotly Mapbox maps, neighborhood price averages and supply levels.</li>
+  </ul>
+  <ul class="pm-chips"><li>Python</li><li>SQL</li><li>Selenium</li><li>undetected-chromedriver</li><li>BeautifulSoup4</li><li>Pandas</li><li>Regex</li><li>PostgreSQL</li><li>SQLAlchemy</li><li>psycopg2</li><li>Streamlit</li><li>Plotly Express</li><li>Mapbox</li><li>Batch Scripting</li><li>Windows Task Scheduler</li></ul>
+  <div class="pm-actions">
+    <a class="pm-btn pm-btn-primary" href="https://aansensei-shadow-rent-index.hf.space" target="_blank" rel="noopener">Live dashboard</a>
+    <a class="pm-btn pm-btn-ghost" href="https://github.com/aansensei/shadow-rent-index" target="_blank" rel="noopener">Source on GitHub</a>
+    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
   </div>
-  <p class="home-project-desc">An internal chatbot that reads a company's documents and answers with real citations, built during my internship at SADEC Technology.</p>
-  <div class="home-project-links">
-    <a href="https://github.com/aansensei/chatRAG" target="_blank" class="home-link">View Code on GitHub</a>
-  </div>
-  <div class="grim-footer-row">
-    <a href="/projects/chatrag/" class="btn-cta-project btn-azure"
-      onclick="anBookOpen('/projects/chatrag/','linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)','ChatRAG · Ciel',event)">✦ Open the Tale</a>
-    <div class="grim-seal seal-azure">ᛉ</div>
-  </div>
-</div>
+</template>
 
 <script>
 (function () {
@@ -1702,6 +1767,529 @@ title: "Xin chào! I'm An"
     if (ov) { ov.style.opacity = '0'; ov.style.pointerEvents = 'none'; }
     if (bk && typeof anBookReset === 'function') anBookReset(bk);
   });
+</script>
+
+<style>
+  /* Project details layer, opened from a featured project card. It is an ordinary fixed layer, not a
+     modal dialog, so it stays under the custom cursor (z-index 9999999) and the cursor keeps drawing
+     over it. It takes the colours of the card it belongs to: spine, title, buttons and rune bullets. */
+  .pm {
+    --pm-bg: rgba(10, 8, 28, .97);
+    --pm-text: rgba(240, 230, 208, .94);
+    --pm-line: rgba(201, 162, 39, .34);
+    --pm-gold: #f0c84a;
+    --pm-acc: #52c9b9;
+    --pm-g1: #0a7490;
+    --pm-g2: #1a5fc0;
+    --pm-spine: linear-gradient(180deg, #8a6a12, #d9b43c 50%, #8a6a12);
+    --pm-rune: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--pm-text);
+  }
+
+  .pm[hidden] {
+    display: none;
+  }
+
+  .pm.pm--rose {
+    --pm-acc: #e87a9c;
+    --pm-g1: #c94f7c;
+    --pm-g2: #7209b7;
+    --pm-spine: linear-gradient(180deg, #3a0818, #a03060 20%, #e87a9c 50%, #a03060 80%, #3a0818);
+  }
+
+  .pm.pm--crimson {
+    --pm-acc: #e05c5c;
+    --pm-g1: #b3322b;
+    --pm-g2: #7a1010;
+    --pm-spine: linear-gradient(180deg, #2a0000, #8b0000 20%, #c0392b 50%, #8b0000 80%, #2a0000);
+  }
+
+  .pm.pm--azure {
+    --pm-acc: #4d9fff;
+    --pm-g1: #1f6fa8;
+    --pm-g2: #1a4fc0;
+    --pm-spine: linear-gradient(180deg, #050b18, #0e3157 20%, #4d9fff 50%, #1f6fa8 80%, #050b18);
+  }
+
+  body.an-day-mode .pm {
+    --pm-bg: rgba(255, 255, 255, .985);
+    --pm-text: #2c2c2c;
+    --pm-line: rgba(184, 134, 11, .42);
+    --pm-gold: #8a6a12;
+    --pm-acc: #0a7490;
+  }
+
+  body.an-day-mode .pm.pm--rose {
+    --pm-acc: #a52a5c;
+  }
+
+  body.an-day-mode .pm.pm--crimson {
+    --pm-acc: #a3302b;
+  }
+
+  body.an-day-mode .pm.pm--azure {
+    --pm-acc: #1a5fc0;
+  }
+
+  .pm-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 3, 18, .62);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity .28s ease;
+  }
+
+  body.an-day-mode .pm-scrim {
+    background: rgba(18, 50, 80, .42);
+  }
+
+  /* the Lite scene tier turns blur off everywhere, so the dimming is made a little stronger instead */
+  body.an-scene-lite .pm-scrim {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(2, 3, 18, .78);
+  }
+
+  body.an-scene-lite.an-day-mode .pm-scrim {
+    background: rgba(18, 50, 80, .6);
+  }
+
+  .pm.pm-in .pm-scrim {
+    opacity: 1;
+  }
+
+  html.pm-lock {
+    overflow: hidden !important;
+    padding-right: var(--pm-sb, 0px);
+  }
+
+  .pm-card {
+    position: relative;
+    width: min(640px, 100%);
+    overflow: hidden;
+    border: 1px solid var(--pm-line);
+    border-radius: 16px;
+    background: var(--pm-bg);
+    box-shadow: 0 40px 90px -30px rgba(0, 0, 20, .8);
+  }
+
+  .pm-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+    background: var(--pm-spine);
+  }
+
+  .pm-card::after {
+    content: '';
+    position: absolute;
+    inset: 9px;
+    pointer-events: none;
+    opacity: .6;
+    background:
+      linear-gradient(var(--pm-gold), var(--pm-gold)) top right / 14px 1px no-repeat,
+      linear-gradient(var(--pm-gold), var(--pm-gold)) top right / 1px 14px no-repeat,
+      linear-gradient(var(--pm-gold), var(--pm-gold)) bottom right / 14px 1px no-repeat,
+      linear-gradient(var(--pm-gold), var(--pm-gold)) bottom right / 1px 14px no-repeat,
+      linear-gradient(var(--pm-gold), var(--pm-gold)) bottom left / 14px 1px no-repeat,
+      linear-gradient(var(--pm-gold), var(--pm-gold)) bottom left / 1px 14px no-repeat;
+  }
+
+  .pm-body {
+    max-height: calc(100vh - 44px);
+    overflow-y: auto;
+    padding: clamp(26px, 4vw, 38px) clamp(22px, 4vw, 40px) clamp(24px, 3.4vw, 34px) clamp(30px, 4.6vw, 46px);
+    scrollbar-width: thin;
+    scrollbar-color: var(--pm-line) transparent;
+  }
+
+  .pm-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 1px solid var(--pm-line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--pm-text);
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  }
+
+  .pm-close:hover {
+    border-color: var(--pm-acc);
+    background: color-mix(in srgb, var(--pm-acc) 14%, transparent);
+    color: var(--pm-acc);
+  }
+
+  .pm-close:focus-visible,
+  .pm-btn:focus-visible {
+    outline: 2px solid var(--pm-acc);
+    outline-offset: 2px;
+  }
+
+  .pm-eyebrow {
+    margin: 0 44px 10px 0;
+    font: 600 12px/1.5 'Cormorant Garamond', serif;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--pm-gold);
+  }
+
+  body .pm .pm-title {
+    margin: 0 44px 10px 0;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: clamp(23px, 4.6vw, 30px) !important;
+    font-weight: 700 !important;
+    line-height: 1.25;
+    letter-spacing: .01em;
+    color: var(--pm-acc) !important;
+    -webkit-text-fill-color: var(--pm-acc) !important;
+    text-shadow: none !important;
+  }
+
+  .pm-metric {
+    margin: 0 0 18px;
+    font: italic 600 17px/1.5 'Cormorant Garamond', serif;
+    color: var(--pm-gold);
+  }
+
+  .pm-points {
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pm-points li {
+    position: relative;
+    margin: 0 0 12px;
+    padding-left: 26px;
+    font: 400 17px/1.65 'EB Garamond', 'Cormorant Garamond', serif;
+    color: var(--pm-text);
+  }
+
+  .pm-points li::before {
+    content: var(--pm-rune);
+    position: absolute;
+    left: 0;
+    top: .12em;
+    font-size: 15px;
+    color: var(--pm-acc);
+  }
+
+  .pm-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pm-chips li {
+    margin: 0;
+    padding: 4px 13px;
+    border: 1px solid var(--pm-line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--pm-acc) 9%, transparent);
+    font: 600 15px/1.4 'Cormorant Garamond', serif;
+    color: var(--pm-text);
+  }
+
+  .pm-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  body .pm .pm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    border: 1px solid var(--pm-acc);
+    border-radius: 999px;
+    background: transparent;
+    font: 600 16px/1 'Cormorant Garamond', serif;
+    letter-spacing: .05em;
+    color: var(--pm-acc) !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+
+  body .pm .pm-btn:hover {
+    background: color-mix(in srgb, var(--pm-acc) 14%, transparent);
+    transform: translateY(-2px);
+  }
+
+  body .pm .pm-btn-primary {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--pm-g1), var(--pm-g2));
+    color: #fff !important;
+  }
+
+  body .pm .pm-btn-primary:hover {
+    background: linear-gradient(135deg, var(--pm-g1), var(--pm-g2));
+    box-shadow: 0 14px 26px -14px var(--pm-g1);
+  }
+
+  .pm .pm-eyebrow,
+  .pm .pm-metric,
+  .pm .pm-chips li,
+  .pm .pm-btn,
+  .pm .pm-close {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .home-project-card[data-pm-card] {
+    cursor: pointer;
+  }
+
+  @media (max-width: 640px) {
+    .pm {
+      align-items: flex-end;
+      padding: 0;
+    }
+
+    .pm-card {
+      width: 100%;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .pm-body {
+      max-height: 86vh;
+    }
+
+    .pm-actions .pm-btn {
+      flex: 1 1 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pm-scrim {
+      transition: none;
+    }
+  }
+</style>
+<script>
+  // A featured project card opens a details layer with the project summary, its links and skills.
+  // The card comes alive from where it sits and returns there when closed. Without script the title
+  // stays a plain link to the project page.
+  (function () {
+    var cards = document.querySelectorAll('.home-project-card');
+    if (!document.querySelector('.home-project-title[data-pm]')) return;
+
+    var layer = null;
+    var scrim = null;
+    var panel = null;
+    var body = null;
+    var lastTrigger = null;
+    var isOpen = false;
+    var busy = false;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var EASE = 'cubic-bezier(.22, 1, .36, 1)';
+
+    function lock() {
+      var bar = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty('--pm-sb', bar + 'px');
+      document.documentElement.classList.add('pm-lock');
+    }
+
+    function unlock() {
+      document.documentElement.classList.remove('pm-lock');
+    }
+
+    // The page behind the layer cannot be reached by keyboard or screen reader while it is open
+    function setInert(on) {
+      ['.masthead', '.initial-content', '.page__footer'].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (!el) return;
+        if (on) el.setAttribute('inert', '');
+        else el.removeAttribute('inert');
+      });
+    }
+
+    function onKey(e) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      var items = panel.querySelectorAll('a[href], button:not([disabled])');
+      if (!items.length) return;
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (!panel.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function centreOffset(from) {
+      var to = panel.getBoundingClientRect();
+      return {
+        x: from.left + from.width / 2 - (to.left + to.width / 2),
+        y: from.top + from.height / 2 - (to.top + to.height / 2)
+      };
+    }
+
+    function build() {
+      layer = document.createElement('div');
+      layer.className = 'pm';
+      layer.hidden = true;
+      layer.setAttribute('role', 'dialog');
+      layer.setAttribute('aria-modal', 'true');
+      layer.setAttribute('aria-labelledby', 'pm-title-text');
+      layer.innerHTML = '<div class="pm-scrim"></div><div class="pm-card"><button type="button" class="pm-close" aria-label="Close project details"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="pm-body"></div></div>';
+      scrim = layer.querySelector('.pm-scrim');
+      panel = layer.querySelector('.pm-card');
+      body = layer.querySelector('.pm-body');
+      document.body.appendChild(layer);
+
+      scrim.addEventListener('click', function () { close(); });
+      layer.querySelector('.pm-close').addEventListener('click', function () { close(); });
+      // Open the Tale presses the card's own button, which plays the book animation
+      body.addEventListener('click', function (e) {
+        if (!e.target.closest('[data-pm-tale]')) return;
+        var card = lastTrigger && lastTrigger.closest('.home-project-card');
+        var cta = card && card.querySelector('.btn-cta-project');
+        finish();
+        if (cta) cta.click();
+      });
+    }
+
+    function finish() {
+      layer.hidden = true;
+      layer.classList.remove('pm-in');
+      unlock();
+      setInert(false);
+      document.removeEventListener('keydown', onKey, true);
+      isOpen = false;
+      busy = false;
+      if (lastTrigger) lastTrigger.focus({ preventScroll: true });
+    }
+
+    function open(trigger) {
+      var tpl = document.getElementById(trigger.getAttribute('data-pm'));
+      if (!tpl || busy) return false;
+      if (!layer) build();
+      lastTrigger = trigger;
+
+      var card = trigger.closest('.home-project-card');
+      var from = card ? card.getBoundingClientRect() : null;
+      var variant = '';
+      if (card && card.classList.contains('card-rose')) variant = ' pm--rose';
+      else if (card && card.classList.contains('card-crimson')) variant = ' pm--crimson';
+      else if (card && card.classList.contains('card-azure')) variant = ' pm--azure';
+      layer.className = 'pm' + variant;
+
+      var rune = card && card.querySelector('.grim-rune');
+      layer.style.setProperty('--pm-rune', "'" + (rune ? rune.textContent.trim() : '') + "'");
+
+      body.innerHTML = '';
+      body.appendChild(tpl.content.cloneNode(true));
+      body.scrollTop = 0;
+      lock();
+      setInert(true);
+      layer.hidden = false;
+      isOpen = true;
+      document.addEventListener('keydown', onKey, true);
+
+      requestAnimationFrame(function () { layer.classList.add('pm-in'); });
+      if (!reduce.matches && panel.animate) {
+        var frames;
+        if (window.innerWidth <= 640 || !from) {
+          frames = [{ transform: 'translateY(48px)', opacity: 0 }, { opacity: 1, offset: .4 }, { transform: 'none', opacity: 1 }];
+        } else {
+          var d = centreOffset(from);
+          frames = [{ transform: 'translate(' + d.x + 'px,' + d.y + 'px) scale(.8)', opacity: 0 }, { opacity: 1, offset: .4 }, { transform: 'none', opacity: 1 }];
+        }
+        panel.animate(frames, { duration: 480, easing: EASE });
+      }
+      layer.querySelector('.pm-close').focus({ preventScroll: true });
+      return true;
+    }
+
+    function close() {
+      if (!isOpen || busy) return;
+      busy = true;
+      layer.classList.remove('pm-in');
+      if (reduce.matches || !panel.animate) {
+        finish();
+        return;
+      }
+      var card = lastTrigger && lastTrigger.closest('.home-project-card');
+      var from = card ? card.getBoundingClientRect() : null;
+      var off = '';
+      if (window.innerWidth <= 640 || !from) {
+        off = 'translateY(48px)';
+      } else {
+        var d = centreOffset(from);
+        off = 'translate(' + d.x + 'px,' + d.y + 'px) scale(.85)';
+      }
+      var done = false;
+      var end = function () {
+        if (done) return;
+        done = true;
+        finish();
+      };
+      var anim = panel.animate([{ transform: 'none', opacity: 1 }, { transform: off, opacity: 0 }], { duration: 280, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'forwards' });
+      anim.onfinish = end;
+      // a hidden tab pauses animations, so the layer is still removed on a timer
+      setTimeout(end, 420);
+    }
+
+    // The title is the keyboard and screen reader entry; the whole card opens it with a pointer
+    document.querySelectorAll('.home-project-title[data-pm]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        // a modified click keeps the normal link behaviour and opens the project page
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+        if (open(a)) e.preventDefault();
+      });
+    });
+
+    cards.forEach(function (card) {
+      var title = card.querySelector('.home-project-title[data-pm]');
+      if (!title) return;
+      card.setAttribute('data-pm-card', '');
+      card.addEventListener('click', function (e) {
+        // links and the Open the Tale button inside the card keep their own behaviour
+        if (e.target.closest('a, button')) return;
+        // selecting text with the pointer must not open the layer
+        var sel = window.getSelection();
+        if (sel && String(sel).length > 0) return;
+        open(title);
+      });
+    });
+  })();
 </script>
 
 <script type="application/ld+json">
