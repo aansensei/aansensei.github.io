@@ -81,6 +81,7 @@
      --r-nav colours the navigation and focus marks: gold at night, deep cyan by day. */
   body {
     --r-nav: var(--gold-l);
+    --r-orn: var(--gold);
   }
 
   /* Day: deep cyan for headings, links and accents, bronze gold kept for ornaments */
@@ -89,6 +90,9 @@
     --teal-l: #0a7490;
     --gold-l: #0a6a7e;
     --r-nav: #0a7490;
+    --r-orn: #3f93a8;
+    --gbord: rgba(10, 116, 144, .26);
+    --panel-edge: rgba(10, 116, 144, .3);
   }
 
   /* Only the page title is retuned. Headings inside components such as the book covers keep
@@ -114,11 +118,11 @@
     text-align: center;
     font-size: .5rem;
     line-height: 1;
-    color: var(--gold);
+    color: var(--r-orn);
     letter-spacing: 0;
     background:
-      linear-gradient(90deg, transparent, var(--gold)) left center / 68px 1px no-repeat,
-      linear-gradient(270deg, transparent, var(--gold)) right center / 68px 1px no-repeat;
+      linear-gradient(90deg, transparent, var(--r-orn)) left center / 68px 1px no-repeat,
+      linear-gradient(270deg, transparent, var(--r-orn)) right center / 68px 1px no-repeat;
   }
 
   /* The top bar is dense enough that page text scrolling under it never shows through */
@@ -169,14 +173,14 @@
     pointer-events: none;
     opacity: .7;
     background:
-      linear-gradient(var(--gold), var(--gold)) top left / 18px 1px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) top left / 1px 18px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) top right / 18px 1px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) top right / 1px 18px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) bottom left / 18px 1px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) bottom left / 1px 18px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) bottom right / 18px 1px no-repeat,
-      linear-gradient(var(--gold), var(--gold)) bottom right / 1px 18px no-repeat;
+      linear-gradient(var(--r-orn), var(--r-orn)) top left / 18px 1px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) top left / 1px 18px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) top right / 18px 1px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) top right / 1px 18px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) bottom left / 18px 1px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) bottom left / 1px 18px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) bottom right / 18px 1px no-repeat,
+      linear-gradient(var(--r-orn), var(--r-orn)) bottom right / 1px 18px no-repeat;
   }
 
   /* Navigation: plain text links, an underline that draws in on hover and marks the current page */
@@ -301,7 +305,7 @@
 
   body.an-day-mode .grim-chapter,
   body.an-day-mode .grim-vol {
-    color: rgba(122, 90, 14, .9) !important;
+    color: #4d7384 !important;
   }
 
   body.an-day-mode .home-divider-text,
@@ -328,7 +332,7 @@
   }
 
   body.an-day-mode .grim-rune {
-    color: #8a6a12 !important;
+    color: #4d7384 !important;
   }
 
   /* Mobile menu button and dropdown follow the same hairline style as the panels */
@@ -566,6 +570,58 @@
     border-color: rgba(220, 38, 38, .5);
     color: #a11b1b !important;
     box-shadow: none;
+  }
+
+  /* Day interface marks are cyan, not bronze: the profile icons, the menu button, the card corners and
+     hairlines. Night keeps the gold. */
+  body.an-day-mode .sidebar .author__urls i,
+  body.an-day-mode .sidebar .author__urls .fab,
+  body.an-day-mode .sidebar .author__urls .fas {
+    color: #0a7490 !important;
+  }
+
+  html body.an-day-mode #an-ham-btn {
+    background: transparent !important;
+    border-color: rgba(10, 116, 144, .38) !important;
+  }
+
+  html body.an-day-mode .an-bar {
+    background: #0a7490 !important;
+  }
+
+  html body.an-day-mode #an-ham-menu {
+    border-color: rgba(10, 116, 144, .3) !important;
+  }
+
+  html body.an-day-mode .masthead {
+    border-bottom-color: rgba(10, 116, 144, .22) !important;
+  }
+
+  body.an-day-mode .grim-corner {
+    border-color: rgba(10, 116, 144, .5) !important;
+  }
+
+  body.an-day-mode .home-project-card {
+    border-color: rgba(10, 116, 144, .26) !important;
+  }
+
+  /* On phones and tablets the scene tier without blur lets the red castle and the golden sky tint the
+     panels, so by day they are a dense, cool white. */
+  @media (max-width: 1024px) {
+    body.an-day-mode .sidebar,
+    body.an-day-mode .page__inner-wrap,
+    body.an-day-mode.an-scene-lite .sidebar,
+    body.an-day-mode.an-scene-lite .page__inner-wrap {
+      background: rgba(250, 253, 255, .95) !important;
+    }
+
+    body.an-day-mode .home-project-card {
+      background: rgba(251, 253, 255, .96) !important;
+    }
+
+    body.an-day-mode .tech-group {
+      background: rgba(251, 253, 255, .96) !important;
+    }
   }
 
   /* Interface text is never highlighted by a stray double click, drag or select all: the top bar,
