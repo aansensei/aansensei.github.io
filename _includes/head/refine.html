@@ -568,6 +568,44 @@
     box-shadow: none;
   }
 
+  /* Interface text is never highlighted by a stray double click, drag or select all: the top bar,
+     the profile sidebar, the contents, buttons, chips, card labels and the footer. Article text,
+     titles and descriptions stay selectable. */
+  body .masthead,
+  body .masthead *,
+  body .sidebar,
+  body .sidebar *,
+  body .an-toc,
+  body .an-toc *,
+  body .an-rail,
+  body .an-rail *,
+  body .back-btn,
+  body .pisces-back,
+  body .btn,
+  body .btn-action,
+  body .btn-cta-project,
+  body .song-btn,
+  body button,
+  body .proj-skill,
+  body .pisces-tag,
+  body .tech-tag,
+  body .home-chapter,
+  body .home-divider,
+  body .grim-chapter,
+  body .grim-vol,
+  body .grim-seal,
+  body .grim-rune,
+  body .pixel-tag,
+  body .song-card .vinyl-wrap,
+  body .song-progress-bar,
+  body .song-expand-icon,
+  body .page__footer,
+  body .page__footer * {
+    -webkit-user-select: none !important;
+    user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* Large blurred surfaces over the animated scene cost GPU time, so phones and tablets get a lighter blur */
   @media (max-width: 1024px) {
     body .sidebar,
