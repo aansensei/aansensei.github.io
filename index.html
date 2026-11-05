@@ -2186,8 +2186,17 @@ title: "Xin chào! I'm An"
       });
     }
 
+    // Any animation left on the card, such as the filled end state of the closing one, is dropped so it
+    // cannot hide the card the next time the layer opens.
+    function clearAnimations() {
+      if (panel && panel.getAnimations) {
+        panel.getAnimations().forEach(function (a) { a.cancel(); });
+      }
+    }
+
     function finish() {
       layer.hidden = true;
+      clearAnimations();
       layer.classList.remove('pm-in');
       unlock();
       setInert(false);
@@ -2214,6 +2223,7 @@ title: "Xin chào! I'm An"
       var rune = card && card.querySelector('.grim-rune');
       layer.style.setProperty('--pm-rune', "'" + (rune ? rune.textContent.trim() : '') + "'");
 
+      clearAnimations();
       body.innerHTML = '';
       body.appendChild(tpl.content.cloneNode(true));
       body.scrollTop = 0;
