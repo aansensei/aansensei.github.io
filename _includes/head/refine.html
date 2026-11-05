@@ -131,10 +131,6 @@
     border-bottom: 1px solid var(--gbord);
   }
 
-  html body.an-day-mode .masthead {
-    background: rgba(255, 255, 255, .98) !important;
-  }
-
   /* Skill groups on the home page sit over the castle, so they get a dense surface instead of
      letting the scene show through the chips */
   body .tech-group {
@@ -142,10 +138,6 @@
     border: 1px solid var(--gbord) !important;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-  }
-
-  body.an-day-mode .tech-group {
-    background: rgba(255, 255, 255, .92) !important;
   }
 
   /* Panels: one hairline, one radius, a quiet shadow and four gold corner marks */
@@ -605,23 +597,36 @@
     border-color: rgba(10, 116, 144, .26) !important;
   }
 
-  /* On phones and tablets the scene tier without blur lets the red castle and the golden sky tint the
-     panels, so by day they are a dense, cool white. */
-  @media (max-width: 1024px) {
-    body.an-day-mode .sidebar,
-    body.an-day-mode .page__inner-wrap,
-    body.an-day-mode.an-scene-lite .sidebar,
-    body.an-day-mode.an-scene-lite .page__inner-wrap {
-      background: rgba(250, 253, 255, .95) !important;
-    }
+  /* Day panels stay translucent like glass, but they are tinted a pale cool blue. The sky behind them is
+     golden at the bottom of a long page, and a white panel over gold looks cream; a cool tint over gold
+     comes out neutral. */
+  body.an-day-mode .sidebar,
+  body.an-day-mode .page__inner-wrap,
+  body.an-day-mode.an-scene-lite .sidebar,
+  body.an-day-mode.an-scene-lite .page__inner-wrap {
+    background: rgba(222, 241, 250, .82) !important;
+  }
 
-    body.an-day-mode .home-project-card {
-      background: rgba(251, 253, 255, .96) !important;
-    }
+  body.an-day-mode .home-project-card {
+    background: rgba(226, 243, 251, .8) !important;
+  }
 
-    body.an-day-mode .tech-group {
-      background: rgba(251, 253, 255, .96) !important;
-    }
+  body.an-day-mode .tech-group {
+    background: rgba(222, 241, 250, .8) !important;
+  }
+
+  html body.an-day-mode .masthead {
+    background: rgba(244, 250, 254, .96) !important;
+  }
+
+  /* the small eye button keeps its dark disc, with a cyan edge and eye by day */
+  body.an-day-mode #an-bg-peek {
+    border-color: rgba(111, 214, 232, .6);
+  }
+
+  body.an-day-mode #an-bg-peek svg path,
+  body.an-day-mode #an-bg-peek svg circle {
+    stroke: #6fd6e8 !important;
   }
 
   /* Interface text is never highlighted by a stray double click, drag or select all: the top bar,
