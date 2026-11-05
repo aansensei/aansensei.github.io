@@ -20,9 +20,6 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 .back-btn{display:flex;align-items:center;gap:10px;color:#c9a227!important;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;cursor:pointer;}
 .back-btn:hover{color:#f0c84a!important;transform:translateX(-5px);text-shadow:0 0 10px rgba(201,162,39,.5);}
 
-.author-box{text-align:center;border-bottom:1px solid rgba(201,162,39,.15);padding-bottom:18px;margin-bottom:18px;}
-.author-box img{width:80px;height:80px;border-radius:50%;border:2px solid #c9a227;object-fit:cover;box-shadow:0 0 14px rgba(201,162,39,.35);}
-.author-box h3{margin:10px 0 0;font-family:'Cinzel Decorative',serif!important;font-size:.85rem!important;color:#f0c84a!important;text-shadow:0 0 12px rgba(201,162,39,.4)!important;}
 
 .toc-title{color:#c9a227!important;font-family:'Cormorant Garamond',serif!important;font-size:.95rem!important;font-weight:700!important;margin-bottom:14px;text-transform:uppercase;letter-spacing:.15em;opacity:.75;}
 .toc-list{list-style:none;padding:0;margin:0;}
@@ -55,10 +52,6 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 
   <div class="glass-box col-left">
     <a href="/projects/" class="back-btn" ><i class="fas fa-arrow-left"></i>Back to Collection</a>
-    <div class="author-box">
-      <img src="/assets/images/avatar.jpg" alt="Avatar">
-      <h3>Cao Thien An Nguyen</h3>
-    </div>
     <p class="toc-title">🌙 Contents</p>
     <ul class="toc-list">
       <li><a href="#context-goal">Context &amp; Goal</a></li>

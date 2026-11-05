@@ -20,9 +20,6 @@ header:
 .pisces-sidebar::-webkit-scrollbar-thumb{background:rgba(201,162,39,.35);border-radius:10px;}
 .pisces-back{display:flex;align-items:center;gap:10px;color:#c9a227!important;text-decoration:none!important;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;}
 .pisces-back:hover{color:#f0c84a!important;transform:translateX(-5px);text-shadow:0 0 10px rgba(201,162,39,.5);}
-.pisces-author{text-align:center;border-bottom:1px solid rgba(201,162,39,.15);padding-bottom:18px;margin-bottom:18px;}
-.pisces-author img{width:80px;height:80px;border-radius:50%;border:2px solid #c9a227;object-fit:cover;box-shadow:0 0 14px rgba(201,162,39,.35);}
-.pisces-author h3{margin:10px 0 0;font-family:'Cinzel Decorative',serif!important;font-size:.85rem!important;color:#f0c84a!important;text-shadow:0 0 12px rgba(201,162,39,.4)!important;}
 .pisces-toc-title{color:#c9a227!important;font-family:'Cormorant Garamond',serif!important;font-size:.95rem!important;font-weight:700!important;margin-bottom:14px;text-transform:uppercase;letter-spacing:.15em;opacity:.75;}
 .pisces-toc{list-style:none;padding:0;margin:0;}
 .pisces-toc li{margin-bottom:10px;}
@@ -84,8 +81,6 @@ header:
 body.an-day-mode .pisces-box{background:rgba(255,255,255,.74);border-color:rgba(0,102,102,.26);box-shadow:0 10px 30px rgba(19,60,90,.18),inset 0 1px 0 rgba(255,255,255,.7);}
 body.an-day-mode .pisces-box::before{background:linear-gradient(to right,transparent,rgba(15,138,138,.55),transparent);}
 body.an-day-mode .pisces-sidebar::-webkit-scrollbar-thumb{background:rgba(0,102,102,.4);}
-body.an-day-mode .pisces-author{border-bottom-color:rgba(0,102,102,.2);}
-body.an-day-mode .pisces-author img{border-color:#0f8a8a;box-shadow:0 0 14px rgba(0,128,128,.3);}
 body.an-day-mode .pisces-author h3,body.an-day-mode .pisces-title,body.an-day-mode .pisces-main h1,body.an-day-mode .pisces-main h2{color:#006666!important;-webkit-text-fill-color:#006666!important;text-shadow:none!important;}
 body.an-day-mode .pisces-main h1{border-bottom-color:rgba(0,102,102,.25);}
 body.an-day-mode .pisces-main h3{color:#135c9e!important;-webkit-text-fill-color:#135c9e!important;}
@@ -127,10 +122,6 @@ body.an-day-mode .pisces-actions .btn-git:hover{background:rgba(0,128,128,.16);b
 
   <aside class="pisces-box pisces-sidebar">
     <a href="/projects/" class="pisces-back"><i class="fas fa-arrow-left"></i>Back to Collection</a>
-    <div class="pisces-author">
-      <img src="/assets/images/avatar.jpg" alt="Cao Thien An Nguyen">
-      <h3>Cao Thien An Nguyen</h3>
-    </div>
     <p class="pisces-toc-title">✦ Contents</p>
     <ul class="pisces-toc">
       <li><a href="#the-idea">The Idea</a></li>

@@ -16,9 +16,6 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
 .col-left::-webkit-scrollbar{width:4px;}.col-left::-webkit-scrollbar-thumb{background:rgba(201,162,39,.3);border-radius:10px;}
 .back-btn{display:flex;align-items:center;gap:10px;color:#c9a227!important;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;cursor:pointer;}
 .back-btn:hover{color:#f0c84a!important;transform:translateX(-5px);text-shadow:0 0 10px rgba(201,162,39,.5);}
-.author-box{text-align:center;border-bottom:1px solid rgba(201,162,39,.15);padding-bottom:18px;margin-bottom:18px;}
-.author-box img{width:80px;height:80px;border-radius:50%;border:2px solid #c9a227;object-fit:cover;box-shadow:0 0 14px rgba(201,162,39,.35);}
-.author-box h3{margin:10px 0 0;font-family:'Cinzel Decorative',serif!important;font-size:.85rem!important;color:#f0c84a!important;text-shadow:0 0 12px rgba(201,162,39,.4)!important;}
 .toc-title{color:#c9a227!important;font-family:'Cormorant Garamond',serif!important;font-size:.95rem!important;font-weight:700!important;margin-bottom:14px;text-transform:uppercase;letter-spacing:.15em;opacity:.75;}
 .toc-list{list-style:none;padding:0;margin:0;}.toc-list li{margin-bottom:10px;}
 .toc-list a{color:rgba(255,248,235,.7)!important;text-decoration:none!important;font-family:'Cormorant Garamond',serif;font-size:.93rem;transition:.2s;display:block;}
@@ -42,10 +39,6 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
 
   <div class="glass-box col-left">
     <a href="/projects/" class="back-btn" ><i class="fas fa-arrow-left"></i>Back to Collection</a>
-    <div class="author-box">
-      <img src="/assets/images/avatar.jpg" alt="Avatar">
-      <h3>Cao Thien An Nguyen</h3>
-    </div>
     <p class="toc-title">🌙 Contents</p>
     <ul class="toc-list">
       <li><a href="#my-role">My Role</a></li>
@@ -85,6 +78,15 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
   <div class="glass-box col-right">
     <img src="/assets/images/figure-semi.png" alt="Semiconductor Industry Data" class="cover-img">
     <h2 class="proj-title">IRJEMS Publication</h2>
+    <div class="proj-skills">
+      <span class="proj-skill">Literature Review</span>
+      <span class="proj-skill">Data Collection</span>
+      <span class="proj-skill">Quantitative Analysis</span>
+      <span class="proj-skill">Qualitative Analysis</span>
+      <span class="proj-skill">Policy Analysis</span>
+      <span class="proj-skill">Academic Writing</span>
+    </div>
+    <hr class="proj-divider">
     <a href="https://irjems.org/irjems-v3i8p112.html" target="_blank" class="btn-action btn-neon-link"><i class="fas fa-book-open"></i> View Full Paper</a>
   </div>
 

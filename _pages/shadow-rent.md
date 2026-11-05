@@ -20,9 +20,6 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
 .back-btn{--back-a:#f6a0bd;--back-b:#c9477a;--back-glow:201,71,122;display:flex;align-items:center;gap:10px;color:#c9477a!important;text-decoration:none!important;font-weight:700;font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.05em;margin-bottom:24px;transition:.3s;cursor:pointer;}
 .back-btn:hover{color:#f07aa0!important;transform:translateX(-5px);text-shadow:0 0 10px rgba(201,71,122,.5);}
 
-.author-box{text-align:center;border-bottom:1px solid rgba(201,71,122,.15);padding-bottom:18px;margin-bottom:18px;}
-.author-box img{width:80px;height:80px;border-radius:50%;border:2px solid #c9477a;object-fit:cover;box-shadow:0 0 14px rgba(201,71,122,.35);}
-.author-box h3{margin:10px 0 0;font-family:'Cinzel Decorative',serif!important;font-size:.85rem!important;color:#f07aa0!important;text-shadow:0 0 12px rgba(201,71,122,.4)!important;}
 
 .toc-title{color:#c9477a!important;font-family:'Cormorant Garamond',serif!important;font-size:.95rem!important;font-weight:700!important;margin-bottom:14px;text-transform:uppercase;letter-spacing:.15em;opacity:.75;}
 .toc-list{list-style:none;padding:0;margin:0;}
@@ -59,10 +56,6 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
 
   <div class="glass-box col-left">
     <a href="/projects/" class="back-btn"><i class="fas fa-arrow-left"></i>Back to Collection</a>
-    <div class="author-box">
-      <img src="/assets/images/avatar.jpg" alt="Avatar">
-      <h3>Cao Thien An Nguyen</h3>
-    </div>
     <p class="toc-title">🌙 Contents</p>
     <ul class="toc-list">
       <li><a href="#executive-summary">Executive Summary</a></li>
