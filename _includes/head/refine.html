@@ -648,6 +648,18 @@
     stroke: #6fd6e8 !important;
   }
 
+  /* Links to the university keep the look of the text around them and draw a line under it on hover */
+  body a.wisc-link {
+    color: inherit !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent) !important;
+    transition: border-color .2s ease !important;
+  }
+
+  body a.wisc-link:hover {
+    border-bottom-color: currentColor !important;
+  }
+
   /* Interface text is never highlighted by a stray double click, drag or select all: the top bar,
      the profile sidebar, the contents, buttons, chips, card labels and the footer. Article text,
      titles and descriptions stay selectable. */

@@ -117,7 +117,7 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
     <div class="contact-div"><span>✦</span></div>
     <div class="contact-info">
       <p class="contact-name">Cao Thien An Nguyen</p>
-      <p class="contact-uni">University of Wisconsin–Madison</p>
+      <p class="contact-uni"><a class="wisc-link" href="https://www.wisc.edu/" target="_blank" rel="noopener">University of Wisconsin–Madison</a></p>
       <div class="contact-status">
         <p class="contact-open"><span class="contact-open-dot" aria-hidden="true"></span>Open to internships</p>
         <p class="contact-welcome">I would really love to connect with you.</p>
