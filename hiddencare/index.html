@@ -6,21 +6,30 @@
   <title>HiddenCare | Algorithmic Epidemiology Lab</title>
   <meta name="description" content="Evaluating proxy outcome bias in algorithmic diabetes screening under capacity constraints across N = 12,459 adults.">
 
-  <!-- AanSensei Official Favicons & Brand Identity -->
+  <!-- bieu tuong trang web -->
   <link rel="icon" type="image/x-icon" href="/assets/images/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/images/favicon/web-app-manifest-512x512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-touch-icon.png">
 
-  <!-- Open Graph / Meta -->
+  <!-- the chia se mang xa hoi -->
   <meta property="og:title" content="HiddenCare | Algorithmic Epidemiology Lab">
   <meta property="og:description" content="Evaluating proxy outcome bias in algorithmic diabetes screening under capacity constraints.">
   <meta property="og:url" content="https://aansensei.dev/hiddencare/">
   <meta property="og:type" content="website">
 
   <style>
-    /* Full viewport height with dvh fallback */
-    html, body {
+    /* chieu cao toan man hinh va vung an toan */
+    html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+    body {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -29,14 +38,13 @@
       overflow: hidden;
       background-color: #ffffff;
       overscroll-behavior: none;
+      box-sizing: border-box;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
-      box-sizing: border-box;
     }
     iframe {
       width: 100%;
       height: 100%;
-      height: 100dvh;
       border: none;
       display: block;
     }
