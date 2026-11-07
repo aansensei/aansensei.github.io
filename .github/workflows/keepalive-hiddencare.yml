@@ -1,0 +1,19 @@
+name: Keepalive HiddenCare Space
+
+on:
+  schedule:
+    # chay dinh ky moi 6 gio de giu space luon hoat dong
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-space:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping HiddenCare Space
+        run: |
+          echo "Sending keepalive ping to HiddenCare Space..."
+          response_space=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://aansensei-hiddencare.hf.space)
+          echo "Space response status: $response_space"
+          response_web=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://aansensei.dev/hiddencare/)
+          echo "Web response status: $response_web"
