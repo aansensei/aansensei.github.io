@@ -1,6 +1,6 @@
 /* A small navigation fallback, not an offline copy of the entire portfolio. */
 'use strict';
-const RECOVERY_CACHE = 'an-recovery-v3';
+const RECOVERY_CACHE = 'an-recovery-v4';
 const RECOVERY_PREFIX = 'an-recovery-';
 const OFFLINE_URL = '/offline.html';
 const RECOVERY_ASSETS = [OFFLINE_URL, '/assets/css/error-ux.css', '/assets/js/error-ux.js', '/assets/images/kanade-404.png'];

@@ -187,14 +187,17 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
   var MAIL='cnguyen49@wisc.edu';
   /* Web3Forms access key. It is public by design: it can only deliver mail to the address it was made for. */
   var W3F_KEY='2b240aef-074c-4c4e-a046-a2b0b47efed1';
-  var SLOW_MS=4500,TRY_MS=10000,IDLE='Send message';
+  var SLOW_MS=4500,TRY_MS=10000,SUCCESS_MS=2400,FADE_MS=350,IDLE='Send message';
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dotTimer=null,slowTimer=null,resetTimer=null,sending=false,hadFailure=false,retryCooldown=false,lastData=null;
+  var dotTimer=null,slowTimer=null,resetTimer=null,dismissTimer=null,fadeTimer=null,sending=false,hadFailure=false,retryCooldown=false,lastData=null;
 
   function say(text,kind){status.className='cf-status'+(kind?' '+kind:'');status.textContent=text;}
 
   function renderStateCard(state,data){
     if(!stateCard)return;
+    // A new send/retry must never be hidden by the previous success timer.
+    clearTimeout(dismissTimer);clearTimeout(fadeTimer);
+    stateCard.classList.remove('is-dismissing');
     stateCard.hidden=false;
     stateCard.setAttribute('data-state',state);
     var words={
@@ -202,8 +205,8 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
       retrying:['Another Journey','Sending your scroll once more...',"Another flight through the starlight. Your words stay here until delivery is confirmed."],
       slow:['A Little More Starlight','Your messenger is taking the scenic route',"The mail service is taking longer than expected. Your words are still here while we wait."],
       error:['A Pause in the Journey','Your scroll has not found its way',"Delivery is unconfirmed. Your words are still here: try again, use your email app, or copy the scroll."],
-      recovered:['Back Among the Stars','Your scroll is on its way',"The mail service has accepted your message. Thank you for adding a little light to this world."],
-      ok:['A Scroll Takes Flight','Your scroll is on its way',"The mail service has accepted your message. Thank you for adding a little light to this world."]
+      recovered:['Back Among the Stars','Your scroll has been sent',"The mail service has accepted your message. Thank you for adding a little light to this world."],
+      ok:['Scroll Sent','Your scroll has been sent',"The mail service has accepted your message. Thank you for adding a little light to this world."]
     };
     var text=words[state]||words.loading;
     stateBadge.textContent=text[0];
@@ -213,6 +216,19 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
     if(state==='error'){
       if(data)mailtoBtn.href=mailtoHref(data);
       retryBtn.disabled=retryCooldown;
+    }
+    if(state==='ok'||state==='recovered'){
+      dismissTimer=setTimeout(function(){
+        if(sending||!['ok','recovered'].includes(stateCard.dataset.state))return;
+        function finish(){
+          if(stateCard.contains(document.activeElement))btn.focus({preventScroll:true});
+          stateCard.hidden=true;
+          stateCard.classList.remove('is-dismissing');
+        }
+        if(reduce){finish();return;}
+        stateCard.classList.add('is-dismissing');
+        fadeTimer=setTimeout(finish,FADE_MS);
+      },SUCCESS_MS);
     }
   }
 
@@ -297,7 +313,7 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
       renderStateCard(hadFailure?'recovered':'ok');
       hadFailure=false;
       clearTimeout(resetTimer);
-      resetTimer=setTimeout(function(){btn.classList.remove('is-sent');icon.className='fas fa-paper-plane cf-plane';label.textContent=IDLE;},3200);
+      resetTimer=setTimeout(function(){btn.classList.remove('is-sent');icon.className='fas fa-paper-plane cf-plane';label.textContent=IDLE;},SUCCESS_MS+(reduce?0:FADE_MS));
     }else{
       label.textContent=IDLE;
     }

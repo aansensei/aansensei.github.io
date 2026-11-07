@@ -148,7 +148,11 @@ html[data-recovery-theme="day"], body.an-day-mode {
   background: var(--recovery-surface);
   color: var(--recovery-ink);
   text-align: left;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .35s ease, transform .35s ease;
 }
+#contact-wrap .cf-state-card.is-dismissing { opacity: 0; transform: translateY(-6px); pointer-events: none; }
 #contact-wrap .cf-state-head { display: flex; align-items: center; gap: 22px; width: 100%; margin: 0; }
 #contact-wrap .cf-state-head > div:last-child { flex: 1 1 0; min-width: 0; }
 #contact-wrap .cf-state-mascot { flex: 0 0 68px; width: 68px; height: 68px; margin: 5px 0 0; }
