@@ -409,8 +409,13 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 .orn-quill-sway{animation:ornQuillSway 4.2s ease-in-out infinite;}
 @keyframes ornInkShimmer{0%,100%{opacity:.70;}50%{opacity:.95;}}
 .orn-ink-shimmer{animation:ornInkShimmer 3.4s ease-in-out infinite;}
+@keyframes ornScaleTilt{0%,100%{transform:rotate(-3.5deg);}50%{transform:rotate(3.5deg);}}
+@keyframes ornScaleLevel{0%,100%{transform:rotate(3.5deg);}50%{transform:rotate(-3.5deg);}}
+.orn-scale-tilt{transform-origin:45px 34px;animation:ornScaleTilt 4.6s ease-in-out infinite;}
+.orn-scale-level{animation:ornScaleLevel 4.6s ease-in-out infinite;}
+.book-7 .ornament-float{animation-duration:4s;animation-delay:-1.7s;}
 @media (prefers-reduced-motion: reduce) {
-  .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.ornament-float{animation:none;}
+  .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.orn-scale-tilt,.orn-scale-level,.ornament-float{animation:none;}
 }
 @container (max-width: 900px) {
   .shelf-ornament{width:34px;right:-27px;bottom:-30px;}
@@ -955,6 +960,35 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
         <p>Evaluating proxy outcome bias in algorithmic diabetes screening across 12,459 CDC NHANES adults</p>
         <button class="btn-view-story btn-story-coral" onclick="openBookCard(this)">✦ Read the Tale</button>
       </div>
+    </div>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <ellipse cx="45" cy="120" rx="21" ry="3.5" fill="rgba(0,0,0,.35)"/>
+          <rect x="29" y="108" width="32" height="7" rx="2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+          <path d="M37 108 L40 98 H50 L53 108 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.6)" stroke-width="1" stroke-linejoin="round"/>
+          <rect x="42.5" y="30" width="5" height="70" rx="2" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.2"/>
+          <circle cx="45" cy="24" r="3.4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.75)" stroke-width="1.2"/>
+          <g class="orn-scale-tilt">
+            <rect x="11" y="31.5" width="68" height="5" rx="2.5" fill="url(#orn-brass)" stroke="rgba(201,162,39,.75)" stroke-width="1.2"/>
+            <circle cx="45" cy="34" r="4.4" fill="url(#orn-glass)" stroke="rgba(240,200,74,.85)" stroke-width="1.3"/>
+            <circle cx="11.5" cy="34" r="2.4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1"/>
+            <circle cx="78.5" cy="34" r="2.4" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1"/>
+            <g class="orn-scale-level" style="transform-origin:12px 34px;">
+              <path d="M12 36 L3 68 M12 36 L21 68" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+              <path d="M1.5 68 Q12 82 22.5 68 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.2" stroke-linejoin="round"/>
+              <path d="M12 56 Q7.5 62 12 66 Q16.5 62 12 56 Z" fill="#ff7a45" opacity=".92"/>
+            </g>
+            <g class="orn-scale-level" style="transform-origin:78px 34px;">
+              <path d="M78 36 L69 68 M78 36 L87 68" stroke="rgba(201,162,39,.6)" stroke-width="1"/>
+              <path d="M67.5 68 Q78 82 88.5 68 Z" fill="url(#orn-brass)" stroke="rgba(201,162,39,.7)" stroke-width="1.2" stroke-linejoin="round"/>
+              <circle cx="78" cy="62" r="4.4" fill="url(#orn-glass)" stroke="rgba(240,200,74,.85)" stroke-width="1.2"/>
+              <path class="orn-glint" d="M75.5 60 Q77 58.5 79 59" stroke="#fff" stroke-width="1" fill="none" opacity=".7"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <span class="ornament-label">Scales</span>
     </div>
   </div>
 
