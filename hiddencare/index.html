@@ -18,39 +18,243 @@
   <meta property="og:url" content="https://aansensei.dev/hiddencare/">
   <meta property="og:type" content="website">
 
-  <style>
-    /* chieu cao toan man hinh va vung an toan */
-    html {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      height: 100dvh;
-      overflow: hidden;
-      background-color: #ffffff;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      height: 100dvh;
-      overflow: hidden;
-      background-color: #ffffff;
-      overscroll-behavior: none;
-      box-sizing: border-box;
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-  </style>
+  <script>
+    (function () {
+      var mode = 'day';
+      try {
+        var now = Date.now(), ts = +sessionStorage.getItem('an_ts') || 0;
+        var act = +sessionStorage.getItem('an_act') || 0;
+        if (sessionStorage.getItem('an_theme') === 'night' && now - ts < 300000 && (!act || now - act < 300000)) mode = 'night';
+      } catch (e) {}
+      document.documentElement.dataset.recoveryTheme = mode;
+    })();
+  </script>
+  <link rel="stylesheet" href="/assets/css/error-ux.css">
+  <script src="/assets/js/error-ux.js" defer></script>
 </head>
-<body>
-  <iframe src="https://aansensei-hiddencare.hf.space" allow="clipboard-read; clipboard-write" title="HiddenCare Research Dashboard"></iframe>
+<body class="an-standalone-recovery">
+  <div class="hc-shell">
+    <!-- Thanh cong cu luon hien thi de nguoi dung co the quay ve trang chu, mo truc tiep hoac kiem tra trang thai -->
+    <header class="hc-topbar" aria-label="HiddenCare navigation and status">
+      <div class="hc-brand">
+        <a class="hc-back-link" href="/projects/" id="hc-nav-back">
+          <span aria-hidden="true">&#8592;</span>
+          <span>The Library</span>
+        </a>
+        <div class="hc-title-group">
+          <h1 class="hc-app-title">HiddenCare</h1>
+          <span class="hc-app-sub">Algorithmic Epidemiology Lab</span>
+        </div>
+      </div>
+      <div class="hc-topbar-actions">
+        <button class="an-recovery-theme" type="button" data-recovery-theme-toggle aria-label="Switch to night theme" title="Change Time">
+          <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5Z"/></svg>
+          <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+        </button>
+        <button type="button" class="hc-status-pill" id="hc-status-pill" data-state="loading" title="Show or hide portal help">
+          <span class="hc-status-dot" aria-hidden="true"></span>
+          <span id="hc-pill-text">Opening the portal...</span>
+        </button>
+        <a class="hc-top-direct" href="https://aansensei-hiddencare.hf.space" target="_blank" rel="noopener noreferrer" id="hc-top-open" aria-label="Open HiddenCare directly in a new tab">
+          <span>Open a New Portal</span>
+          <span aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="hc-stage">
+      <iframe
+        data-src="https://aansensei-hiddencare.hf.space"
+        id="hc-iframe"
+        allow="clipboard-read; clipboard-write"
+        title="HiddenCare Research Dashboard">
+      </iframe>
+
+      <noscript><p style="position:absolute;top:0;z-index:20;background:var(--recovery-bg);padding:16px">This portal needs JavaScript. <a href="https://aansensei-hiddencare.hf.space">Open HiddenCare directly</a>.</p></noscript>
+      <!-- Card trang thai ngay tai phan nhung -->
+      <div class="hc-card-wrap" id="hc-card-wrap" role="region" aria-live="polite" aria-label="Embedded application status">
+        <div class="hc-card" id="hc-card" data-state="loading">
+          <span class="hc-sparkle s1" aria-hidden="true">&#10022;</span>
+          <span class="hc-sparkle s2" aria-hidden="true">&#10023;</span>
+          <span class="hc-sparkle s3" aria-hidden="true">&#10022;</span>
+
+          <div class="hc-mascot-wrap">
+            <img
+              class="hc-mascot-img"
+              src="/assets/images/kanade-404.png"
+              alt="Kanade plush, your companion between worlds"
+              width="154"
+              height="154"
+              onerror="this.style.display='none'">
+          </div>
+
+          <div>
+            <span class="hc-badge" id="hc-badge">A Journey Begins</span>
+            <h2 class="hc-heading" id="hc-heading">Opening the Portal</h2>
+            <p class="hc-desc" id="hc-desc">A little starlight, and the lab will be within reach.</p>
+            <div class="hc-progress" id="hc-progress" aria-hidden="true">
+              <div class="hc-progress-bar"></div>
+            </div>
+            <div class="hc-note" id="hc-note">HiddenCare may take a moment to wake. If this window stays blank, open the lab in a new tab.</div>
+
+            <div class="hc-actions">
+              <button type="button" class="hc-btn hc-btn-primary" id="hc-btn-retry">
+                <span id="hc-retry-label">Reopen the Portal</span>
+              </button>
+              <a class="hc-btn hc-btn-secondary" href="https://aansensei-hiddencare.hf.space" target="_blank" rel="noopener noreferrer" id="hc-btn-open" aria-label="Open HiddenCare directly in a new tab">
+                <span>Open a New Portal</span>
+                <span aria-hidden="true">&#8599;</span>
+              </a>
+              <a class="hc-btn hc-btn-ghost" href="/" id="hc-btn-home">
+                <span>Return to Cockpit</span>
+              </a>
+              <button type="button" class="hc-btn hc-btn-ghost" id="hc-btn-dismiss">
+                <span>Continue Exploring</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Thong bao nhe khi mang khoi phuc hoac iframe tai xong -->
+      <div class="hc-toast" id="hc-toast" role="status" aria-live="polite" hidden>
+        <span id="hc-toast-text">A light on the horizon. Try the portal again when you are ready.</span>
+        <button type="button" class="hc-toast-btn" id="hc-toast-action">Reopen Portal</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+      var APP_URL = 'https://aansensei-hiddencare.hf.space';
+      var frame = document.getElementById('hc-iframe');
+      var wrap = document.getElementById('hc-card-wrap');
+      var card = document.getElementById('hc-card');
+      var pill = document.getElementById('hc-status-pill');
+      var retry = document.getElementById('hc-btn-retry');
+      var toast = document.getElementById('hc-toast');
+      var currentState = 'loading';
+      var slowTimer;
+      var cooldownTimer;
+      var cooldown = false;
+      var dismissed = false;
+      var hadIssue = false;
+      var states = {
+        loading: ['Opening the portal...', 'A Journey Begins', 'Opening the Portal',
+          'A little starlight, and the lab will be within reach.',
+          'HiddenCare may take a moment to wake. If this window stays blank, open the lab in a new tab.'],
+        slow: ['A quiet portal', 'A Little More Starlight', 'The Realm Is Taking Its Time',
+          'Some journeys take a little longer. The lab may still be waking beyond this window.',
+          'Wait a little longer, try again, or open the lab in a new tab.'],
+        error: ['A pause in the journey', 'A Pause Between Worlds', 'The Portal Has Grown Quiet',
+          'Oops! Our path to the lab seems to have faded into the mist.',
+          'We could not confirm a connection. Check your internet, try again, or open the lab in a new tab.'],
+        retrying: ['Reopening the portal...', 'Another Way Through', 'Gathering a Little Starlight',
+          'Let us try the passage once more.',
+          'Only this lab window is reloading. The rest of your journey stays right here.'],
+        unverified: ['Portal options', 'Beyond the Looking Glass', 'A Window to Another Realm',
+          'The lab window has finished loading. What lies inside may still need a moment.',
+          'If the dashboard is blank or unresponsive, reopen this portal or open the lab in a new tab.'],
+        ready: ['Portal options', 'The Lab Awaits', 'Your Next Chapter Awaits',
+          'The lab has sent word that it is ready. Your journey can continue.',
+          'Continue exploring below, or open the lab in a new tab.']
+      };
+      function show(state, reveal) {
+        currentState = state;
+        var text = states[state];
+        card.dataset.state = state;
+        pill.dataset.state = state;
+        document.getElementById('hc-pill-text').textContent = text[0];
+        document.getElementById('hc-badge').textContent = text[1];
+        document.getElementById('hc-heading').textContent = text[2];
+        document.getElementById('hc-desc').textContent = text[3];
+        document.getElementById('hc-note').textContent = text[4];
+        document.getElementById('hc-retry-label').textContent = state === 'retrying' ? 'Reopening...' : 'Reopen the Portal';
+        document.getElementById('hc-progress').hidden = state !== 'loading' && state !== 'retrying';
+        retry.disabled = cooldown;
+        if (reveal && !dismissed) wrap.classList.remove('is-hidden');
+        pill.setAttribute('aria-expanded', String(!wrap.classList.contains('is-hidden')));
+      }
+      function showToast(text, action) {
+        // An open card already has recovery actions; don't cover them with a toast.
+        if (!wrap.classList.contains('is-hidden')) {
+          document.getElementById('hc-note').textContent = text;
+          toast.hidden = true;
+          return;
+        }
+        document.getElementById('hc-toast-text').textContent = text;
+        document.getElementById('hc-toast-action').hidden = !action;
+        toast.hidden = false;
+      }
+      function scheduleSlow() {
+        clearTimeout(slowTimer);
+        slowTimer = setTimeout(function () { hadIssue = true; show('slow', true); }, 6500);
+      }
+      function reopen() {
+        if (cooldown) return;
+        dismissed = false;
+        cooldown = true;
+        hadIssue = true;
+        toast.hidden = true;
+        show('retrying', true);
+        clearTimeout(cooldownTimer);
+        cooldownTimer = setTimeout(function () { cooldown = false; retry.disabled = false; }, 2500);
+        scheduleSlow();
+        // A manual retry also works when navigator.onLine gives a false hint.
+        frame.src = APP_URL + '?_retry=' + Date.now();
+      }
+      frame.addEventListener('load', function () {
+        clearTimeout(slowTimer);
+        if (navigator.onLine === false) { hadIssue = true; show('error', true); return; }
+        // Load can also mean a remote error document. Never label it app-ready.
+        show('unverified', false);
+        wrap.classList.add('is-hidden');
+        pill.setAttribute('aria-expanded', 'false');
+        if (hadIssue) showToast('The portal was refreshed. If the lab stays blank, open it in a new tab.', false);
+      });
+      frame.addEventListener('error', function () {
+        clearTimeout(slowTimer);
+        hadIssue = true;
+        show('error', true);
+      });
+      // Optional explicit readiness signal. Ignore other windows and origins.
+      window.addEventListener('message', function (event) {
+        if (event.origin !== new URL(APP_URL).origin || event.source !== frame.contentWindow) return;
+        if (!event.data || event.data.type !== 'hiddencare:ready') return;
+        clearTimeout(slowTimer);
+        show('ready', false);
+        wrap.classList.add('is-hidden');
+        pill.setAttribute('aria-expanded', 'false');
+      });
+      retry.addEventListener('click', reopen);
+      document.getElementById('hc-btn-dismiss').addEventListener('click', function () {
+        dismissed = true;
+        wrap.classList.add('is-hidden');
+        pill.setAttribute('aria-expanded', 'false');
+        pill.focus({ preventScroll: true });
+      });
+      pill.setAttribute('aria-controls', 'hc-card-wrap');
+      pill.addEventListener('click', function () {
+        var hidden = wrap.classList.toggle('is-hidden');
+        dismissed = hidden;
+        pill.setAttribute('aria-expanded', String(!hidden));
+      });
+      document.getElementById('hc-toast-action').addEventListener('click', reopen);
+      window.addEventListener('offline', function () {
+        hadIssue = true;
+        clearTimeout(slowTimer);
+        show('error', true);
+        showToast('The path may have faded. Check your connection, then reopen the portal when you are ready.', true);
+      });
+      window.addEventListener('online', function () {
+        showToast('A light on the horizon. Your device reports a connection again; try the portal when you are ready.', true);
+      });
+      show('loading', true);
+      scheduleSlow();
+      if (navigator.onLine === false) { clearTimeout(slowTimer); show('error', true); }
+      frame.src = frame.dataset.src;
+    })();
+  </script>
 </body>
 </html>

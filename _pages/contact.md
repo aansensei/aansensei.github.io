@@ -66,15 +66,23 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
 @keyframes cfPop{0%{transform:scale(.2) rotate(-40deg);}100%{transform:scale(1) rotate(0);}}
 @keyframes cfShake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(3px);}}
 @keyframes cfConf{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1);}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.6);}}
-@media(prefers-reduced-motion:reduce){.cf-send.is-sending::after,.cf-send.is-sending .cf-plane,.cf-send.is-sent .cf-plane,.cf-send.is-fail,.cf-conf{animation:none;}}
-.cf-status{min-height:1.5em;margin:12px 0 0;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.5;}
+
+/* Recovery cards share the portfolio theme in assets/css/error-ux.css. */
+@media(prefers-reduced-motion:reduce){
+  .cf-send.is-sending::after,.cf-send.is-sending .cf-plane,.cf-send.is-sent .cf-plane,.cf-send.is-fail,.cf-conf,.cf-state-mascot,.cf-state-sparkle{animation:none !important;}
+}
+.cf-status{min-height:0;margin:8px 0 0;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.5;}
 .cf-status.ok{color:#52c9b9;}
 .cf-status.err{color:#ff9aa8;}
-.cf-status a{color:inherit;text-decoration:underline;}
-.cf-alt{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:10px;}
-.cf-alt a,.cf-alt button{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;letter-spacing:.04em;line-height:1;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(240,200,74,.6);background:rgba(10,8,25,.7);color:#f6d765;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;}
-.cf-alt a:hover,.cf-alt button:hover,.cf-alt a:focus-visible,.cf-alt button:focus-visible{background:#f0c84a;color:#1a1204;}
-@media(max-width:480px){.contact-card{padding:34px 20px;}.contact-poem{letter-spacing:.02em;}.contact-status{padding:12px 12px 10px;}.contact-open{font-size:.72rem;letter-spacing:.09em;padding:4px 11px;}.cf-title{font-size:1.1rem;}}
+@media(max-width:480px){
+  .contact-card{padding:34px 20px;}
+  .contact-poem{letter-spacing:.02em;}
+  .contact-status{padding:12px 12px 10px;}
+  .contact-open{font-size:.72rem;letter-spacing:.09em;padding:4px 11px;}
+  .cf-title{font-size:1.1rem;}
+  .cf-state-actions{flex-direction:column;align-items:stretch;}
+  .cf-state-btn{width:100%;}
+}
 body.an-day-mode .contact-chapter{color:#006666;opacity:.8;}
 body.an-day-mode .contact-card{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 12px 40px rgba(19,60,90,.2),inset 0 1px 0 rgba(255,255,255,.7);}
 body.an-day-mode .contact-card::before{background:linear-gradient(to right,transparent,#0f8a8a,transparent);}
@@ -105,8 +113,6 @@ body.an-day-mode .contact-card .cf-send{background:linear-gradient(135deg,#8fe3d
 body.an-day-mode .contact-card .cf-send:hover{box-shadow:0 9px 24px rgba(15,138,138,.5),inset 0 1px 0 rgba(255,255,255,.6);}
 body.an-day-mode .cf-status.ok{color:#0b6b45;}
 body.an-day-mode .cf-status.err{color:#b3261e;}
-body.an-day-mode .cf-alt a,body.an-day-mode .cf-alt button{background:rgba(255,255,255,.92);border-color:rgba(0,102,102,.55);color:#00504e;}
-body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-day-mode .cf-alt a:focus-visible,body.an-day-mode .cf-alt button:focus-visible{background:#006666;color:#fff;}
 </style>
 
 <div id="contact-wrap">
@@ -145,6 +151,28 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
       <input type="hidden" name="_template" value="table">
       <button type="submit" class="cf-send" id="cfSend"><i class="fas fa-paper-plane cf-plane" id="cfIcon"></i><span id="cfLabel">Send message</span></button>
       <p class="cf-status" id="cfStatus" role="status" aria-live="polite"></p>
+
+      <!-- An orbit seal for each stage of this message's journey. -->
+      <div class="cf-state-card" id="cfStateCard" aria-label="Message delivery" role="region" aria-live="polite" hidden>
+        <i class="cf-state-sparkle sp1" aria-hidden="true">&#10022;</i>
+        <i class="cf-state-sparkle sp2" aria-hidden="true">&#10023;</i>
+        <div class="cf-state-head">
+          <div class="cf-state-mascot">
+            <img src="/assets/images/kanade-404.png" alt="Kanade plush" width="68" height="68" onerror="this.style.display='none'">
+          </div>
+          <div>
+            <span class="cf-state-badge" id="cfStateBadge">A Scroll Takes Flight</span>
+            <h4 class="cf-state-title" id="cfStateTitle">Sending your scroll...</h4>
+          </div>
+        </div>
+        <p class="cf-state-body" id="cfStateBody">Your words are setting out across the stars.</p>
+        <div class="cf-state-actions" id="cfStateActions" hidden>
+          <button type="button" class="cf-state-btn cf-state-btn-primary" id="cfRetryBtn">Send the Scroll Again</button>
+          <a class="cf-state-btn cf-state-btn-secondary" href="mailto:cnguyen49@wisc.edu" id="cfMailtoBtn">Open in my email app</a>
+          <button type="button" class="cf-state-btn cf-state-btn-secondary" id="cfCopyBtn">Copy message</button>
+          <a class="cf-state-btn cf-state-btn-ghost" href="/" id="cfHomeBtn">Return to Cockpit</a>
+        </div>
+      </div>
     </form>
   </div>
 </div>
@@ -154,13 +182,40 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
   var form=document.getElementById('contactForm');
   if(!form)return;
   var btn=document.getElementById('cfSend'),status=document.getElementById('cfStatus'),label=document.getElementById('cfLabel'),icon=document.getElementById('cfIcon');
+  var stateCard=document.getElementById('cfStateCard'),stateBadge=document.getElementById('cfStateBadge'),stateTitle=document.getElementById('cfStateTitle'),stateBody=document.getElementById('cfStateBody'),stateActions=document.getElementById('cfStateActions');
+  var retryBtn=document.getElementById('cfRetryBtn'),mailtoBtn=document.getElementById('cfMailtoBtn'),copyBtn=document.getElementById('cfCopyBtn');
   var MAIL='cnguyen49@wisc.edu';
   /* Web3Forms access key. It is public by design: it can only deliver mail to the address it was made for. */
   var W3F_KEY='2b240aef-074c-4c4e-a046-a2b0b47efed1';
-  var SLOW_MS=5000,TRY_MS=12000,IDLE='Send message';
+  var SLOW_MS=4500,TRY_MS=10000,IDLE='Send message';
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var dotTimer=null,slowTimer=null,resetTimer=null,sending=false;
+  var dotTimer=null,slowTimer=null,resetTimer=null,sending=false,hadFailure=false,retryCooldown=false,lastData=null;
+
   function say(text,kind){status.className='cf-status'+(kind?' '+kind:'');status.textContent=text;}
+
+  function renderStateCard(state,data){
+    if(!stateCard)return;
+    stateCard.hidden=false;
+    stateCard.setAttribute('data-state',state);
+    var words={
+      loading:['A Scroll Takes Flight','Sending your scroll...',"Your words are crossing the stars. Keep this page open while we wait for delivery confirmation."],
+      retrying:['Another Journey','Sending your scroll once more...',"Another flight through the starlight. Your words stay here until delivery is confirmed."],
+      slow:['A Little More Starlight','Your messenger is taking the scenic route',"The mail service is taking longer than expected. Your words are still here while we wait."],
+      error:['A Pause in the Journey','Your scroll has not found its way',"Delivery is unconfirmed. Your words are still here: try again, use your email app, or copy the scroll."],
+      recovered:['Back Among the Stars','Your scroll is on its way',"The mail service has accepted your message. Thank you for adding a little light to this world."],
+      ok:['A Scroll Takes Flight','Your scroll is on its way',"The mail service has accepted your message. Thank you for adding a little light to this world."]
+    };
+    var text=words[state]||words.loading;
+    stateBadge.textContent=text[0];
+    stateTitle.textContent=text[1];
+    stateBody.textContent=text[2];
+    stateActions.hidden=state!=='error';
+    if(state==='error'){
+      if(data)mailtoBtn.href=mailtoHref(data);
+      retryBtn.disabled=retryCooldown;
+    }
+  }
+
   /* each service takes the same fields and answers JSON; a missing or slow answer moves on to the next one.
      Web3Forms goes first when it has a key, because it answers fast, and FormSubmit is the second chance. */
   var SERVICES=[
@@ -171,8 +226,8 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
   ].filter(function(x){return x.on;});
   function readOk(j){return !!j&&(j.success===true||j.success==='true');}
   function post(service,data){
-    var ctrl=window.AbortController?new AbortController():null,timer=null,timedOut=false;
-    var limit=new Promise(function(_,reject){timer=setTimeout(function(){timedOut=true;if(ctrl)ctrl.abort();reject(new Error('timeout'));},TRY_MS);});
+    var ctrl=window.AbortController?new AbortController():null,timer=null;
+    var limit=new Promise(function(_,reject){timer=setTimeout(function(){if(ctrl)ctrl.abort();reject(new Error('timeout'));},TRY_MS);});
     var request=fetch(service.url,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(service.body(data)),signal:ctrl?ctrl.signal:undefined})
       .then(function(r){return r.json().then(function(j){return {ok:r.ok,json:j};},function(){return {ok:false,json:null};});})
       .then(function(res){
@@ -199,15 +254,12 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
     function legacy(){var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:-9999px;top:0;';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done(ok);}
     if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){done(true);},legacy);}else{legacy();}
   }
-  /* nothing is lost: the form keeps the text, and two buttons deliver it another way */
+  /* nothing is lost: the form keeps the text, and action buttons allow retrying or sending another way */
   function fail(data){
-    status.className='cf-status err';
-    status.textContent='The message service is not answering right now, so nothing was sent. Your text is still here. You can send it from your own email app, or copy it.';
-    var alt=document.createElement('div');alt.className='cf-alt';
-    var mail=document.createElement('a');mail.href=mailtoHref(data);mail.textContent='Open in my email app';
-    var copy=document.createElement('button');copy.type='button';copy.textContent='Copy message';
-    copy.addEventListener('click',function(){copyText('To: '+MAIL+'\nSubject: Portfolio message: '+data.subject+'\n\n'+data.message,function(ok){copy.textContent=ok?'Copied':'Copy failed';setTimeout(function(){copy.textContent='Copy message';},2200);});});
-    alt.appendChild(mail);alt.appendChild(copy);status.appendChild(alt);
+    hadFailure=true;
+    lastData=data;
+    say('');
+    renderStateCard('error',data);
     btn.classList.remove('is-fail');void btn.offsetWidth;btn.classList.add('is-fail');
   }
   function confetti(){
@@ -226,13 +278,14 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
     btn.appendChild(burst);
     setTimeout(function(){if(burst.parentNode)burst.parentNode.removeChild(burst);},1100);
   }
-  function startSending(){
+  function startSending(isRetry){
     sending=true;btn.disabled=true;
     btn.classList.remove('is-sent','is-fail');btn.classList.add('is-sending');
     icon.className='fas fa-paper-plane cf-plane';
-    var n=0;label.textContent='Sending';
-    dotTimer=setInterval(function(){n=(n+1)%4;label.textContent='Sending'+'...'.slice(0,n);},350);
-    slowTimer=setTimeout(function(){say('Still sending. This is taking a little longer than usual.');},SLOW_MS);
+    var n=0;label.textContent=isRetry?'Retrying':'Sending';
+    renderStateCard(isRetry?'retrying':'loading');
+    dotTimer=setInterval(function(){n=(n+1)%4;label.textContent=(isRetry?'Retrying':'Sending')+'...'.slice(0,n);},350);
+    slowTimer=setTimeout(function(){renderStateCard('slow');},SLOW_MS);
   }
   function stopSending(ok){
     sending=false;
@@ -241,33 +294,68 @@ body.an-day-mode .cf-alt a:hover,body.an-day-mode .cf-alt button:hover,body.an-d
     if(ok){
       btn.classList.add('is-sent');icon.className='fas fa-check cf-plane';label.textContent='Sent';
       confetti();
+      renderStateCard(hadFailure?'recovered':'ok');
+      hadFailure=false;
       clearTimeout(resetTimer);
       resetTimer=setTimeout(function(){btn.classList.remove('is-sent');icon.className='fas fa-paper-plane cf-plane';label.textContent=IDLE;},3200);
     }else{
       label.textContent=IDLE;
     }
   }
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    if(sending||btn.disabled){return;}
-    ['name','subject','message'].forEach(function(k){form.elements[k].value=form.elements[k].value.trim();});
-    if(form.elements['_honey'].value){return;}
-    if(!form.checkValidity()){form.reportValidity();return;}
-    say('');clearTimeout(resetTimer);
-    startSending();
-    var data={
+  function collectFormData(){
+    return {
       name:form.elements['name'].value.trim(),
       email:form.elements['email'].value.trim(),
       subject:form.elements['subject'].value.trim(),
       message:form.elements['message'].value.trim()
     };
+  }
+  function submitData(isRetry){
+    if(sending||btn.disabled)return;
+    if(form.elements['_honey'].value)return;
+    if(!form.checkValidity()){form.reportValidity();return;}
+    say('');clearTimeout(resetTimer);
+    var data=collectFormData();
+    lastData=data;
+    startSending(isRetry);
     deliver(data).then(function(){
-      form.reset();
+      var current=collectFormData();
+      if(Object.keys(data).every(function(key){return data[key]===current[key];}))form.reset();
       stopSending(true);
-      say('Thank you. Your message is on its way, and I will reply soon.','ok');
     },function(){
       stopSending(false);fail(data);
     });
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    submitData(false);
+  });
+  if(retryBtn){
+    retryBtn.addEventListener('click',function(){
+      if(retryCooldown||sending)return;
+      retryCooldown=true;
+      retryBtn.disabled=true;
+      setTimeout(function(){retryCooldown=false;if(retryBtn)retryBtn.disabled=false;},2000);
+      submitData(true);
+    });
+  }
+  form.addEventListener('input',function(){
+    if(stateCard&&!stateCard.hidden&&stateCard.dataset.state==='error')mailtoBtn.href=mailtoHref(collectFormData());
+  });
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(){
+      var d=collectFormData();
+      copyText('To: '+MAIL+'\nSubject: Portfolio message: '+d.subject+'\n\n'+d.message,function(ok){
+        copyBtn.textContent=ok?'Copied!':'Copy failed';
+        setTimeout(function(){copyBtn.textContent='Copy message';},2200);
+      });
+    });
+  }
+  window.addEventListener('online',function(){
+    if(hadFailure&&stateCard&&!stateCard.hidden){
+      stateBadge.textContent='A Light on the Horizon';
+      stateBody.textContent='Your device reports a connection again. Your words are still here; send the scroll again whenever you are ready.';
+    }
   });
 })();
 </script>

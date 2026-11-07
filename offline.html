@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <title>Between Worlds | An's Magical World</title>
+  <script>
+    // Match the portfolio's per-tab, five-minute day/night preference before paint.
+    (function () {
+      var mode = 'day';
+      try {
+        var now = Date.now(), ts = +sessionStorage.getItem('an_ts') || 0;
+        var act = +sessionStorage.getItem('an_act') || 0;
+        if (sessionStorage.getItem('an_theme') === 'night' && now - ts < 300000 && (!act || now - act < 300000)) mode = 'night';
+      } catch (e) {}
+      document.documentElement.dataset.recoveryTheme = mode;
+    })();
+  </script>
+  <script src="/assets/js/error-ux.js" defer></script>
+  <link rel="stylesheet" href="/assets/css/error-ux.css">
+</head>
+<body class="an-offline-page an-standalone-recovery">
+  <button class="an-recovery-theme" type="button" data-recovery-theme-toggle aria-label="Switch to night theme" title="Change Time">
+          <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5Z"/></svg>
+          <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+        </button>
+  <main class="an-offline-card" aria-labelledby="offline-title">
+    <span class="an-offline-sparkle" aria-hidden="true">&#10022;</span>
+    <span class="an-offline-sparkle" aria-hidden="true">&#10023;</span>
+    <div class="an-offline-mascot"><img src="/assets/images/kanade-404.png" width="134" height="134" alt="Kanade plush, your travelling companion"></div>
+    <div class="an-offline-kicker">An's Magical World</div>
+    <h1 id="offline-title">Somewhere Between Worlds</h1>
+    <p class="an-offline-story">The stars are quiet for a moment.<br>Our path to this realm has faded from view.</p>
+    <p class="an-offline-detail" id="offline-detail" role="status" aria-live="polite">We couldn't reach this page. Check your connection, or give the realm a little time before trying again.</p>
+    <div class="an-offline-actions">
+      <a class="an-recovery-button an-recovery-button-primary" id="offline-retry" href="/">Reopen the Portal</a>
+      <a class="an-recovery-button" href="/">Return to Cockpit</a>
+    </div>
+    <p class="an-offline-footnote">Every journey deserves another chapter.</p>
+    <noscript><p>JavaScript is off. Use Return to Cockpit to try the homepage again.</p></noscript>
+  </main>
+  <script>
+    (function () {
+      var retry = document.getElementById('offline-retry');
+      var detail = document.getElementById('offline-detail');
+      var busy = false;
+      // A network fallback stays at the original requested URL, including its query.
+      var destination = location.pathname === '/offline.html' ? '/' : location.pathname + location.search + location.hash;
+      retry.href = destination;
+      retry.addEventListener('click', function (event) {
+        if (busy) { event.preventDefault(); return; }
+        busy = true;
+        retry.textContent = 'Opening the portal...';
+        retry.setAttribute('aria-disabled', 'true');
+        setTimeout(function () { busy = false; retry.textContent = 'Reopen the Portal'; retry.removeAttribute('aria-disabled'); }, 5000);
+      });
+      window.addEventListener('online', function () {
+        detail.textContent = 'A light has returned to the horizon. Your device reports a connection again; reopen the portal whenever you are ready.';
+      });
+      document.addEventListener('visibilitychange', function () {
+        document.documentElement.classList.toggle('an-error-paused', document.hidden);
+      });
+    })();
+  </script>
+</body>
+</html>

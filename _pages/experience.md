@@ -289,9 +289,12 @@ var EXP_DATA = {
   },
   experience: {
     nodes: [
-      {x:22,y:36,logo:"/assets/images/visa-logo.jpg",role:"Rotational Program Intern",org:"Vietnamese International Student Association, UW-Madison · Madison, WI",date:"February 2026 – Present",highlights:[
-        "<strong>Event Support &amp; Coordination:</strong> Assisted senior members in planning and executing Tet in All Directions (2026), a large-scale cultural celebration with 500+ attendees, managing logistics, volunteer coordination, and on-site operations.",
-        "<strong>Presentation &amp; Workshop Leadership:</strong> Led the planning and development of a comprehensive presentation for Cultural Workshop 2026, an educational event with 30+ participants, covering Vietnamese cultural traditions and student community resources."
+      {x:22,y:36,logo:"/assets/images/visa-logo.jpg",role:"Finance Chair",org:"Vietnamese International Student Association, UW-Madison · Madison, WI",date:"September 2026 - Present",highlights:[
+        "<strong>Funding &amp; Grant Applications:</strong> Collaborate with Associated Students of Madison (ASM) and International Student Services (ISS) on funding opportunities and grant applications, including the Global Badger Experience Grant (GBEG), to support cultural and community programming.",
+        "<strong>Executive Board Collaboration:</strong> Work with an eight-member executive board to coordinate event logistics and identify funding needs for activities that strengthen connections among students.",
+        "<strong>Fundraising &amp; Community Support:</strong> Research additional fundraising opportunities and help plan charity fundraising events to support organizational programming and community causes.",
+        "<strong>Previously · Rotational Program Intern (joined February 2026):</strong> Supported logistics, volunteer coordination, and on-site operations for Tet in All Directions (2026), a cultural celebration with 500+ attendees.",
+        "<strong>Cultural Workshop 2026:</strong> Led the planning and development of a presentation on Vietnamese cultural traditions and student community resources for 30+ participants."
       ]},
       {x:52,y:11,logo:"/assets/images/sadec-logo-square.png",logoDay:"/assets/images/sadec-logo-square-dark.png",role:"AI Engineer Intern",org:"SADEC Technology JSC · Ho Chi Minh City, Vietnam",date:"June 2026 – August 2026",highlights:[
         "Built Ciel, an enterprise RAG chatbot that answers employee questions from company documents with inline citations, supporting Vietnamese, English, Japanese, and Chinese.",
