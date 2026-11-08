@@ -426,7 +426,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 @media(max-width:400px){
   .shelf-ornament{width:26px;right:5px;bottom:-16px;}
 }
-.shelf-filter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:min(calc(100% - 24px),460px);margin:6px auto 30px;padding:6px;border-radius:999px;background:linear-gradient(180deg,rgba(255,236,170,.08),rgba(255,236,170,0) 60%),rgba(14,11,38,.58);border:1px solid rgba(201,162,39,.5);box-shadow:inset 0 1px 0 rgba(255,236,170,.2),0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,39,.07);}
+.shelf-filter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:min(calc(100% - 24px),640px);margin:6px auto 30px;padding:6px;border-radius:999px;background:linear-gradient(180deg,rgba(255,236,170,.08),rgba(255,236,170,0) 60%),rgba(14,11,38,.58);border:1px solid rgba(201,162,39,.5);box-shadow:inset 0 1px 0 rgba(255,236,170,.2),0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,39,.07);}
 .shelf-tab{position:relative;isolation:isolate;min-height:46px;padding:0 4px;border:0;border-radius:999px;cursor:pointer;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8d9a8;background:transparent;transition:color .3s ease,background-color .3s ease,transform .3s ease;-webkit-tap-highlight-color:transparent;}
 .shelf-tab::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(180deg,#f7d766 0%,#d9a91f 55%,#b88a16 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 16px rgba(240,200,74,.45);opacity:0;transition:opacity .3s ease;}
 .shelf-tab:hover{background-color:rgba(240,200,74,.12);}
@@ -439,13 +439,13 @@ body.an-day-mode .shelf-tab::before{background:linear-gradient(180deg,#3cc0dc 0%
 body.an-day-mode .shelf-tab:hover{background-color:rgba(10,116,144,.1);}
 body.an-day-mode .shelf-tab:focus-visible{outline-color:#0a7490;}
 body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
-@media(max-width:480px){.shelf-tab{font-size:14px;letter-spacing:.08em;}}
-@media(max-width:380px){.shelf-tab{font-size:12.5px;letter-spacing:.05em;}}
+@media(max-width:480px){.shelf-filter{gap:4px;padding:4px;}.shelf-tab{font-size:clamp(9.5px,3vw,11.5px);letter-spacing:.03em;padding:0 2px;}}
 @media(prefers-reduced-motion:reduce){.shelf-tab,.shelf-tab::before{transition:none;}}
 .book-container[hidden]{display:none!important;}
 </style>
 
 <div class="shelf-filter" role="group" aria-label="Filter the collection">
+  <button type="button" class="shelf-tab" data-filter="all" aria-pressed="true">All</button>
   <button type="button" class="shelf-tab" data-filter="academic" aria-pressed="false">Academic</button>
   <button type="button" class="shelf-tab" data-filter="recreational" aria-pressed="false">Recreational</button>
 </div>
@@ -835,7 +835,11 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#111111;">
-            <img src="/assets/images/shrinkflation-preview.png" alt="Shrinkflation Detective Dashboard" style="width:100%;height:100%;object-fit:contain;">
+            <div style="padding:20px;text-align:center;color:#e8d9a8;font-family:'Cormorant Garamond',serif;">
+              <i class="fas fa-search" aria-hidden="true" style="font-size:2rem;opacity:.65;"></i>
+              <p style="margin:12px 0 6px;">Shrinkflation Detective</p>
+              <p style="margin:0;font-size:.85rem;opacity:.7;">Preview coming soon</p>
+            </div>
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
@@ -897,7 +901,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="background:#050b18;">
-            <img src="/assets/images/pisces-space-journey-cover.png" alt="Pisces: Space Journey artwork" style="object-fit:cover;object-position:center 45%;">
+            <img src="/assets/images/pisces-space-journey-cover.webp" alt="Pisces: Space Journey artwork" style="object-fit:cover;object-position:center 45%;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">HTML</span>
@@ -960,7 +964,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="background:#140704;">
-            <img src="/assets/images/hiddencare-preview.png?v=hidden-lens-20261108" alt="A brass lens reveals people hidden within health records, illustrating HiddenCare label bias research" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:cover;">
+            <img src="/assets/images/hiddencare-preview.webp?v=hidden-lens-20261108" alt="A brass lens reveals people hidden within health records, illustrating HiddenCare label bias research" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
@@ -1018,26 +1022,58 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
 
 <script>
 (function () {
-  // each tab shows only the books of its category, and pressing the active tab shows every book again
+  // each tab shows the books of its category and the All tab shows the whole collection.
+  // leaving books fade out together, then the incoming books rise in one after another.
+  // only opacity and transform are animated so the work stays on the compositor.
   var tabs = document.querySelectorAll('.shelf-tab');
   var books = document.querySelectorAll('.bookshelf .book-container');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current = '';
+  var current = 'all';
+  var run = 0;
   function apply(filter) {
+    var id = ++run;
     current = filter;
     tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.filter === filter ? 'true' : 'false'); });
+    books.forEach(function (b) { b.getAnimations().forEach(function (a) { a.cancel(); }); });
+    var leaving = [];
+    var entering = [];
     books.forEach(function (b) {
-      var show = !filter || b.dataset.category === filter;
-      var was = !b.hidden;
-      b.hidden = !show;
-      if (show) {
-        b.classList.add('reveal-visible');
-        if (!was && !reduce && b.animate) b.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
-      }
+      var show = filter === 'all' || b.dataset.category === filter;
+      if (show && b.hidden) entering.push(b);
+      else if (!show && !b.hidden) leaving.push(b);
     });
+    function enter() {
+      if (id !== run) return;
+      entering.forEach(function (b, i) {
+        b.classList.add('reveal-visible');
+        b.hidden = false;
+        if (reduce) return;
+        b.animate(
+          [{ opacity: 0, transform: 'translateY(22px) scale(.94)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }],
+          { duration: 380, delay: i * 55, easing: 'cubic-bezier(.25,1,.5,1)', fill: 'backwards' }
+        );
+      });
+    }
+    if (reduce || !leaving.length) {
+      leaving.forEach(function (b) { b.hidden = true; });
+      enter();
+      return;
+    }
+    var anims = leaving.map(function (b) {
+      return b.animate(
+        [{ opacity: 1, transform: 'translateY(0) scale(1)' }, { opacity: 0, transform: 'translateY(10px) scale(.96)' }],
+        { duration: 180, easing: 'ease-in', fill: 'forwards' }
+      );
+    });
+    Promise.all(anims.map(function (a) { return a.finished; })).then(function () {
+      if (id !== run) return;
+      leaving.forEach(function (b) { b.hidden = true; });
+      anims.forEach(function (a) { a.cancel(); });
+      enter();
+    }).catch(function () {});
   }
   tabs.forEach(function (t) {
-    t.addEventListener('click', function () { apply(current === t.dataset.filter ? '' : t.dataset.filter); });
+    t.addEventListener('click', function () { if (t.dataset.filter !== current) apply(t.dataset.filter); });
   });
 })();
 </script>
@@ -1062,7 +1098,7 @@ window.addEventListener('pageshow',function(){
 </script>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}
