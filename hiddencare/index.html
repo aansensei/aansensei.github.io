@@ -163,6 +163,53 @@
         <span id="hc-toast-text">A light on the horizon. Try the portal again when you are ready.</span>
         <button type="button" class="hc-toast-btn" id="hc-toast-action">Reopen Portal</button>
       </div>
+    
+      <!-- CRAWLABLE SEMANTIC ARTICLE FOR SEARCH ENGINES & AI BOTS (Googlebot, Bingbot, GPTBot, PerplexityBot) -->
+      <article class="hc-crawler-article" style="position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;" aria-hidden="false">
+        <h1>HiddenCare: When Training Labels Change Who Gets Screened</h1>
+        <h2>Temporal Evaluation of Diagnosis-Based Versus Biomarker-Augmented Labels for Diabetes Screening in NHANES</h2>
+        
+        <p><strong>Principal Investigator &amp; Author:</strong> Cao Thien An Nguyen (Cao Thiên Ân Nguyễn, aansensei), Undergraduate in Economics and Data Science, University of Wisconsin&ndash;Madison (UW&ndash;Madison).</p>
+        <p><strong>Published:</strong> November 2026 &bull; University of Wisconsin&ndash;Madison &bull; Research Dossier and Interactive Epidemiological Laboratory</p>
+        
+        <h3>Study Abstract</h3>
+        <p>
+          Population screening triage algorithms frequently train on self-reported prior diagnoses or electronic health records (EHR). However, diagnosis-based labels can mark unrecorded disease negative when individuals face healthcare access barriers or lack recent clinical encounters. Using continuous biomonitoring microdata from the CDC National Health and Nutrition Examination Survey (NHANES 2017 to 2023, N = 12,459 adults), HiddenCare investigates how augmenting administrative diagnosis proxy labels with objective venous HbA1c (&ge; 6.5%) alters triage queue prioritization and uncovers latent diabetes cases under finite community screening budgets.
+        </p>
+
+        <h3>Key Empirical Findings &amp; The 61-Person Decision Boundary Swap</h3>
+        <p>
+          Holding screening capacity fixed at 20% (K = 939 slots among N = 4,698 undiagnosed holdout adults from 2021&ndash;2023), both models agree on 878 shared individuals (93.5% triage concordance, finding 52 cases). At the 20% decision boundary, the models swap 61 individuals (122 marginal candidates total). Model B (trained on biomarker-augmented labels) achieves a 4.92% yield (3 cases / 61 slots, 3.0x precision) compared to Model A's 1.64% (1 case / 61 slots), detecting +2 additional latent diabetes cases at identical $0 laboratory expenditure.
+        </p>
+
+        <h3>Complex Survey Variance &amp; Paired Sensitivity Inference</h3>
+        <p>
+          Under CDC phlebotomy examination weights (WTPH2YR) and Taylor Series Linearization (df = 15):
+          Model A Population Sensitivity: 40.08% [95% CI: 28.9%, 51.2%].
+          Model B Population Sensitivity: 42.47% [95% CI: 28.4%, 56.5%].
+          Paired Sensitivity Difference (&Delta;): +2.38 percentage points [paired 95% CI: -1.77 pp, +6.53 pp].
+          Because both algorithms evaluate identical N = 116 holdout cases, strong positive covariance reduces the variance of the difference by over 65%, dropping the standard error from 5.23 pp to 1.95 pp.
+        </p>
+
+        <h3>Health Equity Audit &amp; Uninsured Disparities</h3>
+        <p>
+          Among uninsured individuals (n = 13 potential cases), Model B identified 3 of 13 cases (23.1%) compared to Model A's 2 of 13 (15.4%), demonstrating that biomarker augmentation resists systematic deprioritization of individuals without commercial health coverage.
+        </p>
+
+        <h3>How to Cite (APA 7th Edition)</h3>
+        <p>
+          Nguyen, C. T. A. (2026). <em>When training labels change who gets screened: Temporal evaluation of diagnosis-based versus biomarker-augmented labels in NHANES</em> [Research Poster &amp; Interactive Lab]. University of Wisconsin&ndash;Madison. https://aansensei.dev/hiddencare/
+        </p>
+
+        <h3>Repositories &amp; Links</h3>
+        <p>
+          Interactive Lab: https://aansensei.dev/hiddencare/<br>
+          Source Code: https://github.com/aansensei/HiddenCare<br>
+          Hugging Face Space: https://huggingface.co/spaces/aansensei/HiddenCare<br>
+          Author Portfolio: https://aansensei.dev
+        </p>
+      </article>
+
     </main>
   </div>
 
