@@ -103,3 +103,6 @@ defaults:
     values:
       layout: single
       author_profile: true
+
+# Bing Webmaster Verification
+bing_site_verification: "D27EB62AE198FE8806968236A7FEF477"
