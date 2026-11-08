@@ -1,15 +1,9 @@
-    function castleGeometry() {
+    function drawCastle(a, t, isReflection) {
+      ctx.save(); ctx.globalAlpha = a;
       var bY = H * (H > W ? 0.65 : 0.82);
       var isMobile = W < 768;
       var VW = isMobile ? 900 : W;
       var s = Math.max(VW / 1280, isMobile ? 0.9 : .4) * 1.1 * (isMobile ? 1.25 : 1);
-      return { bY: bY, VW: VW, s: s };
-    }
-
-    function drawCastle(a, t, isReflection) {
-      ctx.save(); ctx.globalAlpha = a;
-      var geometry = castleGeometry();
-      var bY = geometry.bY, VW = geometry.VW, s = geometry.s;
       var nt = activeTime * 0.001;
       var isNight = t <= 0.5;
 
@@ -872,10 +866,7 @@
         c = CASTLE_CACHE[key] = { cv: document.createElement('canvas'), at: -1e9, t: -1, w: 0, h: 0 };
         c.cx = c.cv.getContext('2d');
       }
-      /* Keep the intentional enlarged, side-cropped mobile composition. The cache band must
-         include its roof and haze, which can extend above 20% of a short phone viewport. */
-      var geometry = castleGeometry();
-      var y0 = Math.max(0, Math.floor(Math.min(H * 0.2, geometry.bY - 340 * geometry.s)));
+      var y0 = Math.floor(H * 0.2);
       /* The bitmap is rebuilt now and then so the flag, the lanterns and the night lights keep moving. On
          a fast machine a rebuild takes a couple of milliseconds, but on a slow one it takes 15 to 20, longer
          than a whole frame, so the interval grows with the measured cost: the castle never spends more than
