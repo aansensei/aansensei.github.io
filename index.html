@@ -158,6 +158,37 @@ title: "Xin chào! I'm An"
     );
   }
 
+  /* HiddenCare keeps the shared card layout with its own amethyst spine and seal. */
+  body .home-project-card.card-violet::before {
+    background: linear-gradient(180deg, #21102f 0%, #68408d 18%, #c3a1ed 32%, #7544a0 52%, #ac82da 72%, #301744 100%);
+  }
+
+  body .home-project-card.card-violet::after {
+    background: linear-gradient(to right, rgba(195,161,237,.85), rgba(117,68,160,.3), transparent);
+  }
+
+  body .home-project-card.card-violet .home-project-title {
+    color: #c3a1ed !important;
+  }
+
+  body.an-day-mode .home-project-card.card-violet .home-project-title {
+    color: #70419a !important;
+  }
+
+  body .home-project-card.card-violet .btn-violet {
+    background: linear-gradient(135deg, #68408d, #9765c5);
+    border: 1px solid rgba(195,161,237,.35);
+  }
+
+  .grim-seal.seal-violet {
+    background: radial-gradient(circle at 38% 32%, #7544a0, #21102f 70%);
+  }
+
+  body .home-project-card.card-violet.is-hovered::before,
+  body .home-project-card.card-violet.is-hovered .grim-seal {
+    box-shadow: 0 0 22px rgba(172,130,218,.55), inset 0 0 6px rgba(0,0,0,.5);
+  }
+
   .grim-corner { position: absolute; width: 14px; height: 14px; transition: width .35s ease, height .35s ease, border-color .35s ease, filter .35s ease; }
   .grim-corner.tl { top:10px;    left:22px;  border-top:    1.5px solid rgba(201,162,39,.58); border-left:  1.5px solid rgba(201,162,39,.58); }
   .grim-corner.tr { top:10px;    right:10px; border-top:    1.5px solid rgba(201,162,39,.58); border-right: 1.5px solid rgba(201,162,39,.58); }
@@ -443,33 +474,6 @@ title: "Xin chào! I'm An"
 
 <div class="home-divider reveal-item"><span class="home-divider-text">Featured Projects</span></div>
 
-<div class="home-project-card card-teal reveal-item" style="border: 2px solid #0284c7; box-shadow: 0 8px 30px rgba(2, 132, 199, 0.12);">
-  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
-  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
-  <span class="grim-spine-vol" style="color: #0284c7; font-weight: 700;">FLAGSHIP RESEARCH</span>
-  <div class="grim-shimmer"></div>
-  <div class="grim-vol" style="color: #0284c7;">Special Dossier</div>
-  <p class="grim-chapter">Biostatistics &amp; Epidemiological Machine Learning</p>
-  <div class="home-project-title-row">
-    <span class="grim-rune" style="color: #0284c7;">ᚠ</span>
-    <a href="/hiddencare/" class="home-project-title" style="font-weight: 700; color: #0284c7;">HiddenCare: When Training Labels Change Who Gets Screened</a>
-  </div>
-  <p class="home-project-desc">
-    An empirical investigation into proxy outcome bias in algorithmic healthcare triage using CDC NHANES Continuous Biomonitoring data (N = 12,459 adults). Demonstrating how proxy training labels systematically reorder screening queues, swap 61 individuals at the decision margin, and deepen disparities for underserved populations. Research artifact by Cao Thien An Nguyen (Cao Thiên Ân Nguyễn), University of Wisconsin&ndash;Madison.
-  </p>
-  <div class="home-project-links">
-    <a href="/hiddencare/" class="home-link" style="font-weight: 700; color: #0284c7;">Explore Interactive Research Lab &amp; Poster &rarr;</a>
-    <a href="https://github.com/aansensei/HiddenCare" target="_blank" rel="noopener noreferrer" class="home-link">Source Code on GitHub</a>
-    <a href="https://huggingface.co/spaces/aansensei/HiddenCare" target="_blank" rel="noopener noreferrer" class="home-link">Hugging Face Space</a>
-  </div>
-  <div class="grim-footer-row" style="margin-top: 14px;">
-    <a href="/hiddencare/" class="btn-cta-project btn-azure" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; text-decoration: none;">
-      ✦ Open HiddenCare Research Lab &amp; Poster
-    </a>
-  </div>
-</div>
-
-
 <div class="home-project-card card-azure reveal-item">
   <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
   <span class="grim-corner bl"></span><span class="grim-corner br"></span>
@@ -629,6 +633,29 @@ title: "Xin chào! I'm An"
     <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
   </div>
 </template>
+
+<div class="home-project-card card-violet reveal-item">
+  <span class="grim-corner tl"></span><span class="grim-corner tr"></span>
+  <span class="grim-corner bl"></span><span class="grim-corner br"></span>
+  <span class="grim-spine-vol">VOL · V</span>
+  <div class="grim-shimmer"></div>
+  <div class="grim-vol">Vol. V</div>
+  <p class="grim-chapter">Chapter the Fifth</p>
+  <div class="home-project-title-row">
+    <span class="grim-rune">ᛜ</span>
+    <a href="/hiddencare/" class="home-project-title">HiddenCare: When Training Labels Change Who Gets Screened</a>
+  </div>
+  <p class="home-project-desc">An empirical study of proxy outcome bias in diabetes screening, comparing diagnosis-based and biomarker-augmented labels across 12,459 NHANES adults.</p>
+  <div class="home-project-links">
+    <a href="https://huggingface.co/spaces/aansensei/HiddenCare" target="_blank" rel="noopener noreferrer" class="home-link">View Research Lab</a>
+    <a href="https://github.com/aansensei/HiddenCare" target="_blank" rel="noopener noreferrer" class="home-link">View Code on GitHub</a>
+  </div>
+  <div class="grim-footer-row">
+    <a href="/hiddencare/" class="btn-cta-project btn-violet"
+      onclick="anBookOpen('/hiddencare/','linear-gradient(160deg,#1b1035,#4c2874,#8b5cc4)','HiddenCare',event)">✦ Open the Tale</a>
+    <div class="grim-seal seal-violet">ᛜ</div>
+  </div>
+</div>
 
 <script>
 (function () {
