@@ -660,16 +660,15 @@ title: "Xin chào! I'm An"
 <template id="pm-hiddencare">
   <p class="pm-eyebrow">Chapter the Fifth · Population health research</p>
   <h2 class="pm-title" id="pm-title-text">HiddenCare: When Training Labels Change Who Gets Screened</h2>
-  <p class="pm-metric">12,459 adults · CDC NHANES 2017 to 2023 · 61 people swap places at a 20% budget</p>
+  <p class="pm-metric">12,459 adults · CDC NHANES 2017 to 2023 · 61 people swap places</p>
   <ul class="pm-points">
-    <li>A community clinic can only test a fraction of its residents, so the ranking decides who is invited first. The study asks how that ranking changes when the model learns from doctor visits instead of lab tests.</li>
-    <li>Model A is trained on diagnosis history and Model B on a label that adds HbA1c blood tests. At a 20% budget (939 slots) the two queues differ by 61 people, and Model B's picks include 3 true cases against 1 for Model A (4.92% against 1.64%).</li>
-    <li>An interactive lab lets visitors move the screening budget and inspect the swapped profiles, and an equity audit shows uninsured adults are still under detected (sensitivity 15.4% for Model A and 23.1% for Model B).</li>
+    <li>A clinic can test only a fraction of its residents, so the ranking decides who is invited first.</li>
+    <li>Model A learns from diagnosis history and Model B adds HbA1c lab tests. At a 20% budget they differ by 61 people, and Model B's picks hold 3 true cases against 1.</li>
+    <li>An interactive lab lets visitors move the budget and inspect the swapped profiles, and an equity audit shows uninsured adults are still under detected.</li>
   </ul>
-  <ul class="pm-chips"><li>Python</li><li>Gradio</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>Plotly</li><li>pytest</li><li>Hugging Face Spaces</li><li>ZeroGPU</li><li>CDC NHANES</li></ul>
+  <ul class="pm-chips"><li>Python</li><li>Gradio</li><li>scikit-learn</li><li>pandas</li><li>Plotly</li><li>Hugging Face Spaces</li><li>CDC NHANES</li></ul>
   <div class="pm-actions">
-    <a class="pm-btn pm-btn-primary" href="https://huggingface.co/spaces/aansensei/HiddenCare" target="_blank" rel="noopener">View Research Lab</a>
-    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
+    <button type="button" class="pm-btn pm-btn-primary" data-pm-tale>Open the Tale</button>
   </div>
 </template>
 
@@ -1888,6 +1887,13 @@ title: "Xin chào! I'm An"
     --pm-spine: linear-gradient(180deg, #050b18, #0e3157 20%, #4d9fff 50%, #1f6fa8 80%, #050b18);
   }
 
+  .pm.pm--violet {
+    --pm-acc: #c3a1ed;
+    --pm-g1: #68408d;
+    --pm-g2: #9765c5;
+    --pm-spine: linear-gradient(180deg, #21102f, #68408d 20%, #c3a1ed 50%, #7544a0 80%, #21102f);
+  }
+
   body.an-day-mode .pm {
     --pm-bg: rgba(255, 255, 255, .985);
     --pm-text: #2c2c2c;
@@ -1906,6 +1912,36 @@ title: "Xin chào! I'm An"
 
   body.an-day-mode .pm.pm--azure {
     --pm-acc: #1a5fc0;
+  }
+
+  body.an-day-mode .pm.pm--violet {
+    --pm-acc: #70419a;
+  }
+
+  .pm.pm--violet .pm-body {
+    scrollbar-width: none;
+  }
+
+  .pm.pm--violet .pm-body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pm.pm--violet .pm-metric {
+    margin-bottom: 14px;
+  }
+
+  .pm.pm--violet .pm-points {
+    margin-bottom: 16px;
+  }
+
+  .pm.pm--violet .pm-points li {
+    margin-bottom: 9px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .pm.pm--violet .pm-actions {
+    margin-top: 20px;
   }
 
   .pm-scrim {
@@ -2288,6 +2324,7 @@ title: "Xin chào! I'm An"
       if (card && card.classList.contains('card-rose')) variant = ' pm--rose';
       else if (card && card.classList.contains('card-crimson')) variant = ' pm--crimson';
       else if (card && card.classList.contains('card-azure')) variant = ' pm--azure';
+      else if (card && card.classList.contains('card-violet')) variant = ' pm--violet';
       layer.className = 'pm' + variant;
 
       var rune = card && card.querySelector('.grim-rune');
