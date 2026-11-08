@@ -938,7 +938,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="background:#140704;">
-            <img src="/assets/images/hiddencare-preview.png" alt="HiddenCare Algorithmic Epidemiology Lab dashboard" style="width:100%;height:100%;object-fit:contain;">
+            <img src="/assets/images/hiddencare-preview.png?v=hidden-lens-20261108" alt="A brass lens reveals people hidden within health records, illustrating HiddenCare label bias research" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
