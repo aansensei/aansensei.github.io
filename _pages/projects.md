@@ -426,7 +426,29 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 @media(max-width:400px){
   .shelf-ornament{width:26px;right:5px;bottom:-16px;}
 }
+.shelf-filter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:min(calc(100% - 24px),460px);margin:6px auto 30px;padding:6px;border-radius:999px;background:linear-gradient(180deg,rgba(255,236,170,.08),rgba(255,236,170,0) 60%),rgba(14,11,38,.58);border:1px solid rgba(201,162,39,.5);box-shadow:inset 0 1px 0 rgba(255,236,170,.2),0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,39,.07);}
+.shelf-tab{position:relative;isolation:isolate;min-height:46px;padding:0 4px;border:0;border-radius:999px;cursor:pointer;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8d9a8;background:transparent;transition:color .3s ease,background-color .3s ease,transform .3s ease;-webkit-tap-highlight-color:transparent;}
+.shelf-tab::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(180deg,#f7d766 0%,#d9a91f 55%,#b88a16 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 16px rgba(240,200,74,.45);opacity:0;transition:opacity .3s ease;}
+.shelf-tab:hover{background-color:rgba(240,200,74,.12);}
+.shelf-tab:focus-visible{outline:2px solid #f0c84a;outline-offset:2px;}
+.shelf-tab[aria-pressed="true"]{color:#1a1206;}
+.shelf-tab[aria-pressed="true"]::before{opacity:1;}
+body.an-day-mode .shelf-filter{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.2)),rgba(238,248,253,.78);border-color:rgba(10,116,144,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 26px rgba(10,116,144,.16),0 0 0 4px rgba(10,116,144,.06);}
+body.an-day-mode .shelf-tab{color:#0a6a7e;}
+body.an-day-mode .shelf-tab::before{background:linear-gradient(180deg,#3cc0dc 0%,#13a0be 55%,#0a6a7e 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 14px rgba(10,116,144,.35);}
+body.an-day-mode .shelf-tab:hover{background-color:rgba(10,116,144,.1);}
+body.an-day-mode .shelf-tab:focus-visible{outline-color:#0a7490;}
+body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
+@media(max-width:480px){.shelf-tab{font-size:14px;letter-spacing:.08em;}}
+@media(max-width:380px){.shelf-tab{font-size:12.5px;letter-spacing:.05em;}}
+@media(prefers-reduced-motion:reduce){.shelf-tab,.shelf-tab::before{transition:none;}}
+.book-container[hidden]{display:none!important;}
 </style>
+
+<div class="shelf-filter" role="group" aria-label="Filter the collection">
+  <button type="button" class="shelf-tab" data-filter="academic" aria-pressed="false">Academic</button>
+  <button type="button" class="shelf-tab" data-filter="recreational" aria-pressed="false">Recreational</button>
+</div>
 
 <div class="bookshelf">
 
@@ -523,7 +545,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
   </defs>
 </svg>
 
-  <div class="book-container book-1 reveal-item" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
+  <div class="book-container book-1 reveal-item" data-category="academic" data-url="/projects/tech-layoffs/" data-bg="linear-gradient(160deg,#0a1520,#1a3a55)" data-title="Tech Layoffs Analysis">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -590,7 +612,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-2 reveal-item" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
+  <div class="book-container book-2 reveal-item" data-category="academic" data-url="/projects/semiconductor-hr/" data-bg="linear-gradient(145deg,#2d0035,#6a0080,#00b4cc)" data-title="Semiconductor HR">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -658,7 +680,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-3 reveal-item" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
+  <div class="book-container book-3 reveal-item" data-category="academic" data-url="/projects/shadow-rent/" data-bg="linear-gradient(160deg,#1a0010,#7b1040,#c9477a)" data-title="Shadow Rent Index">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -728,7 +750,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-5 reveal-item" data-url="/projects/chatrag/" data-bg="linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)" data-title="ChatRAG · Ciel">
+  <div class="book-container book-5 reveal-item" data-category="academic" data-url="/projects/chatrag/" data-bg="linear-gradient(160deg,#050b18,#0e3157,#1f6fa8)" data-title="ChatRAG · Ciel">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -789,7 +811,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-4 reveal-item">
+  <div class="book-container book-4 reveal-item" data-category="academic">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -851,7 +873,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-6 reveal-item" data-category="leisure" data-url="/projects/pisces-space-journey/" data-bg="linear-gradient(168deg,#062b2a,#075985,#1e3a8a)" data-title="Pisces: Space Journey">
+  <div class="book-container book-6 reveal-item" data-category="recreational" data-url="/projects/pisces-space-journey/" data-bg="linear-gradient(168deg,#062b2a,#075985,#1e3a8a)" data-title="Pisces: Space Journey">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -914,7 +936,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
     </div>
   </div>
 
-  <div class="book-container book-7 reveal-item" data-url="/hiddencare/" data-bg="linear-gradient(160deg,#140704,#38150c,#522214)" data-title="HiddenCare">
+  <div class="book-container book-7 reveal-item" data-category="academic" data-url="/hiddencare/" data-bg="linear-gradient(160deg,#140704,#38150c,#522214)" data-title="HiddenCare">
     <div class="book">
       <div class="front-cover">
         <div class="cover-content">
@@ -993,6 +1015,32 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
   </div>
 
 </div>
+
+<script>
+(function () {
+  // each tab shows only the books of its category, and pressing the active tab shows every book again
+  var tabs = document.querySelectorAll('.shelf-tab');
+  var books = document.querySelectorAll('.bookshelf .book-container');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = '';
+  function apply(filter) {
+    current = filter;
+    tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.filter === filter ? 'true' : 'false'); });
+    books.forEach(function (b) {
+      var show = !filter || b.dataset.category === filter;
+      var was = !b.hidden;
+      b.hidden = !show;
+      if (show) {
+        b.classList.add('reveal-visible');
+        if (!was && !reduce && b.animate) b.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
+      }
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { apply(current === t.dataset.filter ? '' : t.dataset.filter); });
+  });
+})();
+</script>
 
 <!-- Shared book overlay -->
 <script>
