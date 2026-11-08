@@ -12,6 +12,13 @@
   document.addEventListener('error', function (e) {
     var img = e.target;
     if (!img || img.tagName !== 'IMG' || img.dataset.anMissing || img.src.indexOf('icon-missing-image.png') !== -1) return;
+    /* Optimized images may arrive separately from the page. Try the tracked original
+       once before showing the missing-image indicator. */
+    if (img.dataset.fallbackSrc && !img.dataset.anFallbackTried) {
+      img.dataset.anFallbackTried = '1';
+      img.src = img.dataset.fallbackSrc;
+      return;
+    }
     img.dataset.anMissing = '1';
     var box = document.createElement('img');
     box.src = '/assets/images/icon-missing-image.png';
@@ -176,7 +183,6 @@
     wrap.appendChild(svg);
   });
 </script>
-<link rel="apple-touch-icon" href="/assets/images/ncta-logo.svg">
 {%- comment -%} The theme's seo.html already prints the og tags, so only the Twitter card tags it skips are printed here, from the same page values. {%- endcomment -%}
 {%- assign card_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image | default: site.og_image -%}
 <meta name="twitter:card" content="summary_large_image">
@@ -193,8 +199,7 @@
   rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<title>AanSekai</title>
-<script>document.title = 'AanSekai';</script>
+{%- comment -%} Keep the theme's page-specific SEO title as the only document title. {%- endcomment -%}
 
 <!-- Preload pages on hover for instant navigation -->
 <script src="https://instant.page/5.2.0" type="module"
@@ -555,6 +560,12 @@
     }
   }
 
+  body.an-cursor-on iframe,
+  body.an-cursor-on embed,
+  body.an-cursor-on object {
+    cursor: auto !important;
+  }
+
   ::-webkit-scrollbar {
     width: 5px;
     height: 0
@@ -619,6 +630,11 @@
 
   body.an-day-mode #an-ring {
     border-color: rgba(232, 170, 20, .7);
+  }
+
+  body:not(.an-cursor-on) #an-moon,
+  body:not(.an-cursor-on) #an-ring {
+    visibility: hidden;
   }
 
   #an-ring::before,
@@ -1375,10 +1391,9 @@
 
   #an-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(2, 1, 10, .97);
     backdrop-filter: blur(20px);
     z-index: 999999;
@@ -1387,11 +1402,11 @@
     pointer-events: none;
     transition: opacity .25s;
     perspective: 1400px;
-  }
+  overflow: hidden;}
 
   body.an-day-mode #an-overlay {
     background: rgba(255, 255, 255, .95);
-  }
+  overflow: hidden;}
 
   #an-book {
     width: 220px;
@@ -2181,6 +2196,10 @@
         if (cursorLive === on) return;
         cursorLive = on;
         document.body.classList.toggle('an-cursor-on', on);
+        if (!on) {
+          isHovering = false;
+          rg.classList.remove('noble-hover');
+        }
       }
 
       function drawCursor(big) {
@@ -2276,7 +2295,8 @@
         cursorLoop();
 
         document.addEventListener('pointermove', function (ev) {
-          if (ev.pointerType === 'touch' || ev.pointerType === 'pen') {
+          if (ev.pointerType === 'touch' || ev.pointerType === 'pen' ||
+              (ev.target.closest && ev.target.closest('iframe,embed,object'))) {
             setCursorLive(false);
             return;
           }
@@ -2290,6 +2310,19 @@
         document.addEventListener('pointerdown', function (ev) {
           if (ev.pointerType === 'touch' || ev.pointerType === 'pen') setCursorLive(false);
         }, { passive: true });
+
+        function releaseCursor() { setCursorLive(false); }
+        document.addEventListener('mouseleave', releaseCursor);
+        document.addEventListener('pointerout', function (ev) {
+          if (!ev.relatedTarget || (ev.relatedTarget.closest && ev.relatedTarget.closest('iframe,embed,object'))) releaseCursor();
+        });
+        document.addEventListener('pointerover', function (ev) {
+          if (ev.target.closest && ev.target.closest('iframe,embed,object')) releaseCursor();
+        });
+        window.addEventListener('blur', releaseCursor);
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) releaseCursor();
+        });
 
         document.addEventListener('mouseover', function (ev) {
           if (ev.target.closest && ev.target.closest('a,button,.tech-tag,.home-project-card,.hpc-hit')) {
@@ -3778,7 +3811,10 @@
     });
 
     function fixSidebar() {
-      document.querySelectorAll('.author__urls-wrapper nav,.author__urls-wrapper .author__urls').forEach(function (el) { el.style.cssText = 'display:flex!important;flex-direction:column!important;gap:8px!important;margin-top:12px!important;padding-top:12px!important;border-top:1px solid rgba(201,162,39,.14)!important;opacity:1!important;visibility:visible!important;position:static!important;width:auto!important;height:auto!important;overflow:visible!important;'; });
+      document.querySelectorAll('.author__urls-wrapper nav,.author__urls-wrapper .author__urls').forEach(function (el) {
+        el.style.setProperty('opacity', '1', 'important');
+        el.style.setProperty('visibility', 'visible', 'important');
+      });
       document.querySelectorAll('.author__urls-wrapper button,.author__urls-wrapper [class*=\"btn\"]').forEach(function (el) { el.style.cssText = 'display:none!important;height:0!important;visibility:hidden!important;pointer-events:none!important;margin:0!important;padding:0!important;border:none!important;'; });
       document.querySelectorAll('.author__urls a,.sidebar a').forEach(function (a) { if (a.href && !a.href.startsWith('mailto') && !a.href.includes(window.location.hostname + window.location.pathname)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; } });
     }

@@ -69,7 +69,7 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 
     <blockquote>"We're building a RAG system. Kind of like an internal chatbot with some role-based permission thing." That's roughly how my director and coworkers explained the project to me on my first day.</blockquote>
 
-    <h3 id="context-goal">Context &amp; Goal</h3>
+    <h2 id="context-goal">Context &amp; Goal</h2>
     <p>SADEC Technology JSC's problem was simple to state and expensive to live with: employees were spending real work hours digging through shared drives and asking coworkers the same recurring questions. Where's the policy, what does this report say, which version of this file is current. The company's goal was an internal assistant, later nicknamed <strong>"Ciel,"</strong> that could sit on top of its documents and answer in plain language, in <strong>Vietnamese, English, Japanese, or Chinese</strong>, without ever making an answer up.</p>
     <p>The non-negotiable part of the brief: it had to work for <strong>non-technical staff</strong>, respect <strong>department-scoped permissions</strong>, and be trustworthy enough that people would actually rely on it instead of double-checking the source file every time.</p>
 
@@ -79,11 +79,11 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
     <img src="/assets/images/PLACEHOLDER-chatrag-chat-ui.png" alt="Ciel chat interface with a cited answer, zoomed in">
     <p><em>Figure 2: A closer look at a cited answer, with clickable <code>[N]</code> references pointing back to the exact source document.</em></p>
 
-    <h3 id="ideation">The Ideation Phase</h3>
+    <h2 id="ideation">The Ideation Phase</h2>
     <p>Before any backend code, we weighed three ways to get an LLM to "know" the company's documents: fine-tune a model on internal data (expensive, and stale the moment a policy changes), give an LLM raw file access with no structure (fast to prototype, no way to guarantee it isn't making things up), or <strong>retrieval-augmented generation</strong>. RAG means indexing the documents, retrieving the relevant pieces at query time, and forcing the model to answer only from what it retrieved. RAG won because company documents change monthly, not yearly; an approach that needed retraining every time HR updated a policy was a non-starter.</p>
     <p>Early on it was also clear that a single vector search wouldn't be enough. Early tests kept missing exact filename and table lookups that plain embedding similarity just isn't built for. That's what pushed the design toward a <strong>hybrid retriever</strong> (BM25 + vector + keyword fallback) from the start, instead of bolting it on later.</p>
 
-    <h3 id="build-journey">Building It &amp; What Went Wrong</h3>
+    <h2 id="build-journey">Building It &amp; What Went Wrong</h2>
     <p>A few things broke before they worked:</p>
     <ul>
       <li><strong>Multi-turn conversations kept breaking retrieval.</strong> A vague follow-up question, taken on its own, doesn't carry enough meaning to search well. Fixing this meant adding a <strong>query-rewriting step</strong> that folds the conversation history into the question before it ever gets embedded.</li>
@@ -95,10 +95,10 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
     <img src="/assets/images/PLACEHOLDER-chatrag-architecture.png" alt="ChatRAG system architecture diagram">
     <p><em>Figure 3: High-level architecture, covering the ingestion pipeline, hybrid retrieval, and the streaming answer path.</em></p>
 
-    <h3 id="mentor">The Person Who Guided Me</h3>
+    <h2 id="mentor">The Person Who Guided Me</h2>
     <p><strong>Phi</strong>, a senior engineer at SADEC, was the person I turned to whenever an idea looked good on paper but fell apart against real documents. He reviewed the retrieval design, pushed back on shortcuts that would've looked fine in a demo and broken in production, and was a big part of why this ended up as a system I'd trust with real company data rather than just a working prototype.</p>
 
-    <h3 id="results">Results</h3>
+    <h2 id="results">Results</h2>
     <ul>
       <li><strong>Grounded answers:</strong> every response carries clickable <code>[N]</code> citations back to the source document. A hallucinated claim has nowhere to point to, which makes wrong answers easy to catch.</li>
       <li><strong>Multi-turn that actually works:</strong> the query-rewriting step means a user can ask a vague follow-up and still get the right documents pulled in.</li>
@@ -106,7 +106,7 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
     </ul>
 <!-- AanSensei: nếu có số liệu thật, vd số tài liệu index được, thời gian phản hồi trung bình, % câu hỏi trả lời đúng qua đánh giá nội bộ, chèn vào đây sẽ mạnh hơn nhiều so với mô tả định tính. -->
 
-    <h3 id="reflection">Looking Back &amp; Ahead</h3>
+    <h2 id="reflection">Looking Back &amp; Ahead</h2>
     <p>This internship pushed me past the "cool demo" version of RAG that most tutorials stop at. The interesting engineering wasn't the LLM call. It was everything around it: making retrieval actually find the right passage, making multi-turn conversation not fall apart, and making the system honest about the limits of what it knows. Building <strong>Ciel</strong> taught me that in an enterprise setting, <strong>trustworthiness is a feature you have to engineer for</strong>, not a side effect of a good model.</p>
     <p>Directions I'd want to push this further:</p>
     <ul>
@@ -137,7 +137,7 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 
 <style>
 /* Local overlay styles (fallback) */
-#an-book-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(18px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .3s;perspective:1200px;}
+#an-book-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(18px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .3s;perspective:1200px;overflow: hidden;}
 .an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;}
 .an-book-back,.an-book-p1,.an-book-p2,.an-book-p3,.an-book-front{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.25,1,.5,1);}
 .an-book-back{background:#06031a;transform:translateZ(-6px);}
@@ -149,7 +149,7 @@ description: "ChatRAG x Ciel is an enterprise RAG chatbot built during a SADEC T
 </style>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

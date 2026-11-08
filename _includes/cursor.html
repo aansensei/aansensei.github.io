@@ -2,6 +2,13 @@
   body.an-cursor-on,
   body.an-cursor-on * { cursor: none !important; }
 
+  body.an-cursor-on iframe,
+  body.an-cursor-on embed,
+  body.an-cursor-on object { cursor: auto !important; }
+
+  body:not(.an-cursor-on) #an-moon,
+  body:not(.an-cursor-on) #an-ring { visibility: hidden; }
+
   #an-moon {
     position: fixed;
     pointer-events: none;

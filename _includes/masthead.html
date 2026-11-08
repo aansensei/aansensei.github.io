@@ -280,6 +280,25 @@
       filter: none !important;
     }
 
+    #an-nav-title-wrap {
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+    }
+
+    #an-nav-title {
+      font-size: clamp(.72rem, 3.4vw, 1rem) !important;
+      letter-spacing: .02em !important;
+    }
+
+    #an-nav-subtitle {
+      white-space: normal !important;
+      overflow-wrap: anywhere;
+    }
+
+    #an-nav-logo {
+      height: clamp(30px, 9vw, 52px) !important;
+    }
+
     .author__urls-wrapper button,
     .author__urls-wrapper .btn--inverse {
       display: none !important;
@@ -383,13 +402,13 @@
 
 <div class="masthead" style="position:relative;">
   <div class="masthead__inner-wrap" style="background:transparent!important;">
-    <div class="masthead__menu">
-      <nav id="an-main-nav" style="display:flex;align-items:center;width:100%;gap:10px;position:relative;">
+    <div class="masthead__menu" id="site-nav" tabindex="-1">
+      <nav id="an-main-nav" aria-label="Primary navigation" style="display:flex;align-items:center;width:100%;gap:10px;position:relative;">
 
         <!-- logo -->
-        <a id="an-nav-logo-link" href="{{ '/' | relative_url }}"
+        <a id="an-nav-logo-link" href="{{ '/' | relative_url }}" aria-label="AanSekai Home"
           style="display:inline-flex;align-items:center;flex-shrink:0;margin-right:2px;">
-          <img id="an-nav-logo" src="{{ '/assets/images/ncta-logo.svg' | relative_url }}" alt="NCTA"
+          <img id="an-nav-logo" src="{{ '/assets/images/ncta-logo.webp' | relative_url }}" data-fallback-src="{{ '/assets/images/ncta-logo.svg' | relative_url }}" alt="NCTA" width="1046" height="526"
             style="height:68px;width:auto;filter:drop-shadow(0 0 6px rgba(0,191,255,.5));transition:transform .3s;"
             onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
         </a>
@@ -413,7 +432,7 @@
           <li class="masthead__menu-item"><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
           <!-- nút đổi theme -->
           <li class="masthead__menu-item" style="margin-left: 8px;">
-            <a href="#" id="an-theme-toggle-desktop" title="Space-Time Alteration"
+            <a href="#" id="an-theme-toggle-desktop" title="Space-Time Alteration" aria-label="Toggle light and dark theme"
               style="padding: 6px 12px !important; border-radius: 50% !important;">
               <i class="fas fa-sun" id="an-theme-icon-desktop" style="font-size: 1rem; transition: transform 0.5s;"></i>
             </a>
@@ -421,7 +440,7 @@
         </ul>
 
         <!-- hamburger mobile -->
-        <button id="an-ham-btn" type="button" aria-label="Menu" style="cursor:pointer!important;">
+        <button id="an-ham-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="an-ham-menu" style="cursor:pointer!important;">
           <span class="an-bar"></span>
           <span class="an-bar"></span>
           <span class="an-bar"></span>
@@ -450,16 +469,28 @@
     var menu = document.getElementById('an-ham-menu');
 
     if (btn && menu) {
+      function setMenuOpen(open) {
+        menu.classList.toggle('show', open);
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', String(open));
+      }
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
-        menu.classList.toggle('show');
-        btn.classList.toggle('open');
+        setMenuOpen(!menu.classList.contains('show'));
       });
       document.addEventListener('click', function (e) {
         if (!btn.contains(e.target) && !menu.contains(e.target)) {
-          menu.classList.remove('show');
-          btn.classList.remove('open');
+          setMenuOpen(false);
         }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('show')) {
+          setMenuOpen(false);
+          btn.focus();
+        }
+      });
+      menu.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setMenuOpen(false);
       });
     }
 

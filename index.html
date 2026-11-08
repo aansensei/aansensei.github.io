@@ -969,7 +969,9 @@ title: "Xin chào! I'm An"
     left: 50%;
     transform: translateX(-50%);
     width: 660px !important;
-    height: 420px !important;
+    max-width: 92vw !important;
+    height: auto !important;
+    aspect-ratio: 660 / 420;
     opacity: 0;
     transition: opacity 0.5s ease;
   }
@@ -1663,10 +1665,9 @@ title: "Xin chào! I'm An"
 <style>
   #an-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(2, 1, 10, .97);
     backdrop-filter: blur(20px);
     z-index: 999999;
@@ -1675,7 +1676,7 @@ title: "Xin chào! I'm An"
     pointer-events: none;
     transition: opacity .25s;
     perspective: 1400px;
-  }
+  overflow: hidden;}
 
   #an-book {
     width: 220px;

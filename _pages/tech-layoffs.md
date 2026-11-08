@@ -67,7 +67,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
   <div class="glass-box col-main">
     <h1>Global Tech Layoffs &amp; Macro-Economics Analysis</h1>
 
-    <h3 id="executive-summary">Executive Summary: The Discovery Journey</h3>
+    <h2 id="executive-summary">Executive Summary: The Discovery Journey</h2>
     <blockquote>"I started with a simple hypothesis: Interest rates kill jobs. But the data told a different story."</blockquote>
     <p>My investigation went through 3 emotional stages:</p>
     <ol>
@@ -79,10 +79,10 @@ description: "A data analysis of tech industry layoff trends, built with Python 
       <em>*Result:</em> I pivoted from a pure technical analysis to a behavioral economics study.</li>
     </ol>
 
-    <h3 id="1-ideation">1. Ideation &amp; Motivation</h3>
+    <h2 id="1-ideation">1. Ideation &amp; Motivation</h2>
     <p>The genesis of this project came from a simple yet troubling observation: In early 2025, despite many tech giants reporting stable profits, thousands of employees were being laid off. As a double major in <strong>Data Science and Economics</strong>, I wanted to investigate whether these layoffs were purely operational necessities or strategic reactions to financial market pressure. I aimed to build a bridge between <strong>Macroeconomic Theory</strong> (The Fed) and <strong>Microeconomic Reality</strong> (The Employee).</p>
 
-    <h3 id="2-data-selection">2. Data Selection Strategy</h3>
+    <h2 id="2-data-selection">2. Data Selection Strategy</h2>
     <p>To build a holistic view, I curated three distinct datasets:</p>
     <ul>
       <li><strong>Macro Level:</strong> I chose <strong>FRED (Federal Reserve Economic Data)</strong> for Interest Rates and CPI because it is the "gold standard" for economic reliability.</li>
@@ -93,7 +93,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
     <img src="/assets/images/top_industries_layoffs.png" alt="Top Industries">
     <p><em>Figure 1: Sector Vulnerability Analysis (SQL Aggregation). The data reveals that Retail and Consumer sectors—most sensitive to inflation and interest rates—suffered the highest volume of layoffs, validating the connection to macro-economic shifts.</em></p>
 
-    <h3 id="3-methodology">3. Methodology &amp; Hypothesis</h3>
+    <h2 id="3-methodology">3. Methodology &amp; Hypothesis</h2>
     <p>My core hypothesis was the <strong>"Lagged Transmission Theory"</strong>: <em>Economic shocks do not cause immediate layoffs; there is a delay while management assesses the damage.</em></p>
     <ul>
       <li><strong>Hypothesis:</strong> Stock market crashes precede layoffs by exactly one fiscal quarter (3 months).</li>
@@ -109,7 +109,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
     <img src="/assets/images/advanced_recession_analysis.png" alt="Perfect Storm Chart">
     <p><em>Figure 2: "The Perfect Storm" (Dual-Axis Analysis). The blue line represents Meta's stock price, and the grey bars represent layoffs. Visual inspection confirms the hypothesis: a stock crash at month (t) is consistently followed by a layoff spike at month (t+3).</em></p>
 
-    <h3 id="4-key-results">4. Key Results &amp; Critical Findings</h3>
+    <h2 id="4-key-results">4. Key Results &amp; Critical Findings</h2>
     <ul>
       <li><strong>The "3-Month Rule":</strong> The data confirmed my hypothesis. A statistically significant correlation exists between a stock price drop at month t and a layoff spike at month t+3.</li>
       <li><strong>Feature Importance:</strong> The Machine Learning model independently validated the economic theory. As shown below, the model ranked "Lagged Stock Returns" and "Interest Rates" as the most critical predictors for layoffs.</li>
@@ -129,10 +129,10 @@ description: "A data analysis of tech industry layoff trends, built with Python 
     <img src="/assets/images/model_prediction_comparison.png" alt="Prediction vs Reality">
     <p><em>Figure 4: Forecast vs. Reality. The Green line (ML Prediction) captures the upward trend but fails to reach the peak of the Black line (Actual). This gap represents the "Psychological Factor" or Social Contagion that standard economic models miss.</em></p>
 
-    <h3 id="5-conclusion">5. Conclusion</h3>
+    <h2 id="5-conclusion">5. Conclusion</h2>
     <p>This project has been a <strong>transformative journey</strong> for me as a student exploring the intersection of <strong>numbers and human behavior</strong>. While the <strong>Random Forest model</strong> identified the patterns, the unexplained gap in the <strong>2025 data</strong> helped me ultilize the true power of <strong>social contagion</strong>. It proved that behind every data point lies a story of <strong>collective psychology</strong> that no algorithm can fully capture. This experience has deeply reinforced my belief that <strong>Data Science provides the "What" but Economics provides the "Why"</strong>. Moving forward, I am more inspired than ever to look <strong>beyond the code</strong> to find the heart of every story.</p>
 
-    <h3 id="6-future-directions">6. Future Directions</h3>
+    <h2 id="6-future-directions">6. Future Directions</h2>
     <p>To further refine this analysis, future iterations of this project should focus on:</p>
     <ul>
       <li><strong>Sentiment Analysis (NLP):</strong> Integrating news sentiment data (via GDELT or Financial Times APIs) to quantify the "Social Contagion" factor directly.</li>
@@ -165,7 +165,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
 
 <style>
 /* Local overlay styles (fallback) */
-#an-book-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(18px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .3s;perspective:1200px;}
+#an-book-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(18px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .3s;perspective:1200px;overflow: hidden;}
 .an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;}
 .an-book-back,.an-book-p1,.an-book-p2,.an-book-p3,.an-book-front{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.25,1,.5,1);}
 .an-book-back{background:#06031a;transform:translateZ(-6px);}
@@ -177,7 +177,7 @@ description: "A data analysis of tech industry layoff trends, built with Python 
 </style>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

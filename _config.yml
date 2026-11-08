@@ -16,6 +16,17 @@ og_image: "/assets/images/about-cover.jpg"
 include:
   - _pages
 
+exclude:
+  - old_custom.html
+  - custom_test.html
+  - cong-cu-do
+  - backups
+  - tmp
+  - scratchpad
+  - VIDEO_SCENE_GUIDE.md
+  - cursor_filter.txt
+  - skills-lock.json
+
 search: false
 atom_feed:
   hide: true

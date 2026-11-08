@@ -115,7 +115,7 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
           </div>
           <p style="color:#67e8f9;font-size:.8rem;font-weight:700;opacity:.85;margin:0 0 10px;">Leo/need</p>
           <div style="display:flex;align-items:center;gap:10px;">
-            <button id="song-play-btn" style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s;flex-shrink:0;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
+            <button id="song-play-btn" type="button" aria-label="Play favorite song" style="width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s;flex-shrink:0;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">
               <i id="song-play-icon" class="fa-solid fa-pause" style="font-size:.75rem;"></i>
             </button>
             <div class="song-progress-bar" style="flex:1;"><div class="song-progress-fill"></div></div>
@@ -219,6 +219,7 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
     e.stopPropagation();
     var playing=card.classList.toggle('playing');
     playIcon.className='fa-solid '+(playing?'fa-pause':'fa-play');
+    playBtn.setAttribute('aria-label',playing?'Pause favorite song':'Play favorite song');
   });
   function spawnNotes(container){
     var chars=['♪','♫','♩','♬','✧','✦'];
@@ -241,7 +242,7 @@ body.an-day-mode .artist-img{border-color:rgba(0,102,102,.35);}
 </script>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

@@ -83,6 +83,9 @@ description: "Get in touch with Cao Thien An Nguyen via email, LinkedIn, or GitH
   .cf-state-actions{flex-direction:column;align-items:stretch;}
   .cf-state-btn{width:100%;}
 }
+@media(max-width:340px){
+  .contact-open{font-size:.70rem;padding:3px 8px;letter-spacing:.06em;}
+}
 body.an-day-mode .contact-chapter{color:#006666;opacity:.8;}
 body.an-day-mode .contact-card{background:rgba(255,255,255,.72);border-color:rgba(0,102,102,.26);box-shadow:0 12px 40px rgba(19,60,90,.2),inset 0 1px 0 rgba(255,255,255,.7);}
 body.an-day-mode .contact-card::before{background:linear-gradient(to right,transparent,#0f8a8a,transparent);}
@@ -118,7 +121,7 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
 <div id="contact-wrap">
   <p class="contact-chapter">The Final Chapter</p>
   <div class="contact-card reveal-item">
-    <img src="/assets/images/ncta-logo.svg" alt="NCTA Logo" class="contact-logo">
+    <img src="/assets/images/ncta-logo.webp" data-fallback-src="/assets/images/ncta-logo.svg" alt="NCTA Logo" class="contact-logo" width="1046" height="526">
     <h2 class="contact-title">Let's Connect</h2>
     <div class="contact-div"><span>✦</span></div>
     <div class="contact-info">
@@ -377,7 +380,7 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
 </script>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

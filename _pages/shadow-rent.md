@@ -73,11 +73,11 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
 
     <img src="/assets/images/shadow-dashboard.png" alt="Shadow Rent Index Dashboard">
 
-    <h3 id="executive-summary">Executive Summary</h3>
+    <h2 id="executive-summary">Executive Summary</h2>
     <blockquote>"Official inflation data looks in the rearview mirror. I wanted to build something that looks out the windshield."</blockquote>
     <p>The Shadow Rent Index is a fully automated, end-to-end data engineering project that tracks real-time rental spot prices in Madison, WI. It cuts through the 6 to 9 month lag baked into the government's official CPI shelter component. Every Sunday morning, a stealth ETL bot wakes up, scrapes hundreds of active listings, cleans the data, and loads everything into a PostgreSQL database. A Streamlit dashboard then shows interactive maps, neighborhood price averages, and supply levels, all pulled from current market prices and not year-old leases.</p>
 
-    <h3 id="1-motivation">1. The Motivation: A Macroeconomic Blindspot</h3>
+    <h2 id="1-motivation">1. The Motivation: A Macroeconomic Blindspot</h2>
     <p>In my macroeconomics class, I learned that <strong>Shelter Cost makes up roughly one-third of the U.S. Consumer Price Index (CPI)</strong>. But here is the catch: the Bureau of Labor Statistics calculates this number using <strong>existing lease agreements</strong>. That means rent prices that were locked in a year ago are still shaping what the government calls "today's inflation." The result is a structural lag of <strong>6 to 9 months</strong>.</p>
     <p>Living in <strong>Madison, WI</strong>, a fast-growing college town, I kept noticing a gap between what the news was saying and what my friends and I were actually experiencing. Official reports said inflation was cooling down, but landlords around campus were raising rents. Traditional economic indicators felt completely disconnected from real life. As a student studying <strong>Data Science and Economics</strong>, I wanted to try building something that could close that gap.</p>
     <ul>
@@ -86,7 +86,7 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
       <li><strong>The Goal:</strong> Build an automated pipeline that collects those spot prices every week and visualizes them in a live dashboard.</li>
     </ul>
 
-    <h3 id="2-pipeline">2. ETL Pipeline Design</h3>
+    <h2 id="2-pipeline">2. ETL Pipeline Design</h2>
     <p>I designed the project around a classic <strong>Extract, Transform, Load (ETL)</strong> architecture. Each stage has a clear job to do:</p>
     <ol>
       <li><strong>Extract:</strong> A Python scraper goes out every Sunday and pulls active rental listings from major real estate websites.</li>
@@ -96,7 +96,7 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
     </ol>
     <p>On paper, the plan looked straightforward. In practice, just the Extract step alone forced me to completely rethink my approach three separate times.</p>
 
-    <h3 id="3-challenges">3. Challenges: Web Scraping Reality</h3>
+    <h2 id="3-challenges">3. Challenges: Web Scraping Reality</h2>
     <p>Major real estate platforms are built to block scrapers, and I found that out the hard way. Here is what went wrong at the start:</p>
     <ul>
       <li><strong>Dynamic DOM Manipulation:</strong> I built my first scraper with <strong>BeautifulSoup4</strong>, targeting specific HTML class names to grab prices and bedroom counts. It broke almost immediately. The site renders content through JavaScript and constantly shuffles its CSS class names, so any selectors I wrote became outdated within days.</li>
@@ -105,7 +105,7 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
     </ul>
     <blockquote>"Every time I thought I had a stable scraper, the website would change something and break it all over again."</blockquote>
 
-    <h3 id="4-solutions">4. Engineering Solutions</h3>
+    <h2 id="4-solutions">4. Engineering Solutions</h2>
     <p>Each problem needed its own fix. Here is how I worked through them:</p>
 
     <p><strong>Getting Past the Anti-Bot Wall: Stealth Browser Automation</strong></p>
@@ -121,11 +121,11 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
       <li><strong>Query phase:</strong> The Streamlit app runs an additional SQL filter (<code>WHERE bedrooms &lt; 20</code>) as a final safety check, so even if a weird record somehow made it into the database, it will not show up on the dashboard.</li>
     </ul>
 
-    <h3 id="5-result">5. The End Result: My Weekend Bot</h3>
+    <h2 id="5-result">5. The End Result: My Weekend Bot</h2>
     <p>In the end, I managed to build a fully automated system using <strong>Windows Task Scheduler</strong>. Now, every Sunday morning while I am still asleep, my stealth bot wakes up, quietly navigates the rental market, collects hundreds of active Madison listings, cleans the data, and safely tucks it into my <strong>PostgreSQL</strong> database.</p>
     <p>My <strong>Streamlit</strong> dashboard then reads this fresh data to show an interactive map, average neighborhood prices, and supply levels. By tracking real-time spot prices instead of old leases, the <strong>Shadow Rent Oracle</strong> serves as a sensitive, up-to-date tracker for housing affordability. It was a fantastic learning experience that proved to me how powerful live data can be, and honestly, it is pretty cool to have a robot doing the heavy lifting while I enjoy my weekend!</p>
 
-    <h3 id="6-future">6. Future Directions</h3>
+    <h2 id="6-future">6. Future Directions</h2>
     <p>Right now the system only covers Madison and pulls from a single platform. There are a few directions I would like to take it next:</p>
     <ul>
       <li><strong>Multi-City Expansion:</strong> Run the same pipeline for other university towns like Ann Arbor, Austin, and Boulder to build a comparative national index.</li>
@@ -164,7 +164,7 @@ description: "The Shadow Rent Index is a Python and PostgreSQL pipeline estimati
 </div>
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

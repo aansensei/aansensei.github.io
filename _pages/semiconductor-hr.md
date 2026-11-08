@@ -51,14 +51,14 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
   <div class="glass-box col-main">
     <h1>Reflection: Human Resources in Vietnam's Semiconductor Industry</h1>
 
-    <h3 id="my-role">My Role</h3>
+    <h2 id="my-role">My Role</h2>
     <p>During my time as a Research Assistant at the University of Labour and Social Affairs in Vietnam, I had the opportunity to co-author a research paper addressing a highly critical economic and technological issue: the human resource crisis in the semiconductor sector.</p>
     <p>In this role, I spearheaded the data collection and literature review processes. I aggregated and analyzed workforce statistics, training program capacities, and industry reports from various domestic sources. By synthesizing this quantitative and qualitative data, I mapped out the structural bottlenecks in Vietnam's current educational pipeline and helped formulate the evidence-based policy implications presented in our final manuscript.</p>
 
-    <h3 id="why-i-chose-this-topic">Why I Chose This Topic</h3>
+    <h2 id="why-i-chose-this-topic">Why I Chose This Topic</h2>
     <p>The semiconductor industry is the backbone of modern technology, serving as the prerequisite for advancements in AI, IoT, and cloud storage. As the global market value pushes toward 800 billion USD, a massive bottleneck has emerged: a severe shortage of skilled labor. I wanted to understand how this global crisis impacts Vietnam and what actionable lessons we could draw from established tech giants like Taiwan.</p>
 
-    <h3 id="key-highlights-and-findings">Key Highlights and Findings</h3>
+    <h2 id="key-highlights-and-findings">Key Highlights and Findings</h2>
     <ul>
       <li><strong>A Global Talent Drought:</strong> The talent shortage is worldwide — the US projects a deficit of 70,000 to 90,000 jobs in coming years.</li>
       <li><strong>Vietnam's Supply and Demand Gap:</strong> Vietnam has ~5,500 engineers but needs 5,000–10,000 new engineers annually; domestic training meets only ~20% of demand.</li>
@@ -66,7 +66,7 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
       <li><strong>Educational Bottlenecks:</strong> Universities struggle with high costs for semiconductor labs and a lack of industry experts to teach specialized subjects.</li>
     </ul>
 
-    <h3 id="results-and-policy-implications">Results and Policy Implications</h3>
+    <h2 id="results-and-policy-implications">Results and Policy Implications</h2>
     <ul>
       <li><strong>University and Industry Synergy:</strong> Mixed laboratories on campuses, created in collaboration with industry.</li>
       <li><strong>Targeted Output Standards:</strong> Educational institutions must align with international requirements.</li>
@@ -95,7 +95,7 @@ description: "Analyzing Vietnam's semiconductor talent shortage against Taiwan's
 <!-- Book overlay -->
 
 <style>
-#an-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;}
+#an-overlay{position:fixed;inset: 0;width:100%;height:100%;background:rgba(2,1,10,.97);backdrop-filter:blur(20px);z-index:999999;display:block;opacity:0;pointer-events:none;transition:opacity .25s;perspective:1400px;overflow: hidden;}
 #an-book{width:220px;height:340px;position:absolute;top:50%;left:50%;transform-style:preserve-3d;transform:translate(-50%,-50%) scale(0);}
 .ab-layer{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:5px 14px 14px 5px;transform-origin:left center;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1);}
 #ab-back{background:#06031a;transform:translateZ(-6px);z-index:1;}

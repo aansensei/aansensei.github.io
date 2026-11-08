@@ -836,12 +836,8 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
           <p class="cv-sub">The Hidden Ledger of Prices</p>
         </div>
         <div class="cover-back">
-          <div class="cover-back-graph" style="display:flex;align-items:center;justify-content:center;background:#111111;">
-            <div style="padding:20px;text-align:center;color:#e8d9a8;font-family:'Cormorant Garamond',serif;">
-              <i class="fas fa-search" aria-hidden="true" style="font-size:2rem;opacity:.65;"></i>
-              <p style="margin:12px 0 6px;">Shrinkflation Detective</p>
-              <p style="margin:0;font-size:.85rem;opacity:.7;">Preview coming soon</p>
-            </div>
+          <div class="cover-back-graph" style="background:#111111;">
+            <img src="/assets/images/icon-missing-image.png" alt="Preview not available yet: Shrinkflation Detective is in development" width="512" height="431" style="object-fit:contain;opacity:.6;padding:8%;box-sizing:border-box;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
@@ -862,7 +858,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         <i class="fas fa-search" style="color:#888;"></i>
         <h4>Shrinkflation Detective</h4>
         <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
-        <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">✦ Read the Tale</button>
+        <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">&#10022; In Development</button>
       </div>
     </div>
     <div class="shelf-ornament">
@@ -903,7 +899,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="background:#050b18;">
-            <img src="/assets/images/pisces-space-journey-cover.webp" alt="Pisces: Space Journey artwork" style="object-fit:cover;object-position:center 45%;">
+            <img src="/assets/images/pisces-space-journey-cover.webp" data-fallback-src="/assets/images/pisces-space-journey-cover.png" alt="Pisces: Space Journey artwork" style="object-fit:cover;object-position:center 45%;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">HTML</span>
@@ -966,7 +962,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         </div>
         <div class="cover-back">
           <div class="cover-back-graph" style="background:#140704;">
-            <img src="/assets/images/hiddencare-preview.webp?v=hidden-lens-20261108" alt="A brass lens reveals people hidden within health records, illustrating HiddenCare label bias research" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:cover;">
+            <img src="/assets/images/hiddencare-preview.webp?v=hidden-lens-20261108" data-fallback-src="/assets/images/hiddencare-preview.png" alt="A brass lens reveals people hidden within health records, illustrating HiddenCare label bias research" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div class="cover-back-tags">
             <span class="cover-back-tag">Python</span>
