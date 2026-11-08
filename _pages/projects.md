@@ -858,7 +858,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
         <i class="fas fa-search" style="color:#888;"></i>
         <h4>Shrinkflation Detective</h4>
         <p>Tracking per unit price shifts across 500 grocery SKUs to expose the inflation channel CPI misses</p>
-        <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">&#10022; In Development</button>
+        <button class="btn-view-story btn-story-dark" onclick="window.location.href='/under-construction.html'">✦ Read the Tale</button>
       </div>
     </div>
     <div class="shelf-ornament">

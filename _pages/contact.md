@@ -121,7 +121,7 @@ body.an-day-mode .cf-status.err{color:#b3261e;}
 <div id="contact-wrap">
   <p class="contact-chapter">The Final Chapter</p>
   <div class="contact-card reveal-item">
-    <img src="/assets/images/ncta-logo.webp" data-fallback-src="/assets/images/ncta-logo.svg" alt="NCTA Logo" class="contact-logo" width="1046" height="526">
+    <img src="/assets/images/ncta-logo.svg" alt="NCTA Logo" class="contact-logo" width="1046" height="526">
     <h2 class="contact-title">Let's Connect</h2>
     <div class="contact-div"><span>✦</span></div>
     <div class="contact-info">
