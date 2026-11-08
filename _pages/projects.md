@@ -426,25 +426,26 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 @media(max-width:400px){
   .shelf-ornament{width:26px;right:5px;bottom:-16px;}
 }
-.shelf-filter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:min(calc(100% - 24px),640px);margin:6px auto 30px;padding:6px;border-radius:999px;background:linear-gradient(180deg,rgba(255,236,170,.08),rgba(255,236,170,0) 60%),rgba(14,11,38,.58);border:1px solid rgba(201,162,39,.5);box-shadow:inset 0 1px 0 rgba(255,236,170,.2),0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,39,.07);}
-.shelf-tab{position:relative;isolation:isolate;min-height:46px;padding:0 4px;border:0;border-radius:999px;cursor:pointer;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8d9a8;background:transparent;transition:color .3s ease,background-color .3s ease,transform .3s ease;-webkit-tap-highlight-color:transparent;}
-.shelf-tab::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(180deg,#f7d766 0%,#d9a91f 55%,#b88a16 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 0 16px rgba(240,200,74,.45);opacity:0;transition:opacity .3s ease;}
+.shelf-filter{--pad:6px;--gap:6px;--i:0;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap);width:min(calc(100% - 24px),640px);margin:6px auto 30px;padding:var(--pad);border-radius:999px;background:linear-gradient(180deg,rgba(255,236,170,.08),rgba(255,236,170,0) 60%),rgba(14,11,38,.58);border:1px solid rgba(201,162,39,.5);box-shadow:inset 0 1px 0 rgba(255,236,170,.2),0 10px 26px rgba(0,0,0,.35),0 0 0 4px rgba(201,162,39,.07);}
+.shelf-tab{position:relative;z-index:1;-webkit-appearance:none;appearance:none;min-height:46px;padding:0 4px;border:0;border-radius:999px;cursor:pointer;white-space:nowrap;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#e8d9a8;background:transparent;transition:color .3s ease,background-color .3s ease;-webkit-tap-highlight-color:transparent;}
 .shelf-tab:hover{background-color:rgba(240,200,74,.12);}
+.shelf-thumb{position:absolute;z-index:0;top:var(--pad);bottom:var(--pad);left:var(--pad);width:calc((100% - 2 * var(--pad) - 2 * var(--gap)) / 3);border-radius:999px;pointer-events:none;background:linear-gradient(180deg,#f7d766 0%,#d9a91f 55%,#b88a16 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 2px 10px rgba(240,200,74,.4);transform:translateX(calc(var(--i) * (100% + var(--gap))));transition:transform .45s cubic-bezier(.32,.72,0,1);}
+.shelf-tab[aria-pressed="true"]:hover{background-color:transparent;}
+body.an-day-mode .shelf-thumb{background:linear-gradient(180deg,#3cc0dc 0%,#13a0be 55%,#0a6a7e 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2px 10px rgba(10,116,144,.35);}
 .shelf-tab:focus-visible{outline:2px solid #f0c84a;outline-offset:2px;}
 .shelf-tab[aria-pressed="true"]{color:#1a1206;}
-.shelf-tab[aria-pressed="true"]::before{opacity:1;}
 body.an-day-mode .shelf-filter{background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,.2)),rgba(238,248,253,.78);border-color:rgba(10,116,144,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 26px rgba(10,116,144,.16),0 0 0 4px rgba(10,116,144,.06);}
 body.an-day-mode .shelf-tab{color:#0a6a7e;}
-body.an-day-mode .shelf-tab::before{background:linear-gradient(180deg,#3cc0dc 0%,#13a0be 55%,#0a6a7e 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 14px rgba(10,116,144,.35);}
 body.an-day-mode .shelf-tab:hover{background-color:rgba(10,116,144,.1);}
 body.an-day-mode .shelf-tab:focus-visible{outline-color:#0a7490;}
 body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
-@media(max-width:480px){.shelf-filter{gap:4px;padding:4px;}.shelf-tab{font-size:clamp(9.5px,3vw,11.5px);letter-spacing:.03em;padding:0 2px;}}
-@media(prefers-reduced-motion:reduce){.shelf-tab,.shelf-tab::before{transition:none;}}
+@media(max-width:480px){.shelf-filter{--pad:4px;--gap:4px;}.shelf-tab{font-size:clamp(9.5px,3vw,11.5px);letter-spacing:.03em;padding:0 2px;}}
+@media(prefers-reduced-motion:reduce){.shelf-tab,.shelf-thumb{transition:none;}}
 .book-container[hidden]{display:none!important;}
 </style>
 
 <div class="shelf-filter" role="group" aria-label="Filter the collection">
+  <span class="shelf-thumb" aria-hidden="true"></span>
   <button type="button" class="shelf-tab" data-filter="all" aria-pressed="true">All</button>
   <button type="button" class="shelf-tab" data-filter="academic" aria-pressed="false">Academic</button>
   <button type="button" class="shelf-tab" data-filter="recreational" aria-pressed="false">Recreational</button>
@@ -1026,6 +1027,7 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
   // leaving books fade out together, then the incoming books rise in one after another.
   // only opacity and transform are animated so the work stays on the compositor.
   var tabs = document.querySelectorAll('.shelf-tab');
+  var bar = document.querySelector('.shelf-filter');
   var books = document.querySelectorAll('.bookshelf .book-container');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 'all';
@@ -1033,7 +1035,11 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
   function apply(filter) {
     var id = ++run;
     current = filter;
-    tabs.forEach(function (t) { t.setAttribute('aria-pressed', t.dataset.filter === filter ? 'true' : 'false'); });
+    tabs.forEach(function (t, i) {
+      var on = t.dataset.filter === filter;
+      t.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) bar.style.setProperty('--i', i);
+    });
     books.forEach(function (b) { b.getAnimations().forEach(function (a) { a.cancel(); }); });
     var leaving = [];
     var entering = [];
