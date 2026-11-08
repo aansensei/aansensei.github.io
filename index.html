@@ -643,7 +643,7 @@ title: "Xin chào! I'm An"
   <p class="grim-chapter">Chapter the Fifth</p>
   <div class="home-project-title-row">
     <span class="grim-rune">ᛜ</span>
-    <a href="/hiddencare/" class="home-project-title">HiddenCare: When Training Labels Change Who Gets Screened</a>
+    <a href="/hiddencare/" class="home-project-title" data-pm="pm-hiddencare" aria-haspopup="dialog">HiddenCare: When Training Labels Change Who Gets Screened</a>
   </div>
   <p class="home-project-desc">An empirical study of proxy outcome bias in diabetes screening, comparing diagnosis-based and biomarker-augmented labels across 12,459 NHANES adults.</p>
   <div class="home-project-links">
@@ -656,6 +656,22 @@ title: "Xin chào! I'm An"
     <div class="grim-seal seal-violet">ᛜ</div>
   </div>
 </div>
+
+<template id="pm-hiddencare">
+  <p class="pm-eyebrow">Chapter the Fifth · Population health research</p>
+  <h2 class="pm-title" id="pm-title-text">HiddenCare: When Training Labels Change Who Gets Screened</h2>
+  <p class="pm-metric">12,459 adults · CDC NHANES 2017 to 2023 · 61 people swap places at a 20% budget</p>
+  <ul class="pm-points">
+    <li>A community clinic can only test a fraction of its residents, so the ranking decides who is invited first. The study asks how that ranking changes when the model learns from doctor visits instead of lab tests.</li>
+    <li>Model A is trained on diagnosis history and Model B on a label that adds HbA1c blood tests. At a 20% budget (939 slots) the two queues differ by 61 people, and Model B's picks include 3 true cases against 1 for Model A (4.92% against 1.64%).</li>
+    <li>An interactive lab lets visitors move the screening budget and inspect the swapped profiles, and an equity audit shows uninsured adults are still under detected (sensitivity 15.4% for Model A and 23.1% for Model B).</li>
+  </ul>
+  <ul class="pm-chips"><li>Python</li><li>Gradio</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>Plotly</li><li>pytest</li><li>Hugging Face Spaces</li><li>ZeroGPU</li><li>CDC NHANES</li></ul>
+  <div class="pm-actions">
+    <a class="pm-btn pm-btn-primary" href="https://huggingface.co/spaces/aansensei/HiddenCare" target="_blank" rel="noopener">View Research Lab</a>
+    <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
+  </div>
+</template>
 
 <script>
 (function () {
