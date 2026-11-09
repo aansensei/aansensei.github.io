@@ -280,6 +280,7 @@ html.an-error-paused .an-offline-page *, html.an-error-paused .cf-state-card *, 
   mask: var(--hc-drum) center / contain no-repeat;
   pointer-events: none;
   z-index: 0;
+  animation: hcDrumTurn 240s linear infinite, hcDrumBreath 9s ease-in-out infinite;
 }
 
 .hc-card-wrap::after {
@@ -295,9 +296,35 @@ html.an-error-paused .an-offline-page *, html.an-error-paused .cf-state-card *, 
   mask: var(--hc-frieze) left center / 60px 24px repeat-x;
   pointer-events: none;
   z-index: 0;
+  animation: hcFriezeGlow 7s ease-in-out infinite;
 }
 
 .hc-card-wrap > .hc-card {
   position: relative;
   z-index: 1;
+}
+
+@keyframes hcDrumTurn {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes hcDrumBreath {
+  50% { opacity: .11; }
+}
+
+@keyframes hcFriezeGlow {
+  50% { opacity: .24; }
+}
+
+html.an-error-paused .hc-card-wrap::before,
+html.an-error-paused .hc-card-wrap::after {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-card-wrap::before,
+  .hc-card-wrap::after {
+    animation: none;
+  }
 }
