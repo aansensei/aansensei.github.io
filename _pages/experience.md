@@ -156,6 +156,9 @@ html.exp-modal-open{overflow:hidden!important;scrollbar-gutter:stable;}
 .exp-panel-highlights li{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--exp-text-body);line-height:1.72;margin-bottom:9px;padding-left:20px;position:relative;}
 .exp-panel-highlights li::before{content:'✦';position:absolute;left:0;top:5px;color:var(--exp-divider);font-size:.68rem;}
 .exp-panel-highlights li strong{color:var(--exp-text);font-weight:600;}
+.exp-tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+.exp-tags:empty{display:none;}
+.exp-tags li{font-family:'Cinzel',serif;font-weight:600;font-size:.72rem;letter-spacing:.04em;color:var(--exp-text-dim);background:var(--exp-tag-bg);padding:4px 12px;border-radius:999px;border:1px solid var(--exp-border);}
 
 .exp-node-text{display:contents;}
 .exp-node-hint{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:5px;white-space:nowrap;pointer-events:none;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--exp-gold);}
@@ -202,6 +205,9 @@ body.an-day-mode .exp-net-beam{stroke:#ffffff;}
 .exp-modal-layer.open .exp-course.open .exp-course-desc{visibility:visible;transition:grid-template-rows .28s ease,visibility 0s;}
 .exp-course-desc>div{overflow:hidden;min-height:0;}
 .exp-course-desc p{margin:0;padding:2px 14px 12px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:var(--exp-text-dim);}
+.exp-course-desc p:not(:last-child){padding-bottom:8px;}
+.exp-course-keys{list-style:none;margin:0;padding:0 14px 14px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;}
+.exp-course-keys li{font-family:'Cinzel',serif;font-weight:600;font-size:.62rem;letter-spacing:.04em;line-height:1.3;color:var(--exp-text-dim);background:var(--exp-tag-bg);padding:3px 9px;border-radius:999px;border:1px solid var(--exp-border);}
 @media(prefers-reduced-motion:reduce){.exp-course-desc,.exp-course-chev{transition:none;}}
 
 @media(max-width:600px){
@@ -261,6 +267,7 @@ body.an-day-mode .exp-net-beam{stroke:#ffffff;}
           <h3 class="exp-panel-role" id="expModalRole"></h3>
           <p class="exp-panel-org" id="expModalOrg"></p>
           <ul class="exp-panel-highlights" id="expModalHighlights"></ul>
+          <ul class="exp-tags" id="expModalTags"></ul>
           <div id="expModalCourses"></div>
         </div>
       </div>
@@ -279,7 +286,9 @@ var EXP_DATA = {
           {name:"Data Science & Computing",items:[["COMP SCI 220"],["COMP SCI 320"],["COMP SCI 544",true]]}
         ]
       }},
-      {x:68,y:62,logo:"/assets/images/ais-logo.jpg",role:"High School Diploma",org:"The Asian International School · Ho Chi Minh City, Vietnam",date:"August 2013 – June 2025",highlights:[]}
+      {x:68,y:62,logo:"/assets/images/ais-logo.jpg",role:"High School Diploma",org:"The Asian International School · Ho Chi Minh City, Vietnam",date:"August 2013 – June 2025",highlights:[
+        "<strong>Track:</strong> Block A01, covering Mathematics, Physics, and English."
+      ],tags:["Entrepreneurship","Leadership","Teamwork","Communication","Community Service","Event Organization"]}
     ],
     links: [[0,1]]
   },
@@ -331,6 +340,19 @@ var COURSE_INFO = {
   "COMP SCI 320": {title:"Data Science Programming II", desc:"An intermediate approach to data science programming in Python: implementing data structures such as graphs, version control and virtual environments for reproducible analysis, A/B testing, and basic classification, clustering, optimization, and simulation."},
   "E C E 532": {title:"Matrix Methods in Machine Learning", desc:"The linear algebraic foundations of machine learning, with real-world applications of matrix methods ranging from classification and clustering to denoising and data analysis."},
   "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"Deploying and using distributed systems to store and analyze large datasets, covering structured and unstructured storage, query languages, streaming data, and training machine learning models, mostly in Python."}
+};
+
+/* Keywords shown under each description: the tools and skills the course teaches, taken from the course catalog and recent syllabi. */
+var COURSE_KEYS = {
+  "ECON 101": ["Microeconomic Analysis","Price Determination","Firm & Industry Behavior","Income Distribution"],
+  "ECON 102": ["Macroeconomic Measurement","Aggregate Demand & Supply","Fiscal Policy","Monetary Policy","Unemployment & Inflation","Economic Growth"],
+  "ECON 302": ["National Income Determination","Consumption & Investment","Employment & Inflation","Economic Stabilization","International Economy"],
+  "MATH 221 / 222": ["Differential Calculus","Integral Calculus","Differential Equations","Sequences & Series","Taylor Series","Vector Geometry"],
+  "MATH 340": ["Matrix Algebra","Linear Systems","Vector Spaces","Eigenvalues & Eigenvectors","Diagonalization","Orthogonality"],
+  "E C E 532": ["Regression","Regularization","Singular Value Decomposition","Lasso & SVM","Kernel Methods","Clustering","Neural Networks"],
+  "COMP SCI 220": ["Python","pandas","matplotlib","SQL","Data Visualization","CSV & JSON","Jupyter"],
+  "COMP SCI 320": ["Object-Oriented Programming","Graphs & Trees","Git & CI","Automated Testing","Web Scraping","A/B Testing","Regression & Classification","Clustering"],
+  "COMP SCI 544": ["Docker","HDFS","Spark","Cassandra","Kafka","PyTorch","Stream Processing","Cloud Services"]
 };
 
 (function(){
@@ -470,6 +492,7 @@ var COURSE_INFO = {
 
   function courseRow(code, inProgress){
     var info = COURSE_INFO[code];
+    var keys = (COURSE_KEYS[code] || []).map(function(k){ return '<li>' + esc(k) + '</li>'; }).join("");
     var id = "expCourseDesc" + (++courseSeq);
     return '<li class="exp-course">' +
       '<button type="button" class="exp-course-btn" aria-expanded="false" aria-controls="' + id + '">' +
@@ -478,7 +501,8 @@ var COURSE_INFO = {
         '<span class="exp-course-title">' + esc(info.title) + '</span></span>' +
         '<span class="exp-course-chev" aria-hidden="true"></span>' +
       '</button>' +
-      '<div class="exp-course-desc" id="' + id + '"><div><p>' + esc(info.desc) + '</p></div></div>' +
+      '<div class="exp-course-desc" id="' + id + '"><div><p>' + esc(info.desc) + '</p>' +
+        (keys ? '<ul class="exp-course-keys">' + keys + '</ul>' : '') + '</div></div>' +
     '</li>';
   }
 
@@ -524,6 +548,7 @@ var COURSE_INFO = {
     } else {
       list.innerHTML = "";
     }
+    document.getElementById("expModalTags").innerHTML = item.tags ? item.tags.map(function(t){ return "<li>" + esc(t) + "</li>"; }).join("") : "";
     document.getElementById("expModalCourses").innerHTML = item.courses ? renderCourses(item.courses) : "";
     document.getElementById("expModalCard").classList.toggle("wide", !!item.courses);
     document.getElementById("expModalBody").scrollTop = 0;
