@@ -166,26 +166,24 @@ body.an-day-mode .exp-modal-close{background:rgba(0,102,102,.1);color:#1f2a33;}
 body.an-day-mode .exp-modal-close:hover{background:rgba(0,102,102,.2);}
 body.an-day-mode .exp-course{background:rgba(0,128,128,.06);}
 body.an-day-mode .exp-course.open{background:rgba(0,128,128,.12);}
-body.an-day-mode .exp-term-status{background:rgba(0,102,102,.08);}
-body.an-day-mode .exp-term-status.live{color:#135c9e;border-color:rgba(19,92,158,.55);background:rgba(19,92,158,.07);}
+body.an-day-mode .exp-course-ip{color:#135c9e;}
 body.an-day-mode .exp-panel-role{color:var(--exp-gold)!important;-webkit-text-fill-color:var(--exp-gold)!important;text-shadow:none!important;}
 body.an-day-mode .exp-modal-body{scrollbar-color:rgba(0,102,102,.55) rgba(0,102,102,.08);}
 body.an-day-mode #expLineGrad stop:nth-child(1){stop-color:#139a9a;}
 body.an-day-mode #expLineGrad stop:nth-child(2){stop-color:#135c9e;}
 body.an-day-mode .exp-net-beam{stroke:#ffffff;}
 
-.exp-courses{margin-top:24px;}
-.exp-courses-title{display:flex;align-items:center;gap:10px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
-.exp-courses-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--exp-border-strong),transparent);}
-.exp-courses-note{margin:0 0 4px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
+.exp-courses{margin-top:24px;padding-bottom:3px;}
+.exp-courses-title{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 0 4px;font-family:'Cinzel',serif;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--exp-gold);}
+.exp-courses-title::before,.exp-courses-title::after{content:'';flex:1;height:1px;}
+.exp-courses-title::before{background:linear-gradient(to left,var(--exp-border-strong),transparent);}
+.exp-courses-title::after{background:linear-gradient(to right,var(--exp-border-strong),transparent);}
+.exp-courses-note{margin:0 0 4px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:var(--exp-text-dimmer);}
 .exp-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:0 30px;align-items:start;}
 .exp-term{margin-top:16px;}
-.exp-term-extra .exp-term-name{color:var(--exp-gold);}
-.exp-term-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;}
-.exp-term-name{font-family:'Cinzel',serif;font-weight:700;font-size:.98rem;color:var(--exp-text);}
-.exp-term-meta{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--exp-text-dim);}
-.exp-term-status{margin-left:auto;align-self:center;padding:3px 10px;border-radius:999px;border:1px solid var(--exp-border-strong);font-family:'Cinzel',serif;font-weight:600;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--exp-gold);}
-.exp-term-status.live{border-color:var(--exp-ring-color);color:var(--exp-ring-color);}
+.exp-term-head{display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;}
+.exp-term-name{font-family:'Cinzel',serif;font-weight:700;font-size:.98rem;text-align:center;color:var(--exp-text);}
+.exp-course-ip{margin-left:10px;font-family:'Cinzel',serif;font-weight:600;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--exp-ring-color);}
 
 .exp-course-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;}
 .exp-course{background:rgba(201,162,39,.06);border:1px solid var(--exp-border);border-radius:10px;transition:border-color .2s ease,background .2s ease;}
@@ -193,17 +191,17 @@ body.an-day-mode .exp-net-beam{stroke:#ffffff;}
 .exp-course.open{background:rgba(201,162,39,.11);}
 .exp-course-btn{display:flex;align-items:center;gap:12px;width:100%;padding:10px 14px;background:none;border:0;border-radius:10px;font:inherit;color:inherit;text-align:left;cursor:pointer;}
 .exp-course-btn:focus-visible{outline:2px solid var(--exp-gold);outline-offset:-2px;}
-.exp-course-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px;}
+.exp-course-btn::before{content:'';flex:none;width:10px;}
+.exp-course-main{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;}
 .exp-course-code{font-family:'Cinzel',serif;font-weight:700;font-size:.8rem;letter-spacing:.06em;color:var(--exp-text);}
 .exp-course-title{font-family:'Cormorant Garamond',serif;font-size:.96rem;line-height:1.3;color:var(--exp-text-body);}
-.exp-course-cr{flex:none;font-family:'Cinzel',serif;font-weight:600;font-size:.74rem;white-space:nowrap;color:var(--exp-gold);}
 .exp-course-chev{flex:none;width:7px;height:7px;margin:0 3px 3px 0;border-right:1.5px solid var(--exp-text-dimmer);border-bottom:1.5px solid var(--exp-text-dimmer);transform:rotate(45deg);transition:transform .25s ease;}
 .exp-course.open .exp-course-chev{transform:rotate(-135deg);margin:3px 3px 0 0;}
 .exp-course-desc{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .28s ease,visibility 0s .28s;}
 .exp-course.open .exp-course-desc{grid-template-rows:1fr;}
 .exp-modal-layer.open .exp-course.open .exp-course-desc{visibility:visible;transition:grid-template-rows .28s ease,visibility 0s;}
 .exp-course-desc>div{overflow:hidden;min-height:0;}
-.exp-course-desc p{margin:0;padding:2px 14px 12px;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:var(--exp-text-dim);}
+.exp-course-desc p{margin:0;padding:2px 14px 12px;text-align:center;font-family:'Cormorant Garamond',serif;font-size:1rem;line-height:1.6;color:var(--exp-text-dim);}
 @media(prefers-reduced-motion:reduce){.exp-course-desc,.exp-course-chev{transition:none;}}
 
 @media(max-width:600px){
@@ -231,7 +229,6 @@ body.an-day-mode .exp-net-beam{stroke:#ffffff;}
   .exp-node-hint{position:static;transform:none;margin-top:0;white-space:normal;text-align:left;}
   .exp-course-btn{padding:9px 12px;gap:10px;}
   .exp-term-col{display:contents;}
-  .exp-term-extra{order:1;}
 }
 </style>
 
@@ -275,13 +272,12 @@ body.an-day-mode .exp-net-beam{stroke:#ffffff;}
 var EXP_DATA = {
   education: {
     nodes: [
-      {x:28,y:30,logo:"/assets/images/uwmadison-logo.jpg",role:"B.S. in Economics & Data Science",org:"University of Wisconsin–Madison · Madison, WI",date:"2025 – 2029",highlights:[],hint:"click to see courses taken",courses:{
-        terms:[
-          {name:"Fall 2025",status:"Completed",items:[["ECON 101",4],["MATH 221",5],["ESL 117",3],["COMP SCI 220",4]]},
-          {name:"Spring 2026",status:"Completed",items:[["MUSIC 113",1],["ECON 102",4],["COMP SCI 320",4],["MATH 340",3],["ESL 118",3],["ENGL 153",3]]},
-          {name:"Fall 2026",status:"In Progress",items:[["ECON 302",4],["MUSIC 113",1],["E C E 532",3],["BIOCHEM 104",3],["COMP SCI 544",3],["ENGL 169",3]]}
-        ],
-        extra:[["MATH 222",4]]
+      {x:28,y:30,logo:"/assets/images/uwmadison-logo.jpg",role:"B.S. in Economics & Data Science",org:"University of Wisconsin–Madison · Madison, WI",date:"2025 – 2029",highlights:[],hint:"click to see related coursework",courses:{
+        groups:[
+          {name:"Economics",items:[["ECON 101"],["ECON 102"],["ECON 302",true]]},
+          {name:"Mathematics",items:[["MATH 221 / 222"],["MATH 340"],["E C E 532",true]]},
+          {name:"Data Science & Computing",items:[["COMP SCI 220"],["COMP SCI 320"],["COMP SCI 544",true]]}
+        ]
       }},
       {x:68,y:62,logo:"/assets/images/ais-logo.jpg",role:"High School Diploma",org:"The Asian International School · Ho Chi Minh City, Vietnam",date:"August 2013 – June 2025",highlights:[]}
     ],
@@ -329,19 +325,12 @@ var COURSE_INFO = {
   "ECON 101": {title:"Principles of Microeconomics", desc:"The economic problems of individuals, firms, and industries, with emphasis on how value and prices are set and how income is distributed."},
   "ECON 102": {title:"Principles of Macroeconomics", desc:"Macroeconomic measurement and models of aggregate demand and supply, plus fiscal and monetary policy for unemployment, inflation, and growth."},
   "ECON 302": {title:"Intermediate Macroeconomic Theory", desc:"Theories of national income determination, including savings, consumption, and investment, and how these aggregates relate to employment, inflation, and stabilization in the national and international economy."},
-  "MATH 221": {title:"Calculus and Analytic Geometry 1", desc:"An introduction to differential and integral calculus and plane analytic geometry, with applications and transcendental functions."},
-  "MATH 222": {title:"Calculus and Analytic Geometry 2", desc:"Techniques of integration, improper integrals, first-order ordinary differential equations, sequences and series, Taylor series, and vector geometry in two and three dimensions."},
+  "MATH 221 / 222": {title:"Calculus and Analytic Geometry 1 and 2", desc:"Differential and integral calculus and plane analytic geometry with transcendental functions, followed by techniques of integration, improper integrals, first-order ordinary differential equations, sequences and series, Taylor series, and vector geometry in two and three dimensions."},
   "MATH 340": {title:"Elementary Matrix and Linear Algebra", desc:"An introduction to linear algebra: matrix operations, systems of linear equations, vector spaces, and eigenvalues and eigenvectors."},
-  "ESL 117": {title:"Academic Writing I", desc:"The basic elements of academic writing, with emphasis on fluency and accuracy, paragraph structure, summarizing and paraphrasing, short essays, and a final research project."},
-  "ESL 118": {title:"Academic Writing II", desc:"Academic writing, critical reading and argumentation, documentation, and the style and organization of research papers, plus oral communication skills for class participation and presentations."},
   "COMP SCI 220": {title:"Data Science Programming I", desc:"An introduction to data science programming in Python that needs no prior programming experience, emphasizing the analysis of real datasets in various forms and visual communication."},
   "COMP SCI 320": {title:"Data Science Programming II", desc:"An intermediate approach to data science programming in Python: implementing data structures such as graphs, version control and virtual environments for reproducible analysis, A/B testing, and basic classification, clustering, optimization, and simulation."},
   "E C E 532": {title:"Matrix Methods in Machine Learning", desc:"The linear algebraic foundations of machine learning, with real-world applications of matrix methods ranging from classification and clustering to denoising and data analysis."},
-  "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"Deploying and using distributed systems to store and analyze large datasets, covering structured and unstructured storage, query languages, streaming data, and training machine learning models, mostly in Python."},
-  "BIOCHEM 104": {title:"Molecules to Life and the Nature of Science", desc:"An introduction to how life works at the molecular level and how life diversified, used to discuss topics in the news such as the human genome, genetic engineering of crops, gene editing, and biotechnology, with a focus on the nature of science."},
-  "MUSIC 113": {title:"Music in Performance", desc:"Descriptive lectures on chamber music, with performances by the instructor and others."},
-  "ENGL 153": {title:"Literature and the Environment", desc:"An introduction to literature in English about the natural world and humankind's relationship with it. Specific topics vary."},
-  "ENGL 169": {title:"Modern American Literature", desc:"An introduction to selected fiction, prose, drama, and poetry written by Americans from the early twentieth century to the present day."}
+  "COMP SCI 544": {title:"Introduction to Big Data Systems", desc:"Deploying and using distributed systems to store and analyze large datasets, covering structured and unstructured storage, query languages, streaming data, and training machine learning models, mostly in Python."}
 };
 
 (function(){
@@ -479,64 +468,37 @@ var COURSE_INFO = {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
   }
 
-  function sumCredits(items){
-    return items.reduce(function(total, it){ return total + it[1]; }, 0);
-  }
-
-  function courseRow(code, credits){
+  function courseRow(code, inProgress){
     var info = COURSE_INFO[code];
     var id = "expCourseDesc" + (++courseSeq);
     return '<li class="exp-course">' +
       '<button type="button" class="exp-course-btn" aria-expanded="false" aria-controls="' + id + '">' +
-        '<span class="exp-course-main"><span class="exp-course-code">' + esc(code) + '</span>' +
+        '<span class="exp-course-main"><span class="exp-course-code">' + esc(code) +
+        (inProgress ? '<span class="exp-course-ip">In progress</span>' : '') + '</span>' +
         '<span class="exp-course-title">' + esc(info.title) + '</span></span>' +
-        '<span class="exp-course-cr">' + credits + ' Cr</span>' +
         '<span class="exp-course-chev" aria-hidden="true"></span>' +
       '</button>' +
       '<div class="exp-course-desc" id="' + id + '"><div><p>' + esc(info.desc) + '</p></div></div>' +
     '</li>';
   }
 
-  /* Most credits first. With equal credits, courses in the two majors (computing, economics, math)
-     come before the rest, and anything still tied keeps the order it is listed in. */
-  var MAJOR_COURSE = /^(COMP SCI|E C E|ECON|MATH|STAT)\b/;
+  /* Courses keep the order they are listed in, foundations first. */
   function courseList(items){
-    var ordered = items.map(function(it, i){ return { it: it, i: i, major: MAJOR_COURSE.test(it[0]) ? 0 : 1 }; })
-      .sort(function(a, b){ return (b.it[1] - a.it[1]) || (a.major - b.major) || (a.i - b.i); });
-    return '<ul class="exp-course-list">' + ordered.map(function(o){ return courseRow(o.it[0], o.it[1]); }).join("") + '</ul>';
+    return '<ul class="exp-course-list">' + items.map(function(it){ return courseRow(it[0], it[1]); }).join("") + '</ul>';
   }
 
-  function termBlock(term){
+  function groupBlock(group){
     return '<div class="exp-term"><div class="exp-term-head">' +
-      '<span class="exp-term-name">' + esc(term.name) + '</span>' +
-      '<span class="exp-term-meta">' + sumCredits(term.items) + ' credits</span>' +
-      '<span class="exp-term-status' + (term.status === "In Progress" ? ' live' : '') + '">' + esc(term.status) + '</span>' +
-      '</div>' + courseList(term.items) + '</div>';
+      '<span class="exp-term-name">' + esc(group.name) + '</span>' +
+      '</div>' + courseList(group.items) + '</div>';
   }
 
-  function extraBlock(items){
-    return '<div class="exp-term exp-term-extra"><div class="exp-term-head">' +
-      '<span class="exp-term-name">Additional Credits</span>' +
-      '<span class="exp-term-meta">' + sumCredits(items) + ' credits</span>' +
-      '</div>' + courseList(items) + '</div>';
-  }
-
-  /* Each term is a column that wraps to fewer columns as the modal narrows. Additional Credits
-     joins the column with the fewest courses so the columns end at about the same height. */
+  /* Each group is a column that wraps to fewer columns as the modal narrows. */
   function renderCourses(data){
-    var cols = data.terms.map(function(term){
-      return { size: term.items.length, html: termBlock(term) };
-    });
-    if(data.extra && data.extra.length){
-      var shortest = 0;
-      cols.forEach(function(col, i){ if(col.size < cols[shortest].size) shortest = i; });
-      cols[shortest].html += extraBlock(data.extra);
-      cols[shortest].size += data.extra.length;
-    }
     return '<div class="exp-courses">' +
-      '<div class="exp-courses-title" role="heading" aria-level="4">Courses taken</div>' +
+      '<div class="exp-courses-title" role="heading" aria-level="4">Related coursework</div>' +
       '<p class="exp-courses-note">tap a course to read what it covers</p>' +
-      '<div class="exp-terms">' + cols.map(function(col){ return '<div class="exp-term-col">' + col.html + '</div>'; }).join("") + '</div>' +
+      '<div class="exp-terms">' + data.groups.map(function(group){ return '<div class="exp-term-col">' + groupBlock(group) + '</div>'; }).join("") + '</div>' +
       '</div>';
   }
 
