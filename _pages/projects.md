@@ -106,6 +106,7 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
 .book-4 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(201,162,39,.10) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#0d0b07 0%,#19150a 38%,#12100a 68%,#070604 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 .book-5 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(120,80,220,.14) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#031f14 0%,#0a3524 38%,#0e4530 68%,#02160e 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 .book-6 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(46,204,113,.14) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#062b2a 0%,#075985 38%,#1e3a8a 68%,#0b102f 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
+.book-8 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(190,208,226,.15) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#0a0e13 0%,#1c2531 38%,#364457 68%,#080b0f 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 .book-7 .front-cover{background:radial-gradient(ellipse 55% 45% at 56% 44%,rgba(255,122,69,.16) 0%,transparent 65%),radial-gradient(ellipse 95% 90% at 50% 50%,transparent 40%,rgba(0,0,0,.74) 100%),repeating-linear-gradient(172deg,rgba(255,255,255,.013) 0px,rgba(255,255,255,.013) 1px,transparent 1px,transparent 7px),linear-gradient(168deg,#180905 0%,#38150c 38%,#522214 68%,#140704 100%);box-shadow:4px 6px 18px rgba(0,0,0,.55),inset 6px 0 16px rgba(0,0,0,.50);}
 
 /* ── BOOK-4: cover-back with skills on hover ── */
@@ -207,6 +208,40 @@ body.an-day-mode .bookshelf::after{background:linear-gradient(180deg,#f0d9a8 0%,
   transition: none;
 }
 
+.book-8 .front-cover { position: relative; }
+
+.book-8 .cover-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #04090e;
+  border-radius: 6px 14px 14px 6px;
+  overflow: hidden;
+  transform: scaleX(-1);
+  opacity: 0;
+  transition: none;
+  pointer-events: none;
+}
+.book-8.book-container:is(:hover,:has(:focus-visible)) .cover-back {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.35s;
+}
+.book-8.book-container:is(:hover,:has(:focus-visible)) .cover-content {
+  opacity: 0;
+  transition: none;
+}
+.book-8 .front-cover::before{background:linear-gradient(180deg,#1a222c 0%,#8394a8 10%,#e3ecf5 20%,#b4c3d2 28%,#4f5d6d 38%,#5d6c7d 46%,#a0b0c1 54%,#e3ecf5 62%,#a0b0c1 70%,#4f5d6d 78%,#8394a8 88%,#1a222c 100%);}
+.book-8 .cvf-a{border-color:rgba(190,208,226,.58);}
+.book-8 .cvf-b{border-image:repeating-linear-gradient(45deg,rgba(190,208,226,.28) 0,rgba(190,208,226,.28) 1px,transparent 1px,transparent 5px) 5 stretch;}
+.book-8 .cvf-c{border-color:rgba(190,208,226,.38);}
+.book-8 .cvf-tp,.book-8 .cvf-bp{background:linear-gradient(to right,transparent,rgba(190,208,226,.20) 25%,rgba(190,208,226,.20) 75%,transparent);border-top-color:rgba(190,208,226,.18);border-bottom-color:rgba(190,208,226,.18);}
+.book-8 .cv-vol{color:rgba(190,208,226,.62)!important;}
+.book-8 .cv-rule::before,.book-8 .cv-rule::after{border-top-color:rgba(190,208,226,.36);border-bottom-color:rgba(190,208,226,.2);}
+.book-8 .cv-rule span{color:rgba(190,208,226,.66);}
+.book-8 .cv-sub-rule{border-top-color:rgba(190,208,226,.34);}
+.book-8 .cover-back-tag{color:#c3d1df!important;}
+
 .cover-content{backface-visibility:hidden;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:38px 8px 22px 24px;}
 .cvf-a{position:absolute;top:11px;left:22px;right:6px;bottom:8px;border:1.5px solid rgba(201,162,39,.58);pointer-events:none;z-index:25;}
 .cvf-b{position:absolute;top:14px;left:25px;right:9px;bottom:11px;border:5px solid transparent;border-image:repeating-linear-gradient(45deg,rgba(201,162,39,.28) 0,rgba(201,162,39,.28) 1px,transparent 1px,transparent 5px) 5 stretch;pointer-events:none;z-index:25;}
@@ -250,6 +285,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 .btn-story-dark{background:linear-gradient(135deg,#2a2a2a,#111);box-shadow:0 0 10px rgba(201,162,39,.3);border:1px solid rgba(201,162,39,.25);}
 .btn-story-green{background:linear-gradient(135deg,#2ecc71,#0e6b3f);box-shadow:0 0 12px rgba(46,204,113,.55);}
 .btn-story-coral{background:linear-gradient(135deg,#ff7a45,#b83814);box-shadow:0 0 12px rgba(255,122,69,.55);}
+.btn-story-cyan{background:linear-gradient(135deg,#0891b2,#0b4a6a);box-shadow:0 0 12px rgba(0,210,238,.5);}
 .coming-badge{display:inline-block;padding:5px 13px;margin-top:11px;background:rgba(201,162,39,.15);border:1px dashed rgba(201,162,39,.4);border-radius:18px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:#c9a227!important;pointer-events:none;}
 
 @keyframes bottomBreath{0%,100%{opacity:.35;transform:scaleX(.78);}50%{opacity:.62;transform:scaleX(1);}}
@@ -262,6 +298,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 .book-5.book-container::after{background:rgba(30,160,110,1);animation-duration:3.9s;animation-delay:-1.8s;}
 .book-6.book-container::after{background:rgba(37,160,190,1);animation-duration:3.6s;animation-delay:-0.4s;}
 .book-7.book-container::after{background:rgba(235,94,40,1);animation-duration:3.7s;animation-delay:-1.1s;}
+.book-8.book-container::after{background:rgba(150,172,196,1);animation-duration:3.5s;animation-delay:-2.2s;}
 .book-container:hover::after{opacity:.30;filter:blur(20px);transform:scaleX(.70);}
 
 /* container query: fires whenever the CONTENT COLUMN (not the viewport) is
@@ -414,6 +451,7 @@ body.an-day-mode .cv-title{color:#f5ece0!important;-webkit-text-fill-color:#f5ec
 .orn-scale-tilt{transform-origin:45px 34px;animation:ornScaleTilt 4.6s ease-in-out infinite;}
 .orn-scale-level{animation:ornScaleLevel 4.6s ease-in-out infinite;}
 .book-7 .ornament-float{animation-duration:4s;animation-delay:-1.7s;}
+.book-8 .ornament-float{animation-duration:4.4s;animation-delay:-2.6s;}
 @media (prefers-reduced-motion: reduce) {
   .orn-glint,.orn-globe-spin,.orn-quill-sway,.orn-ink-shimmer,.orn-scale-tilt,.orn-scale-level,.ornament-float{animation:none;}
 }
@@ -1016,6 +1054,73 @@ body.an-day-mode .shelf-tab[aria-pressed="true"]{color:#fff;}
     </div>
   </div>
 
+
+  <div class="book-container book-8 reveal-item" data-category="academic" data-url="/macro-event-lab/" data-bg="linear-gradient(160deg,#0a0e13,#243040,#46566a)" data-title="Macro Event Lab">
+    <div class="book">
+      <div class="front-cover">
+        <div class="cover-content">
+          <div class="cvf-a"></div><div class="cvf-b"></div><div class="cvf-c"></div>
+          <div class="cvf-tp"></div><div class="cvf-bp"></div>
+          <svg class="cv-c cv-c-tl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 32 V3 H32" stroke="rgba(190,208,226,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 28 V7 H28" stroke="rgba(190,208,226,.28)" stroke-width="0.85"/><circle cx="3" cy="3" r="3.8" stroke="rgba(190,208,226,.62)" stroke-width="1.2"/><circle cx="3" cy="3" r="1.5" fill="rgba(190,208,226,.70)"/><circle cx="7" cy="7" r="0.9" fill="rgba(190,208,226,.35)"/><line x1="3" y1="12" x2="7" y2="12" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="3" y1="20" x2="7" y2="20" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="12" y1="3" x2="12" y2="7" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="20" y1="3" x2="20" y2="7" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-tr" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 32 V3 H2" stroke="rgba(190,208,226,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 28 V7 H6" stroke="rgba(190,208,226,.28)" stroke-width="0.85"/><circle cx="31" cy="3" r="3.8" stroke="rgba(190,208,226,.62)" stroke-width="1.2"/><circle cx="31" cy="3" r="1.5" fill="rgba(190,208,226,.70)"/><circle cx="27" cy="7" r="0.9" fill="rgba(190,208,226,.35)"/><line x1="31" y1="12" x2="27" y2="12" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="31" y1="20" x2="27" y2="20" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="22" y1="3" x2="22" y2="7" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="14" y1="3" x2="14" y2="7" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-bl" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M3 2 V31 H32" stroke="rgba(190,208,226,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M7 6 V27 H28" stroke="rgba(190,208,226,.28)" stroke-width="0.85"/><circle cx="3" cy="31" r="3.8" stroke="rgba(190,208,226,.62)" stroke-width="1.2"/><circle cx="3" cy="31" r="1.5" fill="rgba(190,208,226,.70)"/><circle cx="7" cy="27" r="0.9" fill="rgba(190,208,226,.35)"/><line x1="3" y1="22" x2="7" y2="22" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="3" y1="14" x2="7" y2="14" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="12" y1="31" x2="12" y2="27" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="20" y1="31" x2="20" y2="27" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/></svg>
+          <svg class="cv-c cv-c-br" viewBox="0 0 34 34" width="34" height="34" fill="none"><path d="M31 2 V31 H2" stroke="rgba(190,208,226,.65)" stroke-width="1.5" stroke-linecap="round"/><path d="M27 6 V27 H6" stroke="rgba(190,208,226,.28)" stroke-width="0.85"/><circle cx="31" cy="31" r="3.8" stroke="rgba(190,208,226,.62)" stroke-width="1.2"/><circle cx="31" cy="31" r="1.5" fill="rgba(190,208,226,.70)"/><circle cx="27" cy="27" r="0.9" fill="rgba(190,208,226,.35)"/><line x1="31" y1="22" x2="27" y2="22" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="31" y1="14" x2="27" y2="14" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="22" y1="31" x2="22" y2="27" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/><line x1="14" y1="31" x2="14" y2="27" stroke="rgba(190,208,226,.44)" stroke-width="0.9"/></svg>
+          <span class="cv-spine">VOL · VIII</span>
+          <div class="cv-vol">Volumen · VIII</div>
+          <div class="cv-rule"><span aria-hidden="true">&#183;</span></div>
+          <div class="cv-med">
+            <svg class="cv-rings" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="45" r="43" stroke="rgba(190,208,226,.36)" stroke-width="1.5"/><line x1="45" y1="2" x2="45" y2="13" stroke="rgba(190,208,226,.30)" stroke-width="0.9"/><line x1="45" y1="77" x2="45" y2="88" stroke="rgba(190,208,226,.30)" stroke-width="0.9"/><line x1="2" y1="45" x2="13" y2="45" stroke="rgba(190,208,226,.30)" stroke-width="0.9"/><line x1="77" y1="45" x2="88" y2="45" stroke="rgba(190,208,226,.30)" stroke-width="0.9"/><circle cx="45" cy="3" r="2.3" fill="rgba(190,208,226,.68)"/><circle cx="87" cy="45" r="2.3" fill="rgba(190,208,226,.68)"/><circle cx="45" cy="87" r="2.3" fill="rgba(190,208,226,.68)"/><circle cx="3" cy="45" r="2.3" fill="rgba(190,208,226,.68)"/><circle cx="45" cy="45" r="34" stroke="rgba(190,208,226,.20)" stroke-width="0.8" stroke-dasharray="2 3"/><polygon points="45,14 49,34 62,23 53,40 75,45 53,50 62,67 49,56 45,76 41,56 28,67 37,50 15,45 37,40 28,23 41,34" stroke="rgba(190,208,226,.13)" stroke-width="0.8"/><circle cx="45" cy="45" r="22" fill="rgba(0,0,0,.38)"/><circle cx="45" cy="45" r="22" stroke="rgba(190,208,226,.45)" stroke-width="1.5"/><g transform="translate(20 20) scale(.78)"><g stroke="#00d2ee" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="32" r="24"/><line x1="8.19" y1="35" x2="55.81" y2="35"/><path d="M12.51 46C22 45 23.5 18 32 18C40.5 18 42 45 51.49 46"/></g><circle cx="32" cy="18" r="3.9" fill="#00d2ee"/></g></svg>
+            <div class="cv-symbol"></div>
+          </div>
+          <div class="cv-rule"><span aria-hidden="true">&#183;</span></div>
+          <h3 class="cv-title cv-title-sm">Macro Event Lab</h3>
+          <div class="cv-sub-rule"></div>
+          <p class="cv-sub">Scored on the First Print</p>
+        </div>
+        <div class="cover-back">
+          <div class="cover-back-graph" style="background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(0,210,238,.16) 0%,transparent 72%),#04090e;">
+            <img src="/assets/images/macro-event-lab-logo.svg" alt="Macro Event Lab logo" title="Copyright (c) 2026 Cao Thien An Nguyen · github.com/aansensei" style="width:100%;height:100%;object-fit:contain;padding:12px 10px;box-sizing:border-box;">
+          </div>
+          <div class="cover-back-tags">
+            <span class="cover-back-tag">Python</span>
+            <span class="cover-back-tag">Polars</span>
+            <span class="cover-back-tag">DuckDB</span>
+            <span class="cover-back-tag">Parquet</span>
+            <span class="cover-back-tag">React</span>
+            <span class="cover-back-tag">TypeScript</span>
+            <span class="cover-back-tag">Pytest</span>
+            <span class="cover-back-tag">Hypothesis</span>
+            <span class="cover-back-tag">Vitest</span>
+            <span class="cover-back-tag">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+      <div class="inside-pages">
+        <i class="fa-solid fa-chart-line" style="color:#0e7490;"></i>
+        <h4>Macroeconomic Forecasting Lab</h4>
+        <p>Scoring forecasts of US jobs, inflation and GDP against the first published number, using only data known at the time</p>
+        <button class="btn-view-story btn-story-cyan" onclick="openBookCard(this)">✦ Read the Tale</button>
+      </div>
+    </div>
+    <div class="shelf-ornament">
+      <div class="ornament-float">
+        <svg class="ornament-icon" viewBox="0 0 90 130" fill="none">
+          <defs><linearGradient id="orn-steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8f0f8"/><stop offset=".45" stop-color="#8d9db0"/><stop offset="1" stop-color="#3c4958"/></linearGradient></defs>
+          <ellipse cx="45" cy="120" rx="21" ry="3.5" fill="rgba(0,0,0,.35)"/>
+          <rect x="19" y="108" width="52" height="7" rx="2" fill="url(#orn-steel)" stroke="rgba(190,208,226,.6)" stroke-width="1"/>
+          <rect x="19" y="14" width="52" height="7" rx="2" fill="url(#orn-steel)" stroke="rgba(190,208,226,.6)" stroke-width="1"/>
+          <rect x="21" y="21" width="3.6" height="87" rx="1.5" fill="url(#orn-steel)" stroke="rgba(190,208,226,.7)" stroke-width="1"/>
+          <rect x="65.4" y="21" width="3.6" height="87" rx="1.5" fill="url(#orn-steel)" stroke="rgba(190,208,226,.7)" stroke-width="1"/>
+          <path d="M27 21 H63 C63 43 50 52 47.5 64 C50 76 63 85 63 108 H27 C27 85 40 76 42.5 64 C40 52 27 43 27 21 Z" fill="url(#orn-glass)" stroke="rgba(214,228,242,.85)" stroke-width="1.3" stroke-linejoin="round"/>
+          <path d="M33 28 H57 C55 40 49 47 45 55 C41 47 35 40 33 28 Z" fill="#00d2ee" opacity=".72"/>
+          <path d="M45 58 V90" stroke="#00d2ee" stroke-width="1.2" opacity=".85"/>
+          <path d="M31 105 Q45 86 59 105 Z" fill="#00d2ee" opacity=".88"/>
+          <path class="orn-glint" d="M31 30 Q29 40 36 50" stroke="#fff" stroke-width="1.4" fill="none" opacity=".7"/>
+        </svg>
+      </div>
+      <span class="ornament-label">Hourglass</span>
+    </div>
+  </div>
 </div>
 
 <script>

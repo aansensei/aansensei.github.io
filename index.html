@@ -521,33 +521,33 @@ title: "Xin chào! I'm An"
   <p class="grim-chapter">Chapter the Second</p>
   <div class="home-project-title-row">
     <span class="grim-rune">ᛞ</span>
-    <a href="/projects/tech-layoffs/" class="home-project-title" data-pm="pm-tech-layoffs" aria-haspopup="dialog">Global Tech Layoffs &amp; Macro-Economics Analysis</a>
+    <a href="/macro-event-lab/" class="home-project-title" data-pm="pm-macro-event-lab" aria-haspopup="dialog">Macro Event Lab: Who Predicted the First Version Best?</a>
   </div>
-  <p class="home-project-desc">An end-to-end analysis using Random Forest to predict layoff trends vs. reality.</p>
+  <p class="home-project-desc">A website rebuilt daily that replays US economic releases using only data known at the time, and scores forecasters and models against the first published number.</p>
   <div class="home-project-links">
-    <a href="https://aansensei-tech-layoff-analytics.hf.space" target="_blank" class="home-link">View Dashboard</a>
-    <a href="https://github.com/aansensei/tech_layoff_project" target="_blank" class="home-link">View Code on GitHub</a>
+    <a href="https://aansensei.dev/macro-event-lab/" target="_blank" class="home-link">View Live Site</a>
+    <a href="https://github.com/aansensei/macro-event-lab" target="_blank" class="home-link">View Code on GitHub</a>
   </div>
   <div class="grim-footer-row">
-    <a href="/projects/tech-layoffs/" class="btn-cta-project btn-blue"
-      onclick="anBookOpen('/projects/tech-layoffs/','linear-gradient(160deg,#0a1520,#1a3a55)','Tech Layoffs Analysis',event)">✦ Open the Tale</a>
+    <a href="/macro-event-lab/" class="btn-cta-project btn-blue"
+      onclick="anBookOpen('/macro-event-lab/','linear-gradient(160deg,#0a0e13,#243040,#46566a)','Macro Event Lab',event)">✦ Open the Tale</a>
     <div class="grim-seal seal-teal">ᚠ</div>
   </div>
 </div>
 
-<template id="pm-tech-layoffs">
-  <p class="pm-eyebrow">Chapter the Second · Data analysis</p>
-  <h2 class="pm-title" id="pm-title-text">Global Tech Layoffs &amp; Macro-Economics Analysis</h2>
-  <p class="pm-metric">3 month lag · about 10k predicted vs 24k actual layoffs in 2025</p>
+<template id="pm-macro-event-lab">
+  <p class="pm-eyebrow">Chapter the Second · Economic forecasting</p>
+  <h2 class="pm-title" id="pm-title-text">Macro Event Lab: Who Predicted the First Version Best?</h2>
+  <p class="pm-metric">Rebuilt daily from public data · scored on the first published number</p>
   <ul class="pm-points">
-    <li>Tests whether interest rates and stock crashes drive tech layoffs, using FRED macro data, yfinance stock prices and the Layoffs.fyi database.</li>
-    <li>Finds a consistent lag: a stock drop at month t is followed by a layoff spike at month t+3. A Random Forest ranks lagged stock returns and interest rates as the top predictors.</li>
-    <li>The model catches the rising trend but predicts about 10k layoffs for 2025 against about 24k in reality, which points to herd behavior that economic variables alone miss.</li>
+    <li>Replays US releases for jobs, inflation and GDP using only the data that was public on each forecast date, then shows how much each number changed in later revisions.</li>
+    <li>Scores forecasters and models against the first published number. The arena has a naive baseline, autoregression, ridge, principal component ridge and LASSO, plus the survey median for GDP growth.</li>
+    <li>Results are labelled preliminary because the two time series foundation models have not run yet. Every forecast passes a leakage check, and the scoring rules are fixed in advance.</li>
   </ul>
-  <ul class="pm-chips"><li>Python</li><li>Pandas</li><li>Scikit-Learn</li><li>NumPy</li><li>SQLite</li><li>FRED API</li><li>yfinance</li><li>Streamlit</li><li>Tableau</li><li>Matplotlib</li><li>Seaborn</li></ul>
+  <ul class="pm-chips"><li>Python</li><li>Polars</li><li>DuckDB</li><li>Parquet</li><li>React</li><li>TypeScript</li><li>Pytest</li><li>Hypothesis</li><li>Vitest</li><li>GitHub Actions</li></ul>
   <div class="pm-actions">
-    <a class="pm-btn pm-btn-primary" href="https://aansensei-tech-layoff-analytics.hf.space" target="_blank" rel="noopener">Live dashboard</a>
-    <a class="pm-btn pm-btn-ghost" href="https://github.com/aansensei/tech_layoff_project" target="_blank" rel="noopener">Source on GitHub</a>
+    <a class="pm-btn pm-btn-primary" href="https://aansensei.dev/macro-event-lab/" target="_blank" rel="noopener">Live site</a>
+    <a class="pm-btn pm-btn-ghost" href="https://github.com/aansensei/macro-event-lab" target="_blank" rel="noopener">Source on GitHub</a>
     <button type="button" class="pm-btn pm-btn-ghost" data-pm-tale>Open the Tale</button>
   </div>
 </template>
