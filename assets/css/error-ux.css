@@ -58,7 +58,8 @@ html[data-recovery-theme="day"], body.an-day-mode {
 .hc-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(6px + env(safe-area-inset-top)) 20px 6px; border-bottom: 1px solid var(--recovery-border); background: var(--recovery-bg); }
 .hc-brand, .hc-title-group, .hc-topbar-actions { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .hc-app-title { margin: 0; line-height: 0; }
-.hc-logo { display: block; height: 44px; width: auto; }
+.hc-title-group { -webkit-user-select: none; user-select: none; }
+.hc-logo { display: block; height: 44px; width: auto; -webkit-user-select: none; user-select: none; -webkit-user-drag: none; }
 .hc-logo-day { display: none; }
 html[data-recovery-theme="day"] .hc-logo-night, body.an-day-mode .hc-logo-night { display: none; }
 html[data-recovery-theme="day"] .hc-logo-day, body.an-day-mode .hc-logo-day { display: block; }
